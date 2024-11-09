@@ -109,8 +109,6 @@ class Pcurve_Arithmetic_Tests final : public Test {
          for(auto curve_id : Botan::PCurve::PrimeOrderCurveId::all()) {
             Test::Result result("Pcurves point operations " + curve_id.to_string());
 
-            result.start_timer();
-
             auto curve = Botan::PCurve::PrimeOrderCurve::from_id(curve_id);
 
             if(!curve) {
@@ -229,8 +227,6 @@ class Pcurve_Arithmetic_Tests final : public Test {
                }
             }
 
-            result.end_timer();
-
             results.push_back(result);
          }
 
@@ -249,8 +245,6 @@ class Pcurve_PointEnc_Tests final : public Test {
 
          for(auto id : Botan::PCurve::PrimeOrderCurveId::all()) {
             Test::Result result("Pcurves point operations " + id.to_string());
-
-            result.start_timer();
 
             auto curve = Botan::PCurve::PrimeOrderCurve::from_id(id);
 
@@ -283,8 +277,6 @@ class Pcurve_PointEnc_Tests final : public Test {
                   result.test_failure("Failed to deserialize compressed point");
                }
             }
-
-            result.end_timer();
 
             results.push_back(result);
          }

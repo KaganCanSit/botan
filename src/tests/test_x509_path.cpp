@@ -92,7 +92,6 @@ class X509test_Path_Validation_Tests final : public Test {
 
          for(const auto& [filename, expected_result] : read_results(Test::data_file("x509/x509test/expected.txt"))) {
             Test::Result result("X509test path validation");
-            result.start_timer();
 
             std::vector<Botan::X509_Certificate> certs = load_cert_file(Test::data_file("x509/x509test/" + filename));
 
@@ -110,14 +109,12 @@ class X509test_Path_Validation_Tests final : public Test {
             result.test_eq("test " + filename, path_result.result_string(), expected_result);
             result.test_eq("test no warnings string", path_result.warnings_string(), "");
             result.confirm("test no warnings", path_result.no_warnings());
-            result.end_timer();
             results.push_back(result);
          }
 
          // test softfail
          {
             Test::Result result("X509test path validation softfail");
-            result.start_timer();
 
             // this certificate must not have a OCSP URL
             const std::string filename = "ValidAltName.pem";
@@ -148,7 +145,6 @@ class X509test_Path_Validation_Tests final : public Test {
             result.confirm("test warnings", !path_result.no_warnings());
             result.test_eq("test warnings string", path_result.warnings_string(), "[0] OCSP URL not available");
       #endif
-            result.end_timer();
             results.push_back(result);
          }
 
@@ -205,7 +201,6 @@ std::vector<Test::Result> NIST_Path_Validation_Tests::run() {
 
    for(auto i = expected.begin(); i != expected.end(); ++i) {
       Test::Result result("NIST path validation");
-      result.start_timer();
 
       const std::string test_name = i->first;
 
@@ -242,7 +237,6 @@ std::vector<Test::Result> NIST_Path_Validation_Tests::run() {
          result.test_failure(test_name, e.what());
       }
 
-      result.end_timer();
       results.push_back(result);
    }
 
@@ -267,7 +261,6 @@ std::vector<Test::Result> Extended_Path_Validation_Tests::run() {
 
    for(const auto& [test_name, expected_result] : read_results(Test::data_file("x509/extended/expected.txt"))) {
       Test::Result result("Extended X509 path validation");
-      result.start_timer();
 
       const auto all_files = Test::files_in_data_dir("x509/extended/" + test_name);
 
@@ -287,7 +280,6 @@ std::vector<Test::Result> Extended_Path_Validation_Tests::run() {
 
       result.test_eq(test_name + " path validation result", validation_result.result_string(), expected_result);
 
-      result.end_timer();
       results.push_back(result);
    }
 
@@ -314,7 +306,6 @@ std::vector<Test::Result> PSS_Path_Validation_Tests::run() {
 
    for(const auto& [test_name, expected_result] : read_results(Test::data_file("x509/pss_certs/expected.txt"))) {
       Test::Result result("RSA-PSS X509 signature validation");
-      result.start_timer();
 
       const auto all_files = Test::files_in_data_dir("x509/pss_certs/" + test_name);
 
@@ -372,7 +363,6 @@ std::vector<Test::Result> PSS_Path_Validation_Tests::run() {
          result.test_eq(test_name + " verify signature", csr->check_signature(*pubkey), !!(std::stoi(expected_result)));
       }
 
-      result.end_timer();
       results.push_back(result);
    }
 
@@ -707,7 +697,6 @@ std::vector<Test::Result> BSI_Path_Validation_Tests::run() {
 
    for(const auto& [test_name, expected_result] : read_results(Test::data_file("x509/bsi/expected.txt"), '$')) {
       Test::Result result("BSI path validation");
-      result.start_timer();
 
       const auto all_files = Test::files_in_data_dir("x509/bsi/" + test_name);
 
@@ -823,7 +812,6 @@ std::vector<Test::Result> BSI_Path_Validation_Tests::run() {
          }
       }
 
-      result.end_timer();
       results.push_back(result);
    }
 

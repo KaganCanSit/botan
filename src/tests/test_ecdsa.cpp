@@ -245,8 +245,6 @@ class ECDSA_AllGroups_Test : public Test {
          for(const std::string& group_name : Botan::EC_Group::known_named_groups()) {
             Test::Result result("ECDSA " + group_name);
 
-            result.start_timer();
-
             const auto group = Botan::EC_Group::from_name(group_name);
 
             const Botan::ECDSA_PrivateKey priv(rng(), group);
@@ -279,7 +277,6 @@ class ECDSA_AllGroups_Test : public Test {
                }
             }
 
-            result.end_timer();
             results.push_back(result);
          }
 

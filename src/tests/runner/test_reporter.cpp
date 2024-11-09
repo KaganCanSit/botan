@@ -30,8 +30,7 @@ TestSummary::TestSummary(const Test::Result& result) :
       assertions(result.tests_run()),
       notes(result.notes()),
       failures(result.failures()),
-      timestamp(result.timestamp()),
-      elapsed_time(result.elapsed_time()) {}
+      timestamp(result.timestamp()) {}
 
 Testsuite::Testsuite(std::string name) : m_name(std::move(name)) {}
 

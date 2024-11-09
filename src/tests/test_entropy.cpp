@@ -28,8 +28,6 @@ class Entropy_Source_Tests final : public Test {
          for(const auto& src_name : src_names) {
             Test::Result result("Entropy source " + src_name);
 
-            result.start_timer();
-
             try {
                SeedCapturing_RNG rng;
 
@@ -107,7 +105,6 @@ class Entropy_Source_Tests final : public Test {
                result.test_failure("during entropy collection test", e.what());
             }
 
-            result.end_timer();
             results.push_back(result);
          }
 

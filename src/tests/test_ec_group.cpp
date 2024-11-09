@@ -104,8 +104,6 @@ std::vector<Test::Result> ECC_Randomized_Tests::run() {
    for(const std::string& group_name : Botan::EC_Group::known_named_groups()) {
       Test::Result result("ECC randomized " + group_name);
 
-      result.start_timer();
-
       auto group = Botan::EC_Group::from_name(group_name);
 
       const Botan::EC_Point pt = create_random_point(this->rng(), group);
@@ -156,7 +154,6 @@ std::vector<Test::Result> ECC_Randomized_Tests::run() {
       } catch(std::exception& e) {
          result.test_failure(group_name, e.what());
       }
-      result.end_timer();
       results.push_back(result);
    }
 
@@ -172,8 +169,6 @@ class EC_Group_Tests : public Test {
 
          for(const std::string& group_name : Botan::EC_Group::known_named_groups()) {
             Test::Result result("EC_Group " + group_name);
-
-            result.start_timer();
 
             const auto group = Botan::EC_Group::from_name(group_name);
 
@@ -251,8 +246,6 @@ class EC_Group_Tests : public Test {
             test_basic_math(result, group);
             test_point_swap(result, group);
             test_zeropoint(result, group);
-
-            result.end_timer();
 
             results.push_back(result);
          }

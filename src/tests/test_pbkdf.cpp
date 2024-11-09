@@ -83,8 +83,6 @@ class Pwdhash_Tests : public Test {
             auto pwdhash_fam = Botan::PasswordHashFamily::create(pwdhash);
 
             if(pwdhash_fam) {
-               result.start_timer();
-
                const std::vector<uint8_t> salt(8);
                const std::string password = "test";
 
@@ -110,8 +108,6 @@ class Pwdhash_Tests : public Test {
                auto default_pwhash = pwdhash_fam->default_params();
                std::vector<uint8_t> output3(32);
                default_pwhash->hash(output3, password, salt);
-
-               result.end_timer();
             } else {
                result.test_note("No such algo " + pwdhash);
             }

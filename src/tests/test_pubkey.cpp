@@ -591,7 +591,6 @@ std::vector<Test::Result> PK_Key_Generation_Test::run() {
          result.note_missing("provider key generation " + algo);
       }
 
-      result.start_timer();
       for(auto&& prov : providers) {
          auto key_p = Botan::create_private_key(algo, this->rng(), param, prov);
 
@@ -742,8 +741,6 @@ std::vector<Test::Result> PK_Key_Generation_Test::run() {
    #endif
       }
 
-      result.end_timer();
-
       results.push_back(result);
    }
 
@@ -788,8 +785,6 @@ Test::Result PK_Key_Generation_Stability_Test::run_one_test(const std::string&, 
 
    Test::Result result(report_name.str());
 
-   result.start_timer();
-
    std::unique_ptr<Botan::RandomNumberGenerator> rng;
 
    #if defined(BOTAN_HAS_HMAC_DRBG)
@@ -818,8 +813,6 @@ Test::Result PK_Key_Generation_Stability_Test::run_one_test(const std::string&, 
    } else {
       result.test_note("Skipping test due to unavailable RNG");
    }
-
-   result.end_timer();
 
    return result;
 }

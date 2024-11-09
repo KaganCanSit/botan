@@ -60,8 +60,6 @@ class ECDH_AllGroups_Tests : public Test {
          for(const std::string& group_name : Botan::EC_Group::known_named_groups()) {
             Test::Result result("ECDH " + group_name);
 
-            result.start_timer();
-
             const std::string kdf = "Raw";
 
             try {
@@ -85,8 +83,6 @@ class ECDH_AllGroups_Tests : public Test {
             } catch(std::exception& e) {
                result.test_failure("Exception", e.what());
             }
-
-            result.end_timer();
 
             results.push_back(result);
          }

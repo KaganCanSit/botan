@@ -31,9 +31,7 @@ Test::Result open_certificate_store() {
    Test::Result result("Flatfile Certificate Store - Open Store");
 
    try {
-      result.start_timer();
       Botan::Flatfile_Certificate_Store unused(get_valid_ca_bundle_path());
-      result.end_timer();
       result.test_gt("found some certificates", unused.all_subjects().size(), 0);
    } catch(std::exception& e) {
       result.test_failure(e.what());
@@ -48,10 +46,8 @@ Test::Result find_certificate_by_pubkey_sha1() {
    Test::Result result("Flatfile Certificate Store - Find Certificate by SHA1(pubkey)");
 
    try {
-      result.start_timer();
       Botan::Flatfile_Certificate_Store certstore(get_valid_ca_bundle_path());
       auto cert = certstore.find_cert_by_pubkey_sha1(get_key_id());
-      result.end_timer();
 
       if(result.test_not_nullopt("found certificate", cert)) {
          auto cns = cert->subject_dn().get_attribute("CN");
@@ -76,10 +72,8 @@ Test::Result find_cert_by_subject_dn() {
    try {
       auto dn = get_dn();
 
-      result.start_timer();
       Botan::Flatfile_Certificate_Store certstore(get_valid_ca_bundle_path());
       auto cert = certstore.find_cert(dn, std::vector<uint8_t>());
-      result.end_timer();
 
       if(result.test_not_nullopt("found certificate", cert)) {
          auto cns = cert->subject_dn().get_attribute("CN");
@@ -99,11 +93,8 @@ Test::Result find_cert_by_utf8_subject_dn() {
    try {
       auto dn = get_utf8_dn();
 
-      result.start_timer();
       Botan::Flatfile_Certificate_Store certstore(get_valid_ca_bundle_path());
       auto cert = certstore.find_cert(dn, std::vector<uint8_t>());
-
-      result.end_timer();
 
       if(result.test_not_nullopt("found certificate", cert)) {
          auto cns = cert->subject_dn().get_attribute("CN");
@@ -123,10 +114,8 @@ Test::Result find_cert_by_subject_dn_and_key_id() {
    try {
       auto dn = get_dn();
 
-      result.start_timer();
       Botan::Flatfile_Certificate_Store certstore(get_valid_ca_bundle_path());
       auto cert = certstore.find_cert(dn, get_key_id());
-      result.end_timer();
 
       if(result.test_not_nullopt("found certificate", cert)) {
          auto cns = cert->subject_dn().get_attribute("CN");
@@ -146,10 +135,8 @@ Test::Result find_certs_by_subject_dn_and_key_id() {
    try {
       auto dn = get_dn();
 
-      result.start_timer();
       Botan::Flatfile_Certificate_Store certstore(get_valid_ca_bundle_path());
       auto certs = certstore.find_all_certs(dn, get_key_id());
-      result.end_timer();
 
       if(result.confirm("result not empty", !certs.empty()) &&
          result.test_eq("exactly one certificate", certs.size(), 1)) {
@@ -168,10 +155,8 @@ Test::Result find_all_subjects() {
    Test::Result result("Flatfile Certificate Store - Find all Certificate Subjects");
 
    try {
-      result.start_timer();
       Botan::Flatfile_Certificate_Store certstore(get_valid_ca_bundle_path());
       auto subjects = certstore.all_subjects();
-      result.end_timer();
 
       if(result.confirm("result not empty", !subjects.empty())) {
          auto dn = get_dn();
@@ -196,13 +181,11 @@ Test::Result no_certificate_matches() {
       auto dn = get_unknown_dn();
       auto kid = get_unknown_key_id();
 
-      result.start_timer();
       Botan::Flatfile_Certificate_Store certstore(get_valid_ca_bundle_path());
 
       auto certs = certstore.find_all_certs(dn, kid);
       auto cert = certstore.find_cert(dn, kid);
       auto pubk_cert = certstore.find_cert_by_pubkey_sha1(kid);
-      result.end_timer();
 
       result.confirm("find_all_certs did not find the dummy", certs.empty());
       result.confirm("find_cert did not find the dummy", !cert);
@@ -218,7 +201,6 @@ Test::Result certstore_contains_user_certificate() {
    Test::Result result("Flatfile Certificate Store - rejects bundles with non-CA certs");
 
    try {
-      result.start_timer();
       Botan::Flatfile_Certificate_Store certstore(get_ca_bundle_containing_user_cert());
       result.test_failure("CA bundle with non-CA certs should be rejected");
    } catch(Botan::Invalid_Argument&) {

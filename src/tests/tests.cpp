@@ -52,23 +52,9 @@ void Test::Result::merge(const Result& other, bool ignore_test_name) {
    }
 
    m_timestamp = std::min(m_timestamp, other.m_timestamp);
-   m_ns_taken += other.m_ns_taken;
    m_tests_passed += other.m_tests_passed;
    m_fail_log.insert(m_fail_log.end(), other.m_fail_log.begin(), other.m_fail_log.end());
    m_log.insert(m_log.end(), other.m_log.begin(), other.m_log.end());
-}
-
-void Test::Result::start_timer() {
-   if(m_started == 0) {
-      m_started = Test::timestamp();
-   }
-}
-
-void Test::Result::end_timer() {
-   if(m_started > 0) {
-      m_ns_taken += Test::timestamp() - m_started;
-      m_started = 0;
-   }
 }
 
 void Test::Result::test_note(const std::string& note, const char* extra) {
@@ -438,10 +424,6 @@ std::string Test::Result::result_string() const {
       report << tests_run();
    }
    report << " tests";
-
-   if(m_ns_taken > 0) {
-      report << " in " << format_time(m_ns_taken);
-   }
 
    if(tests_failed()) {
       report << " " << tests_failed() << " FAILED";
@@ -1210,7 +1192,6 @@ std::vector<Test::Result> Text_Based_Test::run() {
                }
                Botan::CPUID::initialize();
             }
-            result.set_ns_consumed(Test::timestamp() - start);
 
             if(result.tests_failed()) {
                std::ostringstream oss;

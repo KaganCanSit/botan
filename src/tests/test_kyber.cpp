@@ -305,8 +305,6 @@ void test_compress(Test::Result& res) {
    using namespace Botan;
    constexpr auto q = KyberConstants::Q;
 
-   res.start_timer();
-
    for(uint16_t x = 0; x < q; ++x) {
       const uint32_t c = Kyber_Algos::compress<d>(x);
       const auto twotothed = (uint32_t(1) << d);
@@ -319,7 +317,6 @@ void test_compress(Test::Result& res) {
       }
    }
 
-   res.end_timer();
    res.test_success();
 }
 
@@ -327,8 +324,6 @@ template <size_t d>
 void test_decompress(Test::Result& result) {
    using namespace Botan;
    constexpr auto q = KyberConstants::Q;
-
-   result.start_timer();
 
    const auto twotothed = (uint32_t(1) << d);
    using from_t = std::conditional_t<d <= 8, uint8_t, uint16_t>;
@@ -344,7 +339,6 @@ void test_decompress(Test::Result& result) {
       }
    }
 
-   result.end_timer();
    result.test_success();
 }
 
@@ -352,8 +346,6 @@ template <size_t d>
 void test_compress_roundtrip(Test::Result& result) {
    using namespace Botan;
    constexpr auto q = KyberConstants::Q;
-
-   result.start_timer();
 
    for(uint16_t x = 0; x < q && x < (1 << d); ++x) {
       const uint16_t c = Kyber_Algos::compress<d>(Kyber_Algos::decompress<d>(x));
@@ -363,7 +355,6 @@ void test_compress_roundtrip(Test::Result& result) {
       }
    }
 
-   result.end_timer();
    result.test_success();
 }
 

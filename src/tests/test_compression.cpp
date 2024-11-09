@@ -62,8 +62,6 @@ class Compression_Tests final : public Test {
             try {
                Test::Result result(algo + " compression");
 
-               result.start_timer();
-
                auto c = Botan::Compression_Algorithm::create(algo);
                auto d = Botan::Decompression_Algorithm::create(algo);
 
@@ -107,8 +105,6 @@ class Compression_Tests final : public Test {
 
                result.test_lt("Zeros compresses much better than text", c1_z / 8, c1_t);
                result.test_lt("Text compresses much better than random", c1_t / 2, c1_r);
-
-               result.end_timer();
 
                results.emplace_back(result);
             } catch(std::exception& e) {

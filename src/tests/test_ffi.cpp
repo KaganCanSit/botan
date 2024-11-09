@@ -64,9 +64,7 @@ class FFI_Test : public Test {
             return {result};
          }
 
-         result.start_timer();
          ffi_test(result, rng);
-         result.end_timer();
 
          botan_rng_destroy(rng);
 

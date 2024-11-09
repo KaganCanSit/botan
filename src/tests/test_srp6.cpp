@@ -103,8 +103,6 @@ class SRP6_RT_Tests final : public Test {
             const std::string group_id = "modp/srp/" + std::to_string(b);
             Test::Result result("SRP6 " + group_id);
 
-            result.start_timer();
-
             const size_t trials = 8192 / b;
 
             for(size_t t = 0; t != trials; ++t) {
@@ -124,7 +122,6 @@ class SRP6_RT_Tests final : public Test {
 
                result.test_eq("computed same keys", client.second.bits_of(), server_K.bits_of());
             }
-            result.end_timer();
             results.push_back(result);
          }
 

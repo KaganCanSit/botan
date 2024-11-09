@@ -548,8 +548,6 @@ Test::Result test_const_time_left_shift() {
 
    auto rng = Test::new_rng("const_time_left_shift");
 
-   result.start_timer();
-
    Botan::BigInt a = Botan::BigInt::with_capacity(bits / sizeof(Botan::word));
    for(size_t i = 0; i < bits; ++i) {
       if(rng->next_byte() & 1) {
@@ -566,9 +564,7 @@ Test::Result test_const_time_left_shift() {
       chk <<= i;
       result.test_eq(Botan::fmt("ct << {}", i), ct, chk);
    }
-
-   result.end_timer();
-
+   
    return result;
 }
 

@@ -24,9 +24,7 @@ Test::Result find_certificate_by_pubkey_sha1(Botan::Certificate_Store& certstore
    Test::Result result("System Certificate Store - Find Certificate by SHA1(pubkey)");
 
    try {
-      result.start_timer();
       auto cert = certstore.find_cert_by_pubkey_sha1(get_key_id());
-      result.end_timer();
 
       if(result.test_not_nullopt("found certificate", cert)) {
          auto cns = cert->subject_dn().get_attribute("CN");
@@ -51,9 +49,7 @@ Test::Result find_certificate_by_pubkey_sha1_with_unmatching_key_id(Botan::Certi
    }
 
    try {
-      result.start_timer();
       auto cert = certstore.find_cert_by_pubkey_sha1(get_pubkey_sha1_of_cert_with_different_key_id());
-      result.end_timer();
 
       if(result.test_not_nullopt("found certificate", cert)) {
          auto cns = cert->subject_dn().get_attribute("CN");
@@ -73,9 +69,7 @@ Test::Result find_cert_by_subject_dn(Botan::Certificate_Store& certstore) {
    try {
       auto dn = get_dn();
 
-      result.start_timer();
       auto cert = certstore.find_cert(dn, std::vector<uint8_t>());
-      result.end_timer();
 
       if(result.test_not_nullopt("found certificate", cert)) {
          auto cns = cert->subject_dn().get_attribute("CN");
@@ -97,7 +91,6 @@ Test::Result find_cert_by_utf8_subject_dn(Botan::Certificate_Store& certstore) {
 
       unsigned int found = 0;
 
-      result.start_timer();
       for(const auto& [cn, dn] : DNs) {
          if(auto cert = certstore.find_cert(dn, {})) {
             auto cns = cert->subject_dn().get_attribute("CN");
@@ -107,7 +100,6 @@ Test::Result find_cert_by_utf8_subject_dn(Botan::Certificate_Store& certstore) {
             ++found;
          }
       }
-      result.end_timer();
 
       if(found == 0) {
          std::string tried_cns;
@@ -133,9 +125,7 @@ Test::Result find_cert_by_subject_dn_and_key_id(Botan::Certificate_Store& certst
    try {
       auto dn = get_dn();
 
-      result.start_timer();
       auto cert = certstore.find_cert(dn, get_key_id());
-      result.end_timer();
 
       if(result.test_not_nullopt("found certificate", cert)) {
          auto cns = cert->subject_dn().get_attribute("CN");
@@ -155,9 +145,7 @@ Test::Result find_certs_by_subject_dn_and_key_id(Botan::Certificate_Store& certs
    try {
       auto dn = get_dn();
 
-      result.start_timer();
       auto certs = certstore.find_all_certs(dn, get_key_id());
-      result.end_timer();
 
       if(result.confirm("result not empty", !certs.empty()) &&
          result.test_eq("exactly one certificate", certs.size(), 1)) {
@@ -178,9 +166,7 @@ Test::Result find_all_certs_by_subject_dn(Botan::Certificate_Store& certstore) {
    try {
       auto dn = get_dn();
 
-      result.start_timer();
       auto certs = certstore.find_all_certs(dn, std::vector<uint8_t>());
-      result.end_timer();
 
       // check for duplications
       sort(certs.begin(), certs.end());
@@ -206,9 +192,7 @@ Test::Result find_all_subjects(Botan::Certificate_Store& certstore) {
    Test::Result result("System Certificate Store - Find all Certificate Subjects");
 
    try {
-      result.start_timer();
       auto subjects = certstore.all_subjects();
-      result.end_timer();
 
       if(result.confirm("result not empty", !subjects.empty())) {
          auto dn = get_dn();
@@ -233,11 +217,9 @@ Test::Result no_certificate_matches(Botan::Certificate_Store& certstore) {
       auto dn = get_unknown_dn();
       auto kid = get_unknown_key_id();
 
-      result.start_timer();
       auto certs = certstore.find_all_certs(dn, kid);
       auto cert = certstore.find_cert(dn, kid);
       auto pubk_cert = certstore.find_cert_by_pubkey_sha1(kid);
-      result.end_timer();
 
       result.confirm("find_all_certs did not find the dummy", certs.empty());
       result.confirm("find_cert did not find the dummy", !cert);
@@ -257,10 +239,8 @@ Test::Result certificate_matching_with_dn_normalization(Botan::Certificate_Store
    try {
       auto dn = get_skewed_dn();
 
-      result.start_timer();
       auto certs = certstore.find_all_certs(dn, std::vector<uint8_t>());
       auto cert = certstore.find_cert(dn, std::vector<uint8_t>());
-      result.end_timer();
 
       if(result.confirm("find_all_certs did find the skewed DN", !certs.empty()) &&
          result.confirm("find_cert did find the skewed DN", cert.has_value())) {
@@ -285,9 +265,7 @@ class Certstor_System_Tests final : public Test {
          std::unique_ptr<Botan::Certificate_Store> system;
 
          try {
-            open_result.start_timer();
             system = std::make_unique<Botan::System_Certificate_Store>();
-            open_result.end_timer();
          } catch(Botan::Not_Implemented& e) {
             BOTAN_UNUSED(e);
             open_result.test_note("Skipping due to not available in current build");

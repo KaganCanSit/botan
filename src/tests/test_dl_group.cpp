@@ -86,8 +86,6 @@ class DL_Generate_Group_Tests final : public Test {
       std::vector<Test::Result> run() override {
          Test::Result result("DL_Group generate");
 
-         result.start_timer();
-
          auto& rng = this->rng();
 
          Botan::DL_Group dh1050(rng, Botan::DL_Group::Prime_Subgroup, 1050, 175);
@@ -147,8 +145,6 @@ class DL_Generate_Group_Tests final : public Test {
          result.test_eq("DSA group from seed verifies", dsa_from_seed.verify_group(rng, false), true);
    #endif
 
-         result.end_timer();
-
          return {result};
       }
 };
@@ -171,8 +167,7 @@ class DL_Named_Group_Tests final : public Test {
          };
 
          Test::Result result("DL_Group named");
-         result.start_timer();
-
+  
          for(const std::string& name : dl_named) {
             // Confirm we can load every group we expect
             Botan::DL_Group group(name);
@@ -197,7 +192,6 @@ class DL_Named_Group_Tests final : public Test {
                result.test_eq(name + " verifies", group.verify_group(this->rng()), true);
             }
          }
-         result.end_timer();
 
          return {result};
       }

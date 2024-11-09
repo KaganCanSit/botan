@@ -1539,7 +1539,6 @@ Test::Result test_x509_tn_auth_list_extension_decode() {
     */
    const std::string filename("TNAuthList.pem");
    Test::Result result("X509 TNAuthList decode");
-   result.start_timer();
 
    Botan::X509_Certificate cert(Test::data_file("x509/x509test/" + filename));
 
@@ -1572,7 +1571,6 @@ Test::Result test_x509_tn_auth_list_extension_decode() {
    result.test_eq("one entry type", tn_entries[2].type() == TNAuthList::Entry::TelephoneNumber, true);
    result.test_eq("one entry data", tn_entries[2].telephone_number(), "333");
 
-   result.end_timer();
    return result;
 }
 

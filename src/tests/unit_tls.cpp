@@ -496,7 +496,6 @@ class TLS_Handshake_Test final {
 };
 
 void TLS_Handshake_Test::go() {
-   m_results.start_timer();
 
    const std::vector<std::string> protocols_offered = {"test/1", "test/2"};
 
@@ -648,8 +647,6 @@ void TLS_Handshake_Test::go() {
          m_results.confirm("Client is closed", client->is_closed());
       }
    }
-
-   m_results.end_timer();
 }
 
 class Test_Policy final : public Botan::TLS::Text_Policy {

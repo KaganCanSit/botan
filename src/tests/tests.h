@@ -253,14 +253,6 @@ class Test {
 
             const std::vector<std::string>& notes() const { return m_log; }
 
-            std::optional<std::chrono::nanoseconds> elapsed_time() const {
-               if(m_ns_taken == 0) {
-                  return std::nullopt;
-               } else {
-                  return std::chrono::nanoseconds(m_ns_taken);
-               }
-            }
-
             const std::chrono::system_clock::time_point& timestamp() const { return m_timestamp; }
 
             std::string result_string() const;
@@ -551,11 +543,6 @@ class Test {
                                                                                                                *this);
             }
 
-            void set_ns_consumed(uint64_t ns) { m_ns_taken = ns; }
-
-            void start_timer();
-            void end_timer();
-
             void set_code_location(CodeLocation where) { m_where = std::move(where); }
 
             const std::optional<CodeLocation>& code_location() const { return m_where; }
@@ -582,8 +569,6 @@ class Test {
             std::string m_who;
             std::optional<CodeLocation> m_where;
             std::chrono::system_clock::time_point m_timestamp;
-            uint64_t m_started = 0;
-            uint64_t m_ns_taken = 0;
             size_t m_tests_passed = 0;
             std::vector<std::string> m_fail_log;
             std::vector<std::string> m_log;

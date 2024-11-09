@@ -48,7 +48,6 @@ class McEliece_Keygen_Encrypt_Test final : public Text_Based_Test {
          const size_t keygen_t = vars.get_req_sz("KeyT");
 
          Test::Result result("McEliece keygen");
-         result.start_timer();
 
          if(Test::run_long_tests() == false && keygen_n > 3072) {
             result.test_note("Skipping because long");
@@ -79,7 +78,6 @@ class McEliece_Keygen_Encrypt_Test final : public Text_Based_Test {
             result.test_eq("decrypt shared", dec_shared_key, shared_key);
          } catch(Botan::Lookup_Error&) {}
 
-         result.end_timer();
          return result;
       }
 
@@ -142,7 +140,6 @@ class McEliece_Tests final : public Test {
 
             for(size_t t = param_sets[i].t_min; t <= param_sets[i].t_max; ++t) {
                Test::Result result("McEliece keygen");
-               result.start_timer();
 
                Botan::McEliece_PrivateKey sk1(this->rng(), param_sets[i].code_length, t);
                const Botan::McEliece_PublicKey& pk1 = sk1;
@@ -156,9 +153,6 @@ class McEliece_Tests final : public Test {
                result.test_eq("decoded public key equals original", fingerprint(pk1), fingerprint(pk));
                result.test_eq("decoded private key equals original", fingerprint(sk1), fingerprint(sk));
                result.test_eq("key validation passes", sk.check_key(this->rng(), false), true);
-               result.end_timer();
-
-               result.end_timer();
 
                results.push_back(result);
 
@@ -176,7 +170,6 @@ class McEliece_Tests final : public Test {
                                    const Botan::McEliece_PublicKey& pk,
                                    Botan::RandomNumberGenerator& rng) {
          Test::Result result("McEliece KEM");
-         result.start_timer();
 
          Botan::PK_KEM_Encryptor enc_op(pk, "KDF2(SHA-256)");
          Botan::PK_KEM_Decryptor dec_op(sk, rng, "KDF2(SHA-256)");
@@ -191,7 +184,6 @@ class McEliece_Tests final : public Test {
 
             result.test_eq("same key", kem_result.shared_key(), shared_key2);
          }
-         result.end_timer();
          return result;
       }
 };

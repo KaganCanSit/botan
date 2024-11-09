@@ -50,8 +50,6 @@ class Bcrypt_Tests final : public Text_Based_Test {
       std::vector<Test::Result> run_final_tests() override {
          Test::Result result("bcrypt");
 
-         uint64_t start = Test::timestamp();
-
          const std::string password = "ag00d1_2BE5ur3";
 
          const uint16_t max_level = (Test::run_long_tests() ? 15 : 10);
@@ -66,8 +64,6 @@ class Bcrypt_Tests final : public Text_Based_Test {
          result.test_throws("Invalid bcrypt version rejected", "Unknown bcrypt version 'q'", [&rng]() {
             Botan::generate_bcrypt("pass", rng, 4, 'q');
          });
-
-         result.set_ns_consumed(Test::timestamp() - start);
 
          return {result};
       }
