@@ -58,3 +58,4 @@ ReflowComments: false
 RequiresClausePosition: OwnLine
 IndentRequiresClause: true
 BreakAfterAttributes: Always
+BreakBeforeInlineASMColon: OnlyMultiline
