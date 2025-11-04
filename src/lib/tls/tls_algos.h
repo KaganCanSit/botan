@@ -154,24 +154,38 @@ class BOTAN_PUBLIC_API(3, 2) Group_Params final {
       */
       static std::optional<Group_Params> from_string(std::string_view group_name);
 
-      constexpr bool operator==(Group_Params_Code code) const { return m_code == code; }
+      constexpr bool operator==(Group_Params_Code code) const {
+         return m_code == code;
+      }
 
-      constexpr bool operator==(Group_Params other) const { return m_code == other.m_code; }
+      constexpr bool operator==(Group_Params other) const {
+         return m_code == other.m_code;
+      }
 
-      constexpr bool operator<(Group_Params other) const { return m_code < other.m_code; }
+      constexpr bool operator<(Group_Params other) const {
+         return m_code < other.m_code;
+      }
 
-      constexpr Group_Params_Code code() const { return m_code; }
+      constexpr Group_Params_Code code() const {
+         return m_code;
+      }
 
-      constexpr uint16_t wire_code() const { return static_cast<uint16_t>(m_code); }
+      constexpr uint16_t wire_code() const {
+         return static_cast<uint16_t>(m_code);
+      }
 
       /**
       * Returns false if this group/KEX is not available in the build configuration
       */
       bool is_available() const;
 
-      constexpr bool is_x25519() const { return m_code == Group_Params_Code::X25519; }
+      constexpr bool is_x25519() const {
+         return m_code == Group_Params_Code::X25519;
+      }
 
-      constexpr bool is_x448() const { return m_code == Group_Params_Code::X448; }
+      constexpr bool is_x448() const {
+         return m_code == Group_Params_Code::X448;
+      }
 
       constexpr bool is_ecdh_named_curve() const {
          return m_code == Group_Params_Code::SECP256R1 || m_code == Group_Params_Code::SECP384R1 ||
@@ -204,7 +218,9 @@ class BOTAN_PUBLIC_API(3, 2) Group_Params final {
                 m_code == Group_Params_Code::eFRODOKEM_1344_AES_OQS;
       }
 
-      constexpr bool is_pure_ecc_group() const { return is_x25519() || is_x448() || is_ecdh_named_curve(); }
+      constexpr bool is_pure_ecc_group() const {
+         return is_x25519() || is_x448() || is_ecdh_named_curve();
+      }
 
       constexpr bool is_post_quantum() const {
          BOTAN_DIAGNOSTIC_PUSH
@@ -234,7 +250,9 @@ class BOTAN_PUBLIC_API(3, 2) Group_Params final {
                 m_code == Group_Params_Code::HYBRID_SECP521R1_eFRODOKEM_1344_AES_OQS;
       }
 
-      constexpr bool is_pqc_hybrid() const { return is_pqc_hybrid_ml_kem() || is_pqc_hybrid_frodokem(); }
+      constexpr bool is_pqc_hybrid() const {
+         return is_pqc_hybrid_ml_kem() || is_pqc_hybrid_frodokem();
+      }
 
       constexpr bool is_kem() const {
          BOTAN_DIAGNOSTIC_PUSH

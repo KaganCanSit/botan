@@ -49,13 +49,21 @@ class Strong_Base {
 
       constexpr explicit Strong_Base(T v) : m_value(std::move(v)) {}
 
-      constexpr T& get() & { return m_value; }
+      constexpr T& get() & {
+         return m_value;
+      }
 
-      constexpr const T& get() const& { return m_value; }
+      constexpr const T& get() const& {
+         return m_value;
+      }
 
-      constexpr T&& get() && { return std::move(m_value); }
+      constexpr T&& get() && {
+         return std::move(m_value);
+      }
 
-      constexpr const T&& get() const&& { return std::move(m_value); }
+      constexpr const T&& get() const&& {
+         return std::move(m_value);
+      }
 };
 
 template <typename T>
@@ -89,23 +97,41 @@ class Container_Strong_Adapter_Base : public Strong_Base<T> {
       Container_Strong_Adapter_Base(InputIt begin, InputIt end) : Container_Strong_Adapter_Base(T(begin, end)) {}
 
    public:
-      decltype(auto) begin() noexcept(noexcept(this->get().begin())) { return this->get().begin(); }
+      decltype(auto) begin() noexcept(noexcept(this->get().begin())) {
+         return this->get().begin();
+      }
 
-      decltype(auto) begin() const noexcept(noexcept(this->get().begin())) { return this->get().begin(); }
+      decltype(auto) begin() const noexcept(noexcept(this->get().begin())) {
+         return this->get().begin();
+      }
 
-      decltype(auto) end() noexcept(noexcept(this->get().end())) { return this->get().end(); }
+      decltype(auto) end() noexcept(noexcept(this->get().end())) {
+         return this->get().end();
+      }
 
-      decltype(auto) end() const noexcept(noexcept(this->get().end())) { return this->get().end(); }
+      decltype(auto) end() const noexcept(noexcept(this->get().end())) {
+         return this->get().end();
+      }
 
-      decltype(auto) cbegin() noexcept(noexcept(this->get().cbegin())) { return this->get().cbegin(); }
+      decltype(auto) cbegin() noexcept(noexcept(this->get().cbegin())) {
+         return this->get().cbegin();
+      }
 
-      decltype(auto) cbegin() const noexcept(noexcept(this->get().cbegin())) { return this->get().cbegin(); }
+      decltype(auto) cbegin() const noexcept(noexcept(this->get().cbegin())) {
+         return this->get().cbegin();
+      }
 
-      decltype(auto) cend() noexcept(noexcept(this->get().cend())) { return this->get().cend(); }
+      decltype(auto) cend() noexcept(noexcept(this->get().cend())) {
+         return this->get().cend();
+      }
 
-      decltype(auto) cend() const noexcept(noexcept(this->get().cend())) { return this->get().cend(); }
+      decltype(auto) cend() const noexcept(noexcept(this->get().cend())) {
+         return this->get().cend();
+      }
 
-      size_type size() const noexcept(noexcept(this->get().size())) { return this->get().size(); }
+      size_type size() const noexcept(noexcept(this->get().size())) {
+         return this->get().size();
+      }
 
       bool empty() const noexcept(noexcept(this->get().empty()))
          requires(concepts::has_empty<T>)
@@ -176,9 +202,13 @@ class Strong_Adapter<T> : public Container_Strong_Adapter_Base<T> {
             : Strong_Adapter(std::string(str)) {}
 
    public:
-      decltype(auto) data() noexcept(noexcept(this->get().data())) { return this->get().data(); }
+      decltype(auto) data() noexcept(noexcept(this->get().data())) {
+         return this->get().data();
+      }
 
-      decltype(auto) data() const noexcept(noexcept(this->get().data())) { return this->get().data(); }
+      decltype(auto) data() const noexcept(noexcept(this->get().data())) {
+         return this->get().data();
+      }
 };
 
 }  // namespace detail
@@ -682,30 +712,52 @@ class StrongSpan {
       /**
        * @returns the underlying std::span without any type constraints
        */
-      underlying_span get() const { return m_span; }
+      underlying_span get() const {
+         return m_span;
+      }
 
       /**
        * @returns the underlying std::span without any type constraints
        */
-      underlying_span get() { return m_span; }
+      underlying_span get() {
+         return m_span;
+      }
 
-      decltype(auto) data() noexcept(noexcept(this->m_span.data())) { return this->m_span.data(); }
+      decltype(auto) data() noexcept(noexcept(this->m_span.data())) {
+         return this->m_span.data();
+      }
 
-      decltype(auto) data() const noexcept(noexcept(this->m_span.data())) { return this->m_span.data(); }
+      decltype(auto) data() const noexcept(noexcept(this->m_span.data())) {
+         return this->m_span.data();
+      }
 
-      decltype(auto) size() const noexcept(noexcept(this->m_span.size())) { return this->m_span.size(); }
+      decltype(auto) size() const noexcept(noexcept(this->m_span.size())) {
+         return this->m_span.size();
+      }
 
-      bool empty() const noexcept(noexcept(this->m_span.empty())) { return this->m_span.empty(); }
+      bool empty() const noexcept(noexcept(this->m_span.empty())) {
+         return this->m_span.empty();
+      }
 
-      decltype(auto) begin() noexcept(noexcept(this->m_span.begin())) { return this->m_span.begin(); }
+      decltype(auto) begin() noexcept(noexcept(this->m_span.begin())) {
+         return this->m_span.begin();
+      }
 
-      decltype(auto) begin() const noexcept(noexcept(this->m_span.begin())) { return this->m_span.begin(); }
+      decltype(auto) begin() const noexcept(noexcept(this->m_span.begin())) {
+         return this->m_span.begin();
+      }
 
-      decltype(auto) end() noexcept(noexcept(this->m_span.end())) { return this->m_span.end(); }
+      decltype(auto) end() noexcept(noexcept(this->m_span.end())) {
+         return this->m_span.end();
+      }
 
-      decltype(auto) end() const noexcept(noexcept(this->m_span.end())) { return this->m_span.end(); }
+      decltype(auto) end() const noexcept(noexcept(this->m_span.end())) {
+         return this->m_span.end();
+      }
 
-      decltype(auto) operator[](typename underlying_span::size_type i) const noexcept { return this->m_span[i]; }
+      decltype(auto) operator[](typename underlying_span::size_type i) const noexcept {
+         return this->m_span[i];
+      }
 
    private:
       underlying_span m_span;

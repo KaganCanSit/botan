@@ -40,9 +40,13 @@ class PK_Keygen final : public Command {
                "keygen --algo=RSA --params= --passphrase= --cipher= --pbkdf= --pbkdf-ms=300 --pbkdf-iter= --provider= --der-out") {
       }
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
-      std::string description() const override { return "Generate a PKCS #8 private key"; }
+      std::string description() const override {
+         return "Generate a PKCS #8 private key";
+      }
 
       void go() override {
          const std::string algo = get_arg("algo");
@@ -122,9 +126,13 @@ class PK_Fingerprint final : public Command {
    public:
       PK_Fingerprint() : Command("fingerprint --no-fsname --algo=SHA-256 *keys") {}
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
-      std::string description() const override { return "Calculate a public key fingerprint"; }
+      std::string description() const override {
+         return "Calculate a public key fingerprint";
+      }
 
       void go() override {
          const std::string hash_algo = get_arg("algo");
@@ -177,9 +185,13 @@ class PK_Sign final : public Command {
    public:
       PK_Sign() : Command("sign --der-format --passphrase= --hash=SHA-256 --padding= --provider= key file") {}
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
-      std::string description() const override { return "Sign arbitrary data"; }
+      std::string description() const override {
+         return "Sign arbitrary data";
+      }
 
       void go() override {
          const std::string key_file = get_arg("key");
@@ -233,7 +245,9 @@ class PK_Verify final : public Command {
    public:
       PK_Verify() : Command("verify --der-format --hash=SHA-256 --padding= pubkey file signature") {}
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
       std::string description() const override {
          return "Verify the authenticity of the given file with the provided signature";
@@ -284,9 +298,13 @@ class PKCS8_Tool final : public Command {
                "pkcs8 --pass-in= --pub-out --der-out --pass-out= --cipher= --pbkdf= --pbkdf-ms=300 --pbkdf-iter= key") {
       }
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
-      std::string description() const override { return "Open a PKCS #8 formatted key"; }
+      std::string description() const override {
+         return "Open a PKCS #8 formatted key";
+      }
 
       void go() override {
          const std::string key_file = get_arg("key");
@@ -353,7 +371,9 @@ class EC_Group_Info final : public Command {
    public:
       EC_Group_Info() : Command("ec_group_info --pem name") {}
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
       std::string description() const override {
          return "Print raw elliptic curve domain parameters of the standardized curve name";
@@ -384,7 +404,9 @@ class DL_Group_Info final : public Command {
    public:
       DL_Group_Info() : Command("dl_group_info --pem name") {}
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
       std::string description() const override {
          return "Print raw Diffie-Hellman parameters (p,g) of the standardized DH group name";
@@ -408,9 +430,13 @@ class PK_Workfactor final : public Command {
    public:
       PK_Workfactor() : Command("pk_workfactor --type=rsa bits") {}
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
-      std::string description() const override { return "Provide estimate of strength of public key based on size"; }
+      std::string description() const override {
+         return "Provide estimate of strength of public key based on size";
+      }
 
       void go() override {
          const size_t bits = get_arg_sz("bits");
@@ -434,9 +460,13 @@ class Gen_DL_Group final : public Command {
    public:
       Gen_DL_Group() : Command("gen_dl_group --pbits=2048 --qbits=0 --seed= --type=subgroup") {}
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
-      std::string description() const override { return "Generate ANSI X9.42 encoded Diffie-Hellman group parameters"; }
+      std::string description() const override {
+         return "Generate ANSI X9.42 encoded Diffie-Hellman group parameters";
+      }
 
       void go() override {
          const size_t pbits = get_arg_sz("pbits");

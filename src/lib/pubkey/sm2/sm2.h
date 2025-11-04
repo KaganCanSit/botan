@@ -120,9 +120,13 @@ class BOTAN_PUBLIC_API(2, 2) SM2_PrivateKey final : public SM2_PublicKey,
                                                                std::string_view params,
                                                                std::string_view provider) const override;
 
-      BOTAN_DEPRECATED("Deprecated no replacement") const BigInt& get_da_inv() const { return m_da_inv_legacy; }
+      BOTAN_DEPRECATED("Deprecated no replacement") const BigInt& get_da_inv() const {
+         return m_da_inv_legacy;
+      }
 
-      const EC_Scalar& _get_da_inv() const { return m_da_inv; }
+      const EC_Scalar& _get_da_inv() const {
+         return m_da_inv;
+      }
 
    private:
       EC_Scalar m_da_inv;

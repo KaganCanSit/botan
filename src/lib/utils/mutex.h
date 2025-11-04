@@ -40,9 +40,13 @@ using recursive_mutex_type = noop_mutex;
 template <typename Mutex>
 class lock_guard final {
    public:
-      explicit lock_guard(Mutex& m) : m_mutex(m) { m_mutex.lock(); }
+      explicit lock_guard(Mutex& m) : m_mutex(m) {
+         m_mutex.lock();
+      }
 
-      ~lock_guard() { m_mutex.unlock(); }
+      ~lock_guard() {
+         m_mutex.unlock();
+      }
 
       lock_guard(const lock_guard& other) = delete;
       lock_guard& operator=(const lock_guard& other) = delete;

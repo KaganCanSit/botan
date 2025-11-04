@@ -20,15 +20,23 @@ namespace Botan {
 */
 class CRC24 final : public HashFunction {
    public:
-      std::string name() const override { return "CRC24"; }
+      std::string name() const override {
+         return "CRC24";
+      }
 
-      size_t output_length() const override { return 3; }
+      size_t output_length() const override {
+         return 3;
+      }
 
-      std::unique_ptr<HashFunction> new_object() const override { return std::make_unique<CRC24>(); }
+      std::unique_ptr<HashFunction> new_object() const override {
+         return std::make_unique<CRC24>();
+      }
 
       std::unique_ptr<HashFunction> copy_state() const override;
 
-      void clear() override { m_crc = 0xCE04B7; }
+      void clear() override {
+         m_crc = 0xCE04B7;
+      }
 
    private:
       void add_data(std::span<const uint8_t> input) override;

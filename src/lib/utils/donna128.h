@@ -56,7 +56,9 @@ class donna128 final {
          return z;
       }
 
-      constexpr friend uint64_t operator&(const donna128& x, uint64_t mask) { return x.m_lo & mask; }
+      constexpr friend uint64_t operator&(const donna128& x, uint64_t mask) {
+         return x.m_lo & mask;
+      }
 
       constexpr uint64_t operator&=(uint64_t mask) {
          m_hi = 0;
@@ -80,11 +82,17 @@ class donna128 final {
          return *this;
       }
 
-      constexpr uint64_t lo() const { return m_lo; }
+      constexpr uint64_t lo() const {
+         return m_lo;
+      }
 
-      constexpr uint64_t hi() const { return m_hi; }
+      constexpr uint64_t hi() const {
+         return m_hi;
+      }
 
-      constexpr explicit operator uint64_t() const { return lo(); }
+      constexpr explicit operator uint64_t() const {
+         return lo();
+      }
 
    private:
       uint64_t m_lo = 0;

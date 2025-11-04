@@ -332,9 +332,13 @@ class TLS_HTTP_Server final : public Command {
                "--port=443 --policy=default --threads=0 --max-clients=0 "
                "--session-db= --session-db-pass=") {}
 
-      std::string group() const override { return "tls"; }
+      std::string group() const override {
+         return "tls";
+      }
 
-      std::string description() const override { return "Provides a simple HTTP server"; }
+      std::string description() const override {
+         return "Provides a simple HTTP server";
+      }
 
       size_t thread_count() const {
          if(size_t t = get_arg_sz("threads")) {

@@ -353,9 +353,13 @@ class Shim_Exception final : public std::exception {
    public:
       explicit Shim_Exception(std::string_view msg, int rc = 1) : m_msg(msg), m_rc(rc) {}
 
-      const char* what() const noexcept override { return m_msg.c_str(); }
+      const char* what() const noexcept override {
+         return m_msg.c_str();
+      }
 
-      int rc() const { return m_rc; }
+      int rc() const {
+         return m_rc;
+      }
 
    private:
       const std::string m_msg;
@@ -369,9 +373,13 @@ class Shim_Socket final {
       typedef int socket_type;
       typedef ssize_t socket_op_ret_type;
 
-      static void close_socket(socket_type s) { ::close(s); }
+      static void close_socket(socket_type s) {
+         ::close(s);
+      }
 
-      static std::string get_last_socket_error() { return ::strerror(errno); }
+      static std::string get_last_socket_error() {
+         return ::strerror(errno);
+      }
 
       using unique_addrinfo_t = std::unique_ptr<addrinfo, decltype(&::freeaddrinfo)>;
 
@@ -542,7 +550,9 @@ class Shim_Arguments final {
          return m_parsed_flags.contains(flag);
       }
 
-      std::string test_name() const { return get_string_opt("test-name"); }
+      std::string test_name() const {
+         return get_string_opt("test-name");
+      }
 
       std::string get_string_opt(const std::string& key) const {
          if(!m_string_opts.contains(key)) {
@@ -872,7 +882,9 @@ class Shim_Policy final : public Botan::TLS::Policy {
    public:
       explicit Shim_Policy(const Shim_Arguments& args) : m_args(args), m_sessions(0) {}
 
-      void incr_session_established() { m_sessions += 1; }
+      void incr_session_established() {
+         m_sessions += 1;
+      }
 
       std::vector<std::string> allowed_ciphers() const override {
          std::vector<std::string> allowed_without_aes = {
@@ -990,7 +1002,9 @@ class Shim_Policy final : public Botan::TLS::Policy {
 
       //size_t minimum_signature_strength() const override;
 
-      bool require_cert_revocation_info() const override { return false; }
+      bool require_cert_revocation_info() const override {
+         return false;
+      }
 
       std::vector<Botan::TLS::Group_Params> key_exchange_groups() const override {
          if(m_args.option_used("curves")) {
@@ -1013,7 +1027,9 @@ class Shim_Policy final : public Botan::TLS::Policy {
          return Botan::TLS::Policy::key_exchange_groups();
       }
 
-      bool use_ecc_point_compression() const override { return false; }  // BoGo expects this
+      bool use_ecc_point_compression() const override {
+         return false;
+      }  // BoGo expects this
 
       Botan::TLS::Group_Params choose_key_exchange_group(
          const std::vector<Botan::TLS::Group_Params>& supported_by_peer,
@@ -1041,7 +1057,9 @@ class Shim_Policy final : public Botan::TLS::Policy {
                 require_client_certificate_authentication();
       }
 
-      bool allow_insecure_renegotiation() const override { return m_args.flag_set("expect-no-secure-renegotiation"); }
+      bool allow_insecure_renegotiation() const override {
+         return m_args.flag_set("expect-no-secure-renegotiation");
+      }
 
       //bool include_time_in_hello_random() const override;
 
@@ -1100,9 +1118,13 @@ class Shim_Policy final : public Botan::TLS::Policy {
 
       //size_t minimum_dh_group_size() const override;
 
-      size_t minimum_ecdsa_group_size() const override { return 224; }
+      size_t minimum_ecdsa_group_size() const override {
+         return 224;
+      }
 
-      size_t minimum_ecdh_group_size() const override { return 224; }
+      size_t minimum_ecdh_group_size() const override {
+         return 224;
+      }
 
       //size_t minimum_rsa_bits() const override;
 
@@ -1134,7 +1156,9 @@ class Shim_Policy final : public Botan::TLS::Policy {
          }
       }
 
-      bool only_resume_with_exact_version() const override { return false; }
+      bool only_resume_with_exact_version() const override {
+         return false;
+      }
 
       //bool server_uses_own_ciphersuite_preferences() const override;
 
@@ -1157,7 +1181,9 @@ class Shim_Policy final : public Botan::TLS::Policy {
 
       std::vector<uint16_t> ciphersuite_list(Botan::TLS::Protocol_Version version) const override;
 
-      size_t dtls_default_mtu() const override { return m_args.get_int_opt_or_else("mtu", 1500); }
+      size_t dtls_default_mtu() const override {
+         return m_args.get_int_opt_or_else("mtu", 1500);
+      }
 
       //size_t dtls_initial_timeout() const override;
 
@@ -1167,7 +1193,9 @@ class Shim_Policy final : public Botan::TLS::Policy {
          return !m_args.flag_set("renegotiate-ignore");
       }
 
-      size_t maximum_certificate_chain_size() const override { return m_args.get_int_opt_or_else("max-cert-list", 0); }
+      size_t maximum_certificate_chain_size() const override {
+         return m_args.get_int_opt_or_else("max-cert-list", 0);
+      }
 
       bool tls_13_middlebox_compatibility_mode() const override {
          // These tests expect the client to send an alert in return of a malformed TLS 1.2 server hello.
@@ -1390,13 +1418,21 @@ class Shim_Callbacks final : public Botan::TLS::Callbacks {
             m_hello_retry_request(false),
             m_clock_skew(0) {}
 
-      size_t sessions_established() const { return m_sessions_established; }
+      size_t sessions_established() const {
+         return m_sessions_established;
+      }
 
-      void set_channel(Botan::TLS::Channel* channel) { m_channel = channel; }
+      void set_channel(Botan::TLS::Channel* channel) {
+         m_channel = channel;
+      }
 
-      void set_clock_skew(std::chrono::seconds clock_skew) { m_clock_skew = clock_skew; }
+      void set_clock_skew(std::chrono::seconds clock_skew) {
+         m_clock_skew = clock_skew;
+      }
 
-      bool saw_close_notify() const { return m_got_close; }
+      bool saw_close_notify() const {
+         return m_got_close;
+      }
 
       void tls_emit_data(std::span<const uint8_t> data) override {
          shim_log("sending record of len " + std::to_string(data.size()));

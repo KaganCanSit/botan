@@ -44,7 +44,9 @@ class BOTAN_PUBLIC_API(3, 3) FrodoKEM_PublicKey : public virtual Public_Key {
 
       ~FrodoKEM_PublicKey() override = default;
 
-      std::string algo_name() const override { return "FrodoKEM"; }
+      std::string algo_name() const override {
+         return "FrodoKEM";
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override;
 

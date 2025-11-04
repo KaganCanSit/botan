@@ -48,15 +48,25 @@ class Dilithium_PublicKeyInternal {
       }
 
    public:
-      DilithiumSerializedPublicKey raw_pk() const { return Dilithium_Algos::encode_public_key(m_rho, m_t1, m_mode); }
+      DilithiumSerializedPublicKey raw_pk() const {
+         return Dilithium_Algos::encode_public_key(m_rho, m_t1, m_mode);
+      }
 
-      const DilithiumHashedPublicKey& tr() const { return m_tr; }
+      const DilithiumHashedPublicKey& tr() const {
+         return m_tr;
+      }
 
-      const DilithiumPolyVec& t1() const { return m_t1; }
+      const DilithiumPolyVec& t1() const {
+         return m_t1;
+      }
 
-      const DilithiumSeedRho& rho() const { return m_rho; }
+      const DilithiumSeedRho& rho() const {
+         return m_rho;
+      }
 
-      const DilithiumConstants& mode() const { return m_mode; }
+      const DilithiumConstants& mode() const {
+         return m_mode;
+      }
 
    private:
       const DilithiumConstants m_mode;
@@ -81,17 +91,29 @@ class Dilithium_PrivateKeyInternal {
             m_s2(std::move(s2)) {}
 
    public:
-      const DilithiumConstants& mode() const { return m_mode; }
+      const DilithiumConstants& mode() const {
+         return m_mode;
+      }
 
-      const std::optional<DilithiumSeedRandomness>& seed() const { return m_seed; }
+      const std::optional<DilithiumSeedRandomness>& seed() const {
+         return m_seed;
+      }
 
-      const DilithiumSigningSeedK& signing_seed() const { return m_signing_seed; }
+      const DilithiumSigningSeedK& signing_seed() const {
+         return m_signing_seed;
+      }
 
-      const DilithiumPolyVec& s1() const { return m_s1; }
+      const DilithiumPolyVec& s1() const {
+         return m_s1;
+      }
 
-      const DilithiumPolyVec& s2() const { return m_s2; }
+      const DilithiumPolyVec& s2() const {
+         return m_s2;
+      }
 
-      const DilithiumPolyVec& t0() const { return m_t0; }
+      const DilithiumPolyVec& t0() const {
+         return m_t0;
+      }
 
       void _const_time_poison() const {
          // Note: m_rho and m_tr is public knowledge

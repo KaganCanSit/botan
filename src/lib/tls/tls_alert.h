@@ -74,7 +74,9 @@ class BOTAN_PUBLIC_API(2, 0) Alert final {
       /**
       * @return true iff this alert is non-empty
       */
-      bool is_valid() const { return (m_type_code != AlertType::None); }
+      bool is_valid() const {
+         return (m_type_code != AlertType::None);
+      }
 
       /**
       * Return true if this alert is fatal. A fatal alert causes the connection
@@ -89,14 +91,18 @@ class BOTAN_PUBLIC_API(2, 0) Alert final {
       *
       * @return if this alert is fatal or not
       */
-      bool is_fatal() const { return m_fatal; }
+      bool is_fatal() const {
+         return m_fatal;
+      }
 
       /**
       * Returns the type of the alert as an enum
       *
       * @return type of alert
       */
-      Type type() const { return m_type_code; }
+      Type type() const {
+         return m_type_code;
+      }
 
       /**
       * Returns the type of the alert as a string

@@ -13,11 +13,17 @@ namespace Botan {
 
 class BOTAN_PUBLIC_API(2, 0) X25519_PublicKey : public virtual Public_Key {
    public:
-      std::string algo_name() const override { return "X25519"; }
+      std::string algo_name() const override {
+         return "X25519";
+      }
 
-      size_t estimated_strength() const override { return 128; }
+      size_t estimated_strength() const override {
+         return 128;
+      }
 
-      size_t key_length() const override { return 255; }
+      size_t key_length() const override {
+         return 255;
+      }
 
       bool check_key(RandomNumberGenerator& rng, bool strong) const override;
 
@@ -31,7 +37,9 @@ class BOTAN_PUBLIC_API(2, 0) X25519_PublicKey : public virtual Public_Key {
          return raw_public_key_bits();
       }
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::KeyAgreement); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::KeyAgreement);
+      }
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator& rng) const final;
 
@@ -79,13 +87,19 @@ class BOTAN_PUBLIC_API(2, 0) X25519_PrivateKey final : public X25519_PublicKey,
       */
       explicit X25519_PrivateKey(std::span<const uint8_t> secret_key);
 
-      std::vector<uint8_t> public_value() const override { return raw_public_key_bits(); }
+      std::vector<uint8_t> public_value() const override {
+         return raw_public_key_bits();
+      }
 
       secure_vector<uint8_t> agree(const uint8_t w[], size_t w_len) const;
 
-      secure_vector<uint8_t> raw_private_key_bits() const override { return m_private; }
+      secure_vector<uint8_t> raw_private_key_bits() const override {
+         return m_private;
+      }
 
-      BOTAN_DEPRECATED("Use raw_private_key_bits") const secure_vector<uint8_t>& get_x() const { return m_private; }
+      BOTAN_DEPRECATED("Use raw_private_key_bits") const secure_vector<uint8_t>& get_x() const {
+         return m_private;
+      }
 
       secure_vector<uint8_t> private_key_bits() const override;
 

@@ -25,9 +25,13 @@ class CommonCrypto_Cipher_Mode final : public Cipher_Mode {
 
       ~CommonCrypto_Cipher_Mode();
 
-      std::string provider() const override { return "commoncrypto"; }
+      std::string provider() const override {
+         return "commoncrypto";
+      }
 
-      std::string name() const override { return m_mode_name; }
+      std::string name() const override {
+         return m_mode_name;
+      }
 
       size_t output_length(size_t input_length) const override;
       size_t update_granularity() const override;
@@ -39,7 +43,9 @@ class CommonCrypto_Cipher_Mode final : public Cipher_Mode {
       void reset() override;
       Key_Length_Specification key_spec() const override;
 
-      bool has_keying_material() const override { return m_key_set; }
+      bool has_keying_material() const override {
+         return m_key_set;
+      }
 
    private:
       void key_schedule(std::span<const uint8_t> key) override;

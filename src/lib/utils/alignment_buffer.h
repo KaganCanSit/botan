@@ -62,7 +62,9 @@ class AlignmentBuffer {
    public:
       AlignmentBuffer() = default;
 
-      ~AlignmentBuffer() { secure_scrub_memory(m_buffer.data(), m_buffer.size()); }
+      ~AlignmentBuffer() {
+         secure_scrub_memory(m_buffer.data(), m_buffer.size());
+      }
 
       AlignmentBuffer(const AlignmentBuffer& other) = default;
       AlignmentBuffer(AlignmentBuffer&& other) noexcept = default;
@@ -220,21 +222,31 @@ class AlignmentBuffer {
          return std::span(m_buffer).first(elements);
       }
 
-      constexpr size_t size() const { return m_buffer.size(); }
+      constexpr size_t size() const {
+         return m_buffer.size();
+      }
 
-      size_t elements_in_buffer() const { return m_position; }
+      size_t elements_in_buffer() const {
+         return m_position;
+      }
 
-      size_t elements_until_alignment() const { return m_buffer.size() - m_position; }
+      size_t elements_until_alignment() const {
+         return m_buffer.size() - m_position;
+      }
 
       /**
        * @returns true if the buffer is empty (i.e. contains no unaligned data)
        */
-      bool in_alignment() const { return m_position == 0; }
+      bool in_alignment() const {
+         return m_position == 0;
+      }
 
       /**
        * @returns true if the buffer is full (i.e. a block is ready to be consumed)
        */
-      bool ready_to_consume() const { return m_position == m_buffer.size(); }
+      bool ready_to_consume() const {
+         return m_position == m_buffer.size();
+      }
 
       constexpr bool defers_final_block() const {
          return FINAL_BLOCK_STRATEGY == AlignmentBufferFinalBlock::must_be_deferred;

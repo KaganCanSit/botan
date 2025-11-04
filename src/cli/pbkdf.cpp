@@ -22,9 +22,13 @@ class PBKDF_Tune final : public Command {
    public:
       PBKDF_Tune() : Command("pbkdf_tune --algo=Scrypt --max-mem=256 --tune-msec=10 --output-len=32 --check *times") {}
 
-      std::string group() const override { return "passhash"; }
+      std::string group() const override {
+         return "passhash";
+      }
 
-      std::string description() const override { return "Tune a PBKDF algo"; }
+      std::string description() const override {
+         return "Tune a PBKDF algo";
+      }
 
       void go() override {
          const size_t output_len = get_arg_sz("output-len");

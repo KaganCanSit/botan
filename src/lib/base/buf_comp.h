@@ -31,13 +31,17 @@ class BOTAN_PUBLIC_API(2, 0) Buffered_Computation /* NOLINT(*special-member-func
       * @param in the input to process as a byte array
       * @param length of param in in bytes
       */
-      void update(const uint8_t in[], size_t length) { add_data({in, length}); }
+      void update(const uint8_t in[], size_t length) {
+         add_data({in, length});
+      }
 
       /**
       * Add new input to process.
       * @param in the input to process as a contiguous data range
       */
-      void update(std::span<const uint8_t> in) { add_data(in); }
+      void update(std::span<const uint8_t> in) {
+         add_data(in);
+      }
 
       void update_be(uint16_t val);
       void update_be(uint32_t val);
@@ -58,7 +62,9 @@ class BOTAN_PUBLIC_API(2, 0) Buffered_Computation /* NOLINT(*special-member-func
       * Process a single byte.
       * @param in the byte to process
       */
-      void update(uint8_t in) { add_data({&in, 1}); }
+      void update(uint8_t in) {
+         add_data({&in, 1});
+      }
 
       /**
       * Complete the computation and retrieve the
@@ -66,7 +72,9 @@ class BOTAN_PUBLIC_API(2, 0) Buffered_Computation /* NOLINT(*special-member-func
       * @param out The byte array to be filled with the result.
       * Must be of length output_length()
       */
-      void final(uint8_t out[]) { final_result({out, output_length()}); }
+      void final(uint8_t out[]) {
+         final_result({out, output_length()});
+      }
 
       /**
       * Complete the computation and retrieve the
@@ -80,7 +88,9 @@ class BOTAN_PUBLIC_API(2, 0) Buffered_Computation /* NOLINT(*special-member-func
          return output;
       }
 
-      std::vector<uint8_t> final_stdvec() { return final<std::vector<uint8_t>>(); }
+      std::vector<uint8_t> final_stdvec() {
+         return final<std::vector<uint8_t>>();
+      }
 
       void final(std::span<uint8_t> out);
 

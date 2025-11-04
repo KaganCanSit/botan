@@ -41,26 +41,46 @@ class Sponge {
          }
       }
 
-      constexpr static size_t state_bytes() { return sizeof(state_t); }
+      constexpr static size_t state_bytes() {
+         return sizeof(state_t);
+      }
 
-      constexpr static size_t state_bits() { return state_bytes() * 8; }
+      constexpr static size_t state_bits() {
+         return state_bytes() * 8;
+      }
 
-      constexpr size_t bit_rate() const { return m_bit_rate; }
+      constexpr size_t bit_rate() const {
+         return m_bit_rate;
+      }
 
-      constexpr size_t byte_rate() const { return m_bit_rate / 8; }
+      constexpr size_t byte_rate() const {
+         return m_bit_rate / 8;
+      }
 
-      constexpr size_t bit_capacity() const { return state_bits() - bit_rate(); }
+      constexpr size_t bit_capacity() const {
+         return state_bits() - bit_rate();
+      }
 
-      constexpr size_t byte_capacity() const { return state_bytes() - byte_rate(); }
+      constexpr size_t byte_capacity() const {
+         return state_bytes() - byte_rate();
+      }
 
-      constexpr auto& state() { return m_S; }
+      constexpr auto& state() {
+         return m_S;
+      }
 
-      size_t cursor() const { return m_S_cursor; }
+      size_t cursor() const {
+         return m_S_cursor;
+      }
 
-      size_t& _cursor() { return m_S_cursor; }
+      size_t& _cursor() {
+         return m_S_cursor;
+      }
 
    protected:
-      void reset_cursor() { m_S_cursor = 0; }
+      void reset_cursor() {
+         m_S_cursor = 0;
+      }
 
    private:
       state_t m_S;

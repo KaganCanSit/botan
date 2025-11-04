@@ -95,9 +95,13 @@ class ServerStatus {
          return clients_serviced() >= m_max_clients;
       }
 
-      void client_serviced() { m_clients_serviced++; }
+      void client_serviced() {
+         m_clients_serviced++;
+      }
 
-      size_t clients_serviced() const { return m_clients_serviced.load(); }
+      size_t clients_serviced() const {
+         return m_clients_serviced.load();
+      }
 
    private:
       size_t m_max_clients;
@@ -125,7 +129,9 @@ class tls_proxy_session final : public std::enable_shared_from_this<tls_proxy_se
          return session;
       }
 
-      tcp::socket& client_socket() { return m_client_socket; }
+      tcp::socket& client_socket() {
+         return m_client_socket;
+      }
 
       void start() {
          m_c2p.resize(readbuf_size);
@@ -405,9 +411,13 @@ class TLS_Proxy final : public Command {
                "tls_proxy listen_port target_host target_port server_cert server_key "
                "--policy=default --threads=0 --max-clients=0 --session-db= --session-db-pass=") {}
 
-      std::string group() const override { return "tls"; }
+      std::string group() const override {
+         return "tls";
+      }
 
-      std::string description() const override { return "Proxies requests between a TLS client and a TLS server"; }
+      std::string description() const override {
+         return "Proxies requests between a TLS client and a TLS server";
+      }
 
       size_t thread_count() const {
          if(size_t t = get_arg_sz("threads")) {

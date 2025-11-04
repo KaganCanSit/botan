@@ -96,7 +96,9 @@ class CC_Encrypt final : public Command {
    public:
       CC_Encrypt() : Command("cc_encrypt CC passphrase --tweak=") {}
 
-      std::string group() const override { return "misc"; }
+      std::string group() const override {
+         return "misc";
+      }
 
       std::string description() const override {
          return "Encrypt the passed valid credit card number using FPE encryption";
@@ -124,7 +126,9 @@ class CC_Decrypt final : public Command {
    public:
       CC_Decrypt() : Command("cc_decrypt CC passphrase --tweak=") {}
 
-      std::string group() const override { return "misc"; }
+      std::string group() const override {
+         return "misc";
+      }
 
       std::string description() const override {
          return "Decrypt the passed valid ciphertext credit card number using FPE decryption";

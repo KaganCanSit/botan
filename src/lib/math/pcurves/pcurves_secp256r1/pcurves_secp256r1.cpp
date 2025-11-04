@@ -74,13 +74,21 @@ class Secp256r1Rep final {
          return r;
       }
 
-      constexpr static std::array<W, N> one() { return std::array<W, N>{1}; }
+      constexpr static std::array<W, N> one() {
+         return std::array<W, N>{1};
+      }
 
-      constexpr static std::array<W, N> to_rep(const std::array<W, N>& x) { return x; }
+      constexpr static std::array<W, N> to_rep(const std::array<W, N>& x) {
+         return x;
+      }
 
-      constexpr static std::array<W, N> wide_to_rep(const std::array<W, 2 * N>& x) { return redc(x); }
+      constexpr static std::array<W, N> wide_to_rep(const std::array<W, 2 * N>& x) {
+         return redc(x);
+      }
 
-      constexpr static std::array<W, N> from_rep(const std::array<W, N>& z) { return z; }
+      constexpr static std::array<W, N> from_rep(const std::array<W, N>& z) {
+         return z;
+      }
 
    private:
       // Return (i*P-256) % 2**256

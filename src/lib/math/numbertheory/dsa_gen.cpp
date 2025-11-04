@@ -75,7 +75,9 @@ bool generate_dsa_primes(RandomNumberGenerator& rng,
       public:
          explicit Seed(const std::vector<uint8_t>& s) : m_seed(s) {}
 
-         const std::vector<uint8_t>& value() const { return m_seed; }
+         const std::vector<uint8_t>& value() const {
+            return m_seed;
+         }
 
          Seed& operator++() {
             for(size_t j = m_seed.size(); j > 0; --j) {

@@ -211,7 +211,9 @@ class BOTAN_PUBLIC_API(3, 0) Session_Manager /* NOLINT(*-special-member-function
        *
        * @return true if the Session_Manager produces session tickets
        */
-      virtual bool emits_session_tickets() { return false; }
+      virtual bool emits_session_tickets() {
+         return false;
+      }
 
       virtual ~Session_Manager() = default;
 
@@ -264,7 +266,9 @@ class BOTAN_PUBLIC_API(3, 0) Session_Manager /* NOLINT(*-special-member-function
       /**
        * Returns the base class' recursive mutex for reuse in derived classes
        */
-      recursive_mutex_type& mutex() { return m_mutex; }
+      recursive_mutex_type& mutex() {
+         return m_mutex;
+      }
 
    private:
       std::vector<Session_with_Handle> find_and_filter(const Server_Information& info,

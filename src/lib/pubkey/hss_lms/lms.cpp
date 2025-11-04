@@ -40,9 +40,13 @@ class TreeAddress final {
          return *this;
       }
 
-      uint32_t r() const { return m_r; }
+      uint32_t r() const {
+         return m_r;
+      }
 
-      bool is_leaf() const { return m_r >= (1 << m_h); }
+      bool is_leaf() const {
+         return m_r >= (1 << m_h);
+      }
 
       LMS_Tree_Node_Idx q() const {
          BOTAN_STATE_CHECK(is_leaf());

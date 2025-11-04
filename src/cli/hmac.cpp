@@ -21,9 +21,13 @@ class HMAC final : public Command {
    public:
       HMAC() : Command("hmac --hash=SHA-256 --buf-size=4096 --no-fsname key *files") {}
 
-      std::string group() const override { return "hmac"; }
+      std::string group() const override {
+         return "hmac";
+      }
 
-      std::string description() const override { return "Compute the HMAC tag of given file(s)"; }
+      std::string description() const override {
+         return "Compute the HMAC tag of given file(s)";
+      }
 
       void go() override {
          const bool no_fsname = flag_set("no-fsname");

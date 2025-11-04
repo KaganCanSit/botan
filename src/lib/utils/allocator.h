@@ -48,7 +48,9 @@ void BOTAN_UNSTABLE_API initialize_allocator();
 
 class Allocator_Initializer final {
    public:
-      Allocator_Initializer() { initialize_allocator(); }
+      Allocator_Initializer() {
+         initialize_allocator();
+      }
 };
 
 }  // namespace Botan

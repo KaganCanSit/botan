@@ -65,7 +65,9 @@ class BOTAN_PUBLIC_API(3, 0) Signature_Scheme {
 
       /* NOLINT(*-explicit-conversions) */ Signature_Scheme(Signature_Scheme::Code wire_code);
 
-      Signature_Scheme::Code wire_code() const noexcept { return m_code; }
+      Signature_Scheme::Code wire_code() const noexcept {
+         return m_code;
+      }
 
       /**
       * @return true if support for this scheme is implemented in this Botan build
@@ -88,9 +90,13 @@ class BOTAN_PUBLIC_API(3, 0) Signature_Scheme {
       bool is_compatible_with(const Protocol_Version& protocol_version) const noexcept;
       bool is_suitable_for(const Private_Key& private_key) const noexcept;
 
-      bool operator==(const Signature_Scheme& rhs) const { return m_code == rhs.m_code; }
+      bool operator==(const Signature_Scheme& rhs) const {
+         return m_code == rhs.m_code;
+      }
 
-      bool operator!=(const Signature_Scheme& rhs) const { return !(*this == rhs); }
+      bool operator!=(const Signature_Scheme& rhs) const {
+         return !(*this == rhs);
+      }
 
    private:
       Signature_Scheme::Code m_code;

@@ -116,30 +116,52 @@ class BOTAN_PUBLIC_API(2, 0) ECIES_KA_Params {
 
       virtual ~ECIES_KA_Params() = default;
 
-      const EC_Group& group() const { return m_group; }
+      const EC_Group& group() const {
+         return m_group;
+      }
 
-      size_t secret_length() const { return m_length; }
+      size_t secret_length() const {
+         return m_length;
+      }
 
-      bool single_hash_mode() const { return m_single_hash_mode; }
+      bool single_hash_mode() const {
+         return m_single_hash_mode;
+      }
 
       // TODO(Botan4) remove this when cofactor support is removed
-      bool cofactor_mode() const { return m_cofactor_mode; }
+      bool cofactor_mode() const {
+         return m_cofactor_mode;
+      }
 
       // TODO(Botan4) remove this when cofactor support is removed
-      bool old_cofactor_mode() const { return m_old_cofactor_mode; }
+      bool old_cofactor_mode() const {
+         return m_old_cofactor_mode;
+      }
 
       // TODO(Botan4) remove this when cofactor support is removed
-      bool check_mode() const { return m_check_mode; }
+      bool check_mode() const {
+         return m_check_mode;
+      }
 
-      EC_Point_Format point_format() const { return m_point_format; }
+      EC_Point_Format point_format() const {
+         return m_point_format;
+      }
 
-      const std::string& kdf() const { return m_kdf; }
+      const std::string& kdf() const {
+         return m_kdf;
+      }
 
-      BOTAN_DEPRECATED("Use kdf") const std::string& kdf_spec() const { return kdf(); }
+      BOTAN_DEPRECATED("Use kdf") const std::string& kdf_spec() const {
+         return kdf();
+      }
 
-      BOTAN_DEPRECATED("Use group") const EC_Group& domain() const { return group(); }
+      BOTAN_DEPRECATED("Use group") const EC_Group& domain() const {
+         return group();
+      }
 
-      BOTAN_DEPRECATED("Use point_format") EC_Point_Format compression_type() const { return point_format(); }
+      BOTAN_DEPRECATED("Use point_format") EC_Point_Format compression_type() const {
+         return point_format();
+      }
 
    private:
       const EC_Group m_group;
@@ -210,10 +232,14 @@ class BOTAN_PUBLIC_API(2, 0) ECIES_System_Params final : public ECIES_KA_Params 
       std::unique_ptr<Cipher_Mode> create_cipher(Cipher_Dir direction) const;
 
       /// returns the length of the key used by the data encryption method
-      size_t dem_keylen() const { return m_dem_keylen; }
+      size_t dem_keylen() const {
+         return m_dem_keylen;
+      }
 
       /// returns the length of the key used by the message authentication code
-      size_t mac_keylen() const { return m_mac_keylen; }
+      size_t mac_keylen() const {
+         return m_mac_keylen;
+      }
 
    private:
       const std::string m_dem_spec;
@@ -291,13 +317,19 @@ class BOTAN_PUBLIC_API(2, 0) ECIES_Encryptor final : public PK_Encryptor {
 #endif
 
       /// Set the public key of the other party
-      void set_other_key(const EC_AffinePoint& pt) { m_other_point = pt; }
+      void set_other_key(const EC_AffinePoint& pt) {
+         m_other_point = pt;
+      }
 
       /// Set the initialization vector for the data encryption method
-      void set_initialization_vector(const InitializationVector& iv) { m_iv = iv; }
+      void set_initialization_vector(const InitializationVector& iv) {
+         m_iv = iv;
+      }
 
       /// Set the label which is appended to the input for the message authentication code
-      void set_label(std::string_view label) { m_label.assign(label.begin(), label.end()); }
+      void set_label(std::string_view label) {
+         m_label.assign(label.begin(), label.end());
+      }
 
    private:
       std::vector<uint8_t> enc(const uint8_t data[], size_t length, RandomNumberGenerator& rng) const override;
@@ -331,10 +363,14 @@ class BOTAN_PUBLIC_API(2, 0) ECIES_Decryptor final : public PK_Decryptor {
                       RandomNumberGenerator& rng);
 
       /// Set the initialization vector for the data encryption method
-      void set_initialization_vector(const InitializationVector& iv) { m_iv = iv; }
+      void set_initialization_vector(const InitializationVector& iv) {
+         m_iv = iv;
+      }
 
       /// Set the label which is appended to the input for the message authentication code
-      void set_label(std::string_view label) { m_label = std::vector<uint8_t>(label.begin(), label.end()); }
+      void set_label(std::string_view label) {
+         m_label = std::vector<uint8_t>(label.begin(), label.end());
+      }
 
    private:
       secure_vector<uint8_t> do_decrypt(uint8_t& valid_mask, const uint8_t in[], size_t in_len) const override;

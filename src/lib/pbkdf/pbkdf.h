@@ -64,7 +64,9 @@ class BOTAN_PUBLIC_API(2, 0) PBKDF /* NOLINT(*-special-member-functions) */ {
       /**
       * @return new instance of this same algorithm
       */
-      PBKDF* clone() const { return this->new_object().release(); }
+      PBKDF* clone() const {
+         return this->new_object().release();
+      }
 
       /**
       * @return name of this PBKDF

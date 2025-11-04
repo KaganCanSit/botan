@@ -66,7 +66,9 @@ class BOTAN_PUBLIC_API(2, 4) PSK_Database /* NOLINT(*-special-member-functions) 
       /**
       * Like set() but accepting an arbitrary contiguous byte array.
       */
-      void set_vec(std::string_view name, std::span<const uint8_t> psk) { set(name, psk.data(), psk.size()); }
+      void set_vec(std::string_view name, std::span<const uint8_t> psk) {
+         set(name, psk.data(), psk.size());
+      }
 
       virtual ~PSK_Database() = default;
 };
@@ -125,7 +127,9 @@ class BOTAN_PUBLIC_API(2, 4) Encrypted_PSK_Database : public PSK_Database /* NOL
 
       void remove(std::string_view name) override;
 
-      bool is_encrypted() const override { return true; }
+      bool is_encrypted() const override {
+         return true;
+      }
 
    protected:
       /**

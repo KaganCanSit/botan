@@ -20,7 +20,9 @@ class Kyber_KEM_Operation_Base {
       explicit Kyber_KEM_Operation_Base(const Kyber_PublicKeyInternal& pk) :
             m_At(Kyber_Algos::sample_matrix(pk.rho(), true /* transposed */, pk.mode())) {}
 
-      const KyberPolyMat& precomputed_matrix_At() const { return m_At; }
+      const KyberPolyMat& precomputed_matrix_At() const {
+         return m_At;
+      }
 
    private:
       // The public key's matrix is pre-computed to avoid redundant work when
@@ -32,9 +34,13 @@ class Kyber_KEM_Operation_Base {
 class Kyber_KEM_Encryptor_Base : public PK_Ops::KEM_Encryption_with_KDF,
                                  protected Kyber_KEM_Operation_Base {
    public:
-      size_t raw_kem_shared_key_length() const override { return mode().shared_key_bytes(); }
+      size_t raw_kem_shared_key_length() const override {
+         return mode().shared_key_bytes();
+      }
 
-      size_t encapsulated_key_length() const override { return mode().ciphertext_bytes(); }
+      size_t encapsulated_key_length() const override {
+         return mode().ciphertext_bytes();
+      }
 
       void raw_kem_encrypt(std::span<uint8_t> out_encapsulated_key,
                            std::span<uint8_t> out_shared_key,
@@ -58,9 +64,13 @@ class Kyber_KEM_Encryptor_Base : public PK_Ops::KEM_Encryption_with_KDF,
 class Kyber_KEM_Decryptor_Base : public PK_Ops::KEM_Decryption_with_KDF,
                                  protected Kyber_KEM_Operation_Base {
    public:
-      size_t raw_kem_shared_key_length() const override { return mode().shared_key_bytes(); }
+      size_t raw_kem_shared_key_length() const override {
+         return mode().shared_key_bytes();
+      }
 
-      size_t encapsulated_key_length() const override { return mode().ciphertext_bytes(); }
+      size_t encapsulated_key_length() const override {
+         return mode().ciphertext_bytes();
+      }
 
       void raw_kem_decrypt(std::span<uint8_t> out_shared_key, std::span<const uint8_t> encapsulated_key) final {
          decapsulate(StrongSpan<KyberSharedSecret>(out_shared_key),

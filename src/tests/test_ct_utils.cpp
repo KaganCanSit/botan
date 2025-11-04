@@ -124,7 +124,9 @@ class CT_Option_Tests final : public Test {
                   Botan::CT::conditional_assign_mem(choice, m_val, other.m_val, 4);
                }
 
-               bool operator==(const Val& other) const { return std::memcmp(m_val, other.m_val, 4) == 0; }
+               bool operator==(const Val& other) const {
+                  return std::memcmp(m_val, other.m_val, 4) == 0;
+               }
 
                Val& operator++() {
                   // totally arbitrary here ...
@@ -185,9 +187,13 @@ template <typename T = void>
 struct Poisonable {
       mutable bool poisoned = false;  // NOLINT(*non-private-member-variable*)
 
-      void _const_time_poison() const { poisoned = true; }
+      void _const_time_poison() const {
+         poisoned = true;
+      }
 
-      void _const_time_unpoison() const { poisoned = false; }
+      void _const_time_unpoison() const {
+         poisoned = false;
+      }
 };
 
 std::vector<Test::Result> test_higher_level_ct_poison() {

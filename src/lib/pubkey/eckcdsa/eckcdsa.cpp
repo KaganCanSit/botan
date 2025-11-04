@@ -138,11 +138,15 @@ class ECKCDSA_Signature_Operation final : public PK_Ops::Signature {
          return raw_sign(digest, rng);
       }
 
-      size_t signature_length() const override { return 2 * m_group.get_order_bytes(); }
+      size_t signature_length() const override {
+         return 2 * m_group.get_order_bytes();
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override;
 
-      std::string hash_function() const override { return m_hash->name(); }
+      std::string hash_function() const override {
+         return m_hash->name();
+      }
 
    private:
       std::vector<uint8_t> raw_sign(std::span<const uint8_t> msg, RandomNumberGenerator& rng);
@@ -205,7 +209,9 @@ class ECKCDSA_Verification_Operation final : public PK_Ops::Verification {
 
       bool is_valid_signature(std::span<const uint8_t> sig) override;
 
-      std::string hash_function() const override { return m_hash->name(); }
+      std::string hash_function() const override {
+         return m_hash->name();
+      }
 
    private:
       bool verify(std::span<const uint8_t> msg, std::span<const uint8_t> sig);

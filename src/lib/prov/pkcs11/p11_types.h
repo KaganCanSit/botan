@@ -55,7 +55,9 @@ class BOTAN_PUBLIC_API(2, 0) Module final {
       void reload(C_InitializeArgs init_args = {
                      nullptr, nullptr, nullptr, nullptr, static_cast<CK_FLAGS>(Flag::OsLockingOk), nullptr});
 
-      inline LowLevel* operator->() const { return m_low_level.get(); }
+      inline LowLevel* operator->() const {
+         return m_low_level.get();
+      }
 
       /// @return general information about Cryptoki
       inline Info get_info() const {
@@ -81,10 +83,14 @@ class BOTAN_PUBLIC_API(2, 0) Slot final {
       Slot(Module& module, SlotId slot_id);
 
       /// @return a reference to the module that is used
-      inline Module& module() const { return m_module; }
+      inline Module& module() const {
+         return m_module;
+      }
 
       /// @return the slot id
-      inline SlotId slot_id() const { return m_slot_id; }
+      inline SlotId slot_id() const {
+         return m_slot_id;
+      }
 
       /**
       * Get available slots
@@ -149,13 +155,19 @@ class BOTAN_PUBLIC_API(2, 0) Session final {
       ~Session() noexcept;
 
       /// @return a reference to the slot
-      inline const Slot& slot() const { return m_slot; }
+      inline const Slot& slot() const {
+         return m_slot;
+      }
 
       /// @return the session handle of this session
-      inline SessionHandle handle() const { return m_handle; }
+      inline SessionHandle handle() const {
+         return m_handle;
+      }
 
       /// @return a reference to the used module
-      inline Module& module() const { return m_slot.module(); }
+      inline Module& module() const {
+         return m_slot.module();
+      }
 
       /// @return the released session handle
       SessionHandle release();

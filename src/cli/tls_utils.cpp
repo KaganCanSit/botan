@@ -35,9 +35,13 @@ class TLS_Ciphersuites final : public Command {
          }
       }
 
-      std::string group() const override { return "tls"; }
+      std::string group() const override {
+         return "tls";
+      }
 
-      std::string description() const override { return "Lists all ciphersuites for a policy and TLS version"; }
+      std::string description() const override {
+         return "Lists all ciphersuites for a policy and TLS version";
+      }
 
       void go() override {
          const std::string policy_type = get_arg("policy");
@@ -65,9 +69,13 @@ class TLS_Client_Hello_Reader final : public Command {
    public:
       TLS_Client_Hello_Reader() : Command("tls_client_hello --hex input") {}
 
-      std::string group() const override { return "tls"; }
+      std::string group() const override {
+         return "tls";
+      }
 
-      std::string description() const override { return "Parse a TLS client hello message"; }
+      std::string description() const override {
+         return "Parse a TLS client hello message";
+      }
 
       void go() override {
          const std::string input_file = get_arg("input");

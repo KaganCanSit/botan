@@ -145,7 +145,9 @@ class BOTAN_PUBLIC_API(3, 5) HSS_LMS_PrivateKey final : public virtual HSS_LMS_P
 
       AlgorithmIdentifier pkcs8_algorithm_identifier() const override;
 
-      bool stateful_operation() const override { return true; }
+      bool stateful_operation() const override {
+         return true;
+      }
 
       /**
        * Retrieves the number of remaining signatures for this private key.

@@ -45,7 +45,9 @@ class BOTAN_PUBLIC_API(3, 1) PskIdentity {
        */
       BOTAN_FUTURE_EXPLICIT PskIdentity(PresharedKeyID identity);
 
-      const std::vector<uint8_t>& identity() const { return m_identity; }
+      const std::vector<uint8_t>& identity() const {
+         return m_identity;
+      }
 
       std::string identity_as_string() const;
 
@@ -57,7 +59,9 @@ class BOTAN_PUBLIC_API(3, 1) PskIdentity {
        */
       std::chrono::milliseconds age(uint32_t ticket_age_add) const;
 
-      uint32_t obfuscated_age() const { return m_obfuscated_age; }
+      uint32_t obfuscated_age() const {
+         return m_obfuscated_age;
+      }
 
    private:
       std::vector<uint8_t> m_identity;

@@ -130,23 +130,41 @@ class Client_Hello_Internal {
          return Protocol_Version::TLS_V13;
       }
 
-      Protocol_Version legacy_version() const { return m_legacy_version; }
+      Protocol_Version legacy_version() const {
+         return m_legacy_version;
+      }
 
-      const Session_ID& session_id() const { return m_session_id; }
+      const Session_ID& session_id() const {
+         return m_session_id;
+      }
 
-      const std::vector<uint8_t>& random() const { return m_random; }
+      const std::vector<uint8_t>& random() const {
+         return m_random;
+      }
 
-      const std::vector<uint16_t>& ciphersuites() const { return m_suites; }
+      const std::vector<uint16_t>& ciphersuites() const {
+         return m_suites;
+      }
 
-      const std::vector<uint8_t>& comp_methods() const { return m_comp_methods; }
+      const std::vector<uint8_t>& comp_methods() const {
+         return m_comp_methods;
+      }
 
-      const std::vector<uint8_t>& hello_cookie() const { return m_hello_cookie; }
+      const std::vector<uint8_t>& hello_cookie() const {
+         return m_hello_cookie;
+      }
 
-      const std::vector<uint8_t>& hello_cookie_input_bits() const { return m_cookie_input_bits; }
+      const std::vector<uint8_t>& hello_cookie_input_bits() const {
+         return m_cookie_input_bits;
+      }
 
-      const Extensions& extensions() const { return m_extensions; }
+      const Extensions& extensions() const {
+         return m_extensions;
+      }
 
-      Extensions& extensions() { return m_extensions; }
+      Extensions& extensions() {
+         return m_extensions;
+      }
 
    public:
       Protocol_Version m_legacy_version;    // NOLINT(*-non-private-member-variable*)

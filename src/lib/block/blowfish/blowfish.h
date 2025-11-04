@@ -33,9 +33,13 @@ class BOTAN_TEST_API Blowfish final : public Block_Cipher_Fixed_Params<8, 1, 56>
 
       void clear() override;
 
-      std::string name() const override { return "Blowfish"; }
+      std::string name() const override {
+         return "Blowfish";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<Blowfish>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<Blowfish>();
+      }
 
       bool has_keying_material() const override;
 

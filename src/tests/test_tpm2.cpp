@@ -79,7 +79,9 @@ class TR {
    public:
       TR(ESYS_CONTEXT* esys_ctx, ESYS_TR handle) : m_esys_ctx(esys_ctx), m_handle(handle) {}
 
-      TR(TR&& other) noexcept { *this = std::move(other); }
+      TR(TR&& other) noexcept {
+         *this = std::move(other);
+      }
 
       TR& operator=(TR&& other) noexcept {
          if(this != &other) {
@@ -99,7 +101,9 @@ class TR {
       }
 
       // NOLINTNEXTLINE(*-explicit-conversions) FIXME
-      constexpr operator ESYS_TR() const { return m_handle; }
+      constexpr operator ESYS_TR() const {
+         return m_handle;
+      }
 };
 
 struct esys_context_liberator {

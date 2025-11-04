@@ -25,7 +25,9 @@ class DL_PrivateKey;
 */
 class BOTAN_PUBLIC_API(2, 0) DSA_PublicKey : public virtual Public_Key {
    public:
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::Signature); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::Signature);
+      }
 
       /**
       * Load a public key from the ASN.1 encoding
@@ -41,7 +43,9 @@ class BOTAN_PUBLIC_API(2, 0) DSA_PublicKey : public virtual Public_Key {
       */
       DSA_PublicKey(const DL_Group& group, const BigInt& y);
 
-      std::string algo_name() const override { return "DSA"; }
+      std::string algo_name() const override {
+         return "DSA";
+      }
 
       std::optional<size_t> _signature_element_size_for_DER_encoding() const override;
 

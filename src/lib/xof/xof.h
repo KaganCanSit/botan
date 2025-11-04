@@ -172,13 +172,17 @@ class BOTAN_PUBLIC_API(3, 2) XOF /* NOLINT(*special-member-functions) */ {
        *
        * @return the next @p bytes output bytes as a byte vector.
        */
-      std::vector<uint8_t> output_stdvec(size_t bytes) { return output<std::vector<uint8_t>>(bytes); }
+      std::vector<uint8_t> output_stdvec(size_t bytes) {
+         return output<std::vector<uint8_t>>(bytes);
+      }
 
       /**
        * Fill @p output with the next output bytes. The number of bytes
        * depends on the size of @p output.
        */
-      void output(std::span<uint8_t> output) { generate_bytes(output); }
+      void output(std::span<uint8_t> output) {
+         generate_bytes(output);
+      }
 
       /**
        * @return the next single output byte

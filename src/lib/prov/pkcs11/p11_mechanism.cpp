@@ -43,7 +43,9 @@ class MechanismData {
 
       virtual ~MechanismData() = default;
 
-      MechanismType type() const { return m_type; }
+      MechanismType type() const {
+         return m_type;
+      }
 
    private:
       // the mechanism to perform
@@ -62,11 +64,17 @@ class RSA_SignMechanism final : public MechanismData {
          }
       }
 
-      MechanismType hash() const { return m_hash; }
+      MechanismType hash() const {
+         return m_hash;
+      }
 
-      MGF mgf() const { return m_mgf; }
+      MGF mgf() const {
+         return m_mgf;
+      }
 
-      size_t salt_size() const { return m_salt_size; }
+      size_t salt_size() const {
+         return m_salt_size;
+      }
 
    private:
       /*
@@ -93,11 +101,17 @@ struct RSA_CryptMechanism final : public MechanismData {
       RSA_CryptMechanism(MechanismType typ, size_t padding_size) :
             RSA_CryptMechanism(typ, padding_size, static_cast<MechanismType>(0), MGF::MgfUnused) {}
 
-      MechanismType hash() const { return m_hash; }
+      MechanismType hash() const {
+         return m_hash;
+      }
 
-      MGF mgf() const { return m_mgf; }
+      MGF mgf() const {
+         return m_mgf;
+      }
 
-      size_t padding_size() const { return m_padding_size; }
+      size_t padding_size() const {
+         return m_padding_size;
+      }
 
    private:
       // mechanism ID of the message digest algorithm used to calculate the digest of the encoding parameter

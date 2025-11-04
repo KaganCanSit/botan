@@ -24,11 +24,17 @@ class BOTAN_PUBLIC_API(3, 6) Jitter_RNG final : public RandomNumberGenerator {
       Jitter_RNG();
       ~Jitter_RNG();
 
-      std::string name() const override { return "JitterRNG"; }
+      std::string name() const override {
+         return "JitterRNG";
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
       void clear() override;
 

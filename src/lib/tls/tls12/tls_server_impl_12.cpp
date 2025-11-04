@@ -22,23 +22,37 @@ class Server_Handshake_State final : public Handshake_State {
    public:
       Server_Handshake_State(std::unique_ptr<Handshake_IO> io, Callbacks& cb) : Handshake_State(std::move(io), cb) {}
 
-      Private_Key* server_rsa_kex_key() { return m_server_rsa_kex_key.get(); }
+      Private_Key* server_rsa_kex_key() {
+         return m_server_rsa_kex_key.get();
+      }
 
-      void set_server_rsa_kex_key(std::shared_ptr<Private_Key> key) { m_server_rsa_kex_key = std::move(key); }
+      void set_server_rsa_kex_key(std::shared_ptr<Private_Key> key) {
+         m_server_rsa_kex_key = std::move(key);
+      }
 
-      bool allow_session_resumption() const { return m_allow_session_resumption; }
+      bool allow_session_resumption() const {
+         return m_allow_session_resumption;
+      }
 
       void set_allow_session_resumption(bool allow_session_resumption) {
          m_allow_session_resumption = allow_session_resumption;
       }
 
-      const std::vector<X509_Certificate>& resume_peer_certs() const { return m_resume_peer_certs; }
+      const std::vector<X509_Certificate>& resume_peer_certs() const {
+         return m_resume_peer_certs;
+      }
 
-      void set_resume_certs(const std::vector<X509_Certificate>& certs) { m_resume_peer_certs = certs; }
+      void set_resume_certs(const std::vector<X509_Certificate>& certs) {
+         m_resume_peer_certs = certs;
+      }
 
-      void mark_as_resumption() { m_is_a_resumption = true; }
+      void mark_as_resumption() {
+         m_is_a_resumption = true;
+      }
 
-      bool is_a_resumption() const { return m_is_a_resumption; }
+      bool is_a_resumption() const {
+         return m_is_a_resumption;
+      }
 
    private:
       // Used by the server only, in case of RSA key exchange.

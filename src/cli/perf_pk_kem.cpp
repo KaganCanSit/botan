@@ -19,7 +19,9 @@ class PerfTest_PK_KEM : public PerfTest {
    public:
       virtual std::string algo() const = 0;
 
-      virtual std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const { return {""}; }
+      virtual std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const {
+         return {""};
+      }
 
       void go(const PerfConfig& config) override {
          const std::string alg = this->algo();
@@ -88,7 +90,9 @@ class PerfTest_PK_KEM : public PerfTest {
 
 class PerfTest_Kyber final : public PerfTest_PK_KEM {
    public:
-      std::string algo() const override { return "Kyber"; }
+      std::string algo() const override {
+         return "Kyber";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          return {
@@ -110,7 +114,9 @@ BOTAN_REGISTER_PERF_TEST("Kyber", PerfTest_Kyber);
 
 class PerfTest_ML_KEM final : public PerfTest_PK_KEM {
    public:
-      std::string algo() const override { return "ML-KEM"; }
+      std::string algo() const override {
+         return "ML-KEM";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          return {
@@ -129,7 +135,9 @@ BOTAN_REGISTER_PERF_TEST("ML-KEM", PerfTest_ML_KEM);
 
 class PerfTest_FrodoKEM final : public PerfTest_PK_KEM {
    public:
-      std::string algo() const override { return "FrodoKEM"; }
+      std::string algo() const override {
+         return "FrodoKEM";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          return {
@@ -157,7 +165,9 @@ BOTAN_REGISTER_PERF_TEST("FrodoKEM", PerfTest_FrodoKEM);
 
 class PerfTest_Classic_McEliece final : public PerfTest_PK_KEM {
    public:
-      std::string algo() const override { return "ClassicMcEliece"; }
+      std::string algo() const override {
+         return "ClassicMcEliece";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          return {

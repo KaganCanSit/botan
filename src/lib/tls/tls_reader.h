@@ -33,11 +33,17 @@ class TLS_Data_Reader final {
          }
       }
 
-      size_t read_so_far() const { return m_offset; }
+      size_t read_so_far() const {
+         return m_offset;
+      }
 
-      size_t remaining_bytes() const { return m_buf.size() - m_offset; }
+      size_t remaining_bytes() const {
+         return m_buf.size() - m_offset;
+      }
 
-      bool has_remaining() const { return (remaining_bytes() > 0); }
+      bool has_remaining() const {
+         return (remaining_bytes() > 0);
+      }
 
       std::vector<uint8_t> get_remaining() {
          std::span rest = m_buf.subspan(m_offset);

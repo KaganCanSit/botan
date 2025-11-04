@@ -51,28 +51,36 @@ class BOTAN_TEST_API Classic_McEliece_GF {
        * @param modulus The modulus of GF(q).
        * @return size_t The degree log_q of the modulus (m for GF(2^m)).
        */
-      static size_t log_q_from_mod(CmceGfMod modulus) { return floor_log2(modulus.get()); }
+      static size_t log_q_from_mod(CmceGfMod modulus) {
+         return floor_log2(modulus.get());
+      }
 
       /**
        * @brief Get m, the degree of the element's modulus.
        *
        * @return size_t The degree log_q of the modulus (m for GF(2^m)).
        */
-      size_t log_q() const { return log_q_from_mod(m_modulus); }
+      size_t log_q() const {
+         return log_q_from_mod(m_modulus);
+      }
 
       /**
        * @brief Get the GF(q) element as a GF_Elem.
        *
        * @return the element as a GF_Elem.
        */
-      CmceGfElem elem() const { return m_elem; }
+      CmceGfElem elem() const {
+         return m_elem;
+      }
 
       /**
        * @brief Get the modulus f(z) of GF(q) as a GF_Mod.
        *
        * @return the modulus as a GF_Mod.
        */
-      CmceGfMod modulus() const { return m_modulus; }
+      CmceGfMod modulus() const {
+         return m_modulus;
+      }
 
       /**
        * @brief Change the element to @p elem.
@@ -124,12 +132,16 @@ class BOTAN_TEST_API Classic_McEliece_GF {
       /**
        * @brief Check if the element is equal to @p other. Modulus is ignored.
        */
-      bool operator==(Classic_McEliece_GF other) const { return elem() == other.elem(); }
+      bool operator==(Classic_McEliece_GF other) const {
+         return elem() == other.elem();
+      }
 
       /**
        * @brief Square the element. Constant time.
        */
-      Classic_McEliece_GF square() const { return (*this) * (*this); }
+      Classic_McEliece_GF square() const {
+         return (*this) * (*this);
+      }
 
       /**
        * @brief Invert the element. Constant time.
@@ -139,7 +151,9 @@ class BOTAN_TEST_API Classic_McEliece_GF {
       /**
       * @brief Check if the element is zero.
       */
-      bool is_zero() const { return elem() == 0; }
+      bool is_zero() const {
+         return elem() == 0;
+      }
 
    private:
       CmceGfElem m_elem;
@@ -157,9 +171,13 @@ class BOTAN_TEST_API GF_Mask final {
          return GF_Mask(CT::Mask<uint16_t>::expand(v));
       }
 
-      static GF_Mask expand(Classic_McEliece_GF v) { return expand(v.elem().get()); }
+      static GF_Mask expand(Classic_McEliece_GF v) {
+         return expand(v.elem().get());
+      }
 
-      static GF_Mask is_zero(Classic_McEliece_GF v) { return GF_Mask(CT::Mask<uint16_t>::is_zero(v.elem().get())); }
+      static GF_Mask is_zero(Classic_McEliece_GF v) {
+         return GF_Mask(CT::Mask<uint16_t>::is_zero(v.elem().get()));
+      }
 
       static GF_Mask is_lte(Classic_McEliece_GF a, Classic_McEliece_GF b) {
          return GF_Mask(CT::Mask<uint16_t>::is_lte(a.elem().get(), b.elem().get()));
@@ -169,7 +187,9 @@ class BOTAN_TEST_API GF_Mask final {
          return GF_Mask(CT::Mask<uint16_t>::is_equal(a.elem().get(), b.elem().get()));
       }
 
-      static GF_Mask set() { return GF_Mask(CT::Mask<uint16_t>::set()); }
+      static GF_Mask set() {
+         return GF_Mask(CT::Mask<uint16_t>::set());
+      }
 
       explicit GF_Mask(CT::Mask<uint16_t> underlying_mask) : m_mask(underlying_mask) {}
 
@@ -185,16 +205,22 @@ class BOTAN_TEST_API GF_Mask final {
          return Classic_McEliece_GF(CmceGfElem(m_mask.select(x.elem().get(), y.get())), x.modulus());
       }
 
-      uint16_t select(uint16_t x, uint16_t y) const { return m_mask.select(x, y); }
+      uint16_t select(uint16_t x, uint16_t y) const {
+         return m_mask.select(x, y);
+      }
 
       GF_Mask& operator&=(const GF_Mask& o) {
          m_mask &= o.m_mask;
          return (*this);
       }
 
-      bool as_bool() const { return m_mask.as_bool(); }
+      bool as_bool() const {
+         return m_mask.as_bool();
+      }
 
-      CT::Mask<uint16_t>& elem_mask() { return m_mask; }
+      CT::Mask<uint16_t>& elem_mask() {
+         return m_mask;
+      }
 
    private:
       CT::Mask<uint16_t> m_mask;

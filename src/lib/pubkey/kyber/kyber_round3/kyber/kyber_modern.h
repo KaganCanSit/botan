@@ -35,13 +35,21 @@ class Kyber_Modern_Symmetric_Primitives final : public Kyber_Symmetric_Primitive
          return {};
       }
 
-      HashFunction& get_G() const override { return *m_sha3_512; }
+      HashFunction& get_G() const override {
+         return *m_sha3_512;
+      }
 
-      HashFunction& get_H() const override { return *m_sha3_256; }
+      HashFunction& get_H() const override {
+         return *m_sha3_256;
+      }
 
-      HashFunction& get_J() const override { throw Invalid_State("Kyber-R3 does not support J()"); }
+      HashFunction& get_J() const override {
+         throw Invalid_State("Kyber-R3 does not support J()");
+      }
 
-      HashFunction& get_KDF() const override { return *m_shake256_256; }
+      HashFunction& get_KDF() const override {
+         return *m_shake256_256;
+      }
 
       Botan::XOF& get_PRF(std::span<const uint8_t> seed, const uint8_t nonce) const override {
          m_shake256->clear();

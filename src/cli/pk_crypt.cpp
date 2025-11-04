@@ -26,9 +26,13 @@ class PK_Encrypt final : public Command {
    public:
       PK_Encrypt() : Command("pk_encrypt --aead=AES-256/GCM pubkey datafile") {}
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
-      std::string description() const override { return "Encrypt a file using a RSA public key"; }
+      std::string description() const override {
+         return "Encrypt a file using a RSA public key";
+      }
 
       void go() override {
          auto key = Botan::X509::load_key(get_arg("pubkey"));
@@ -95,9 +99,13 @@ class PK_Decrypt final : public Command {
    public:
       PK_Decrypt() : Command("pk_decrypt privkey datafile") {}
 
-      std::string group() const override { return "pubkey"; }
+      std::string group() const override {
+         return "pubkey";
+      }
 
-      std::string description() const override { return "Decrypt a file using a RSA private key"; }
+      std::string description() const override {
+         return "Decrypt a file using a RSA private key";
+      }
 
       void go() override {
          Botan::DataSource_Stream input_stream(get_arg("privkey"));

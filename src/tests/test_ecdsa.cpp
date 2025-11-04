@@ -26,7 +26,9 @@ class ECDSA_Verification_Tests final : public PK_Signature_Verification_Test {
       ECDSA_Verification_Tests() :
             PK_Signature_Verification_Test("ECDSA", "pubkey/ecdsa_verify.vec", "Group,Px,Py,Msg,Signature", "Valid") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       bool skip_this_test(const std::string& /*header*/, const VarMap& vars) override {
          return !Botan::EC_Group::supports_named_group(vars.get_req_str("Group"));
@@ -43,7 +45,9 @@ class ECDSA_Verification_Tests final : public PK_Signature_Verification_Test {
          return std::make_unique<Botan::ECDSA_PublicKey>(group, public_key);
       }
 
-      std::string default_padding(const VarMap& /*unused*/) const override { return "Raw"; }
+      std::string default_padding(const VarMap& /*unused*/) const override {
+         return "Raw";
+      }
 };
 
 class ECDSA_Wycheproof_Verification_Tests final : public PK_Signature_Verification_Test {
@@ -52,11 +56,17 @@ class ECDSA_Wycheproof_Verification_Tests final : public PK_Signature_Verificati
             PK_Signature_Verification_Test(
                "ECDSA", "pubkey/ecdsa_wycheproof.vec", "Group,Px,Py,Hash,Msg,Signature,Valid") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
-      Botan::Signature_Format sig_format() const override { return Botan::Signature_Format::DerSequence; }
+      Botan::Signature_Format sig_format() const override {
+         return Botan::Signature_Format::DerSequence;
+      }
 
-      bool test_random_invalid_sigs() const override { return false; }
+      bool test_random_invalid_sigs() const override {
+         return false;
+      }
 
       bool skip_this_test(const std::string& /*header*/, const VarMap& vars) override {
          return !Botan::EC_Group::supports_named_group(vars.get_req_str("Group"));
@@ -73,7 +83,9 @@ class ECDSA_Wycheproof_Verification_Tests final : public PK_Signature_Verificati
          return std::make_unique<Botan::ECDSA_PublicKey>(group, public_key);
       }
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Hash"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Hash");
+      }
 };
 
 class ECDSA_Signature_KAT_Tests final : public PK_Signature_Generation_Test {
@@ -90,7 +102,9 @@ class ECDSA_Signature_KAT_Tests final : public PK_Signature_Generation_Test {
       }
    #endif
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       bool skip_this_test(const std::string& /*header*/, const VarMap& vars) override {
          return !Botan::EC_Group::supports_named_group(vars.get_req_str("Group"));
@@ -104,7 +118,9 @@ class ECDSA_Signature_KAT_Tests final : public PK_Signature_Generation_Test {
          return std::make_unique<Botan::ECDSA_PrivateKey>(this->rng(), group, x);
       }
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Hash"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Hash");
+      }
 
    #if !defined(BOTAN_HAS_RFC6979_GENERATOR)
       std::unique_ptr<Botan::RandomNumberGenerator> test_rng(const std::vector<uint8_t>& nonce) const override {
@@ -129,7 +145,9 @@ class ECDSA_KAT_Verification_Tests final : public PK_Signature_Verification_Test
       }
    #endif
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       bool skip_this_test(const std::string& /*header*/, const VarMap& vars) override {
          return !Botan::EC_Group::supports_named_group(vars.get_req_str("Group"));
@@ -145,7 +163,9 @@ class ECDSA_KAT_Verification_Tests final : public PK_Signature_Verification_Test
          return priv_key.public_key();
       }
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Hash"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Hash");
+      }
 };
 
 class ECDSA_Sign_Verify_DER_Test final : public PK_Sign_Verify_DER_Test {
@@ -164,7 +184,9 @@ class ECDSA_Keygen_Tests final : public PK_Key_Generation_Test {
          return std::vector<std::string>(grp.begin(), grp.end());
       }
 
-      std::string algo_name() const override { return "ECDSA"; }
+      std::string algo_name() const override {
+         return "ECDSA";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /* provider */,
@@ -230,7 +252,9 @@ class ECDSA_Invalid_Key_Tests final : public Text_Based_Test {
    public:
       ECDSA_Invalid_Key_Tests() : Text_Based_Test("pubkey/ecdsa_invalid.vec", "Group,InvalidKeyX,InvalidKeyY") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       bool skip_this_test(const std::string& /*header*/, const VarMap& vars) override {
          return !Botan::EC_Group::supports_named_group(vars.get_req_str("Group"));
@@ -311,7 +335,9 @@ class ECDSA_ExplicitCurveKey_Test : public Text_Based_Test {
    public:
       ECDSA_ExplicitCurveKey_Test() : Text_Based_Test("pubkey/ecdsa_explicit.vec", "Key") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       bool skip_this_test(const std::string& group, const VarMap& /*vars*/) override {
          return !Botan::EC_Group::supports_named_group(group);

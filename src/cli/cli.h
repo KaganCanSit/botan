@@ -91,7 +91,9 @@ class Command /* NOLINT(*special-member-functions) */ {
 
       virtual std::string help_text() const;
 
-      const std::string& cmd_spec() const { return m_spec; }
+      const std::string& cmd_spec() const {
+         return m_spec;
+      }
 
       std::string cmd_name() const;
 
@@ -104,7 +106,9 @@ class Command /* NOLINT(*special-member-functions) */ {
       */
       virtual void go() = 0;
 
-      void set_return_code(int rc) { m_return_code = rc; }
+      void set_return_code(int rc) {
+         m_return_code = rc;
+      }
 
       std::ostream& output();
 
@@ -118,7 +122,9 @@ class Command /* NOLINT(*special-member-functions) */ {
 
       std::ostream& error_output();
 
-      bool verbose() const { return flag_set("verbose"); }
+      bool verbose() const {
+         return flag_set("verbose");
+      }
 
       std::string get_passphrase(const std::string& prompt);
 

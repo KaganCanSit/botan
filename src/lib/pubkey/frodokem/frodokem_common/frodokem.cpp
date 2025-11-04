@@ -37,15 +37,25 @@ class FrodoKEM_PublicKeyInternal {
          m_hash = shake.output<FrodoPublicKeyHash>(m_constants.len_sec_bytes());
       }
 
-      const FrodoKEMConstants& constants() const { return m_constants; }
+      const FrodoKEMConstants& constants() const {
+         return m_constants;
+      }
 
-      const FrodoSeedA& seed_a() const { return m_seed_a; }
+      const FrodoSeedA& seed_a() const {
+         return m_seed_a;
+      }
 
-      const FrodoMatrix& b() const { return m_b; }
+      const FrodoMatrix& b() const {
+         return m_b;
+      }
 
-      const FrodoPublicKeyHash& hash() const { return m_hash; }
+      const FrodoPublicKeyHash& hash() const {
+         return m_hash;
+      }
 
-      std::vector<uint8_t> serialize() const { return concat<std::vector<uint8_t>>(seed_a(), b().pack(m_constants)); }
+      std::vector<uint8_t> serialize() const {
+         return concat<std::vector<uint8_t>>(seed_a(), b().pack(m_constants));
+      }
 
    private:
       FrodoKEMConstants m_constants;
@@ -59,13 +69,21 @@ class FrodoKEM_PrivateKeyInternal {
       FrodoKEM_PrivateKeyInternal(FrodoSeedS s, FrodoMatrix s_trans) :
             m_s(std::move(s)), m_s_trans(std::move(s_trans)) {}
 
-      const FrodoSeedS& s() const { return m_s; }
+      const FrodoSeedS& s() const {
+         return m_s;
+      }
 
-      const FrodoMatrix& s_trans() const { return m_s_trans; }
+      const FrodoMatrix& s_trans() const {
+         return m_s_trans;
+      }
 
-      constexpr void _const_time_poison() const { CT::poison_all(m_s, m_s_trans); }
+      constexpr void _const_time_poison() const {
+         CT::poison_all(m_s, m_s_trans);
+      }
 
-      constexpr void _const_time_unpoison() const { CT::unpoison_all(m_s, m_s_trans); }
+      constexpr void _const_time_unpoison() const {
+         CT::unpoison_all(m_s, m_s_trans);
+      }
 
    private:
       FrodoSeedS m_s;
@@ -81,9 +99,13 @@ class Frodo_KEM_Encryptor final : public PK_Ops::KEM_Encryption_with_KDF {
       Frodo_KEM_Encryptor(std::shared_ptr<FrodoKEM_PublicKeyInternal> key, std::string_view kdf) :
             KEM_Encryption_with_KDF(kdf), m_public_key(std::move(key)) {}
 
-      size_t raw_kem_shared_key_length() const override { return m_public_key->constants().len_sec_bytes(); }
+      size_t raw_kem_shared_key_length() const override {
+         return m_public_key->constants().len_sec_bytes();
+      }
 
-      size_t encapsulated_key_length() const override { return m_public_key->constants().len_ct_bytes(); }
+      size_t encapsulated_key_length() const override {
+         return m_public_key->constants().len_ct_bytes();
+      }
 
       void raw_kem_encrypt(std::span<uint8_t> out_encapsulated_key,
                            std::span<uint8_t> out_shared_key,
@@ -152,9 +174,13 @@ class Frodo_KEM_Decryptor final : public PK_Ops::KEM_Decryption_with_KDF {
                           std::string_view kdf) :
             KEM_Decryption_with_KDF(kdf), m_public_key(std::move(public_key)), m_private_key(std::move(private_key)) {}
 
-      size_t raw_kem_shared_key_length() const override { return m_public_key->constants().len_sec_bytes(); }
+      size_t raw_kem_shared_key_length() const override {
+         return m_public_key->constants().len_sec_bytes();
+      }
 
-      size_t encapsulated_key_length() const override { return m_public_key->constants().len_ct_bytes(); }
+      size_t encapsulated_key_length() const override {
+         return m_public_key->constants().len_ct_bytes();
+      }
 
       void raw_kem_decrypt(std::span<uint8_t> out_shared_key, std::span<const uint8_t> encapsulated_key) override {
          auto scope = CT::scoped_poison(*m_private_key);

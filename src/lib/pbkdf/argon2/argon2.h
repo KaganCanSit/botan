@@ -50,23 +50,41 @@ class BOTAN_PUBLIC_API(2, 11) Argon2 final : public PasswordHash {
 
       std::string to_string() const override;
 
-      size_t M() const { return m_M; }
+      size_t M() const {
+         return m_M;
+      }
 
-      size_t t() const { return m_t; }
+      size_t t() const {
+         return m_t;
+      }
 
-      size_t p() const { return m_p; }
+      size_t p() const {
+         return m_p;
+      }
 
-      bool supports_keyed_operation() const override { return true; }
+      bool supports_keyed_operation() const override {
+         return true;
+      }
 
-      bool supports_associated_data() const override { return true; }
+      bool supports_associated_data() const override {
+         return true;
+      }
 
-      size_t iterations() const override { return t(); }
+      size_t iterations() const override {
+         return t();
+      }
 
-      size_t parallelism() const override { return p(); }
+      size_t parallelism() const override {
+         return p();
+      }
 
-      size_t memory_param() const override { return M(); }
+      size_t memory_param() const override {
+         return M();
+      }
 
-      size_t total_memory_usage() const override { return M() * 1024; }
+      size_t total_memory_usage() const override {
+         return M() * 1024;
+      }
 
       /**
       * Argon2's BLAMKA function

@@ -25,17 +25,25 @@ class Secp256k1Rep final {
 
       static constexpr W C = 0x1000003d1;
 
-      constexpr static std::array<W, N> one() { return std::array<W, N>{1}; }
+      constexpr static std::array<W, N> one() {
+         return std::array<W, N>{1};
+      }
 
       constexpr static std::array<W, N> redc(const std::array<W, 2 * N>& z) {
          return redc_crandall<W, N, C>(std::span{z});
       }
 
-      constexpr static std::array<W, N> to_rep(const std::array<W, N>& x) { return x; }
+      constexpr static std::array<W, N> to_rep(const std::array<W, N>& x) {
+         return x;
+      }
 
-      constexpr static std::array<W, N> wide_to_rep(const std::array<W, 2 * N>& x) { return redc(x); }
+      constexpr static std::array<W, N> wide_to_rep(const std::array<W, 2 * N>& x) {
+         return redc(x);
+      }
 
-      constexpr static std::array<W, N> from_rep(const std::array<W, N>& z) { return z; }
+      constexpr static std::array<W, N> from_rep(const std::array<W, N>& z) {
+         return z;
+      }
 };
 
 // clang-format off

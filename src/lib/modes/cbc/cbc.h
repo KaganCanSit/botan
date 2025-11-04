@@ -42,18 +42,26 @@ class CBC_Mode : public Cipher_Mode {
    protected:
       CBC_Mode(std::unique_ptr<BlockCipher> cipher, std::unique_ptr<BlockCipherModePaddingMethod> padding);
 
-      const BlockCipher& cipher() const { return *m_cipher; }
+      const BlockCipher& cipher() const {
+         return *m_cipher;
+      }
 
       const BlockCipherModePaddingMethod& padding() const {
          BOTAN_ASSERT_NONNULL(m_padding);
          return *m_padding;
       }
 
-      size_t block_size() const { return m_block_size; }
+      size_t block_size() const {
+         return m_block_size;
+      }
 
-      secure_vector<uint8_t>& state() { return m_state; }
+      secure_vector<uint8_t>& state() {
+         return m_state;
+      }
 
-      uint8_t* state_ptr() { return m_state.data(); }
+      uint8_t* state_ptr() {
+         return m_state.data();
+      }
 
    private:
       void start_msg(const uint8_t nonce[], size_t nonce_len) override;

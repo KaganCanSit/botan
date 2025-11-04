@@ -46,7 +46,9 @@ class BOTAN_TEST_API Classic_McEliece_Parameters final {
       /**
        * @brief The parameter set for this Classic McEliece instance.
        */
-      Classic_McEliece_Parameter_Set parameter_set() const { return m_set; }
+      Classic_McEliece_Parameter_Set parameter_set() const {
+         return m_set;
+      }
 
       /**
        * @brief The OID for the Classic McEliece instance.
@@ -83,13 +85,17 @@ class BOTAN_TEST_API Classic_McEliece_Parameters final {
       /**
        * @brief The degree of the Classic McEliece instance's underlying Galois Field, i.e. GF(q) = GF(2^m).
        */
-      size_t m() const { return m_m; }
+      size_t m() const {
+         return m_m;
+      }
 
       /**
        * @brief The field size of the Classic McEliece instance's underlying Galois Field, i.e.
        * GF(q) is the underlying field.
        */
-      size_t q() const { return (size_t(1) << m_m); }
+      size_t q() const {
+         return (size_t(1) << m_m);
+      }
 
       /**
        * @brief The code length of the Classic McEliece instance.
@@ -97,37 +103,51 @@ class BOTAN_TEST_API Classic_McEliece_Parameters final {
        * E.g. the Classic McEliece matrix H is of size m*t x n,
        * the encoded error vector is, therefore, of size n.
        */
-      size_t n() const { return m_n; }
+      size_t n() const {
+         return m_n;
+      }
 
       /**
        * @brief The weight of the error vector e.
        */
-      size_t t() const { return m_poly_ring.degree(); }
+      size_t t() const {
+         return m_poly_ring.degree();
+      }
 
       /**
        * @brief Bit output length of the hash function H.
        */
-      static constexpr size_t ell() { return 256; }
+      static constexpr size_t ell() {
+         return 256;
+      }
 
       /**
        * @brief The number of bits each GF element is encoded with.
        */
-      static constexpr size_t sigma1() { return 16; }
+      static constexpr size_t sigma1() {
+         return 16;
+      }
 
       /**
        * @brief Constant for field-ordering generation. (see Classic McEliece ISO 8.2)
        */
-      static constexpr size_t sigma2() { return 32; }
+      static constexpr size_t sigma2() {
+         return 32;
+      }
 
       /**
        * @brief Constant mu for semi-systematic matrix creation. (see Classic McEliece ISO 7.2.3)
        */
-      static constexpr size_t mu() { return 32; }
+      static constexpr size_t mu() {
+         return 32;
+      }
 
       /**
        * @brief Constant nu for semi-systematic matrix creation. (see Classic McEliece ISO 7.2.3)
        */
-      static constexpr size_t nu() { return 64; }
+      static constexpr size_t nu() {
+         return 64;
+      }
 
       /**
        * @brief Constant tau for fixed-weight vector generation. (see Classic McEliece ISO 8.4)
@@ -143,7 +163,9 @@ class BOTAN_TEST_API Classic_McEliece_Parameters final {
        * @brief The monic irreducible polynomial f(z) of degree m over GF(2). Used for modular
        * reduction in GF(2^m).
        */
-      CmceGfMod poly_f() const { return m_poly_ring.poly_f(); }
+      CmceGfMod poly_f() const {
+         return m_poly_ring.poly_f();
+      }
 
       /**
        * @brief The estimated bit security strength of the Classic McEliece instance.
@@ -155,27 +177,37 @@ class BOTAN_TEST_API Classic_McEliece_Parameters final {
       /**
        * @brief The byte length of the seed delta. See ISO 9.2.12.
        */
-      static constexpr size_t seed_len() { return ell() / 8; }
+      static constexpr size_t seed_len() {
+         return ell() / 8;
+      }
 
       /**
        * @brief The byte length of the column selection c. See ISO 9.2.12.
        */
-      static constexpr size_t sk_c_bytes() { return 8; }
+      static constexpr size_t sk_c_bytes() {
+         return 8;
+      }
 
       /**
        * @brief The length of the byte representation of the minimal polynomial g. See ISO 9.2.12.
        */
-      size_t sk_poly_g_bytes() const { return t() * sizeof(uint16_t); }
+      size_t sk_poly_g_bytes() const {
+         return t() * sizeof(uint16_t);
+      }
 
       /**
        * @brief The length of the byte representation of the field ordering's control bits. See ISO 9.2.12.
        */
-      size_t sk_alpha_control_bytes() const { return (2 * m() - 1) * (size_t(1) << (m() - 4)); }
+      size_t sk_alpha_control_bytes() const {
+         return (2 * m() - 1) * (size_t(1) << (m() - 4));
+      }
 
       /**
        * @brief The byte length of the seed s. s is used for implicit rejection. See ISO 9.2.12.
        */
-      size_t sk_s_bytes() const { return n() / 8; }
+      size_t sk_s_bytes() const {
+         return n() / 8;
+      }
 
       /**
        * @brief The byte length of the secret key sk. See ISO 9.2.12.
@@ -188,7 +220,9 @@ class BOTAN_TEST_API Classic_McEliece_Parameters final {
       /**
        * @brief The number of rows in the public key's matrix.
        */
-      size_t pk_no_rows() const { return t() * m(); }
+      size_t pk_no_rows() const {
+         return t() * m();
+      }
 
       /**
        * @brief The number of columns in the public key's matrix.
@@ -197,31 +231,41 @@ class BOTAN_TEST_API Classic_McEliece_Parameters final {
        * which is stored in the public key. The column number of the whole matrix H is n.
        * This constant is also denoted as k in the spec.
        */
-      size_t pk_no_cols() const { return n() - pk_no_rows(); }
+      size_t pk_no_cols() const {
+         return n() - pk_no_rows();
+      }
 
       /**
        * @brief The number of bytes for each row in the public key's matrix.
        */
-      size_t pk_row_size_bytes() const { return (pk_no_cols() + 7) / 8; }
+      size_t pk_row_size_bytes() const {
+         return (pk_no_cols() + 7) / 8;
+      }
 
       /**
        * @brief The number of bytes for the public key.
        *
        * Equal to the byte size of the CMCE matrix.
        */
-      size_t pk_size_bytes() const { return pk_no_rows() * pk_row_size_bytes(); }
+      size_t pk_size_bytes() const {
+         return pk_no_rows() * pk_row_size_bytes();
+      }
 
       /**
        * @brief The output byte size of the encoding algorithm. See ISO 7.3
        */
-      size_t encode_out_size() const { return ceil_division<size_t>(m() * t(), 8); }
+      size_t encode_out_size() const {
+         return ceil_division<size_t>(m() * t(), 8);
+      }
 
       /**
        * @brief The byte size of the hash output.
        *
        * This is also the size of the shared key K that is a hash output.
        */
-      static constexpr size_t hash_out_bytes() { return ell() / 8; }
+      static constexpr size_t hash_out_bytes() {
+         return ell() / 8;
+      }
 
       /**
        * @brief The byte size of the ciphertext.
@@ -238,7 +282,9 @@ class BOTAN_TEST_API Classic_McEliece_Parameters final {
       /**
        * @brief The underlying polynomial ring.
        */
-      const Classic_McEliece_Polynomial_Ring& poly_ring() const { return m_poly_ring; }
+      const Classic_McEliece_Polynomial_Ring& poly_ring() const {
+         return m_poly_ring;
+      }
 
       /**
        * @brief Create a seeded XOF object representing Classic McEliece's PRG.
@@ -254,7 +300,9 @@ class BOTAN_TEST_API Classic_McEliece_Parameters final {
        *
        * @return a new instance of the hash function.
        */
-      std::unique_ptr<HashFunction> hash_func() const { return HashFunction::create_or_throw("SHAKE-256(256)"); }
+      std::unique_ptr<HashFunction> hash_func() const {
+         return HashFunction::create_or_throw("SHAKE-256(256)");
+      }
 
       /**
        * @brief Create a GF(q) element using the modulus for the current instance.
@@ -262,7 +310,9 @@ class BOTAN_TEST_API Classic_McEliece_Parameters final {
        * @param elem The GF(q) element value.
        * @return The GF(q) element.
        */
-      Classic_McEliece_GF gf(CmceGfElem elem) const { return Classic_McEliece_GF(elem, poly_f()); }
+      Classic_McEliece_GF gf(CmceGfElem elem) const {
+         return Classic_McEliece_GF(elem, poly_f());
+      }
 
    private:
       Classic_McEliece_Parameters(Classic_McEliece_Parameter_Set param_set,

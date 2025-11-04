@@ -26,7 +26,9 @@ class BOTAN_PUBLIC_API(2, 13) Roughtime_Error final : public Decoding_Error {
    public:
       explicit Roughtime_Error(std::string_view s) : Decoding_Error("Roughtime", s) {}
 
-      ErrorType error_type() const noexcept override { return ErrorType::RoughtimeError; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::RoughtimeError;
+      }
 };
 
 class BOTAN_PUBLIC_API(2, 13) Nonce final {
@@ -37,9 +39,13 @@ class BOTAN_PUBLIC_API(2, 13) Nonce final {
 
       explicit Nonce(const std::array<uint8_t, 64>& nonce) : m_nonce(nonce) {}
 
-      bool operator==(const Nonce& rhs) const { return m_nonce == rhs.m_nonce; }
+      bool operator==(const Nonce& rhs) const {
+         return m_nonce == rhs.m_nonce;
+      }
 
-      const std::array<uint8_t, 64>& get_nonce() const { return m_nonce; }
+      const std::array<uint8_t, 64>& get_nonce() const {
+         return m_nonce;
+      }
 
    private:
       std::array<uint8_t, 64> m_nonce;
@@ -64,9 +70,13 @@ class BOTAN_PUBLIC_API(2, 13) Response final {
 
       bool validate(const Ed25519_PublicKey& pk) const;
 
-      sys_microseconds64 utc_midpoint() const { return m_utc_midpoint; }
+      sys_microseconds64 utc_midpoint() const {
+         return m_utc_midpoint;
+      }
 
-      microseconds32 utc_radius() const { return m_utc_radius; }
+      microseconds32 utc_radius() const {
+         return m_utc_radius;
+      }
 
    private:
       Response(const std::array<uint8_t, 72>& dele,
@@ -86,13 +96,21 @@ class BOTAN_PUBLIC_API(2, 13) Link final {
       Link(const std::vector<uint8_t>& response, const Ed25519_PublicKey& public_key, const Nonce& nonce_or_blind) :
             m_response{response}, m_public_key{public_key}, m_nonce_or_blind{nonce_or_blind} {}
 
-      const std::vector<uint8_t>& response() const { return m_response; }
+      const std::vector<uint8_t>& response() const {
+         return m_response;
+      }
 
-      const Ed25519_PublicKey& public_key() const { return m_public_key; }
+      const Ed25519_PublicKey& public_key() const {
+         return m_public_key;
+      }
 
-      const Nonce& nonce_or_blind() const { return m_nonce_or_blind; }
+      const Nonce& nonce_or_blind() const {
+         return m_nonce_or_blind;
+      }
 
-      Nonce& nonce_or_blind() { return m_nonce_or_blind; }
+      Nonce& nonce_or_blind() {
+         return m_nonce_or_blind;
+      }
 
    private:
       std::vector<uint8_t> m_response;
@@ -105,7 +123,9 @@ class BOTAN_PUBLIC_API(2, 13) Chain final {
       Chain() = default;  //empty
       explicit Chain(std::string_view str);
 
-      const std::vector<Link>& links() const { return m_links; }
+      const std::vector<Link>& links() const {
+         return m_links;
+      }
 
       std::vector<Response> responses() const;
       Nonce next_nonce(const Nonce& blind) const;
@@ -140,11 +160,17 @@ struct BOTAN_PUBLIC_API(2, 13) Server_Information final {
                          const std::vector<std::string>& addresses) :
             m_name{name}, m_public_key{public_key}, m_addresses{addresses} {}
 
-      const std::string& name() const { return m_name; }
+      const std::string& name() const {
+         return m_name;
+      }
 
-      const Ed25519_PublicKey& public_key() const { return m_public_key; }
+      const Ed25519_PublicKey& public_key() const {
+         return m_public_key;
+      }
 
-      const std::vector<std::string>& addresses() const { return m_addresses; }
+      const std::vector<std::string>& addresses() const {
+         return m_addresses;
+      }
 
    private:
       std::string m_name;

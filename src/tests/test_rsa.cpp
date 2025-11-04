@@ -48,7 +48,9 @@ class RSA_Decryption_KAT_Tests final : public PK_Decryption_Test {
    public:
       RSA_Decryption_KAT_Tests() : PK_Decryption_Test("RSA", "pubkey/rsa_decrypt.vec", "E,P,Q,Ciphertext,Msg") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) override {
          return load_rsa_private_key(vars);
@@ -69,7 +71,9 @@ class RSA_Signature_KAT_Tests final : public PK_Signature_Generation_Test {
       RSA_Signature_KAT_Tests() :
             PK_Signature_Generation_Test("RSA", "pubkey/rsa_sig.vec", "E,P,Q,Msg,Signature", "Nonce") {}
 
-      std::string default_padding(const VarMap& /*unused*/) const override { return "Raw"; }
+      std::string default_padding(const VarMap& /*unused*/) const override {
+         return "Raw";
+      }
 
       std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) override {
          return load_rsa_private_key(vars);
@@ -87,7 +91,9 @@ class RSA_PSS_KAT_Tests final : public PK_Signature_Generation_Test {
          return Botan::fmt("PSS({},MGF1,{})", hash_name, salt_size);
       }
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) override {
          return load_rsa_private_key(vars);
@@ -105,7 +111,9 @@ class RSA_PSS_Raw_KAT_Tests final : public PK_Signature_Generation_Test {
          return Botan::fmt("PSS_Raw({},MGF1,{})", hash_name, salt_size);
       }
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) override {
          return load_rsa_private_key(vars);
@@ -117,7 +125,9 @@ class RSA_Signature_Verify_Tests final : public PK_Signature_Verification_Test {
       RSA_Signature_Verify_Tests() :
             PK_Signature_Verification_Test("RSA", "pubkey/rsa_verify.vec", "E,N,Msg,Signature") {}
 
-      std::string default_padding(const VarMap& /*unused*/) const override { return "Raw"; }
+      std::string default_padding(const VarMap& /*unused*/) const override {
+         return "Raw";
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          return load_rsa_public_key(vars);
@@ -129,7 +139,9 @@ class RSA_Signature_Verify_Invalid_Tests final : public PK_Signature_NonVerifica
       RSA_Signature_Verify_Invalid_Tests() :
             PK_Signature_NonVerification_Test("RSA", "pubkey/rsa_invalid.vec", "E,N,Msg,InvalidSignature") {}
 
-      std::string default_padding(const VarMap& /*unused*/) const override { return "Raw"; }
+      std::string default_padding(const VarMap& /*unused*/) const override {
+         return "Raw";
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          return load_rsa_public_key(vars);
@@ -138,7 +150,9 @@ class RSA_Signature_Verify_Invalid_Tests final : public PK_Signature_NonVerifica
 
 class RSA_Keygen_Tests final : public PK_Key_Generation_Test {
    public:
-      std::vector<std::string> keygen_params() const override { return {"1024", "1280"}; }
+      std::vector<std::string> keygen_params() const override {
+         return {"1024", "1280"};
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view /* keygen_params */,
                                                              std::string_view /* provider */,
@@ -147,7 +161,9 @@ class RSA_Keygen_Tests final : public PK_Key_Generation_Test {
          return nullptr;
       }
 
-      std::string algo_name() const override { return "RSA"; }
+      std::string algo_name() const override {
+         return "RSA";
+      }
 };
 
 class RSA_Keygen_Stability_Tests final : public PK_Key_Generation_Stability_Test {

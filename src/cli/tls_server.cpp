@@ -86,9 +86,13 @@ class Callbacks : public Botan::TLS::Callbacks {
          }
       }
 
-      void tls_emit_data(std::span<const uint8_t> buf) override { send(buf); }
+      void tls_emit_data(std::span<const uint8_t> buf) override {
+         send(buf);
+      }
 
-      void tls_alert(Botan::TLS::Alert alert) override { output() << "Alert: " << alert.type_string() << std::endl; }
+      void tls_alert(Botan::TLS::Alert alert) override {
+         output() << "Alert: " << alert.type_string() << std::endl;
+      }
 
       std::string tls_server_choose_app_protocol(const std::vector<std::string>& /*client_protos*/) override {
          // we ignore whatever the client sends here
@@ -125,16 +129,22 @@ class TLS_Server final : public Command {
          init_sockets();
       }
 
-      ~TLS_Server() override { stop_sockets(); }
+      ~TLS_Server() override {
+         stop_sockets();
+      }
 
       TLS_Server(const TLS_Server& other) = delete;
       TLS_Server(TLS_Server&& other) = delete;
       TLS_Server& operator=(const TLS_Server& other) = delete;
       TLS_Server& operator=(TLS_Server&& other) = delete;
 
-      std::string group() const override { return "tls"; }
+      std::string group() const override {
+         return "tls";
+      }
 
-      std::string description() const override { return "Accept TLS/DTLS connections from TLS/DTLS clients"; }
+      std::string description() const override {
+         return "Accept TLS/DTLS connections from TLS/DTLS clients";
+      }
 
       void go() override {
          const std::string server_cred = get_arg("cert-or-pubkey");
@@ -314,7 +324,9 @@ class TLS_Server final : public Command {
          }
       }
 
-      void push_pending_output(std::string line) { m_pending_output.emplace_back(std::move(line)); }
+      void push_pending_output(std::string line) {
+         m_pending_output.emplace_back(std::move(line));
+      }
 
    private:
       socket_type make_server_socket(uint16_t port) {

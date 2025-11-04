@@ -137,7 +137,9 @@ class Dilithium_Signature_Operation final : public PK_Ops::Signature {
             m_t0(ntt(m_keypair.second->t0().clone())),
             m_A(Dilithium_Algos::expand_A(m_keypair.first->rho(), m_keypair.second->mode())) {}
 
-      void update(std::span<const uint8_t> input) override { m_h->update(input); }
+      void update(std::span<const uint8_t> input) override {
+         m_h->update(input);
+      }
 
       /**
        * NIST FIPS 204, Algorithm 2 (ML-DSA.Sign) and Algorithm 7 (ML-DSA.Sign_internal)
@@ -217,14 +219,18 @@ class Dilithium_Signature_Operation final : public PK_Ops::Signature {
          throw Internal_Error("ML-DSA/Dilithium signature loop did not terminate");
       }
 
-      size_t signature_length() const override { return m_keypair.second->mode().signature_bytes(); }
+      size_t signature_length() const override {
+         return m_keypair.second->mode().signature_bytes();
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override {
          return AlgorithmIdentifier(m_keypair.second->mode().mode().object_identifier(),
                                     AlgorithmIdentifier::USE_EMPTY_PARAM);
       }
 
-      std::string hash_function() const override { return m_h->name(); }
+      std::string hash_function() const override {
+         return m_h->name();
+      }
 
    private:
       std::optional<std::reference_wrapper<RandomNumberGenerator>> maybe(RandomNumberGenerator& rng) const {
@@ -254,7 +260,9 @@ class Dilithium_Verification_Operation final : public PK_Ops::Verification {
             m_t1_ntt_shifted(ntt(m_pub_key->t1() << DilithiumConstants::D)),
             m_h(m_pub_key->mode().symmetric_primitives().get_message_hash(m_pub_key->tr())) {}
 
-      void update(std::span<const uint8_t> input) override { m_h->update(input); }
+      void update(std::span<const uint8_t> input) override {
+         m_h->update(input);
+      }
 
       /**
        * NIST FIPS 204, Algorithm 3 (ML-DSA.Verify) and 8 (ML-DSA.Verify_internal)
@@ -306,7 +314,9 @@ class Dilithium_Verification_Operation final : public PK_Ops::Verification {
          return std::equal(ch.begin(), ch.end(), chprime.begin());
       }
 
-      std::string hash_function() const override { return m_h->name(); }
+      std::string hash_function() const override {
+         return m_h->name();
+      }
 
    private:
       std::shared_ptr<Dilithium_PublicKeyInternal> m_pub_key;

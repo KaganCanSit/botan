@@ -26,9 +26,13 @@ class SHA_3 : public HashFunction {
       */
       explicit SHA_3(size_t output_bits);
 
-      size_t hash_block_size() const override { return m_keccak.byte_rate(); }
+      size_t hash_block_size() const override {
+         return m_keccak.byte_rate();
+      }
 
-      size_t output_length() const override { return m_output_length; }
+      size_t output_length() const override {
+         return m_output_length;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
       std::unique_ptr<HashFunction> copy_state() const override;

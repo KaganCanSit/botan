@@ -79,20 +79,30 @@ class Client_PSK {
             m_cipher_state(
                Cipher_State::init_with_psk(Connection_Side::Client, psk_type, std::move(master_secret), prf_algo)) {}
 
-      const PskIdentity& identity() const { return m_identity; }
+      const PskIdentity& identity() const {
+         return m_identity;
+      }
 
-      const std::vector<uint8_t>& binder() const { return m_binder; }
+      const std::vector<uint8_t>& binder() const {
+         return m_binder;
+      }
 
-      bool is_resumption() const { return m_is_resumption; }
+      bool is_resumption() const {
+         return m_is_resumption;
+      }
 
-      void set_binder(std::vector<uint8_t> binder) { m_binder = std::move(binder); }
+      void set_binder(std::vector<uint8_t> binder) {
+         m_binder = std::move(binder);
+      }
 
       const Cipher_State& cipher_state() const {
          BOTAN_ASSERT_NONNULL(m_cipher_state);
          return *m_cipher_state;
       }
 
-      std::unique_ptr<Cipher_State> take_cipher_state() { return std::exchange(m_cipher_state, nullptr); }
+      std::unique_ptr<Cipher_State> take_cipher_state() {
+         return std::exchange(m_cipher_state, nullptr);
+      }
 
    private:
       PskIdentity m_identity;
@@ -113,7 +123,9 @@ class Server_PSK {
 
       Server_PSK(uint16_t id, ExternalPSK psk) : m_selected_identity(id), m_session_to_resume_or_psk(std::move(psk)) {}
 
-      uint16_t selected_identity() const { return m_selected_identity; }
+      uint16_t selected_identity() const {
+         return m_selected_identity;
+      }
 
       std::variant<std::monostate, Session, ExternalPSK> take_session_to_resume_or_psk() {
          BOTAN_STATE_CHECK(!std::holds_alternative<std::monostate>(m_session_to_resume_or_psk));

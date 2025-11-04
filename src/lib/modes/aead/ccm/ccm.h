@@ -24,7 +24,9 @@ class CCM_Mode : public AEAD_Mode {
    public:
       void set_associated_data_n(size_t idx, std::span<const uint8_t> ad) final;
 
-      bool associated_data_requires_key() const final { return false; }
+      bool associated_data_requires_key() const final {
+         return false;
+      }
 
       std::string name() const final;
 
@@ -44,24 +46,34 @@ class CCM_Mode : public AEAD_Mode {
 
       void reset() final;
 
-      size_t tag_size() const final { return m_tag_size; }
+      size_t tag_size() const final {
+         return m_tag_size;
+      }
 
       bool has_keying_material() const final;
 
    protected:
       CCM_Mode(std::unique_ptr<BlockCipher> cipher, size_t tag_size, size_t L);
 
-      size_t L() const { return m_L; }
+      size_t L() const {
+         return m_L;
+      }
 
-      const BlockCipher& cipher() const { return *m_cipher; }
+      const BlockCipher& cipher() const {
+         return *m_cipher;
+      }
 
       void encode_length(uint64_t len, uint8_t out[]);
 
       static void inc(secure_vector<uint8_t>& C);
 
-      const secure_vector<uint8_t>& ad_buf() const { return m_ad_buf; }
+      const secure_vector<uint8_t>& ad_buf() const {
+         return m_ad_buf;
+      }
 
-      secure_vector<uint8_t>& msg_buf() { return m_msg_buf; }
+      secure_vector<uint8_t>& msg_buf() {
+         return m_msg_buf;
+      }
 
       secure_vector<uint8_t> format_b0(size_t msg_size);
       secure_vector<uint8_t> format_c0();
@@ -94,9 +106,13 @@ class CCM_Encryption final : public CCM_Mode {
       explicit CCM_Encryption(std::unique_ptr<BlockCipher> cipher, size_t tag_size = 16, size_t L = 3) :
             CCM_Mode(std::move(cipher), tag_size, L) {}
 
-      size_t output_length(size_t input_length) const override { return input_length + tag_size(); }
+      size_t output_length(size_t input_length) const override {
+         return input_length + tag_size();
+      }
 
-      size_t minimum_final_size() const override { return 0; }
+      size_t minimum_final_size() const override {
+         return 0;
+      }
 
    private:
       void finish_msg(secure_vector<uint8_t>& final_block, size_t offset = 0) override;
@@ -122,7 +138,9 @@ class CCM_Decryption final : public CCM_Mode {
          return input_length - tag_size();
       }
 
-      size_t minimum_final_size() const override { return tag_size(); }
+      size_t minimum_final_size() const override {
+         return tag_size();
+      }
 
    private:
       void finish_msg(secure_vector<uint8_t>& final_block, size_t offset = 0) override;

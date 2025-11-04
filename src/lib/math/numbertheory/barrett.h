@@ -63,12 +63,16 @@ class BOTAN_TEST_API Barrett_Reduction final {
       *
       * TODO(Botan4) remove this, last few remaining callers go away in Botan4
       */
-      BigInt cube(const BigInt& x) const { return this->multiply(x, this->square(x)); }
+      BigInt cube(const BigInt& x) const {
+         return this->multiply(x, this->square(x));
+      }
 
       /**
       * Return length of the modulus in bits
       */
-      size_t modulus_bits() const { return m_modulus_bits; }
+      size_t modulus_bits() const {
+         return m_modulus_bits;
+      }
 
    private:
       Barrett_Reduction(const BigInt& m, BigInt mu, size_t mw);

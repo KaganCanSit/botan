@@ -45,11 +45,15 @@ class BOTAN_TEST_API Thread_Pool final {
       */
       explicit Thread_Pool(size_t pool_size = 0) : Thread_Pool(std::optional<size_t>(pool_size)) {}
 
-      ~Thread_Pool() { shutdown(); }
+      ~Thread_Pool() {
+         shutdown();
+      }
 
       void shutdown();
 
-      size_t worker_count() const { return m_workers.size(); }
+      size_t worker_count() const {
+         return m_workers.size();
+      }
 
       Thread_Pool(const Thread_Pool&) = delete;
       Thread_Pool& operator=(const Thread_Pool&) = delete;

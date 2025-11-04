@@ -68,15 +68,23 @@ class BOTAN_PUBLIC_API(3, 0) Session_Manager_Hybrid final : public Session_Manag
          return m_stateful->find(info, callbacks, policy);
       }
 
-      void store(const Session& session, const Session_Handle& handle) override { m_stateful->store(session, handle); }
+      void store(const Session& session, const Session_Handle& handle) override {
+         m_stateful->store(session, handle);
+      }
 
-      size_t remove(const Session_Handle& handle) override { return m_stateful->remove(handle); }
+      size_t remove(const Session_Handle& handle) override {
+         return m_stateful->remove(handle);
+      }
 
-      size_t remove_all() override { return m_stateful->remove_all(); }
+      size_t remove_all() override {
+         return m_stateful->remove_all();
+      }
 
       bool emits_session_tickets() override;
 
-      Session_Manager* underlying_stateful_manager() { return m_stateful.get(); }
+      Session_Manager* underlying_stateful_manager() {
+         return m_stateful.get();
+      }
 
    protected:
       // The Hybrid_Session_Manager just delegates to its underlying managers

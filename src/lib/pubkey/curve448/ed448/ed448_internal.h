@@ -37,7 +37,9 @@ class BOTAN_TEST_API Ed448Point final {
       Ed448Point(const Gf448Elem& x, const Gf448Elem& y) : m_x(x), m_y(y), m_z(1) {}
 
       /// Return the identity element
-      static Ed448Point identity() { return Ed448Point(Gf448Elem::zero(), Gf448Elem::one()); }
+      static Ed448Point identity() {
+         return Ed448Point(Gf448Elem::zero(), Gf448Elem::one());
+      }
 
       /// Encode the point to its 57-byte representation (RFC 8032 5.2.2)
       std::array<uint8_t, ED448_LEN> encode() const;
@@ -52,19 +54,29 @@ class BOTAN_TEST_API Ed448Point final {
       Ed448Point scalar_mul(const Scalar448& scalar) const;
 
       /// Getter for projective coordinate X
-      Gf448Elem x_proj() const { return m_x; }
+      Gf448Elem x_proj() const {
+         return m_x;
+      }
 
       /// Getter for projective coordinate Y
-      Gf448Elem y_proj() const { return m_y; }
+      Gf448Elem y_proj() const {
+         return m_y;
+      }
 
       /// Getter for projective coordinate Z
-      Gf448Elem z_proj() const { return m_z; }
+      Gf448Elem z_proj() const {
+         return m_z;
+      }
 
       /// Getter for point coordinate x
-      Gf448Elem x() const { return m_x / m_z; }
+      Gf448Elem x() const {
+         return m_x / m_z;
+      }
 
       /// Getter for point coordinate y
-      Gf448Elem y() const { return m_y / m_z; }
+      Gf448Elem y() const {
+         return m_y / m_z;
+      }
 
       /// Check if two points are equal (constant time)
       bool operator==(const Ed448Point& other) const;

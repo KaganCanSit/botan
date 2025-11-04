@@ -165,19 +165,31 @@ class BOTAN_PUBLIC_API(3, 0) Key_Constraints final {
 
       bool operator==(const Key_Constraints&) const = default;
 
-      void operator|=(Key_Constraints::Bits other) { m_value |= other; }
+      void operator|=(Key_Constraints::Bits other) {
+         m_value |= other;
+      }
 
       // Return true if all bits in mask are set
-      bool includes(Key_Constraints::Bits other) const { return (m_value & other) == other; }
+      bool includes(Key_Constraints::Bits other) const {
+         return (m_value & other) == other;
+      }
 
-      bool includes(Key_Constraints other) const { return (m_value & other.m_value) == other.m_value; }
+      bool includes(Key_Constraints other) const {
+         return (m_value & other.m_value) == other.m_value;
+      }
 
       // Return true if any of the bits provided are set
-      bool includes_any(auto&&... bits) const { return (m_value & (bits | ...)) > 0; }
+      bool includes_any(auto&&... bits) const {
+         return (m_value & (bits | ...)) > 0;
+      }
 
-      bool empty() const { return m_value == 0; }
+      bool empty() const {
+         return m_value == 0;
+      }
 
-      uint32_t value() const { return m_value; }
+      uint32_t value() const {
+         return m_value;
+      }
 
       std::string to_string() const;
 

@@ -112,23 +112,37 @@ class StreamCallbacks : public Callbacks {
       template <class SL, class C>
       friend class Stream;
 
-      void set_context(std::weak_ptr<Botan::TLS::Context> context) { m_context = std::move(context); }
+      void set_context(std::weak_ptr<Botan::TLS::Context> context) {
+         m_context = std::move(context);
+      }
 
-      void consume_send_buffer() { m_send_buffer.consume(m_send_buffer.size()); }
+      void consume_send_buffer() {
+         m_send_buffer.consume(m_send_buffer.size());
+      }
 
-      boost::beast::flat_buffer& send_buffer() { return m_send_buffer; }
+      boost::beast::flat_buffer& send_buffer() {
+         return m_send_buffer;
+      }
 
-      const boost::beast::flat_buffer& send_buffer() const { return m_send_buffer; }
+      const boost::beast::flat_buffer& send_buffer() const {
+         return m_send_buffer;
+      }
 
-      boost::beast::flat_buffer& receive_buffer() { return m_receive_buffer; }
+      boost::beast::flat_buffer& receive_buffer() {
+         return m_receive_buffer;
+      }
 
-      const boost::beast::flat_buffer& receive_buffer() const { return m_receive_buffer; }
+      const boost::beast::flat_buffer& receive_buffer() const {
+         return m_receive_buffer;
+      }
 
       bool shutdown_received() const {
          return m_alert_from_peer && m_alert_from_peer->type() == AlertType::CloseNotify;
       }
 
-      std::optional<Alert> alert_from_peer() const { return m_alert_from_peer; }
+      std::optional<Alert> alert_from_peer() const {
+         return m_alert_from_peer;
+      }
 
    private:
       std::optional<Alert> m_alert_from_peer;
@@ -243,19 +257,29 @@ class Stream {
 
       using next_layer_type = std::remove_reference_t<StreamLayer>;
 
-      const next_layer_type& next_layer() const { return m_nextLayer; }
+      const next_layer_type& next_layer() const {
+         return m_nextLayer;
+      }
 
-      next_layer_type& next_layer() { return m_nextLayer; }
+      next_layer_type& next_layer() {
+         return m_nextLayer;
+      }
 
       using lowest_layer_type = typename boost::beast::lowest_layer_type<StreamLayer>;
 
-      lowest_layer_type& lowest_layer() { return boost::beast::get_lowest_layer(m_nextLayer); }
+      lowest_layer_type& lowest_layer() {
+         return boost::beast::get_lowest_layer(m_nextLayer);
+      }
 
-      const lowest_layer_type& lowest_layer() const { return boost::beast::get_lowest_layer(m_nextLayer); }
+      const lowest_layer_type& lowest_layer() const {
+         return boost::beast::get_lowest_layer(m_nextLayer);
+      }
 
       using executor_type = typename next_layer_type::executor_type;
 
-      executor_type get_executor() noexcept { return m_nextLayer.get_executor(); }
+      executor_type get_executor() noexcept {
+         return m_nextLayer.get_executor();
+      }
 
       using native_handle_type = std::add_pointer_t<ChannelT>;
 
@@ -475,7 +499,9 @@ class Stream {
        */
       template <typename Handler, typename Executor>
       struct Wrapper {
-            void operator()(boost::system::error_code ec, std::size_t /*unused*/) { handler(ec); }
+            void operator()(boost::system::error_code ec, std::size_t /*unused*/) {
+               handler(ec);
+            }
 
             using executor_type = boost::asio::associated_executor_t<Handler, Executor>;
 
@@ -485,7 +511,9 @@ class Stream {
 
             using allocator_type = boost::asio::associated_allocator_t<Handler>;
 
-            allocator_type get_allocator() const noexcept { return boost::asio::get_associated_allocator(handler); }
+            allocator_type get_allocator() const noexcept {
+               return boost::asio::get_associated_allocator(handler);
+            }
 
             Handler handler;       // NOLINT(*-non-private-member-variable*)
             Executor io_executor;  // NOLINT(*-non-private-member-variable*)
@@ -688,7 +716,9 @@ class Stream {
       //!
       //! Note that we cannot m_core.is_closed_for_reading() because this wants to
       //! explicitly check that the peer sent close_notify.
-      bool shutdown_received() const { return m_core->shutdown_received(); }
+      bool shutdown_received() const {
+         return m_core->shutdown_received();
+      }
 
    protected:
       template <class H, class S, class M, class A>
@@ -698,12 +728,18 @@ class Stream {
       template <class H, class S, class A>
       friend class detail::AsyncHandshakeOperation;
 
-      const boost::asio::mutable_buffer& input_buffer() { return m_input_buffer; }
+      const boost::asio::mutable_buffer& input_buffer() {
+         return m_input_buffer;
+      }
 
-      boost::asio::const_buffer send_buffer() const { return m_core->send_buffer().data(); }
+      boost::asio::const_buffer send_buffer() const {
+         return m_core->send_buffer().data();
+      }
 
       //! @brief Check if decrypted data is available in the receive buffer
-      bool has_received_data() const { return m_core->receive_buffer().size() > 0; }
+      bool has_received_data() const {
+         return m_core->receive_buffer().size() > 0;
+      }
 
       //! @brief Copy decrypted data into the user-provided buffer
       template <typename MutableBufferSequence>
@@ -718,10 +754,14 @@ class Stream {
       }
 
       //! @brief Check if encrypted data is available in the send buffer
-      bool has_data_to_send() const { return m_core->send_buffer().size() > 0; }
+      bool has_data_to_send() const {
+         return m_core->send_buffer().size() > 0;
+      }
 
       //! @brief Mark bytes in the send buffer as consumed, removing them from the buffer
-      void consume_send_buffer(std::size_t bytesConsumed) { m_core->send_buffer().consume(bytesConsumed); }
+      void consume_send_buffer(std::size_t bytesConsumed) {
+         m_core->send_buffer().consume(bytesConsumed);
+      }
 
       /**
        * @brief Create the native handle.
@@ -951,7 +991,9 @@ class Stream {
        * close_notify. Once the peer has sent any alert, no more data must be
        * read from the stream.
        */
-      std::optional<Alert> alert_from_peer() const { return m_core->alert_from_peer(); }
+      std::optional<Alert> alert_from_peer() const {
+         return m_core->alert_from_peer();
+      }
 
       /**
        * Returns any error code produced by the local TLS implementation. This
@@ -959,7 +1001,9 @@ class Stream {
        * error, no more data must be written to the stream. The peer will receive
        * the error as a TLS alert.
        */
-      boost::system::error_code error_from_us() const { return m_ec_from_last_read; }
+      boost::system::error_code error_from_us() const {
+         return m_ec_from_last_read;
+      }
 
    protected:
       std::shared_ptr<Context> m_context;  // NOLINT(*-non-private-member-variable*)

@@ -155,59 +155,111 @@ class EC_Group_Data final : public std::enable_shared_from_this<EC_Group_Data> {
 
       void set_oid(const OID& oid);
 
-      const OID& oid() const { return m_oid; }
+      const OID& oid() const {
+         return m_oid;
+      }
 
-      const std::vector<uint8_t>& der_named_curve() const { return m_der_named_curve; }
+      const std::vector<uint8_t>& der_named_curve() const {
+         return m_der_named_curve;
+      }
 
-      const BigInt& p() const { return m_p; }
+      const BigInt& p() const {
+         return m_p;
+      }
 
-      const BigInt& a() const { return m_a; }
+      const BigInt& a() const {
+         return m_a;
+      }
 
-      const BigInt& b() const { return m_b; }
+      const BigInt& b() const {
+         return m_b;
+      }
 
-      const BigInt& order() const { return m_order; }
+      const BigInt& order() const {
+         return m_order;
+      }
 
-      const BigInt& cofactor() const { return m_cofactor; }
+      const BigInt& cofactor() const {
+         return m_cofactor;
+      }
 
 #if defined(BOTAN_HAS_LEGACY_EC_POINT)
-      const CurveGFp& curve() const { return m_curve; }
+      const CurveGFp& curve() const {
+         return m_curve;
+      }
 
-      const EC_Point& base_point() const { return m_base_point; }
+      const EC_Point& base_point() const {
+         return m_base_point;
+      }
 
-      const Montgomery_Params& monty() const { return m_monty; }
+      const Montgomery_Params& monty() const {
+         return m_monty;
+      }
 
-      const BigInt& monty_a() const { return m_a_r; }
+      const BigInt& monty_a() const {
+         return m_a_r;
+      }
 
-      const BigInt& monty_b() const { return m_b_r; }
+      const BigInt& monty_b() const {
+         return m_b_r;
+      }
 
-      const Barrett_Reduction& mod_order() const { return m_mod_order; }
+      const Barrett_Reduction& mod_order() const {
+         return m_mod_order;
+      }
 #endif
 
-      bool order_is_less_than_p() const { return m_order_is_less_than_p; }
+      bool order_is_less_than_p() const {
+         return m_order_is_less_than_p;
+      }
 
-      bool has_cofactor() const { return m_has_cofactor; }
+      bool has_cofactor() const {
+         return m_has_cofactor;
+      }
 
-      const BigInt& g_x() const { return m_g_x; }
+      const BigInt& g_x() const {
+         return m_g_x;
+      }
 
-      const BigInt& g_y() const { return m_g_y; }
+      const BigInt& g_y() const {
+         return m_g_y;
+      }
 
-      size_t p_words() const { return m_p_words; }
+      size_t p_words() const {
+         return m_p_words;
+      }
 
-      size_t p_bits() const { return m_p_bits; }
+      size_t p_bits() const {
+         return m_p_bits;
+      }
 
-      size_t p_bytes() const { return (m_p_bits + 7) / 8; }
+      size_t p_bytes() const {
+         return (m_p_bits + 7) / 8;
+      }
 
-      size_t order_bits() const { return m_order_bits; }
+      size_t order_bits() const {
+         return m_order_bits;
+      }
 
-      size_t order_bytes() const { return m_order_bytes; }
+      size_t order_bytes() const {
+         return m_order_bytes;
+      }
 
-      bool a_is_minus_3() const { return m_a_is_minus_3; }
+      bool a_is_minus_3() const {
+         return m_a_is_minus_3;
+      }
 
-      bool a_is_zero() const { return m_a_is_zero; }
+      bool a_is_zero() const {
+         return m_a_is_zero;
+      }
 
-      EC_Group_Source source() const { return m_source; }
+      EC_Group_Source source() const {
+         return m_source;
+      }
 
-      EC_Group_Engine engine() const { return m_engine; }
+      EC_Group_Engine engine() const {
+         return m_engine;
+      }
 
       /// Scalar from bytes
       ///

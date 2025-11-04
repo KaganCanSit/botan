@@ -36,7 +36,9 @@ class BOTAN_PUBLIC_API(3, 2) ExternalPSK {
        * Despite the std::string return type, this may or may not be a
        * human-readable/printable string.
        */
-      const std::string& identity() const { return m_identity; }
+      const std::string& identity() const {
+         return m_identity;
+      }
 
       /**
        * Returns the master secret by moving it out of this object. Do not call
@@ -49,7 +51,9 @@ class BOTAN_PUBLIC_API(3, 2) ExternalPSK {
        * pseudo-random function (typically SHA-256 or the like). This is
        * needed to calculate/verify the PSK binder values in the client hello.
        */
-      const std::string& prf_algo() const { return m_prf_algo; }
+      const std::string& prf_algo() const {
+         return m_prf_algo;
+      }
 
    private:
       std::string m_identity;

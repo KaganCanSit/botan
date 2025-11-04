@@ -19,9 +19,13 @@ namespace {
 
 class X448_Keygen_Tests final : public PK_Key_Generation_Test {
    public:
-      std::vector<std::string> keygen_params() const override { return {""}; }
+      std::vector<std::string> keygen_params() const override {
+         return {""};
+      }
 
-      std::string algo_name() const override { return "X448"; }
+      std::string algo_name() const override {
+         return "X448";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view /* keygen_params */,
                                                              std::string_view /* provider */,
@@ -44,7 +48,9 @@ class X448_Agreement_Tests final : public PK_Key_Agreement_Test {
          return true;
       }
 
-      std::string default_kdf(const VarMap& /*unused*/) const override { return "Raw"; }
+      std::string default_kdf(const VarMap& /*unused*/) const override {
+         return "Raw";
+      }
 
       std::unique_ptr<Botan::Private_Key> load_our_key(const std::string& /*header*/, const VarMap& vars) override {
          const std::vector<uint8_t> secret_vec = vars.get_req_bin("Secret");

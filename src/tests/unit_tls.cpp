@@ -40,7 +40,9 @@ namespace Botan::TLS {
 
 // TODO: remove this, once TLS 1.3 is fully implemented
 class Strict_Policy_Without_TLS13 : public Strict_Policy {
-      bool allow_tls13() const override { return false; }
+      bool allow_tls13() const override {
+         return false;
+      }
 };
 
 }  // namespace Botan::TLS
@@ -166,7 +168,9 @@ class Credentials_Manager_Test final : public Botan::Credentials_Manager {
          return psks;
       }
 
-      const std::vector<Botan::X509_DN>& get_acceptable_cas() const { return m_acceptable_cas; }
+      const std::vector<Botan::X509_DN>& get_acceptable_cas() const {
+         return m_acceptable_cas;
+      }
 
    private:
       Botan::X509_Certificate m_rsa_cert, m_rsa_ca;
@@ -272,9 +276,13 @@ class TLS_Handshake_Test final {
 
       void go();
 
-      const Test::Result& results() const { return m_results; }
+      const Test::Result& results() const {
+         return m_results;
+      }
 
-      Test::Result& results() { return m_results; }
+      Test::Result& results() {
+         return m_results;
+      }
 
       void set_custom_client_tls_session_established_callback(
          std::function<void(const Botan::TLS::Session_Summary&)> clbk) {
@@ -316,13 +324,21 @@ class TLS_Handshake_Test final {
                return static_cast<Botan::TLS::Extension_Code>(666);
             }
 
-            Botan::TLS::Extension_Code type() const override { return static_type(); }
+            Botan::TLS::Extension_Code type() const override {
+               return static_type();
+            }
 
-            std::vector<uint8_t> serialize(Botan::TLS::Connection_Side /*whoami*/) const override { return m_buf; }
+            std::vector<uint8_t> serialize(Botan::TLS::Connection_Side /*whoami*/) const override {
+               return m_buf;
+            }
 
-            const std::vector<uint8_t>& value() const { return m_buf; }
+            const std::vector<uint8_t>& value() const {
+               return m_buf;
+            }
 
-            bool empty() const override { return false; }
+            bool empty() const override {
+               return false;
+            }
 
             explicit Test_Extension(Botan::TLS::Connection_Side side) {
                const uint8_t client_extn[6] = {'c', 'l', 'i', 'e', 'n', 't'};
@@ -505,7 +521,9 @@ class TLS_Handshake_Test final {
                m_ephemeral_key_agreement_callback = std::move(clbk);
             }
 
-            void set_expected_handshake_alert(Botan::TLS::Alert alert) { m_expected_handshake_alert = alert; }
+            void set_expected_handshake_alert(Botan::TLS::Alert alert) {
+               m_expected_handshake_alert = alert;
+            }
 
          private:
             Test::Result& m_results;
@@ -703,13 +721,21 @@ class Test_Policy final : public Botan::TLS::Text_Policy {
          return version.is_pre_tls_13();
       }
 
-      size_t dtls_initial_timeout() const override { return 1; }
+      size_t dtls_initial_timeout() const override {
+         return 1;
+      }
 
-      size_t dtls_maximum_timeout() const override { return 8; }
+      size_t dtls_maximum_timeout() const override {
+         return 8;
+      }
 
-      size_t minimum_rsa_bits() const override { return 1024; }
+      size_t minimum_rsa_bits() const override {
+         return 1024;
+      }
 
-      size_t minimum_signature_strength() const override { return 80; }
+      size_t minimum_signature_strength() const override {
+         return 80;
+      }
 };
 
 /**
@@ -736,19 +762,29 @@ class HardwareEcdhKey final : public Botan::PK_Key_Agreement_Key {
       HardwareEcdhKey(Botan::EC_Group group, Botan::EC_Point_Format public_key_format) :
             m_group(std::move(group)), m_public_key_format(public_key_format) {}
 
-      std::string algo_name() const override { return "ECDH"; }
+      std::string algo_name() const override {
+         return "ECDH";
+      }
 
-      size_t estimated_strength() const override { return m_group.get_p().bits(); }
+      size_t estimated_strength() const override {
+         return m_group.get_p().bits();
+      }
 
       bool supports_operation(Botan::PublicKeyOperation op) const override {
          return op == Botan::PublicKeyOperation::KeyAgreement;
       }
 
-      bool check_key(Botan::RandomNumberGenerator&, bool) const override { return true; }
+      bool check_key(Botan::RandomNumberGenerator&, bool) const override {
+         return true;
+      }
 
-      size_t key_length() const override { return m_group.get_p().bits() / 2; }
+      size_t key_length() const override {
+         return m_group.get_p().bits() / 2;
+      }
 
-      Botan::AlgorithmIdentifier algorithm_identifier() const override { return {}; }
+      Botan::AlgorithmIdentifier algorithm_identifier() const override {
+         return {};
+      }
 
       std::vector<uint8_t> raw_public_key_bits() const override {
          if(m_public_value.empty()) {
@@ -757,7 +793,9 @@ class HardwareEcdhKey final : public Botan::PK_Key_Agreement_Key {
          return m_public_value;
       }
 
-      std::vector<uint8_t> public_key_bits() const override { return raw_public_key_bits(); }
+      std::vector<uint8_t> public_key_bits() const override {
+         return raw_public_key_bits();
+      }
 
       Botan::secure_vector<uint8_t> private_key_bits() const override {
          throw Botan::Not_Implemented("This mocks a hardware key and thus hides its private bits");
@@ -771,7 +809,9 @@ class HardwareEcdhKey final : public Botan::PK_Key_Agreement_Key {
          return std::make_unique<HardwareEcdhKey>(m_group, m_public_key_format);
       }
 
-      std::vector<uint8_t> public_value() const override { return raw_public_key_bits(); }
+      std::vector<uint8_t> public_value() const override {
+         return raw_public_key_bits();
+      }
 
       Botan::secure_vector<uint8_t> custom_ephemeral_agreement(std::span<const uint8_t> peer_public_key,
                                                                Botan::RandomNumberGenerator& rng) const {
@@ -1395,15 +1435,25 @@ class DTLS_Reconnection_Test : public Test {
 
          class Datagram_PSK_Policy : public Botan::TLS::Policy {
             public:
-               std::vector<std::string> allowed_macs() const override { return std::vector<std::string>({"AEAD"}); }
+               std::vector<std::string> allowed_macs() const override {
+                  return std::vector<std::string>({"AEAD"});
+               }
 
-               std::vector<std::string> allowed_key_exchange_methods() const override { return {"PSK"}; }
+               std::vector<std::string> allowed_key_exchange_methods() const override {
+                  return {"PSK"};
+               }
 
-               bool allow_tls12() const override { return false; }
+               bool allow_tls12() const override {
+                  return false;
+               }
 
-               bool allow_dtls12() const override { return true; }
+               bool allow_dtls12() const override {
+                  return true;
+               }
 
-               bool allow_dtls_epoch0_restart() const override { return true; }
+               bool allow_dtls_epoch0_restart() const override {
+                  return true;
+               }
          };
 
          Test::Result result("DTLS reconnection");

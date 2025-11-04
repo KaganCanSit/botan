@@ -805,7 +805,9 @@ class ECC_Invalid_Key_Tests final : public Text_Based_Test {
    public:
       ECC_Invalid_Key_Tests() : Text_Based_Test("pubkey/ecc_invalid.vec", "SubjectPublicKey") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       Test::Result run_one_test(const std::string& /*header*/, const VarMap& vars) override {
          Test::Result result("ECC invalid keys");

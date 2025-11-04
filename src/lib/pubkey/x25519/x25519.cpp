@@ -119,7 +119,9 @@ class X25519_KA_Operation final : public PK_Ops::Key_Agreement_with_KDF {
       X25519_KA_Operation(const X25519_PrivateKey& key, std::string_view kdf) :
             PK_Ops::Key_Agreement_with_KDF(kdf), m_key(key) {}
 
-      size_t agreed_value_size() const override { return 32; }
+      size_t agreed_value_size() const override {
+         return 32;
+      }
 
       secure_vector<uint8_t> raw_agree(const uint8_t w[], size_t w_len) override {
          auto shared_key = m_key.agree(w, w_len);

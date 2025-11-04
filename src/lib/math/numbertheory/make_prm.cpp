@@ -28,9 +28,13 @@ class Prime_Sieve final {
          }
       }
 
-      size_t sieve_size() const { return m_sieve.size(); }
+      size_t sieve_size() const {
+         return m_sieve.size();
+      }
 
-      bool check_2p1() const { return m_check_2p1; }
+      bool check_2p1() const {
+         return m_check_2p1;
+      }
 
       bool next() {
          auto passes = CT::Mask<word>::set();

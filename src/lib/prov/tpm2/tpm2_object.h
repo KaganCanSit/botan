@@ -107,7 +107,9 @@ class BOTAN_PUBLIC_API(3, 6) Object {
       Object(Object&& other) noexcept;
       Object& operator=(Object&& other) noexcept;
 
-      const std::shared_ptr<Context>& context() const { return m_ctx; }
+      const std::shared_ptr<Context>& context() const {
+         return m_ctx;
+      }
 
       bool has_persistent_handle() const;
       bool has_transient_handle() const;

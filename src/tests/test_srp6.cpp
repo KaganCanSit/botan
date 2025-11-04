@@ -23,7 +23,9 @@ class SRP6_KAT_Tests final : public Text_Based_Test {
    public:
       SRP6_KAT_Tests() : Text_Based_Test("srp6a.vec", "Hash,N,g,I,P,s,v,a,b,A,B,S") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       Test::Result run_one_test(const std::string& /*header*/, const VarMap& vars) override {
          const std::string hash = vars.get_req_str("Hash");

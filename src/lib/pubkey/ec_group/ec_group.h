@@ -187,7 +187,9 @@ class BOTAN_PUBLIC_API(2, 0) EC_Group final {
       * Create an EC domain by OID (or throw if unknown)
       * @param oid the OID of the EC domain to create
       */
-      BOTAN_DEPRECATED("Use EC_Group::from_OID") explicit EC_Group(const OID& oid) { *this = EC_Group::from_OID(oid); }
+      BOTAN_DEPRECATED("Use EC_Group::from_OID") explicit EC_Group(const OID& oid) {
+         *this = EC_Group::from_OID(oid);
+      }
 
       /**
       * Create an EC domain from PEM encoding (as from PEM_encode()), or
@@ -231,7 +233,9 @@ class BOTAN_PUBLIC_API(2, 0) EC_Group final {
       EC_Group& operator=(const EC_Group&);
       EC_Group& operator=(EC_Group&&) = default;
 
-      bool initialized() const { return (m_data != nullptr); }
+      bool initialized() const {
+         return (m_data != nullptr);
+      }
 
       /**
        * Verify EC_Group domain
@@ -267,7 +271,9 @@ class BOTAN_PUBLIC_API(2, 0) EC_Group final {
       * Explicit encoding of groups is deprecated; when support for explicit curves
       * is removed in a future major release, this function will also be removed.
       */
-      bool used_explicit_encoding() const { return m_explicit_encoding; }
+      bool used_explicit_encoding() const {
+         return m_explicit_encoding;
+      }
 
       /**
       * Return how this EC_Group is implemented under the hood
@@ -459,7 +465,9 @@ class BOTAN_PUBLIC_API(2, 0) EC_Group final {
       /*
       * For internal use only
       */
-      const std::shared_ptr<EC_Group_Data>& _data() const { return m_data; }
+      const std::shared_ptr<EC_Group_Data>& _data() const {
+         return m_data;
+      }
 
 #if defined(BOTAN_HAS_LEGACY_EC_POINT)
       /**
@@ -651,12 +659,16 @@ class BOTAN_PUBLIC_API(2, 0) EC_Group final {
       /**
       * Return if a == -3 mod p
       */
-      BOTAN_DEPRECATED("Deprecated no replacement") bool a_is_minus_3() const { return get_a() + 3 == get_p(); }
+      BOTAN_DEPRECATED("Deprecated no replacement") bool a_is_minus_3() const {
+         return get_a() + 3 == get_p();
+      }
 
       /**
       * Return if a == 0 mod p
       */
-      BOTAN_DEPRECATED("Deprecated no replacement") bool a_is_zero() const { return get_a().is_zero(); }
+      BOTAN_DEPRECATED("Deprecated no replacement") bool a_is_zero() const {
+         return get_a().is_zero();
+      }
 
       /*
       * Reduce x modulo the order

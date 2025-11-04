@@ -50,22 +50,38 @@ class XMSS_Signature final {
       XMSS_Signature(size_t leaf_idx, secure_vector<uint8_t> randomness, XMSS_Signature::TreeSignature tree_sig) :
             m_leaf_idx(leaf_idx), m_randomness(std::move(randomness)), m_tree_sig(std::move(tree_sig)) {}
 
-      size_t unused_leaf_index() const { return m_leaf_idx; }
+      size_t unused_leaf_index() const {
+         return m_leaf_idx;
+      }
 
-      const secure_vector<uint8_t>& randomness() const { return m_randomness; }
+      const secure_vector<uint8_t>& randomness() const {
+         return m_randomness;
+      }
 
-      const XMSS_Signature::TreeSignature& tree() const { return m_tree_sig; }
+      const XMSS_Signature::TreeSignature& tree() const {
+         return m_tree_sig;
+      }
 
       // These mutating operations should be removed:
-      void set_unused_leaf_idx(size_t idx) { m_leaf_idx = idx; }
+      void set_unused_leaf_idx(size_t idx) {
+         m_leaf_idx = idx;
+      }
 
-      secure_vector<uint8_t>& randomness() { return m_randomness; }
+      secure_vector<uint8_t>& randomness() {
+         return m_randomness;
+      }
 
-      void set_randomness(secure_vector<uint8_t> randomness) { m_randomness = std::move(randomness); }
+      void set_randomness(secure_vector<uint8_t> randomness) {
+         m_randomness = std::move(randomness);
+      }
 
-      XMSS_Signature::TreeSignature& tree() { return m_tree_sig; }
+      XMSS_Signature::TreeSignature& tree() {
+         return m_tree_sig;
+      }
 
-      void set_tree(XMSS_Signature::TreeSignature tree_sig) { m_tree_sig = std::move(tree_sig); }
+      void set_tree(XMSS_Signature::TreeSignature tree_sig) {
+         m_tree_sig = std::move(tree_sig);
+      }
 
       /**
        * Generates a serialized representation of XMSS Signature by

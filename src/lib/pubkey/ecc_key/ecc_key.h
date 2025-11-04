@@ -89,13 +89,17 @@ class BOTAN_PUBLIC_API(2, 0) EC_PublicKey : public virtual Public_Key {
       * Get the domain parameter encoding to be used when encoding this key.
       * @result the encoding to use
       */
-      EC_Group_Encoding domain_format() const { return m_domain_encoding; }
+      EC_Group_Encoding domain_format() const {
+         return m_domain_encoding;
+      }
 
       /**
       * Get the point encoding method to be used when encoding this key.
       * @result the encoding to use
       */
-      EC_Point_Format point_encoding() const { return m_point_encoding; }
+      EC_Point_Format point_encoding() const {
+         return m_point_encoding;
+      }
 
       size_t key_length() const override;
       size_t estimated_strength() const override;

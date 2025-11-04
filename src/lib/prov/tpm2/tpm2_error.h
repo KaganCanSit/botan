@@ -22,9 +22,13 @@ class BOTAN_PUBLIC_API(3, 6) Error final : public Exception {
    public:
       Error(std::string_view location, TSS2_RC rc);
 
-      ErrorType error_type() const noexcept override { return ErrorType::TPMError; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::TPMError;
+      }
 
-      TSS2_RC code() const { return m_rc; }
+      TSS2_RC code() const {
+         return m_rc;
+      }
 
       int error_code() const noexcept override {
          // RC is uint32 but the maximum value is within int32 range as per tss2_common.h

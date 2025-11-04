@@ -22,19 +22,33 @@ namespace {
 
 class Base32 final {
    public:
-      static std::string name() noexcept { return "base32"; }
+      static std::string name() noexcept {
+         return "base32";
+      }
 
-      static constexpr size_t encoding_bytes_in() noexcept { return m_encoding_bytes_in; }
+      static constexpr size_t encoding_bytes_in() noexcept {
+         return m_encoding_bytes_in;
+      }
 
-      static constexpr size_t encoding_bytes_out() noexcept { return m_encoding_bytes_out; }
+      static constexpr size_t encoding_bytes_out() noexcept {
+         return m_encoding_bytes_out;
+      }
 
-      static constexpr size_t decoding_bytes_in() noexcept { return m_encoding_bytes_out; }
+      static constexpr size_t decoding_bytes_in() noexcept {
+         return m_encoding_bytes_out;
+      }
 
-      static constexpr size_t decoding_bytes_out() noexcept { return m_encoding_bytes_in; }
+      static constexpr size_t decoding_bytes_out() noexcept {
+         return m_encoding_bytes_in;
+      }
 
-      static constexpr size_t bits_consumed() noexcept { return m_encoding_bits; }
+      static constexpr size_t bits_consumed() noexcept {
+         return m_encoding_bits;
+      }
 
-      static constexpr size_t remaining_bits_before_padding() noexcept { return m_remaining_bits_before_padding; }
+      static constexpr size_t remaining_bits_before_padding() noexcept {
+         return m_remaining_bits_before_padding;
+      }
 
       static constexpr size_t encode_max_output(size_t input_length) {
          return (round_up(input_length, m_encoding_bytes_in) / m_encoding_bytes_in) * m_encoding_bytes_out;

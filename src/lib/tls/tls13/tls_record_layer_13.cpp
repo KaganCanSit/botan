@@ -126,13 +126,21 @@ class TLSPlaintext_Header final {
                get_byte<1>(m_fragment_length),
             }) {}
 
-      Record_Type type() const { return m_type; }
+      Record_Type type() const {
+         return m_type;
+      }
 
-      uint16_t fragment_length() const { return m_fragment_length; }
+      uint16_t fragment_length() const {
+         return m_fragment_length;
+      }
 
-      Protocol_Version legacy_version() const { return m_legacy_version; }
+      Protocol_Version legacy_version() const {
+         return m_legacy_version;
+      }
 
-      const std::vector<uint8_t>& serialized() const { return m_serialized; }
+      const std::vector<uint8_t>& serialized() const {
+         return m_serialized;
+      }
 
    private:
       Record_Type m_type;

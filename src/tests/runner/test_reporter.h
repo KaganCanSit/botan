@@ -19,23 +19,41 @@ class TestSummary final {
    public:
       explicit TestSummary(const Test::Result& result);
 
-      bool passed() const { return m_failures.empty(); }
+      bool passed() const {
+         return m_failures.empty();
+      }
 
-      bool failed() const { return !m_failures.empty(); }
+      bool failed() const {
+         return !m_failures.empty();
+      }
 
-      const std::string& name() const { return m_name; }
+      const std::string& name() const {
+         return m_name;
+      }
 
-      const std::optional<CodeLocation>& code_location() const { return m_code_location; }
+      const std::optional<CodeLocation>& code_location() const {
+         return m_code_location;
+      }
 
-      size_t assertions() const { return m_assertions; }
+      size_t assertions() const {
+         return m_assertions;
+      }
 
-      const std::vector<std::string>& notes() const { return m_notes; }
+      const std::vector<std::string>& notes() const {
+         return m_notes;
+      }
 
-      const std::vector<std::string>& failures() const { return m_failures; }
+      const std::vector<std::string>& failures() const {
+         return m_failures;
+      }
 
-      const std::chrono::system_clock::time_point& timestamp() const { return m_timestamp; }
+      const std::chrono::system_clock::time_point& timestamp() const {
+         return m_timestamp;
+      }
 
-      const std::optional<std::chrono::nanoseconds>& elapsed_time() const { return m_elapsed_time; }
+      const std::optional<std::chrono::nanoseconds>& elapsed_time() const {
+         return m_elapsed_time;
+      }
 
    private:
       const std::string m_name;
@@ -58,7 +76,9 @@ class Testsuite final {
 
       void record(const Test::Result& result);
 
-      size_t tests_run() const { return m_results.size(); }
+      size_t tests_run() const {
+         return m_results.size();
+      }
 
       size_t tests_passed() const;
       size_t tests_failed() const;
@@ -69,9 +89,13 @@ class Testsuite final {
       /// Returns the cumulative elapsed time of all contained test cases
       std::optional<std::chrono::nanoseconds> elapsed_time() const;
 
-      const std::string& name() const { return m_name; }
+      const std::string& name() const {
+         return m_name;
+      }
 
-      const std::vector<TestSummary>& results() const { return m_results; }
+      const std::vector<TestSummary>& results() const {
+         return m_results;
+      }
 
    private:
       const std::string m_name;
@@ -171,7 +195,9 @@ class Reporter {
        *
        * @param name  the name of the test suite that is going to start
        */
-      virtual void next_testsuite(const std::string& name) { BOTAN_UNUSED(name); }
+      virtual void next_testsuite(const std::string& name) {
+         BOTAN_UNUSED(name);
+      }
 
       /**
        * @brief Prepare the reporter for the next test run
@@ -184,13 +210,21 @@ class Reporter {
 
       std::chrono::nanoseconds elapsed_time() const;
 
-      const PropertyMap& properties() const { return m_properties; }
+      const PropertyMap& properties() const {
+         return m_properties;
+      }
 
-      const TestsuiteMap& testsuites() const { return m_testsuites; }
+      const TestsuiteMap& testsuites() const {
+         return m_testsuites;
+      }
 
-      size_t current_test_run() const { return m_current_test_run; }
+      size_t current_test_run() const {
+         return m_current_test_run;
+      }
 
-      size_t total_test_runs() const { return m_total_test_runs; }
+      size_t total_test_runs() const {
+         return m_total_test_runs;
+      }
 
    private:
       const size_t m_total_test_runs;

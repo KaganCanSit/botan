@@ -35,17 +35,23 @@ class PseudorandomKeyGeneration final {
       /**
        * @brief Specify the value for the u32str(q) hash input field
        */
-      void set_q(uint32_t q) { store_be(m_q, q); }
+      void set_q(uint32_t q) {
+         store_be(m_q, q);
+      }
 
       /**
        * @brief Specify the value for the u16str(i) hash input field
        */
-      void set_i(uint16_t i) { store_be(m_i, i); }
+      void set_i(uint16_t i) {
+         store_be(m_i, i);
+      }
 
       /**
        * @brief Specify the value for the u8str(j) hash input field
        */
-      void set_j(uint8_t j) { store_be(m_j, j); }
+      void set_j(uint8_t j) {
+         store_be(m_j, j);
+      }
 
       /**
        * @brief Create a hash value using the preconfigured prefix and a @p seed

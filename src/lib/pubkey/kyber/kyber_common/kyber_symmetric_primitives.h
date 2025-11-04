@@ -32,7 +32,9 @@ class Kyber_Symmetric_Primitives /* NOLINT(*-special-member-functions) */ {
       virtual ~Kyber_Symmetric_Primitives() = default;
 
       // TODO: remove this once Kyber-R3 is removed
-      KyberMessage H(StrongSpan<const KyberMessage> m) const { return get_H().process<KyberMessage>(m); }
+      KyberMessage H(StrongSpan<const KyberMessage> m) const {
+         return get_H().process<KyberMessage>(m);
+      }
 
       // TODO: remove this once Kyber-R3 is removed
       KyberHashedCiphertext H(StrongSpan<const KyberCompressedCiphertext> r) const {

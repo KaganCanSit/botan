@@ -38,7 +38,9 @@ class Timer final {
 
       class Timer_Scope final {
          public:
-            explicit Timer_Scope(Timer& timer) : m_timer(timer) { m_timer.start(); }
+            explicit Timer_Scope(Timer& timer) : m_timer(timer) {
+               m_timer.start();
+            }
 
             ~Timer_Scope() {
                try {
@@ -68,15 +70,25 @@ class Timer final {
          }
       }
 
-      uint64_t value() const { return m_time_used; }
+      uint64_t value() const {
+         return m_time_used;
+      }
 
-      double seconds() const { return nanoseconds() / 1000000000.0; }
+      double seconds() const {
+         return nanoseconds() / 1000000000.0;
+      }
 
-      double milliseconds() const { return nanoseconds() / 1000000.0; }
+      double milliseconds() const {
+         return nanoseconds() / 1000000.0;
+      }
 
-      double microseconds() const { return nanoseconds() / 1000.0; }
+      double microseconds() const {
+         return nanoseconds() / 1000.0;
+      }
 
-      double nanoseconds() const { return static_cast<double>(value()); }
+      double nanoseconds() const {
+         return static_cast<double>(value());
+      }
 
       uint64_t cycles_consumed() const {
          if(m_clock_speed != 0) {
@@ -85,15 +97,25 @@ class Timer final {
          return m_cpu_cycles_used;
       }
 
-      uint64_t events() const { return m_event_count * m_event_mult; }
+      uint64_t events() const {
+         return m_event_count * m_event_mult;
+      }
 
-      const std::string& get_name() const { return m_name; }
+      const std::string& get_name() const {
+         return m_name;
+      }
 
-      const std::string& doing() const { return m_doing; }
+      const std::string& doing() const {
+         return m_doing;
+      }
 
-      size_t buf_size() const { return m_buf_size; }
+      size_t buf_size() const {
+         return m_buf_size;
+      }
 
-      double bytes_per_second() const { return events_per_second(); }
+      double bytes_per_second() const {
+         return events_per_second();
+      }
 
       double events_per_second() const {
          if(seconds() > 0.0 && events() > 0) {

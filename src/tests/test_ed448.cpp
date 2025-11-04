@@ -26,7 +26,9 @@ class Ed448_Keygen_Tests final : public PK_Key_Generation_Test {
          return {"", "Ed448ph", "SHAKE-256(72)"};
       }
 
-      std::string algo_name() const override { return "Ed448"; }
+      std::string algo_name() const override {
+         return "Ed448";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view /* keygen_params */,
                                                              std::string_view /* provider */,
@@ -40,7 +42,9 @@ class Ed448_Signature_Tests final : public PK_Signature_Generation_Test {
       Ed448_Signature_Tests() :
             PK_Signature_Generation_Test("Ed448", "pubkey/ed448.vec", "Msg,PrivateKey,PublicKey,Valid,Signature") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) override {
          const std::vector<uint8_t> privkey = vars.get_req_bin("PrivateKey");
@@ -144,7 +148,9 @@ class Ed448_Utils_Test final : public Test {
       }
 
    public:
-      std::vector<Test::Result> run() override { return {test_reduce_mod_L()}; }
+      std::vector<Test::Result> run() override {
+         return {test_reduce_mod_L()};
+      }
 };
 
 }  // namespace

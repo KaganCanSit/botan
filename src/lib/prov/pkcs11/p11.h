@@ -2838,7 +2838,9 @@ class BOTAN_PUBLIC_API(2, 0) LowLevel {
       * functions which are not supported directly by LowLevel or the higher
       * level PKCS11 API.
       */
-      FunctionListPtr get_functions() const { return m_func_list_ptr; }
+      FunctionListPtr get_functions() const {
+         return m_func_list_ptr;
+      }
 
    protected:
       /**
@@ -2857,7 +2859,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_Error : public Exception {
    public:
       explicit PKCS11_Error(std::string_view what) : Exception("PKCS11 error", what) {}
 
-      ErrorType error_type() const noexcept override { return ErrorType::Pkcs11Error; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::Pkcs11Error;
+      }
 };
 
 class BOTAN_PUBLIC_API(2, 0) PKCS11_ReturnError final : public PKCS11_Error {
@@ -2865,9 +2869,13 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_ReturnError final : public PKCS11_Error {
       explicit PKCS11_ReturnError(ReturnValue return_val) :
             PKCS11_Error(std::to_string(static_cast<uint32_t>(return_val))), m_return_val(return_val) {}
 
-      inline ReturnValue get_return_value() const { return m_return_val; }
+      inline ReturnValue get_return_value() const {
+         return m_return_val;
+      }
 
-      int error_code() const noexcept override { return static_cast<int>(m_return_val); }
+      int error_code() const noexcept override {
+         return static_cast<int>(m_return_val);
+      }
 
    private:
       const ReturnValue m_return_val;

@@ -23,7 +23,9 @@ class BOTAN_PUBLIC_API(3, 6) RSA_PublicKey final : public virtual Botan::TPM2::P
          return TPM2::PublicKey::generate_another(rng);
       }
 
-      std::vector<uint8_t> raw_public_key_bits() const override { return TPM2::PublicKey::raw_public_key_bits(); }
+      std::vector<uint8_t> raw_public_key_bits() const override {
+         return TPM2::PublicKey::raw_public_key_bits();
+      }
 
       bool supports_operation(PublicKeyOperation op) const override {
          // TODO: Support RSA-KEM
@@ -88,7 +90,9 @@ class BOTAN_PUBLIC_API(3, 6) RSA_PrivateKey final : public virtual Botan::TPM2::
          return std::make_unique<Botan::RSA_PublicKey>(algorithm_identifier(), public_key_bits());
       }
 
-      std::vector<uint8_t> raw_public_key_bits() const override { return TPM2::PrivateKey::raw_public_key_bits(); }
+      std::vector<uint8_t> raw_public_key_bits() const override {
+         return TPM2::PrivateKey::raw_public_key_bits();
+      }
 
       bool supports_operation(PublicKeyOperation op) const override {
          // TODO: Support RSA-KEM

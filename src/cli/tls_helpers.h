@@ -283,7 +283,9 @@ class TLS_All_Policy final : public Botan::TLS::Policy {
          return {"ECDSA", "RSA", "DSA", "IMPLICIT"};
       }
 
-      bool allow_tls12() const override { return true; }
+      bool allow_tls12() const override {
+         return true;
+      }
 };
 
 inline std::shared_ptr<Botan::TLS::Policy> load_tls_policy(const std::string& policy_type) {

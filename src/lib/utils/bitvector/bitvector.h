@@ -137,7 +137,9 @@ class bitvector_iterator {
       bitvector_iterator() = default;
       ~bitvector_iterator() = default;
 
-      bitvector_iterator(T* bitvector, size_t offset) : m_bitvector(bitvector) { update(offset); }
+      bitvector_iterator(T* bitvector, size_t offset) : m_bitvector(bitvector) {
+         update(offset);
+      }
 
       bitvector_iterator(const bitvector_iterator& other) noexcept : m_bitvector(other.m_bitvector) {
          update(other.m_offset);
@@ -195,9 +197,13 @@ class bitvector_iterator {
          return m_bitvector == other.m_bitvector && m_offset == other.m_offset;
       }
 
-      reference operator*() const { return m_bitref.value(); }
+      reference operator*() const {
+         return m_bitref.value();
+      }
 
-      pointer operator->() const { return &(m_bitref.value()); }
+      pointer operator->() const {
+         return &(m_bitref.value());
+      }
 
    private:
       void update(size_type new_offset) {
@@ -210,7 +216,9 @@ class bitvector_iterator {
          }
       }
 
-      difference_type signed_offset() const { return static_cast<difference_type>(m_offset); }
+      difference_type signed_offset() const {
+         return static_cast<difference_type>(m_offset);
+      }
 
    private:
       T* m_bitvector;
@@ -251,9 +259,13 @@ class bitvector_base final {
       static constexpr size_type block_offset_shift = size_type(3) + ceil_log2(block_size_bytes);
       static constexpr size_type block_index_mask = (one << block_offset_shift) - 1;
 
-      static constexpr size_type block_index(size_type pos) { return pos >> block_offset_shift; }
+      static constexpr size_type block_index(size_type pos) {
+         return pos >> block_offset_shift;
+      }
 
-      static constexpr size_type block_offset(size_type pos) { return pos & block_index_mask; }
+      static constexpr size_type block_offset(size_type pos) {
+         return pos & block_index_mask;
+      }
 
    private:
       /**
@@ -280,9 +292,13 @@ class bitvector_base final {
 
          public:
             // NOLINTNEXTLINE(*-explicit-conversions) FIXME
-            constexpr operator bool() const noexcept { return is_set(); }
+            constexpr operator bool() const noexcept {
+               return is_set();
+            }
 
-            constexpr bool is_set() const noexcept { return (m_block & m_mask) > 0; }
+            constexpr bool is_set() const noexcept {
+               return (m_block & m_mask) > 0;
+            }
 
             template <std::unsigned_integral T>
             constexpr T as() const noexcept {
@@ -349,9 +365,13 @@ class bitvector_base final {
                return *this;
             }
 
-            constexpr bitref& operator=(const bitref& bit) noexcept { return *this = bit.is_set(); }
+            constexpr bitref& operator=(const bitref& bit) noexcept {
+               return *this = bit.is_set();
+            }
 
-            constexpr bitref& operator=(bitref&& bit) noexcept { return *this = bit.is_set(); }
+            constexpr bitref& operator=(bitref&& bit) noexcept {
+               return *this = bit.is_set();
+            }
 
             // NOLINTEND
 
@@ -398,9 +418,13 @@ class bitvector_base final {
       bitvector_base(std::initializer_list<block_type> blocks, std::optional<size_type> bits = std::nullopt) :
             m_bits(bits.value_or(blocks.size() * block_size_bits)), m_blocks(blocks.begin(), blocks.end()) {}
 
-      bool empty() const { return m_bits == 0; }
+      bool empty() const {
+         return m_bits == 0;
+      }
 
-      size_type size() const { return m_bits; }
+      size_type size() const {
+         return m_bits;
+      }
 
       /**
        * @returns true iff the number of 1-bits in this is odd, false otherwise (constant time)
@@ -536,9 +560,13 @@ class bitvector_base final {
       /// @name Capacity Accessors and Modifiers
       /// @{
 
-      size_type capacity() const { return m_blocks.capacity() * block_size_bits; }
+      size_type capacity() const {
+         return m_blocks.capacity() * block_size_bits;
+      }
 
-      void reserve(size_type bits) { m_blocks.reserve(ceil_toblocks(bits)); }
+      void reserve(size_type bits) {
+         m_blocks.reserve(ceil_toblocks(bits));
+      }
 
       void resize(size_type bits) {
          const auto new_number_of_blocks = ceil_toblocks(bits);
@@ -578,15 +606,23 @@ class bitvector_base final {
          return ref(pos);
       }
 
-      auto front() { return ref(0); }
+      auto front() {
+         return ref(0);
+      }
 
       // TODO C++23: deducing this
-      auto front() const { return ref(0); }
+      auto front() const {
+         return ref(0);
+      }
 
-      auto back() { return ref(size() - 1); }
+      auto back() {
+         return ref(size() - 1);
+      }
 
       // TODO C++23: deducing this
-      auto back() const { return ref(size() - 1); }
+      auto back() const {
+         return ref(size() - 1);
+      }
 
       /**
        * Sets the bit at position @p pos.
@@ -660,17 +696,23 @@ class bitvector_base final {
       /**
        * @returns true iff no bit is set in constant time
        */
-      bool none() const { return hamming_weight() == 0; }
+      bool none() const {
+         return hamming_weight() == 0;
+      }
 
       /**
        * @returns true iff at least one bit is set
        */
-      bool any_vartime() const { return !none_vartime(); }
+      bool any_vartime() const {
+         return !none_vartime();
+      }
 
       /**
        * @returns true iff at least one bit is set in constant time
        */
-      bool any() const { return !none(); }
+      bool any() const {
+         return !none();
+      }
 
       /**
        * @returns true iff all bits are set
@@ -683,12 +725,18 @@ class bitvector_base final {
       /**
        * @returns true iff all bits are set in constant time
        */
-      bool all() const { return hamming_weight() == m_bits; }
+      bool all() const {
+         return hamming_weight() == m_bits;
+      }
 
-      auto operator[](size_type pos) { return ref(pos); }
+      auto operator[](size_type pos) {
+         return ref(pos);
+      }
 
       // TODO C++23: deducing this
-      auto operator[](size_type pos) const { return ref(pos); }
+      auto operator[](size_type pos) const {
+         return ref(pos);
+      }
 
       /// @}
 
@@ -878,9 +926,13 @@ class bitvector_base final {
          full_range_operation(maybe_xor, *this, unwrap_strong_type(other));
       }
 
-      constexpr void _const_time_poison() const { CT::poison(m_blocks); }
+      constexpr void _const_time_poison() const {
+         CT::poison(m_blocks);
+      }
 
-      constexpr void _const_time_unpoison() const { CT::unpoison(m_blocks); }
+      constexpr void _const_time_unpoison() const {
+         CT::unpoison(m_blocks);
+      }
 
       /// @}
 
@@ -888,17 +940,29 @@ class bitvector_base final {
       ///
       /// @{
 
-      iterator begin() noexcept { return iterator(this, 0); }
+      iterator begin() noexcept {
+         return iterator(this, 0);
+      }
 
-      const_iterator begin() const noexcept { return const_iterator(this, 0); }
+      const_iterator begin() const noexcept {
+         return const_iterator(this, 0);
+      }
 
-      const_iterator cbegin() const noexcept { return const_iterator(this, 0); }
+      const_iterator cbegin() const noexcept {
+         return const_iterator(this, 0);
+      }
 
-      iterator end() noexcept { return iterator(this, size()); }
+      iterator end() noexcept {
+         return iterator(this, size());
+      }
 
-      const_iterator end() const noexcept { return const_iterator(this, size()); }
+      const_iterator end() const noexcept {
+         return const_iterator(this, size());
+      }
 
-      const_iterator cend() noexcept { return const_iterator(this, size()); }
+      const_iterator cend() noexcept {
+         return const_iterator(this, size());
+      }
 
       /// @}
 
@@ -923,9 +987,13 @@ class bitvector_base final {
          return (bits + block_size_bits - 1) / block_size_bits;
       }
 
-      auto ref(size_type pos) const { return bitref<const block_type>(m_blocks, pos); }
+      auto ref(size_type pos) const {
+         return bitref<const block_type>(m_blocks, pos);
+      }
 
-      auto ref(size_type pos) { return bitref<block_type>(m_blocks, pos); }
+      auto ref(size_type pos) {
+         return bitref<block_type>(m_blocks, pos);
+      }
 
    private:
       enum class BitRangeAlignment : uint8_t { byte_aligned, no_alignment };
@@ -945,7 +1013,9 @@ class bitvector_base final {
          requires is_bitvector_v<std::remove_cvref_t<BitvectorT>>
       class BitRangeOperator {
          private:
-            constexpr static bool is_const() { return std::is_const_v<BitvectorT>; }
+            constexpr static bool is_const() {
+               return std::is_const_v<BitvectorT>;
+            }
 
             struct UnalignedDataHelper {
                   const uint8_t padding_bits;
@@ -967,22 +1037,30 @@ class bitvector_base final {
 
             explicit BitRangeOperator(BitvectorT& source) : BitRangeOperator(source, 0, source.size()) {}
 
-            static constexpr bool is_byte_aligned() { return alignment == BitRangeAlignment::byte_aligned; }
+            static constexpr bool is_byte_aligned() {
+               return alignment == BitRangeAlignment::byte_aligned;
+            }
 
             /**
              * @returns the overall number of bits to be iterated with this operator
              */
-            size_type size() const { return m_bitlength; }
+            size_type size() const {
+               return m_bitlength;
+            }
 
             /**
              * @returns the number of bits not yet read from this operator
              */
-            size_type bits_to_read() const { return m_bitlength - m_read_bitpos + m_start_bitoffset; }
+            size_type bits_to_read() const {
+               return m_bitlength - m_read_bitpos + m_start_bitoffset;
+            }
 
             /**
              * @returns the number of bits still to be written into this operator
              */
-            size_type bits_to_write() const { return m_bitlength - m_write_bitpos + m_start_bitoffset; }
+            size_type bits_to_write() const {
+               return m_bitlength - m_write_bitpos + m_start_bitoffset;
+            }
 
             /**
              * Loads the next block of bits from the underlying bitvector. No
@@ -1100,9 +1178,13 @@ class bitvector_base final {
             }
 
          private:
-            size_type read_bytepos() const { return m_read_bitpos / 8; }
+            size_type read_bytepos() const {
+               return m_read_bitpos / 8;
+            }
 
-            size_type write_bytepos() const { return m_write_bitpos / 8; }
+            size_type write_bytepos() const {
+               return m_write_bitpos / 8;
+            }
 
          private:
             BitvectorT& m_source;
@@ -1291,9 +1373,13 @@ class bitvector_base final {
          return (T(!max) << bits) - 1;
       }
 
-      auto as_byte_span() { return std::span{m_blocks.data(), m_blocks.size() * sizeof(block_type)}; }
+      auto as_byte_span() {
+         return std::span{m_blocks.data(), m_blocks.size() * sizeof(block_type)};
+      }
 
-      auto as_byte_span() const { return std::span{m_blocks.data(), m_blocks.size() * sizeof(block_type)}; }
+      auto as_byte_span() const {
+         return std::span{m_blocks.data(), m_blocks.size() * sizeof(block_type)};
+      }
 
    private:
       size_type m_bits;
@@ -1368,17 +1454,29 @@ class Strong_Adapter<T> : public Container_Strong_Adapter_Base<T> {
    public:
       using Container_Strong_Adapter_Base<T>::Container_Strong_Adapter_Base;
 
-      auto at(size_type i) const { return this->get().at(i); }
+      auto at(size_type i) const {
+         return this->get().at(i);
+      }
 
-      auto at(size_type i) { return this->get().at(i); }
+      auto at(size_type i) {
+         return this->get().at(i);
+      }
 
-      auto set(size_type i) { return this->get().set(i); }
+      auto set(size_type i) {
+         return this->get().set(i);
+      }
 
-      auto unset(size_type i) { return this->get().unset(i); }
+      auto unset(size_type i) {
+         return this->get().unset(i);
+      }
 
-      auto flip(size_type i) { return this->get().flip(i); }
+      auto flip(size_type i) {
+         return this->get().flip(i);
+      }
 
-      auto flip() { return this->get().flip(); }
+      auto flip() {
+         return this->get().flip();
+      }
 
       template <typename OutT>
       auto as() const {
@@ -1408,27 +1506,49 @@ class Strong_Adapter<T> : public Container_Strong_Adapter_Base<T> {
          return this->get().equals(other);
       }
 
-      auto push_back(bool b) { return this->get().push_back(b); }
+      auto push_back(bool b) {
+         return this->get().push_back(b);
+      }
 
-      auto pop_back() { return this->get().pop_back(); }
+      auto pop_back() {
+         return this->get().pop_back();
+      }
 
-      auto front() const { return this->get().front(); }
+      auto front() const {
+         return this->get().front();
+      }
 
-      auto front() { return this->get().front(); }
+      auto front() {
+         return this->get().front();
+      }
 
-      auto back() const { return this->get().back(); }
+      auto back() const {
+         return this->get().back();
+      }
 
-      auto back() { return this->get().back(); }
+      auto back() {
+         return this->get().back();
+      }
 
-      auto any_vartime() const { return this->get().any_vartime(); }
+      auto any_vartime() const {
+         return this->get().any_vartime();
+      }
 
-      auto all_vartime() const { return this->get().all_vartime(); }
+      auto all_vartime() const {
+         return this->get().all_vartime();
+      }
 
-      auto none_vartime() const { return this->get().none_vartime(); }
+      auto none_vartime() const {
+         return this->get().none_vartime();
+      }
 
-      auto has_odd_hamming_weight() const { return this->get().has_odd_hamming_weight(); }
+      auto has_odd_hamming_weight() const {
+         return this->get().has_odd_hamming_weight();
+      }
 
-      auto hamming_weight() const { return this->get().hamming_weight(); }
+      auto hamming_weight() const {
+         return this->get().hamming_weight();
+      }
 
       auto from_bytes(std::span<const uint8_t> bytes, std::optional<size_type> bits = std::nullopt) {
          return this->get().from_bytes(bytes, bits);
@@ -1439,17 +1559,29 @@ class Strong_Adapter<T> : public Container_Strong_Adapter_Base<T> {
          return this->get().template to_bytes<OutT>();
       }
 
-      auto to_bytes(std::span<uint8_t> out) const { return this->get().to_bytes(out); }
+      auto to_bytes(std::span<uint8_t> out) const {
+         return this->get().to_bytes(out);
+      }
 
-      auto to_string() const { return this->get().to_string(); }
+      auto to_string() const {
+         return this->get().to_string();
+      }
 
-      auto capacity() const { return this->get().capacity(); }
+      auto capacity() const {
+         return this->get().capacity();
+      }
 
-      auto reserve(size_type n) { return this->get().reserve(n); }
+      auto reserve(size_type n) {
+         return this->get().reserve(n);
+      }
 
-      constexpr void _const_time_poison() const { this->get()._const_time_poison(); }
+      constexpr void _const_time_poison() const {
+         this->get()._const_time_poison();
+      }
 
-      constexpr void _const_time_unpoison() const { this->get()._const_time_unpoison(); }
+      constexpr void _const_time_unpoison() const {
+         this->get()._const_time_unpoison();
+      }
 };
 
 }  // namespace detail

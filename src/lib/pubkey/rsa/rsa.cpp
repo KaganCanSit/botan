@@ -48,17 +48,29 @@ class RSA_Public_Data final {
          return monty_execute_vartime(*powm_m_n, m_e).value();
       }
 
-      const BigInt& get_n() const { return m_n; }
+      const BigInt& get_n() const {
+         return m_n;
+      }
 
-      const BigInt& get_e() const { return m_e; }
+      const BigInt& get_e() const {
+         return m_e;
+      }
 
-      size_t public_modulus_bits() const { return m_public_modulus_bits; }
+      size_t public_modulus_bits() const {
+         return m_public_modulus_bits;
+      }
 
-      size_t public_modulus_bytes() const { return m_public_modulus_bytes; }
+      size_t public_modulus_bytes() const {
+         return m_public_modulus_bytes;
+      }
 
-      const Montgomery_Params& monty_n() const { return m_monty_n; }
+      const Montgomery_Params& monty_n() const {
+         return m_monty_n;
+      }
 
-      const Barrett_Reduction& reducer_mod_n() const { return m_mod_n; }
+      const Barrett_Reduction& reducer_mod_n() const {
+         return m_mod_n;
+      }
 
    private:
       BigInt m_n;
@@ -84,29 +96,53 @@ class RSA_Private_Data final {
             m_p_bits(m_p.bits()),
             m_q_bits(m_q.bits()) {}
 
-      const BigInt& get_d() const { return m_d; }
+      const BigInt& get_d() const {
+         return m_d;
+      }
 
-      const BigInt& get_p() const { return m_p; }
+      const BigInt& get_p() const {
+         return m_p;
+      }
 
-      const BigInt& get_q() const { return m_q; }
+      const BigInt& get_q() const {
+         return m_q;
+      }
 
-      const BigInt& get_d1() const { return m_d1; }
+      const BigInt& get_d1() const {
+         return m_d1;
+      }
 
-      const BigInt& get_d2() const { return m_d2; }
+      const BigInt& get_d2() const {
+         return m_d2;
+      }
 
-      const BigInt& get_c() const { return m_c; }
+      const BigInt& get_c() const {
+         return m_c;
+      }
 
-      const Montgomery_Int& get_c_monty() const { return m_c_monty; }
+      const Montgomery_Int& get_c_monty() const {
+         return m_c_monty;
+      }
 
-      const Montgomery_Params& monty_p() const { return m_monty_p; }
+      const Montgomery_Params& monty_p() const {
+         return m_monty_p;
+      }
 
-      const Montgomery_Params& monty_q() const { return m_monty_q; }
+      const Montgomery_Params& monty_q() const {
+         return m_monty_q;
+      }
 
-      size_t p_bits() const { return m_p_bits; }
+      size_t p_bits() const {
+         return m_p_bits;
+      }
 
-      size_t q_bits() const { return m_q_bits; }
+      size_t q_bits() const {
+         return m_q_bits;
+      }
 
-      bool primes_imbalanced() const { return p_bits() != q_bits(); }
+      bool primes_imbalanced() const {
+         return p_bits() != q_bits();
+      }
 
    private:
       BigInt m_d;
@@ -513,9 +549,13 @@ BigInt crt_recombine(const Montgomery_Int& j1,
 */
 class RSA_Private_Operation {
    protected:
-      size_t public_modulus_bits() const { return m_public->public_modulus_bits(); }
+      size_t public_modulus_bits() const {
+         return m_public->public_modulus_bits();
+      }
 
-      size_t public_modulus_bytes() const { return m_public->public_modulus_bytes(); }
+      size_t public_modulus_bytes() const {
+         return m_public->public_modulus_bytes();
+      }
 
       explicit RSA_Private_Operation(const RSA_PrivateKey& rsa, RandomNumberGenerator& rng) :
             m_public(rsa.public_data()),
@@ -612,7 +652,9 @@ class RSA_Private_Operation {
 class RSA_Signature_Operation final : public PK_Ops::Signature,
                                       private RSA_Private_Operation {
    public:
-      void update(std::span<const uint8_t> msg) override { m_padding->update(msg.data(), msg.size()); }
+      void update(std::span<const uint8_t> msg) override {
+         m_padding->update(msg.data(), msg.size());
+      }
 
       std::vector<uint8_t> sign(RandomNumberGenerator& rng) override {
          const size_t max_input_bits = public_modulus_bits() - 1;
@@ -624,11 +666,15 @@ class RSA_Signature_Operation final : public PK_Ops::Signature,
          return out;
       }
 
-      size_t signature_length() const override { return public_modulus_bytes(); }
+      size_t signature_length() const override {
+         return public_modulus_bytes();
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override;
 
-      std::string hash_function() const override { return m_padding->hash_function(); }
+      std::string hash_function() const override {
+         return m_padding->hash_function();
+      }
 
       RSA_Signature_Operation(const RSA_PrivateKey& rsa, std::string_view padding, RandomNumberGenerator& rng) :
             RSA_Private_Operation(rsa, rng), m_padding(SignaturePaddingScheme::create_or_throw(padding)) {}
@@ -660,7 +706,9 @@ class RSA_Decryption_Operation final : public PK_Ops::Decryption_with_Padding,
       RSA_Decryption_Operation(const RSA_PrivateKey& rsa, std::string_view padding, RandomNumberGenerator& rng) :
             PK_Ops::Decryption_with_Padding(padding), RSA_Private_Operation(rsa, rng) {}
 
-      size_t plaintext_length(size_t /*ctext_len*/) const override { return public_modulus_bytes(); }
+      size_t plaintext_length(size_t /*ctext_len*/) const override {
+         return public_modulus_bytes();
+      }
 
       secure_vector<uint8_t> raw_decrypt(std::span<const uint8_t> input) override {
          secure_vector<uint8_t> out(public_modulus_bytes());
@@ -675,9 +723,13 @@ class RSA_KEM_Decryption_Operation final : public PK_Ops::KEM_Decryption_with_KD
       RSA_KEM_Decryption_Operation(const RSA_PrivateKey& key, std::string_view kdf, RandomNumberGenerator& rng) :
             PK_Ops::KEM_Decryption_with_KDF(kdf), RSA_Private_Operation(key, rng) {}
 
-      size_t raw_kem_shared_key_length() const override { return public_modulus_bytes(); }
+      size_t raw_kem_shared_key_length() const override {
+         return public_modulus_bytes();
+      }
 
-      size_t encapsulated_key_length() const override { return public_modulus_bytes(); }
+      size_t encapsulated_key_length() const override {
+         return public_modulus_bytes();
+      }
 
       void raw_kem_decrypt(std::span<uint8_t> out_shared_key, std::span<const uint8_t> encapsulated_key) override {
          raw_op(out_shared_key, encapsulated_key);
@@ -691,7 +743,9 @@ class RSA_Public_Operation {
    public:
       explicit RSA_Public_Operation(const RSA_PublicKey& rsa) : m_public(rsa.public_data()) {}
 
-      size_t public_modulus_bits() const { return m_public->public_modulus_bits(); }
+      size_t public_modulus_bits() const {
+         return m_public->public_modulus_bits();
+      }
 
    protected:
       BigInt public_op(const BigInt& m) const {
@@ -702,9 +756,13 @@ class RSA_Public_Operation {
          return m_public->public_op(m);
       }
 
-      size_t public_modulus_bytes() const { return m_public->public_modulus_bytes(); }
+      size_t public_modulus_bytes() const {
+         return m_public->public_modulus_bytes();
+      }
 
-      const BigInt& get_n() const { return m_public->get_n(); }
+      const BigInt& get_n() const {
+         return m_public->get_n();
+      }
 
    private:
       std::shared_ptr<const RSA_Public_Data> m_public;
@@ -716,9 +774,13 @@ class RSA_Encryption_Operation final : public PK_Ops::Encryption_with_Padding,
       RSA_Encryption_Operation(const RSA_PublicKey& rsa, std::string_view padding) :
             PK_Ops::Encryption_with_Padding(padding), RSA_Public_Operation(rsa) {}
 
-      size_t ciphertext_length(size_t /*ptext_len*/) const override { return public_modulus_bytes(); }
+      size_t ciphertext_length(size_t /*ptext_len*/) const override {
+         return public_modulus_bytes();
+      }
 
-      size_t max_ptext_input_bits() const override { return public_modulus_bits() - 1; }
+      size_t max_ptext_input_bits() const override {
+         return public_modulus_bits() - 1;
+      }
 
       std::vector<uint8_t> raw_encrypt(std::span<const uint8_t> input, RandomNumberGenerator& /*rng*/) override {
          BigInt input_bn(input);
@@ -729,7 +791,9 @@ class RSA_Encryption_Operation final : public PK_Ops::Encryption_with_Padding,
 class RSA_Verify_Operation final : public PK_Ops::Verification,
                                    private RSA_Public_Operation {
    public:
-      void update(std::span<const uint8_t> msg) override { m_padding->update(msg.data(), msg.size()); }
+      void update(std::span<const uint8_t> msg) override {
+         m_padding->update(msg.data(), msg.size());
+      }
 
       bool is_valid_signature(std::span<const uint8_t> sig) override {
          const auto msg = m_padding->raw_data();
@@ -740,7 +804,9 @@ class RSA_Verify_Operation final : public PK_Ops::Verification,
       RSA_Verify_Operation(const RSA_PublicKey& rsa, std::string_view padding) :
             RSA_Public_Operation(rsa), m_padding(SignaturePaddingScheme::create_or_throw(padding)) {}
 
-      std::string hash_function() const override { return m_padding->hash_function(); }
+      std::string hash_function() const override {
+         return m_padding->hash_function();
+      }
 
    private:
       std::vector<uint8_t> recover_message_repr(const uint8_t input[], size_t input_len) {
@@ -761,9 +827,13 @@ class RSA_KEM_Encryption_Operation final : public PK_Ops::KEM_Encryption_with_KD
             PK_Ops::KEM_Encryption_with_KDF(kdf), RSA_Public_Operation(key) {}
 
    private:
-      size_t raw_kem_shared_key_length() const override { return public_modulus_bytes(); }
+      size_t raw_kem_shared_key_length() const override {
+         return public_modulus_bytes();
+      }
 
-      size_t encapsulated_key_length() const override { return public_modulus_bytes(); }
+      size_t encapsulated_key_length() const override {
+         return public_modulus_bytes();
+      }
 
       void raw_kem_encrypt(std::span<uint8_t> out_encapsulated_key,
                            std::span<uint8_t> raw_shared_key,

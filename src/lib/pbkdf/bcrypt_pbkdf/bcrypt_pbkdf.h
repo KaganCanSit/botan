@@ -33,13 +33,21 @@ class BOTAN_PUBLIC_API(2, 11) Bcrypt_PBKDF final : public PasswordHash {
 
       std::string to_string() const override;
 
-      size_t iterations() const override { return m_iterations; }
+      size_t iterations() const override {
+         return m_iterations;
+      }
 
-      size_t parallelism() const override { return 0; }
+      size_t parallelism() const override {
+         return 0;
+      }
 
-      size_t memory_param() const override { return 0; }
+      size_t memory_param() const override {
+         return 0;
+      }
 
-      size_t total_memory_usage() const override { return 4096; }
+      size_t total_memory_usage() const override {
+         return 4096;
+      }
 
    private:
       size_t m_iterations;

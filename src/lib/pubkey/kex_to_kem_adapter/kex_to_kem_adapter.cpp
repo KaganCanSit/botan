@@ -113,7 +113,9 @@ class KEX_to_KEM_Adapter_Encryption_Operation final : public PK_Ops::KEM_Encrypt
       KEX_to_KEM_Adapter_Encryption_Operation(const Public_Key& key, std::string_view kdf, std::string_view provider) :
             PK_Ops::KEM_Encryption_with_KDF(kdf), m_provider(provider), m_public_key(key) {}
 
-      size_t raw_kem_shared_key_length() const override { return kex_shared_key_length(m_public_key); }
+      size_t raw_kem_shared_key_length() const override {
+         return kex_shared_key_length(m_public_key);
+      }
 
       size_t encapsulated_key_length() const override {
          // Serializing the public value into a short-lived heap-allocated
@@ -168,9 +170,13 @@ class KEX_to_KEM_Decryption_Operation final : public PK_Ops::KEM_Decryption_with
          std::copy(shared_secret.begin(), shared_secret.end(), out_shared_key.begin());
       }
 
-      size_t encapsulated_key_length() const override { return m_encapsulated_key_length; }
+      size_t encapsulated_key_length() const override {
+         return m_encapsulated_key_length;
+      }
 
-      size_t raw_kem_shared_key_length() const override { return m_operation.agreed_value_size(); }
+      size_t raw_kem_shared_key_length() const override {
+         return m_operation.agreed_value_size();
+      }
 
    private:
       PK_Key_Agreement m_operation;

@@ -26,7 +26,9 @@ class Compression_Alloc_Info final {
          return static_cast<Compression_Alloc_Info*>(self)->do_malloc(n, size);
       }
 
-      static void free(void* self, void* ptr) { static_cast<Compression_Alloc_Info*>(self)->do_free(ptr); }
+      static void free(void* self, void* ptr) {
+         static_cast<Compression_Alloc_Info*>(self)->do_free(ptr);
+      }
 
    private:
       void* do_malloc(size_t n, size_t size);
@@ -51,25 +53,37 @@ class Zlib_Style_Stream : public Compression_Stream {
          m_stream.avail_out = static_cast<StreamLenType>(len);
       }
 
-      size_t avail_in() const override { return m_stream.avail_in; }
+      size_t avail_in() const override {
+         return m_stream.avail_in;
+      }
 
-      size_t avail_out() const override { return m_stream.avail_out; }
+      size_t avail_out() const override {
+         return m_stream.avail_out;
+      }
 
-      Zlib_Style_Stream() : m_allocs(std::make_unique<Compression_Alloc_Info>()) { clear_mem(&m_stream, 1); }
+      Zlib_Style_Stream() : m_allocs(std::make_unique<Compression_Alloc_Info>()) {
+         clear_mem(&m_stream, 1);
+      }
 
       Zlib_Style_Stream(const Zlib_Style_Stream& other) = delete;
       Zlib_Style_Stream(Zlib_Style_Stream&& other) = delete;
       Zlib_Style_Stream& operator=(const Zlib_Style_Stream& other) = delete;
       Zlib_Style_Stream& operator=(Zlib_Style_Stream&& other) = delete;
 
-      ~Zlib_Style_Stream() override { clear_mem(&m_stream, 1); }
+      ~Zlib_Style_Stream() override {
+         clear_mem(&m_stream, 1);
+      }
 
    protected:
       typedef Stream stream_t;
 
-      stream_t* streamp() { return &m_stream; }
+      stream_t* streamp() {
+         return &m_stream;
+      }
 
-      Compression_Alloc_Info* alloc() { return m_allocs.get(); }
+      Compression_Alloc_Info* alloc() {
+         return m_allocs.get();
+      }
 
    private:
       stream_t m_stream;

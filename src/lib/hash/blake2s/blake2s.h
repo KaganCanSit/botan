@@ -33,13 +33,19 @@ class BLAKE2s final : public HashFunction {
 
       std::string name() const override;
 
-      size_t output_length() const override { return m_outlen; }
+      size_t output_length() const override {
+         return m_outlen;
+      }
 
-      size_t hash_block_size() const override { return block_size; }
+      size_t hash_block_size() const override {
+         return block_size;
+      }
 
       std::unique_ptr<HashFunction> copy_state() const override;
 
-      std::unique_ptr<HashFunction> new_object() const override { return std::make_unique<BLAKE2s>(m_outlen << 3); }
+      std::unique_ptr<HashFunction> new_object() const override {
+         return std::make_unique<BLAKE2s>(m_outlen << 3);
+      }
 
       void clear() override;
 

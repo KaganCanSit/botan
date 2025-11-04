@@ -34,9 +34,13 @@ class Frodo_KAT_Tests final : public PK_PQC_KEM_KAT_Test {
       Frodo_KAT_Tests() : PK_PQC_KEM_KAT_Test("FrodoKEM", "pubkey/frodokem_kat.vec") {}
 
    private:
-      Botan::FrodoKEMMode get_mode(const std::string& mode) const { return Botan::FrodoKEMMode(mode); }
+      Botan::FrodoKEMMode get_mode(const std::string& mode) const {
+         return Botan::FrodoKEMMode(mode);
+      }
 
-      bool is_available(const std::string& mode) const final { return get_mode(mode).is_available(); }
+      bool is_available(const std::string& mode) const final {
+         return get_mode(mode).is_available();
+      }
 
       std::vector<uint8_t> map_value(const std::string& /*params*/,
                                      std::span<const uint8_t> value,
@@ -154,7 +158,9 @@ class Frodo_Keygen_Tests final : public PK_Key_Generation_Test {
          };
       }
 
-      std::string algo_name() const override { return "FrodoKEM"; }
+      std::string algo_name() const override {
+         return "FrodoKEM";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /* provider */,

@@ -28,19 +28,27 @@ class ChaCha20Poly1305_Mode : public AEAD_Mode {
    public:
       void set_associated_data_n(size_t idx, std::span<const uint8_t> ad) final;
 
-      bool associated_data_requires_key() const override { return false; }
+      bool associated_data_requires_key() const override {
+         return false;
+      }
 
-      std::string name() const override { return "ChaCha20Poly1305"; }
+      std::string name() const override {
+         return "ChaCha20Poly1305";
+      }
 
       size_t update_granularity() const override;
 
       size_t ideal_granularity() const override;
 
-      Key_Length_Specification key_spec() const override { return Key_Length_Specification(32); }
+      Key_Length_Specification key_spec() const override {
+         return Key_Length_Specification(32);
+      }
 
       bool valid_nonce_length(size_t n) const override;
 
-      size_t tag_size() const override { return 16; }
+      size_t tag_size() const override {
+         return 16;
+      }
 
       void clear() override;
 
@@ -58,7 +66,9 @@ class ChaCha20Poly1305_Mode : public AEAD_Mode {
       size_t m_nonce_len = 0;       // NOLINT(*non-private-member-variable*)
       size_t m_ctext_len = 0;       // NOLINT(*non-private-member-variable*)
 
-      bool cfrg_version() const { return m_nonce_len == 12 || m_nonce_len == 24; }
+      bool cfrg_version() const {
+         return m_nonce_len == 12 || m_nonce_len == 24;
+      }
 
       void update_len(size_t len);
 
@@ -73,9 +83,13 @@ class ChaCha20Poly1305_Mode : public AEAD_Mode {
 */
 class ChaCha20Poly1305_Encryption final : public ChaCha20Poly1305_Mode {
    public:
-      size_t output_length(size_t input_length) const override { return input_length + tag_size(); }
+      size_t output_length(size_t input_length) const override {
+         return input_length + tag_size();
+      }
 
-      size_t minimum_final_size() const override { return 0; }
+      size_t minimum_final_size() const override {
+         return 0;
+      }
 
    private:
       size_t process_msg(uint8_t buf[], size_t size) override;
@@ -92,7 +106,9 @@ class ChaCha20Poly1305_Decryption final : public ChaCha20Poly1305_Mode {
          return input_length - tag_size();
       }
 
-      size_t minimum_final_size() const override { return tag_size(); }
+      size_t minimum_final_size() const override {
+         return tag_size();
+      }
 
    private:
       size_t process_msg(uint8_t buf[], size_t size) override;

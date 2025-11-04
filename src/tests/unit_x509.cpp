@@ -1281,17 +1281,25 @@ class String_Extension final : public Botan::Certificate_Extension {
 
       explicit String_Extension(const std::string& val) : m_contents(val) {}
 
-      std::string value() const { return m_contents; }
+      std::string value() const {
+         return m_contents;
+      }
 
       std::unique_ptr<Certificate_Extension> copy() const override {
          return std::make_unique<String_Extension>(m_contents);
       }
 
-      Botan::OID oid_of() const override { return Botan::OID("1.2.3.4.5.6.7.8.9.1"); }
+      Botan::OID oid_of() const override {
+         return Botan::OID("1.2.3.4.5.6.7.8.9.1");
+      }
 
-      bool should_encode() const override { return true; }
+      bool should_encode() const override {
+         return true;
+      }
 
-      std::string oid_name() const override { return "String Extension"; }
+      std::string oid_name() const override {
+         return "String Extension";
+      }
 
       std::vector<uint8_t> encode_inner() const override {
          std::vector<uint8_t> bits;

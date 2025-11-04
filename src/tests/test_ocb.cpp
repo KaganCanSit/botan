@@ -27,21 +27,33 @@ class OCB_Wide_Test_Block_Cipher final : public Botan::BlockCipher {
    public:
       explicit OCB_Wide_Test_Block_Cipher(size_t bs) : m_bs(bs) {}
 
-      std::string name() const override { return "OCB_ToyCipher"; }
+      std::string name() const override {
+         return "OCB_ToyCipher";
+      }
 
-      size_t block_size() const override { return m_bs; }
+      size_t block_size() const override {
+         return m_bs;
+      }
 
-      void clear() override { m_key.clear(); }
+      void clear() override {
+         m_key.clear();
+      }
 
       std::unique_ptr<Botan::BlockCipher> new_object() const override {
          return std::make_unique<OCB_Wide_Test_Block_Cipher>(m_bs);
       }
 
-      bool has_keying_material() const override { return !m_key.empty(); }
+      bool has_keying_material() const override {
+         return !m_key.empty();
+      }
 
-      void key_schedule(std::span<const uint8_t> key) override { m_key.assign(key.begin(), key.end()); }
+      void key_schedule(std::span<const uint8_t> key) override {
+         m_key.assign(key.begin(), key.end());
+      }
 
-      Botan::Key_Length_Specification key_spec() const override { return Botan::Key_Length_Specification(m_bs); }
+      Botan::Key_Length_Specification key_spec() const override {
+         return Botan::Key_Length_Specification(m_bs);
+      }
 
       void encrypt_n(const uint8_t in[], uint8_t out[], size_t blocks) const override {
          while(blocks > 0) {
@@ -340,9 +352,13 @@ class OCB_Null_Cipher final : public Botan::BlockCipher {
       explicit OCB_Null_Cipher(size_t bs, size_t parallelism) :
             m_bs(bs), m_parallelism(parallelism), m_has_key(false) {}
 
-      std::string name() const override { return "OCB_Null_Cipher"; }
+      std::string name() const override {
+         return "OCB_Null_Cipher";
+      }
 
-      size_t block_size() const override { return m_bs; }
+      size_t block_size() const override {
+         return m_bs;
+      }
 
       void clear() override {}
 
@@ -350,11 +366,17 @@ class OCB_Null_Cipher final : public Botan::BlockCipher {
          return std::make_unique<OCB_Null_Cipher>(m_bs, m_parallelism);
       }
 
-      bool has_keying_material() const override { return m_has_key; }
+      bool has_keying_material() const override {
+         return m_has_key;
+      }
 
-      void key_schedule(std::span<const uint8_t> /*key*/) override { m_has_key = true; }
+      void key_schedule(std::span<const uint8_t> /*key*/) override {
+         m_has_key = true;
+      }
 
-      Botan::Key_Length_Specification key_spec() const override { return Botan::Key_Length_Specification(m_bs); }
+      Botan::Key_Length_Specification key_spec() const override {
+         return Botan::Key_Length_Specification(m_bs);
+      }
 
       void encrypt_n(const uint8_t in[], uint8_t out[], size_t blocks) const override {
          if(in != out) {
@@ -368,7 +390,9 @@ class OCB_Null_Cipher final : public Botan::BlockCipher {
          }
       }
 
-      size_t parallelism() const override { return m_parallelism; }
+      size_t parallelism() const override {
+         return m_parallelism;
+      }
 
    private:
       size_t m_bs;

@@ -25,11 +25,17 @@ class Zlib_Stream : public Zlib_Style_Stream<z_stream, Bytef, unsigned int> {
          streamp()->zfree = Compression_Alloc_Info::free;
       }
 
-      uint32_t run_flag() const override { return Z_NO_FLUSH; }
+      uint32_t run_flag() const override {
+         return Z_NO_FLUSH;
+      }
 
-      uint32_t flush_flag() const override { return Z_SYNC_FLUSH; }
+      uint32_t flush_flag() const override {
+         return Z_SYNC_FLUSH;
+      }
 
-      uint32_t finish_flag() const override { return Z_FINISH; }
+      uint32_t finish_flag() const override {
+         return Z_FINISH;
+      }
 
       static int compute_window_bits(int wbits, int wbits_offset) {
          if(wbits_offset == -1) {
@@ -58,7 +64,9 @@ class Zlib_Compression_Stream : public Zlib_Stream {
          }
       }
 
-      ~Zlib_Compression_Stream() override { ::deflateEnd(streamp()); }
+      ~Zlib_Compression_Stream() override {
+         ::deflateEnd(streamp());
+      }
 
       Zlib_Compression_Stream(const Zlib_Compression_Stream& other) = delete;
       Zlib_Compression_Stream(Zlib_Compression_Stream&& other) = delete;
@@ -86,7 +94,9 @@ class Zlib_Decompression_Stream : public Zlib_Stream {
          }
       }
 
-      ~Zlib_Decompression_Stream() override { ::inflateEnd(streamp()); }
+      ~Zlib_Decompression_Stream() override {
+         ::inflateEnd(streamp());
+      }
 
       Zlib_Decompression_Stream(const Zlib_Decompression_Stream& other) = delete;
       Zlib_Decompression_Stream(Zlib_Decompression_Stream&& other) = delete;

@@ -28,7 +28,9 @@ class Test_Runner final /* NOLINT(*-special-member-functions) */ {
       bool run(const Test_Options& options);
 
    private:
-      std::ostream& output() const { return m_output; }
+      std::ostream& output() const {
+         return m_output;
+      }
 
       /// @return true iff all tests passed
       bool run_tests(const std::vector<std::string>& tests_to_run);

@@ -42,7 +42,9 @@ class BOTAN_TEST_API HashFunction final : public Botan::HashFunction {
       std::unique_ptr<Botan::HashFunction> new_object() const override;
 
       /// @return The hash algorithm identifier as TSS2's TPMI_ALG_HASH
-      TPMI_ALG_HASH type() const { return m_hash_type; }
+      TPMI_ALG_HASH type() const {
+         return m_hash_type;
+      }
 
       /**
        * Finalize the hash operation and return the digest and the ticket

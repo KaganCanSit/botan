@@ -25,11 +25,17 @@ class Serpent final : public Block_Cipher_Fixed_Params<16, 16, 32, 8> {
       void clear() override;
       std::string provider() const override;
 
-      std::string name() const override { return "Serpent"; }
+      std::string name() const override {
+         return "Serpent";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<Serpent>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<Serpent>();
+      }
 
-      size_t parallelism() const override { return 4; }
+      size_t parallelism() const override {
+         return 4;
+      }
 
       bool has_keying_material() const override;
 

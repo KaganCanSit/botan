@@ -49,7 +49,9 @@ class BOTAN_PUBLIC_API(2, 8) PBKDF2 final : public PasswordHash {
       BOTAN_DEPRECATED("For runtime tuning use PBKDF2_Family::tune")
       PBKDF2(const MessageAuthenticationCode& prf, size_t olen, std::chrono::milliseconds msec);
 
-      size_t iterations() const override { return m_iterations; }
+      size_t iterations() const override {
+         return m_iterations;
+      }
 
       std::string to_string() const override;
 

@@ -18,9 +18,13 @@ class Generate_Argon2 final : public Command {
    public:
       Generate_Argon2() : Command("gen_argon2 --mem=65536 --p=1 --t=1 password") {}
 
-      std::string group() const override { return "passhash"; }
+      std::string group() const override {
+         return "passhash";
+      }
 
-      std::string description() const override { return "Calculate Argon2 password hash"; }
+      std::string description() const override {
+         return "Calculate Argon2 password hash";
+      }
 
       void go() override {
          const std::string password = get_passphrase_arg("Passphrase to hash", "password");
@@ -38,9 +42,13 @@ class Check_Argon2 final : public Command {
    public:
       Check_Argon2() : Command("check_argon2 password hash") {}
 
-      std::string group() const override { return "passhash"; }
+      std::string group() const override {
+         return "passhash";
+      }
 
-      std::string description() const override { return "Verify Argon2 password hash"; }
+      std::string description() const override {
+         return "Verify Argon2 password hash";
+      }
 
       void go() override {
          const std::string password = get_passphrase_arg("Password to check", "password");

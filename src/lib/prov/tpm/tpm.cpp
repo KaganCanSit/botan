@@ -318,11 +318,17 @@ class TPM_Signing_Operation final : public PK_Ops::Signature {
       TPM_Signing_Operation(const TPM_PrivateKey& key, std::string_view hash_name) :
             m_key(key), m_hash(HashFunction::create_or_throw(hash_name)), m_hash_id(pkcs_hash_id(hash_name)) {}
 
-      std::string hash_function() const override { return m_hash->name(); }
+      std::string hash_function() const override {
+         return m_hash->name();
+      }
 
-      size_t signature_length() const override { return m_key.get_n().bytes(); }
+      size_t signature_length() const override {
+         return m_key.get_n().bytes();
+      }
 
-      void update(std::span<const uint8_t> msg) override { m_hash->update(msg); }
+      void update(std::span<const uint8_t> msg) override {
+         m_hash->update(msg);
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override {
          const std::string full_name = "RSA/EMSA3(" + m_hash->name() + ")";

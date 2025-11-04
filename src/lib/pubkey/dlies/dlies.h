@@ -63,10 +63,14 @@ class BOTAN_PUBLIC_API(2, 0) DLIES_Encryptor final : public PK_Encryptor {
                       size_t mac_key_len = 20);
 
       // Set the other parties public key
-      inline void set_other_key(const std::vector<uint8_t>& other_pub_key) { m_other_pub_key = other_pub_key; }
+      inline void set_other_key(const std::vector<uint8_t>& other_pub_key) {
+         m_other_pub_key = other_pub_key;
+      }
 
       /// Set the initialization vector for the data encryption method
-      inline void set_initialization_vector(const InitializationVector& iv) { m_iv = iv; }
+      inline void set_initialization_vector(const InitializationVector& iv) {
+         m_iv = iv;
+      }
 
    private:
       std::vector<uint8_t> enc(const uint8_t in[], size_t length, RandomNumberGenerator& rng) const override;
@@ -130,7 +134,9 @@ class BOTAN_PUBLIC_API(2, 0) DLIES_Decryptor final : public PK_Decryptor {
                       size_t mac_key_len = 20);
 
       /// Set the initialization vector for the data decryption method
-      inline void set_initialization_vector(const InitializationVector& iv) { m_iv = iv; }
+      inline void set_initialization_vector(const InitializationVector& iv) {
+         m_iv = iv;
+      }
 
    private:
       secure_vector<uint8_t> do_decrypt(uint8_t& valid_mask, const uint8_t in[], size_t in_len) const override;

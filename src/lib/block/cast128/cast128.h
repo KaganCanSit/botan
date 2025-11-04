@@ -23,9 +23,13 @@ class CAST_128 final : public Block_Cipher_Fixed_Params<8, 11, 16> {
 
       void clear() override;
 
-      std::string name() const override { return "CAST-128"; }
+      std::string name() const override {
+         return "CAST-128";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<CAST_128>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<CAST_128>();
+      }
 
       bool has_keying_material() const override;
 

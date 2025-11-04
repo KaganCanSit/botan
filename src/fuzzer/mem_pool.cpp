@@ -36,7 +36,9 @@ struct RawPage {
       RawPage(const RawPage& other) = default;
       RawPage& operator=(const RawPage& other) = default;
 
-      RawPage(RawPage&& other) noexcept : m_p(nullptr) { std::swap(m_p, other.m_p); }
+      RawPage(RawPage&& other) noexcept : m_p(nullptr) {
+         std::swap(m_p, other.m_p);
+      }
 
       RawPage& operator=(RawPage&& other) noexcept {
          if(this != &other) {
@@ -45,7 +47,9 @@ struct RawPage {
          return (*this);
       }
 
-      void* ptr() const { return m_p; }
+      void* ptr() const {
+         return m_p;
+      }
 
    private:
       void* m_p;

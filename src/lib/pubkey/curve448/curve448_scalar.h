@@ -63,7 +63,9 @@ class BOTAN_TEST_API Scalar448 final {
 
    private:
       // NOLINTNEXTLINE(*-member-init)
-      explicit Scalar448(std::span<const word, WORDS> scalar_words) { copy_mem(m_scalar_words, scalar_words); }
+      explicit Scalar448(std::span<const word, WORDS> scalar_words) {
+         copy_mem(m_scalar_words, scalar_words);
+      }
 
       std::array<word, WORDS> m_scalar_words;
 };

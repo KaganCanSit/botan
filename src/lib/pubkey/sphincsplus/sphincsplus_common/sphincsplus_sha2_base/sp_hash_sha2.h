@@ -102,7 +102,9 @@ class Sphincs_Hash_Functions_Sha2 : public Sphincs_Hash_Functions {
          std::copy(prf.begin(), prf.begin() + out.size(), out.begin());
       }
 
-      std::string msg_hash_function_name() const override { return m_sha_x_full->name(); }
+      std::string msg_hash_function_name() const override {
+         return m_sha_x_full->name();
+      }
 
    private:
       const Sphincs_Parameters& m_sphincs_params;

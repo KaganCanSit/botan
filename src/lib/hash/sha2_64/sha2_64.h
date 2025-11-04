@@ -29,11 +29,17 @@ class SHA_384 final : public HashFunction {
       static void init(digest_type& digest);
 
    public:
-      std::string name() const override { return "SHA-384"; }
+      std::string name() const override {
+         return "SHA-384";
+      }
 
-      size_t output_length() const override { return output_bytes; }
+      size_t output_length() const override {
+         return output_bytes;
+      }
 
-      size_t hash_block_size() const override { return block_bytes; }
+      size_t hash_block_size() const override {
+         return block_bytes;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
 
@@ -41,7 +47,9 @@ class SHA_384 final : public HashFunction {
 
       std::string provider() const override;
 
-      void clear() override { m_md.clear(); }
+      void clear() override {
+         m_md.clear();
+      }
 
    private:
       void add_data(std::span<const uint8_t> input) override;
@@ -69,11 +77,17 @@ class SHA_512 final : public HashFunction {
       static void init(digest_type& digest);
 
    public:
-      std::string name() const override { return "SHA-512"; }
+      std::string name() const override {
+         return "SHA-512";
+      }
 
-      size_t output_length() const override { return output_bytes; }
+      size_t output_length() const override {
+         return output_bytes;
+      }
 
-      size_t hash_block_size() const override { return block_bytes; }
+      size_t hash_block_size() const override {
+         return block_bytes;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
 
@@ -81,7 +95,9 @@ class SHA_512 final : public HashFunction {
 
       std::string provider() const override;
 
-      void clear() override { m_md.clear(); }
+      void clear() override {
+         m_md.clear();
+      }
 
    public:
       static void compress_digest(digest_type& digest, std::span<const uint8_t> input, size_t blocks);
@@ -128,11 +144,17 @@ class SHA_512_256 final : public HashFunction {
       static void init(digest_type& digest);
 
    public:
-      std::string name() const override { return "SHA-512-256"; }
+      std::string name() const override {
+         return "SHA-512-256";
+      }
 
-      size_t output_length() const override { return output_bytes; }
+      size_t output_length() const override {
+         return output_bytes;
+      }
 
-      size_t hash_block_size() const override { return block_bytes; }
+      size_t hash_block_size() const override {
+         return block_bytes;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
 
@@ -140,7 +162,9 @@ class SHA_512_256 final : public HashFunction {
 
       std::string provider() const override;
 
-      void clear() override { m_md.clear(); }
+      void clear() override {
+         m_md.clear();
+      }
 
    private:
       void add_data(std::span<const uint8_t> input) override;

@@ -68,7 +68,9 @@ class BOTAN_PUBLIC_API(3, 0) Session_Handle {
        * Constructs a Session_Handle from a session ID which is an
        * arbitrary byte vector that must be 32 bytes long at most.
        */
-      Session_Handle(Session_ID id) : m_handle(std::move(id)) { validate_constraints(); }
+      Session_Handle(Session_ID id) : m_handle(std::move(id)) {
+         validate_constraints();
+      }
 
       /**
        * Constructs a Session_Handle from a session ticket which is a
@@ -79,7 +81,9 @@ class BOTAN_PUBLIC_API(3, 0) Session_Handle {
        * Note that (for technical reasons) we enforce that tickets are
        * longer than 32 bytes.
        */
-      Session_Handle(Session_Ticket ticket) : m_handle(std::move(ticket)) { validate_constraints(); }
+      Session_Handle(Session_Ticket ticket) : m_handle(std::move(ticket)) {
+         validate_constraints();
+      }
 
       /**
        * Constructs a Session_Handle from an Opaque_Handle such as TLS 1.3
@@ -87,15 +91,23 @@ class BOTAN_PUBLIC_API(3, 0) Session_Handle {
        * Session_ID or a Session_Ticket and it is up to the Session_Manager
        * to figure out what it actually is.
        */
-      Session_Handle(Opaque_Session_Handle ticket) : m_handle(std::move(ticket)) { validate_constraints(); }
+      Session_Handle(Opaque_Session_Handle ticket) : m_handle(std::move(ticket)) {
+         validate_constraints();
+      }
 
       // NOLINTEND(*-explicit-conversions)
 
-      bool is_id() const { return std::holds_alternative<Session_ID>(m_handle); }
+      bool is_id() const {
+         return std::holds_alternative<Session_ID>(m_handle);
+      }
 
-      bool is_ticket() const { return std::holds_alternative<Session_Ticket>(m_handle); }
+      bool is_ticket() const {
+         return std::holds_alternative<Session_Ticket>(m_handle);
+      }
 
-      bool is_opaque_handle() const { return std::holds_alternative<Opaque_Session_Handle>(m_handle); }
+      bool is_opaque_handle() const {
+         return std::holds_alternative<Opaque_Session_Handle>(m_handle);
+      }
 
       /**
        * Returns the Session_Handle as an opaque handle. If the object was not
@@ -119,7 +131,9 @@ class BOTAN_PUBLIC_API(3, 0) Session_Handle {
        */
       std::optional<Session_Ticket> ticket() const;
 
-      decltype(auto) get() const { return m_handle; }
+      decltype(auto) get() const {
+         return m_handle;
+      }
 
    private:
       void validate_constraints() const;
@@ -167,17 +181,23 @@ class BOTAN_PUBLIC_API(3, 0) Session_Base {
       /**
        * Get the wall clock time this session began
        */
-      std::chrono::system_clock::time_point start_time() const { return m_start_time; }
+      std::chrono::system_clock::time_point start_time() const {
+         return m_start_time;
+      }
 
       /**
        * Get the negotiated protocol version of the TLS session
        */
-      Protocol_Version version() const { return m_version; }
+      Protocol_Version version() const {
+         return m_version;
+      }
 
       /**
        * Get the ciphersuite code of the negotiated TLS session
        */
-      uint16_t ciphersuite_code() const { return m_ciphersuite; }
+      uint16_t ciphersuite_code() const {
+         return m_ciphersuite;
+      }
 
       /**
        * Get the ciphersuite info of the negotiated TLS session
@@ -187,34 +207,46 @@ class BOTAN_PUBLIC_API(3, 0) Session_Base {
       /**
        * Get which side of the connection we are/were acting as.
        */
-      Connection_Side side() const { return m_connection_side; }
+      Connection_Side side() const {
+         return m_connection_side;
+      }
 
       /**
        * Get the negotiated DTLS-SRTP algorithm (RFC 5764)
        */
-      uint16_t dtls_srtp_profile() const { return m_srtp_profile; }
+      uint16_t dtls_srtp_profile() const {
+         return m_srtp_profile;
+      }
 
       /**
        * Returns true if a TLS 1.2 session negotiated "encrypt then MAC";
        * TLS 1.3 sessions will always return false as they always use an AEAD.
        */
-      bool supports_encrypt_then_mac() const { return m_encrypt_then_mac; }
+      bool supports_encrypt_then_mac() const {
+         return m_encrypt_then_mac;
+      }
 
       /**
        * Returns true if a TLS 1.2 session negotiated "extended master secret";
        * TLS 1.3 sessions will always return true (see RFC 8446 Appendix D).
        */
-      bool supports_extended_master_secret() const { return m_extended_master_secret; }
+      bool supports_extended_master_secret() const {
+         return m_extended_master_secret;
+      }
 
       /**
        * Return the certificate chain of the peer (possibly empty)
        */
-      const std::vector<X509_Certificate>& peer_certs() const { return m_peer_certs; }
+      const std::vector<X509_Certificate>& peer_certs() const {
+         return m_peer_certs;
+      }
 
       /**
        * Return the raw public key of the peer (possibly empty)
        */
-      std::shared_ptr<const Public_Key> peer_raw_public_key() const { return m_peer_raw_public_key; }
+      std::shared_ptr<const Public_Key> peer_raw_public_key() const {
+         return m_peer_raw_public_key;
+      }
 
       /**
        * Get information about the TLS server
@@ -224,7 +256,9 @@ class BOTAN_PUBLIC_API(3, 0) Session_Base {
        * passed to the constructor. For the server, it includes the name the
        * client specified in the server name indicator extension.
        */
-      const Server_Information& server_info() const { return m_server_info; }
+      const Server_Information& server_info() const {
+         return m_server_info;
+      }
 
    protected:
       std::chrono::system_clock::time_point m_start_time;  // NOLINT(*non-private-member-variable*)
@@ -253,14 +287,18 @@ class BOTAN_PUBLIC_API(3, 0) Session_Summary : public Session_Base {
        * Note that this does not carry any meaning in TLS 1.3 and might even
        * be empty.
        */
-      const Session_ID& session_id() const { return m_session_id; }
+      const Session_ID& session_id() const {
+         return m_session_id;
+      }
 
       /**
        * The session ticket a TLS 1.2 server issued for this session.
        * Note that this may be set in TLS 1.2 clients only. It is _not_ the
        * ticket used to establish this session.
        */
-      const std::optional<Session_Ticket>& session_ticket() const { return m_session_ticket; }
+      const std::optional<Session_Ticket>& session_ticket() const {
+         return m_session_ticket;
+      }
 
       /**
        * The negotiated identity of an externally provided preshared key used to
@@ -268,7 +306,9 @@ class BOTAN_PUBLIC_API(3, 0) Session_Summary : public Session_Base {
        * provided PSKs offered by the client. PSK identities used as session
        * tickets for TLS 1.3 session resumption won't be shown here.
        */
-      const std::optional<std::string>& external_psk_identity() const { return m_external_psk_identity; }
+      const std::optional<std::string>& external_psk_identity() const {
+         return m_external_psk_identity;
+      }
 
       /**
        * Indicates that the session was established using an externally provided
@@ -280,24 +320,38 @@ class BOTAN_PUBLIC_API(3, 0) Session_Summary : public Session_Base {
        * @returns true if the session was established using an externally
        *          provided PSK.
        */
-      bool psk_used() const { return m_external_psk_identity.has_value(); }
+      bool psk_used() const {
+         return m_external_psk_identity.has_value();
+      }
 
       /**
        * Indicates that the session was resumed from a previous handshake state.
        *
        * @returns true if this session is a resumption, otherwise false
        */
-      bool was_resumption() const { return m_was_resumption; }
+      bool was_resumption() const {
+         return m_was_resumption;
+      }
 
-      std::string kex_algo() const { return m_kex_algo; }
+      std::string kex_algo() const {
+         return m_kex_algo;
+      }
 
-      std::optional<std::string> kex_parameters() const { return m_kex_parameters; }
+      std::optional<std::string> kex_parameters() const {
+         return m_kex_parameters;
+      }
 
-      std::string cipher_algo() const { return ciphersuite().cipher_algo(); }
+      std::string cipher_algo() const {
+         return ciphersuite().cipher_algo();
+      }
 
-      std::string mac_algo() const { return ciphersuite().mac_algo(); }
+      std::string mac_algo() const {
+         return ciphersuite().mac_algo();
+      }
 
-      std::string prf_algo() const { return ciphersuite().prf_algo(); }
+      std::string prf_algo() const {
+         return ciphersuite().prf_algo();
+      }
 
    private:
       friend class Server_Impl_12;
@@ -318,9 +372,13 @@ class BOTAN_PUBLIC_API(3, 0) Session_Summary : public Session_Base {
                       std::chrono::system_clock::time_point current_timestamp);
 #endif
 
-      void set_session_id(Session_ID id) { m_session_id = std::move(id); }
+      void set_session_id(Session_ID id) {
+         m_session_id = std::move(id);
+      }
 
-      void set_session_ticket(Session_Ticket ticket) { m_session_ticket = std::move(ticket); }
+      void set_session_ticket(Session_Ticket ticket) {
+         m_session_ticket = std::move(ticket);
+      }
 
    private:
       Session_ID m_session_id;
@@ -437,7 +495,9 @@ class BOTAN_PUBLIC_API(3, 0) Session final : public Session_Base {
       /**
       * Get a reference to the contained master secret
       */
-      const secure_vector<uint8_t>& master_secret() const { return m_master_secret; }
+      const secure_vector<uint8_t>& master_secret() const {
+         return m_master_secret;
+      }
 
       /**
       * Get the contained master secret as a moved-out object
@@ -447,22 +507,30 @@ class BOTAN_PUBLIC_API(3, 0) Session final : public Session_Base {
       /**
        * Get whether the saved session supports sending/receiving of early data
        */
-      bool supports_early_data() const { return m_early_data_allowed; }
+      bool supports_early_data() const {
+         return m_early_data_allowed;
+      }
 
       /**
       * Return the ticket obfuscation adder
       */
-      uint32_t session_age_add() const { return m_ticket_age_add; }
+      uint32_t session_age_add() const {
+         return m_ticket_age_add;
+      }
 
       /**
       * Return the number of bytes allowed for 0-RTT early data
       */
-      uint32_t max_early_data_bytes() const { return m_max_early_data_bytes; }
+      uint32_t max_early_data_bytes() const {
+         return m_max_early_data_bytes;
+      }
 
       /**
       * @return the lifetime of the ticket as defined by the TLS server
       */
-      std::chrono::seconds lifetime_hint() const { return m_lifetime_hint; }
+      std::chrono::seconds lifetime_hint() const {
+         return m_lifetime_hint;
+      }
 
    private:
       /*

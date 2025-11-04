@@ -37,7 +37,9 @@ class GCM_Mode : public AEAD_Mode /* NOLINT(*-special-member-functions) */ {
 
       bool valid_nonce_length(size_t len) const final;
 
-      size_t tag_size() const final { return m_tag_size; }
+      size_t tag_size() const final {
+         return m_tag_size;
+      }
 
       void clear() final;
 
@@ -80,9 +82,13 @@ class GCM_Encryption final : public GCM_Mode {
       explicit GCM_Encryption(std::unique_ptr<BlockCipher> cipher, size_t tag_size = 16) :
             GCM_Mode(std::move(cipher), tag_size) {}
 
-      size_t output_length(size_t input_length) const override { return input_length + tag_size(); }
+      size_t output_length(size_t input_length) const override {
+         return input_length + tag_size();
+      }
 
-      size_t minimum_final_size() const override { return 0; }
+      size_t minimum_final_size() const override {
+         return 0;
+      }
 
    private:
       size_t process_msg(uint8_t buf[], size_t size) override;
@@ -106,7 +112,9 @@ class GCM_Decryption final : public GCM_Mode {
          return input_length - tag_size();
       }
 
-      size_t minimum_final_size() const override { return tag_size(); }
+      size_t minimum_final_size() const override {
+         return tag_size();
+      }
 
    private:
       size_t process_msg(uint8_t buf[], size_t size) override;

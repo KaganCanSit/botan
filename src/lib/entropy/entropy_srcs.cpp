@@ -49,7 +49,9 @@ class System_RNG_EntropySource final : public Entropy_Source {
          return poll_bits;
       }
 
-      std::string name() const override { return "system_rng"; }
+      std::string name() const override {
+         return "system_rng";
+      }
 };
 
 #endif
@@ -81,7 +83,9 @@ class Processor_RNG_EntropySource final : public Entropy_Source {
          return 0;
       }
 
-      std::string name() const override { return m_hwrng.name(); }
+      std::string name() const override {
+         return m_hwrng.name();
+      }
 
    private:
       Processor_RNG m_hwrng;
@@ -98,7 +102,9 @@ class Jitter_RNG_EntropySource final : public Entropy_Source {
          return RandomNumberGenerator::DefaultPollBits;
       }
 
-      std::string name() const override { return m_rng.name(); }
+      std::string name() const override {
+         return m_rng.name();
+      }
 
    private:
       Jitter_RNG m_rng;

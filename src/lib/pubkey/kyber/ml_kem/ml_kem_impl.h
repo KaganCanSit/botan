@@ -31,7 +31,9 @@ class ML_KEM_Encryptor final : public Kyber_KEM_Encryptor_Base {
                        StrongSpan<KyberSharedSecret> out_shared_key,
                        RandomNumberGenerator& rng) override;
 
-      const KyberConstants& mode() const override { return m_public_key->mode(); }
+      const KyberConstants& mode() const override {
+         return m_public_key->mode();
+      }
 
    private:
       std::shared_ptr<const Kyber_PublicKeyInternal> m_public_key;
@@ -50,7 +52,9 @@ class ML_KEM_Decryptor final : public Kyber_KEM_Decryptor_Base {
       void decapsulate(StrongSpan<KyberSharedSecret> out_shared_key,
                        StrongSpan<const KyberCompressedCiphertext> encapsulated_key) override;
 
-      const KyberConstants& mode() const override { return m_private_key->mode(); }
+      const KyberConstants& mode() const override {
+         return m_private_key->mode();
+      }
 
    private:
       std::shared_ptr<const Kyber_PublicKeyInternal> m_public_key;
@@ -75,13 +79,21 @@ class ML_KEM_Symmetric_Primitives final : public Kyber_Symmetric_Primitives {
          return std::array{mode.k()};
       }
 
-      HashFunction& get_G() const override { return *m_sha3_512; }
+      HashFunction& get_G() const override {
+         return *m_sha3_512;
+      }
 
-      HashFunction& get_H() const override { return *m_sha3_256; }
+      HashFunction& get_H() const override {
+         return *m_sha3_256;
+      }
 
-      HashFunction& get_J() const override { return *m_shake256_256; }
+      HashFunction& get_J() const override {
+         return *m_shake256_256;
+      }
 
-      HashFunction& get_KDF() const override { throw Invalid_State("ML-KEM does not support KDF()"); }
+      HashFunction& get_KDF() const override {
+         throw Invalid_State("ML-KEM does not support KDF()");
+      }
 
       Botan::XOF& get_PRF(std::span<const uint8_t> seed, const uint8_t nonce) const override {
          m_shake256->clear();

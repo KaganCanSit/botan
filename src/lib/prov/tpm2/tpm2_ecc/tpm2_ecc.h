@@ -19,7 +19,9 @@ BOTAN_DIAGNOSTIC_IGNORE_INHERITED_VIA_DOMINANCE
 class BOTAN_PUBLIC_API(3, 6) EC_PublicKey final : public virtual Botan::TPM2::PublicKey,
                                                   public virtual Botan::EC_PublicKey {
    public:
-      std::string algo_name() const override { return "ECDSA"; }
+      std::string algo_name() const override {
+         return "ECDSA";
+      }
 
       /**
        * @returns the public key encoding in ordinary point encoding
@@ -94,7 +96,9 @@ class BOTAN_PUBLIC_API(3, 6) EC_PrivateKey final : public virtual Botan::TPM2::P
        */
       std::vector<uint8_t> raw_public_key_bits() const override;
 
-      bool supports_operation(PublicKeyOperation op) const override { return op == PublicKeyOperation::Signature; }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return op == PublicKeyOperation::Signature;
+      }
 
       std::unique_ptr<PK_Ops::Signature> create_signature_op(Botan::RandomNumberGenerator& rng,
                                                              std::string_view params,

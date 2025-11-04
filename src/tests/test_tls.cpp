@@ -127,9 +127,13 @@ class TLS_CBC_Tests final : public Text_Based_Test {
 
             void clear() override {}
 
-            std::string name() const override { return "ZeroMac"; }
+            std::string name() const override {
+               return "ZeroMac";
+            }
 
-            size_t output_length() const override { return m_mac_len; }
+            size_t output_length() const override {
+               return m_mac_len;
+            }
 
             void add_data(std::span<const uint8_t> /*input*/) override {}
 
@@ -139,7 +143,9 @@ class TLS_CBC_Tests final : public Text_Based_Test {
                }
             }
 
-            bool has_keying_material() const override { return true; }
+            bool has_keying_material() const override {
+               return true;
+            }
 
             Botan::Key_Length_Specification key_spec() const override {
                return Botan::Key_Length_Specification(0, 0, 1);
@@ -167,13 +173,19 @@ class TLS_CBC_Tests final : public Text_Based_Test {
                Botan::copy_mem(out, in, blocks * m_bs);
             }
 
-            size_t block_size() const override { return m_bs; }
+            size_t block_size() const override {
+               return m_bs;
+            }
 
             void clear() override {}
 
-            std::string name() const override { return "noop"; }
+            std::string name() const override {
+               return "noop";
+            }
 
-            bool has_keying_material() const override { return true; }
+            bool has_keying_material() const override {
+               return true;
+            }
 
             Botan::Key_Length_Specification key_spec() const override {
                return Botan::Key_Length_Specification(0, 0, 1);

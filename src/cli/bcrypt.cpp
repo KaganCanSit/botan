@@ -18,9 +18,13 @@ class Generate_Bcrypt final : public Command {
    public:
       Generate_Bcrypt() : Command("gen_bcrypt --work-factor=12 password") {}
 
-      std::string group() const override { return "passhash"; }
+      std::string group() const override {
+         return "passhash";
+      }
 
-      std::string description() const override { return "Calculate bcrypt password hash"; }
+      std::string description() const override {
+         return "Calculate bcrypt password hash";
+      }
 
       void go() override {
          const std::string password = get_passphrase_arg("Passphrase to hash", "password");
@@ -41,9 +45,13 @@ class Check_Bcrypt final : public Command {
    public:
       Check_Bcrypt() : Command("check_bcrypt password hash") {}
 
-      std::string group() const override { return "passhash"; }
+      std::string group() const override {
+         return "passhash";
+      }
 
-      std::string description() const override { return "Verify bcrypt password hash"; }
+      std::string description() const override {
+         return "Verify bcrypt password hash";
+      }
 
       void go() override {
          const std::string password = get_passphrase_arg("Password to check", "password");

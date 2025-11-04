@@ -40,7 +40,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_ECDH_PublicKey : public PKCS11_EC_PublicKey 
       PKCS11_ECDH_PublicKey(Session& session, const EC_PublicKeyImportProperties& props) :
             PKCS11_EC_PublicKey(session, props) {}
 
-      inline std::string algo_name() const override { return "ECDH"; }
+      inline std::string algo_name() const override {
+         return "ECDH";
+      }
 
       /**
        * @throws Not_Implemented as this operation is not possible in PKCS11
@@ -49,7 +51,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_ECDH_PublicKey : public PKCS11_EC_PublicKey 
          throw Not_Implemented("Cannot generate a new PKCS#11 ECDH keypair from this public key");
       }
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::KeyAgreement); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::KeyAgreement);
+      }
 
       /// @return the exported ECDH public key
       ECDH_PublicKey export_key() const;
@@ -90,11 +94,15 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_ECDH_PrivateKey final : public virtual PKCS1
                              const EC_PrivateKeyGenerationProperties& props) :
             PKCS11_EC_PrivateKey(session, ec_params, props) {}
 
-      inline std::string algo_name() const override { return "ECDH"; }
+      inline std::string algo_name() const override {
+         return "ECDH";
+      }
 
       std::unique_ptr<Public_Key> public_key() const override;
 
-      inline std::vector<uint8_t> public_value() const override { return public_ec_point().serialize_uncompressed(); }
+      inline std::vector<uint8_t> public_value() const override {
+         return public_ec_point().serialize_uncompressed();
+      }
 
       /// @return the exported ECDH private key
       ECDH_PrivateKey export_key() const;
@@ -108,7 +116,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_ECDH_PrivateKey final : public virtual PKCS1
          throw Not_Implemented("Cannot generate a new PKCS#11 ECDH keypair from this private key");
       }
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::KeyAgreement); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::KeyAgreement);
+      }
 
       std::unique_ptr<PK_Ops::Key_Agreement> create_key_agreement_op(RandomNumberGenerator& rng,
                                                                      std::string_view params,

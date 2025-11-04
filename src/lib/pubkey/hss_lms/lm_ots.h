@@ -117,42 +117,58 @@ class BOTAN_TEST_API LMOTS_Params final {
       /**
        * @brief Returns the LM-OTS algorithm type.
        */
-      LMOTS_Algorithm_Type algorithm_type() const { return m_algorithm_type; }
+      LMOTS_Algorithm_Type algorithm_type() const {
+         return m_algorithm_type;
+      }
 
       /**
        * @brief The number of bytes of the output of the hash function.
        */
-      size_t n() const { return m_n; }
+      size_t n() const {
+         return m_n;
+      }
 
       /**
        * @brief The width (in bits) of the Winternitz coefficients.
        */
-      uint8_t w() const { return m_w; }
+      uint8_t w() const {
+         return m_w;
+      }
 
       /**
        * @brief The maximum the winternitz coefficients can have.
        */
-      uint8_t coef_max() const { return (1 << m_w) - 1; }
+      uint8_t coef_max() const {
+         return (1 << m_w) - 1;
+      }
 
       /**
        * @brief The number of n-byte string elements that make up the LM-OTS signature.
        */
-      uint16_t p() const { return m_p; }
+      uint16_t p() const {
+         return m_p;
+      }
 
       /**
        * @brief The number of left-shift bits used in the checksum function Cksm.
        */
-      uint8_t ls() const { return m_ls; }
+      uint8_t ls() const {
+         return m_ls;
+      }
 
       /**
        * @brief Name of the hash function to use.
        */
-      const std::string& hash_name() const { return m_hash_name; }
+      const std::string& hash_name() const {
+         return m_hash_name;
+      }
 
       /**
        * @brief Construct a new hash instance for the OTS instance.
        */
-      std::unique_ptr<HashFunction> hash() const { return HashFunction::create_or_throw(hash_name()); }
+      std::unique_ptr<HashFunction> hash() const {
+         return HashFunction::create_or_throw(hash_name());
+      }
 
    private:
       /**
@@ -189,22 +205,30 @@ class BOTAN_TEST_API LMOTS_Signature final {
       /**
        * @brief Returns the LM-OTS algorithm type.
        */
-      LMOTS_Algorithm_Type algorithm_type() const { return m_algorithm_type; }
+      LMOTS_Algorithm_Type algorithm_type() const {
+         return m_algorithm_type;
+      }
 
       /**
        * @brief The n-byte randomizer of the signature.
        */
-      std::span<const uint8_t> C() const { return m_C; }
+      std::span<const uint8_t> C() const {
+         return m_C;
+      }
 
       /**
        * @brief Returns the part of the signature for @p chain_idx.
        */
-      StrongSpan<const LMOTS_Node> y(uint16_t chain_idx) const { return m_y.at(chain_idx); }
+      StrongSpan<const LMOTS_Node> y(uint16_t chain_idx) const {
+         return m_y.at(chain_idx);
+      }
 
       /**
        * @brief The expected size of the signature.
        */
-      static size_t size(const LMOTS_Params& params) { return 4 + params.n() * (params.p() + 1); }
+      static size_t size(const LMOTS_Params& params) {
+         return 4 + params.n() * (params.p() + 1);
+      }
 
    private:
       LMOTS_Signature(LMOTS_Algorithm_Type lmots_type, std::vector<uint8_t> C, std::vector<uint8_t> y_buffer);
@@ -230,17 +254,23 @@ class BOTAN_TEST_API OTS_Instance {
       /**
        * @brief The LMOTS parameters
        */
-      const LMOTS_Params& params() const { return m_params; }
+      const LMOTS_Params& params() const {
+         return m_params;
+      }
 
       /**
        * @brief The LMS identifier of the LMS tree containing this OTS instance ('I' in RFC 8554)
        */
-      const LMS_Identifier& identifier() const { return m_identifier; }
+      const LMS_Identifier& identifier() const {
+         return m_identifier;
+      }
 
       /**
        * @brief The index of the LMS tree leaf associated with this OTS instance
        */
-      LMS_Tree_Node_Idx q() const { return m_q; }
+      LMS_Tree_Node_Idx q() const {
+         return m_q;
+      }
 
    private:
       LMOTS_Params m_params;
@@ -269,7 +299,9 @@ class BOTAN_TEST_API LMOTS_Private_Key final : public OTS_Instance {
       /**
        * @brief The secret chain input at a given chain index. (x[] in RFC 8554 4.2).
        */
-      const LMOTS_Node& chain_input(uint16_t chain_idx) const { return m_ots_sk.at(chain_idx); }
+      const LMOTS_Node& chain_input(uint16_t chain_idx) const {
+         return m_ots_sk.at(chain_idx);
+      }
 
       /**
        * @brief Generate a new LMOTS signature.
@@ -325,7 +357,9 @@ class BOTAN_TEST_API LMOTS_Public_Key final : public OTS_Instance {
        *
        * @return const LMOTS_K&
        */
-      const LMOTS_K& K() const { return m_K; }
+      const LMOTS_K& K() const {
+         return m_K;
+      }
 
    private:
       LMOTS_K m_K;

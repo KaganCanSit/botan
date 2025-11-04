@@ -46,22 +46,34 @@ class Handle_Guard {
 
       Handle_Guard(const Handle_Guard<T>& rhs) = delete;
 
-      Handle_Guard(Handle_Guard<T>&& rhs) : m_context(std::move(rhs.m_context)) { rhs.m_context = nullptr; }
+      Handle_Guard(Handle_Guard<T>&& rhs) : m_context(std::move(rhs.m_context)) {
+         rhs.m_context = nullptr;
+      }
 
-      ~Handle_Guard() { close<T>(); }
+      ~Handle_Guard() {
+         close<T>();
+      }
 
-      operator bool() const { return m_context != nullptr; }
+      operator bool() const {
+         return m_context != nullptr;
+      }
 
       bool assign(T context) {
          m_context = context;
          return m_context != nullptr;
       }
 
-      T& get() { return m_context; }
+      T& get() {
+         return m_context;
+      }
 
-      const T& get() const { return m_context; }
+      const T& get() const {
+         return m_context;
+      }
 
-      T operator->() { return m_context; }
+      T operator->() {
+         return m_context;
+      }
 
    private:
       template <class T2 = T>

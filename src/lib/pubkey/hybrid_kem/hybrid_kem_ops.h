@@ -40,7 +40,9 @@ class KEM_Encryption_with_Combiner : public PK_Ops::KEM_Encryption {
                        std::span<const uint8_t> salt) final;
 
       /// The default implementation returns the sum of the encapsulated key lengths of the underlying KEMs.
-      size_t encapsulated_key_length() const override { return m_encapsulated_key_length; }
+      size_t encapsulated_key_length() const override {
+         return m_encapsulated_key_length;
+      }
 
    protected:
       /**
@@ -71,9 +73,13 @@ class KEM_Encryption_with_Combiner : public PK_Ops::KEM_Encryption {
                                           size_t desired_shared_key_len,
                                           std::span<const uint8_t> salt) = 0;
 
-      std::vector<PK_KEM_Encryptor>& encryptors() { return m_encryptors; }
+      std::vector<PK_KEM_Encryptor>& encryptors() {
+         return m_encryptors;
+      }
 
-      const std::vector<PK_KEM_Encryptor>& encryptors() const { return m_encryptors; }
+      const std::vector<PK_KEM_Encryptor>& encryptors() const {
+         return m_encryptors;
+      }
 
    private:
       std::vector<PK_KEM_Encryptor> m_encryptors;
@@ -100,7 +106,9 @@ class KEM_Decryption_with_Combiner : public PK_Ops::KEM_Decryption {
                        std::span<const uint8_t> salt) final;
 
       /// The default implementation returns the sum of the encapsulated key lengths of the underlying KEMs.
-      size_t encapsulated_key_length() const override { return m_encapsulated_key_length; }
+      size_t encapsulated_key_length() const override {
+         return m_encapsulated_key_length;
+      }
 
    protected:
       /**
@@ -127,9 +135,13 @@ class KEM_Decryption_with_Combiner : public PK_Ops::KEM_Decryption {
                                           size_t desired_shared_key_len,
                                           std::span<const uint8_t> salt) = 0;
 
-      std::vector<PK_KEM_Decryptor>& decryptors() { return m_decryptors; }
+      std::vector<PK_KEM_Decryptor>& decryptors() {
+         return m_decryptors;
+      }
 
-      const std::vector<PK_KEM_Decryptor>& decryptors() const { return m_decryptors; }
+      const std::vector<PK_KEM_Decryptor>& decryptors() const {
+         return m_decryptors;
+      }
 
    private:
       std::vector<PK_KEM_Decryptor> m_decryptors;

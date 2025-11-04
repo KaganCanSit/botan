@@ -144,13 +144,21 @@ class BSD_Socket final : public OS::Socket {
       typedef int socklen_type;
       typedef int sendrecv_len_type;
 
-      static socket_type invalid_socket() { return INVALID_SOCKET; }
+      static socket_type invalid_socket() {
+         return INVALID_SOCKET;
+      }
 
-      static void close_socket(socket_type s) { ::closesocket(s); }
+      static void close_socket(socket_type s) {
+         ::closesocket(s);
+      }
 
-      static std::string get_last_socket_error() { return std::to_string(::WSAGetLastError()); }
+      static std::string get_last_socket_error() {
+         return std::to_string(::WSAGetLastError());
+      }
 
-      static bool nonblocking_connect_in_progress() { return (::WSAGetLastError() == WSAEWOULDBLOCK); }
+      static bool nonblocking_connect_in_progress() {
+         return (::WSAGetLastError() == WSAEWOULDBLOCK);
+      }
 
       static void set_nonblocking(socket_type s) {
          u_long nonblocking = 1;
@@ -171,20 +179,30 @@ class BSD_Socket final : public OS::Socket {
          }
       }
 
-      static void socket_fini() { ::WSACleanup(); }
+      static void socket_fini() {
+         ::WSACleanup();
+      }
    #else
       typedef int socket_type;
       typedef ssize_t socket_op_ret_type;
       typedef socklen_t socklen_type;
       typedef size_t sendrecv_len_type;
 
-      static socket_type invalid_socket() { return -1; }
+      static socket_type invalid_socket() {
+         return -1;
+      }
 
-      static void close_socket(socket_type s) { ::close(s); }
+      static void close_socket(socket_type s) {
+         ::close(s);
+      }
 
-      static std::string get_last_socket_error() { return ::strerror(errno); }
+      static std::string get_last_socket_error() {
+         return ::strerror(errno);
+      }
 
-      static bool nonblocking_connect_in_progress() { return (errno == EINPROGRESS); }
+      static bool nonblocking_connect_in_progress() {
+         return (errno == EINPROGRESS);
+      }
 
       static void set_nonblocking(socket_type s) {
          // NOLINTNEXTLINE(*-vararg)

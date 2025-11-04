@@ -34,9 +34,13 @@ class EAX_Mode : public AEAD_Mode {
       Key_Length_Specification key_spec() const final;
 
       // EAX supports arbitrary nonce lengths
-      bool valid_nonce_length(size_t /*length*/) const final { return true; }
+      bool valid_nonce_length(size_t /*length*/) const final {
+         return true;
+      }
 
-      size_t tag_size() const final { return m_tag_size; }
+      size_t tag_size() const final {
+         return m_tag_size;
+      }
 
       void clear() final;
 
@@ -51,7 +55,9 @@ class EAX_Mode : public AEAD_Mode {
       */
       EAX_Mode(std::unique_ptr<BlockCipher> cipher, size_t tag_size);
 
-      size_t block_size() const { return m_cipher->block_size(); }
+      size_t block_size() const {
+         return m_cipher->block_size();
+      }
 
       size_t m_tag_size;  // NOLINT(*non-private-member-variable*)
 
@@ -81,9 +87,13 @@ class EAX_Encryption final : public EAX_Mode {
       explicit EAX_Encryption(std::unique_ptr<BlockCipher> cipher, size_t tag_size = 0) :
             EAX_Mode(std::move(cipher), tag_size) {}
 
-      size_t output_length(size_t input_length) const override { return input_length + tag_size(); }
+      size_t output_length(size_t input_length) const override {
+         return input_length + tag_size();
+      }
 
-      size_t minimum_final_size() const override { return 0; }
+      size_t minimum_final_size() const override {
+         return 0;
+      }
 
    private:
       size_t process_msg(uint8_t buf[], size_t size) override;
@@ -107,7 +117,9 @@ class EAX_Decryption final : public EAX_Mode {
          return input_length - tag_size();
       }
 
-      size_t minimum_final_size() const override { return tag_size(); }
+      size_t minimum_final_size() const override {
+         return tag_size();
+      }
 
    private:
       size_t process_msg(uint8_t buf[], size_t size) override;

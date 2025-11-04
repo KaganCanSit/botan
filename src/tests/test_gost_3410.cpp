@@ -48,7 +48,9 @@ class GOST_3410_2001_Verification_Tests final : public PK_Signature_Verification
          }
       }
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Hash"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Hash");
+      }
 };
 
 class GOST_3410_2001_Signature_Tests final : public PK_Signature_Generation_Test {
@@ -77,7 +79,9 @@ class GOST_3410_2001_Signature_Tests final : public PK_Signature_Generation_Test
          return std::make_unique<Botan::GOST_3410_PrivateKey>(this->rng(), group, x);
       }
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Hash"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Hash");
+      }
 
       std::unique_ptr<Botan::RandomNumberGenerator> test_rng(const std::vector<uint8_t>& nonce) const override {
          return std::make_unique<Fixed_Output_Position_RNG>(nonce, 1, this->rng());
@@ -96,7 +100,9 @@ class GOST_3410_2001_Keygen_Tests final : public PK_Key_Generation_Test {
          return params;
       }
 
-      std::string algo_name() const override { return "GOST-34.10"; }
+      std::string algo_name() const override {
+         return "GOST-34.10";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /* provider */,

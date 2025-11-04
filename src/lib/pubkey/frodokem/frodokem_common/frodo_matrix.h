@@ -30,7 +30,9 @@ class FrodoMatrix final {
 
       explicit FrodoMatrix(Dimensions dims);
 
-      uint16_t elements_at(size_t i) const { return m_elements.at(i); }
+      uint16_t elements_at(size_t i) const {
+         return m_elements.at(i);
+      }
 
       size_t packed_size(const FrodoKEMConstants& constants) const {
          const size_t lsb = constants.d();
@@ -119,17 +121,25 @@ class FrodoMatrix final {
       // Output: c = a - b
       static FrodoMatrix sub(const FrodoKEMConstants& constants, const FrodoMatrix& a, const FrodoMatrix& b);
 
-      Dimensions dimensions() const { return {m_dim1, m_dim2}; }
+      Dimensions dimensions() const {
+         return {m_dim1, m_dim2};
+      }
 
       CT::Mask<uint8_t> constant_time_compare(const FrodoMatrix& other) const;
 
-      size_t element_count() const { return m_elements.size(); }
+      size_t element_count() const {
+         return m_elements.size();
+      }
 
       void reduce(const FrodoKEMConstants& constants);
 
-      constexpr void _const_time_poison() const { CT::poison(m_elements); }
+      constexpr void _const_time_poison() const {
+         CT::poison(m_elements);
+      }
 
-      constexpr void _const_time_unpoison() const { CT::unpoison(m_elements); }
+      constexpr void _const_time_unpoison() const {
+         CT::unpoison(m_elements);
+      }
 
    private:
       FrodoMatrix(const Dimensions& dimensions, secure_vector<uint16_t> elements) :

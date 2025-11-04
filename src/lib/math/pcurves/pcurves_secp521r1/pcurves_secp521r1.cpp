@@ -21,7 +21,9 @@ class P521Rep final {
       static constexpr size_t N = Params::N;
       typedef typename Params::W W;
 
-      constexpr static std::array<W, N> one() { return std::array<W, N>{1}; }
+      constexpr static std::array<W, N> one() {
+         return std::array<W, N>{1};
+      }
 
       constexpr static std::array<W, N> redc(const std::array<W, 2 * N>& z) {
          // Regardless of word size (32 or 64) the top word is 9 bits long
@@ -73,11 +75,17 @@ class P521Rep final {
          return t;
       }
 
-      constexpr static std::array<W, N> to_rep(const std::array<W, N>& x) { return x; }
+      constexpr static std::array<W, N> to_rep(const std::array<W, N>& x) {
+         return x;
+      }
 
-      constexpr static std::array<W, N> wide_to_rep(const std::array<W, 2 * N>& x) { return redc(x); }
+      constexpr static std::array<W, N> wide_to_rep(const std::array<W, 2 * N>& x) {
+         return redc(x);
+      }
 
-      constexpr static std::array<W, N> from_rep(const std::array<W, N>& z) { return z; }
+      constexpr static std::array<W, N> from_rep(const std::array<W, N>& z) {
+         return z;
+      }
 };
 
 // clang-format off

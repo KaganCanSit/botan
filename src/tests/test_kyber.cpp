@@ -126,9 +126,13 @@ class Kyber_KAT_Tests : public PK_PQC_KEM_KAT_Test {
             PK_PQC_KEM_KAT_Test(algo_name, kat_file, further_optional_keys) {}
 
    private:
-      Botan::KyberMode get_mode(const std::string& mode) const { return Botan::KyberMode(mode); }
+      Botan::KyberMode get_mode(const std::string& mode) const {
+         return Botan::KyberMode(mode);
+      }
 
-      bool is_available(const std::string& mode) const final { return get_mode(mode).is_available(); }
+      bool is_available(const std::string& mode) const final {
+         return get_mode(mode).is_available();
+      }
 
       std::vector<uint8_t> map_value(const std::string& mode,
                                      std::span<const uint8_t> value,
@@ -182,9 +186,13 @@ class ML_KEM_ACVP_KAT_KeyGen_Tests : public PK_PQC_KEM_ACVP_KAT_KeyGen_Test {
             PK_PQC_KEM_ACVP_KAT_KeyGen_Test("ML-KEM", "pubkey/ml_kem_acvp_keygen.vec", "Z,D") {}
 
    private:
-      Botan::KyberMode get_mode(const std::string& mode) const { return Botan::KyberMode(mode); }
+      Botan::KyberMode get_mode(const std::string& mode) const {
+         return Botan::KyberMode(mode);
+      }
 
-      bool is_available(const std::string& mode) const final { return get_mode(mode).is_available(); }
+      bool is_available(const std::string& mode) const final {
+         return get_mode(mode).is_available();
+      }
 
       Fixed_Output_RNG rng_for_keygen(const VarMap& vars) const override {
          const auto d = vars.get_req_bin("D");
@@ -198,9 +206,13 @@ class ML_KEM_PQC_KEM_ACVP_KAT_Encap_Test : public PK_PQC_KEM_ACVP_KAT_Encap_Test
       ML_KEM_PQC_KEM_ACVP_KAT_Encap_Test() : PK_PQC_KEM_ACVP_KAT_Encap_Test("ML-KEM", "pubkey/ml_kem_acvp_encap.vec") {}
 
    private:
-      Botan::KyberMode get_mode(const std::string& mode) const { return Botan::KyberMode(mode); }
+      Botan::KyberMode get_mode(const std::string& mode) const {
+         return Botan::KyberMode(mode);
+      }
 
-      bool is_available(const std::string& mode) const final { return get_mode(mode).is_available(); }
+      bool is_available(const std::string& mode) const final {
+         return get_mode(mode).is_available();
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars, const std::string& mode) const final {
          return std::make_unique<Botan::Kyber_PublicKey>(vars.get_req_bin("EK"), get_mode(mode));
@@ -313,7 +325,9 @@ class Kyber_Keygen_Tests final : public PK_Key_Generation_Test {
          }
       }
 
-      std::string algo_name() const override { throw Test_Error("No default algo name set for Kyber"); }
+      std::string algo_name() const override {
+         throw Test_Error("No default algo name set for Kyber");
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /* provider */,

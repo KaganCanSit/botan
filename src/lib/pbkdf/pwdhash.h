@@ -37,7 +37,9 @@ class BOTAN_PUBLIC_API(2, 8) PasswordHash /* NOLINT(*-special-member-functions) 
       * Some password hashing algorithms have a parameter which controls how
       * much memory is used. If not supported by some algorithm, returns 0.
       */
-      virtual size_t memory_param() const { return 0; }
+      virtual size_t memory_param() const {
+         return 0;
+      }
 
       /**
       * Some password hashing algorithms have a parallelism parameter.
@@ -47,7 +49,9 @@ class BOTAN_PUBLIC_API(2, 8) PasswordHash /* NOLINT(*-special-member-functions) 
       * vs one that does support parallel operation but which has been
       * configured to use a single lane.
       */
-      virtual size_t parallelism() const { return 0; }
+      virtual size_t parallelism() const {
+         return 0;
+      }
 
       /**
       * Returns an estimate of the total number of bytes required to perform this
@@ -56,17 +60,23 @@ class BOTAN_PUBLIC_API(2, 8) PasswordHash /* NOLINT(*-special-member-functions) 
       * If this algorithm uses a small and constant amount of memory, with no
       * effort made towards being memory hard, this function returns 0.
       */
-      virtual size_t total_memory_usage() const { return 0; }
+      virtual size_t total_memory_usage() const {
+         return 0;
+      }
 
       /**
       * @returns true if this password hash supports supplying a key
       */
-      virtual bool supports_keyed_operation() const { return false; }
+      virtual bool supports_keyed_operation() const {
+         return false;
+      }
 
       /**
       * @returns true if this password hash supports supplying associated data
       */
-      virtual bool supports_associated_data() const { return false; }
+      virtual bool supports_associated_data() const {
+         return false;
+      }
 
       /**
       * Hash a password into a bitstring

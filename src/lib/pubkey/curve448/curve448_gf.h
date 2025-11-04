@@ -44,7 +44,9 @@ class Gf448Elem final {
        * @brief Construct a GF element from a 448-bit integer gives as 7 uint64_t words @p x in
        * little-endian order.
        */
-      explicit Gf448Elem(std::span<const uint64_t, WORDS_448> data) /* NOLINT(*-member-init) */ { copy_mem(m_x, data); }
+      explicit Gf448Elem(std::span<const uint64_t, WORDS_448> data) /* NOLINT(*-member-init) */ {
+         copy_mem(m_x, data);
+      }
 
       /**
        * @brief Construct a GF element by passing the least significant 64 bits as a word.
@@ -55,12 +57,16 @@ class Gf448Elem final {
       /**
       * Return the constant value zero
       */
-      static Gf448Elem zero() { return Gf448Elem(0); }
+      static Gf448Elem zero() {
+         return Gf448Elem(0);
+      }
 
       /**
       * Return the constant value one
       */
-      static Gf448Elem one() { return Gf448Elem(1); }
+      static Gf448Elem one() {
+         return Gf448Elem(1);
+      }
 
       /**
        * @brief Store the canonical representation of the GF element as 56 bytes in little-endian
@@ -116,7 +122,9 @@ class Gf448Elem final {
        * Note that the internal representation is not necessarily canonical, i.e.
        * the value might be larger than the prime modulus.
        */
-      std::span<uint64_t, WORDS_448> words() { return m_x; }
+      std::span<uint64_t, WORDS_448> words() {
+         return m_x;
+      }
 
       /**
        * @brief Constant accessor to the internal words of the GF element.
@@ -124,7 +132,9 @@ class Gf448Elem final {
        * Note that the internal representation is not necessarily canonical, i.e.
        * the value might be larger than the prime modulus.
        */
-      std::span<const uint64_t, WORDS_448> words() const { return m_x; }
+      std::span<const uint64_t, WORDS_448> words() const {
+         return m_x;
+      }
 
       /**
        * @brief Given 56 bytes, checks that the (little endian) number from this

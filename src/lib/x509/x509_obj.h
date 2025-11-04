@@ -37,17 +37,23 @@ class BOTAN_PUBLIC_API(2, 0) X509_Object : public ASN1_Object {
       /**
       * @return signature on tbs_data()
       */
-      const std::vector<uint8_t>& signature() const { return m_sig; }
+      const std::vector<uint8_t>& signature() const {
+         return m_sig;
+      }
 
       /**
       * @return signed body
       */
-      const std::vector<uint8_t>& signed_body() const { return m_tbs_bits; }
+      const std::vector<uint8_t>& signed_body() const {
+         return m_tbs_bits;
+      }
 
       /**
       * @return signature algorithm that was used to generate signature
       */
-      const AlgorithmIdentifier& signature_algorithm() const { return m_sig_algo; }
+      const AlgorithmIdentifier& signature_algorithm() const {
+         return m_sig_algo;
+      }
 
       /**
       * Create a signed X509 object.
@@ -98,7 +104,9 @@ class BOTAN_PUBLIC_API(2, 0) X509_Object : public ASN1_Object {
 
       virtual std::string PEM_label() const = 0;
 
-      virtual std::vector<std::string> alternate_PEM_labels() const { return std::vector<std::string>(); }
+      virtual std::vector<std::string> alternate_PEM_labels() const {
+         return std::vector<std::string>();
+      }
 
       /**
       * Choose and return a signature scheme appropriate for X.509 signing

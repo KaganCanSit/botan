@@ -24,13 +24,21 @@ BOTAN_PUBLIC_API(2, 0) RandomNumberGenerator& system_rng();
 */
 class BOTAN_PUBLIC_API(2, 0) System_RNG final : public RandomNumberGenerator {
    public:
-      std::string name() const override { return system_rng().name(); }
+      std::string name() const override {
+         return system_rng().name();
+      }
 
-      bool is_seeded() const override { return system_rng().is_seeded(); }
+      bool is_seeded() const override {
+         return system_rng().is_seeded();
+      }
 
-      bool accepts_input() const override { return system_rng().accepts_input(); }
+      bool accepts_input() const override {
+         return system_rng().accepts_input();
+      }
 
-      void clear() override { system_rng().clear(); }
+      void clear() override {
+         system_rng().clear();
+      }
 
    protected:
       void fill_bytes_with_input(std::span<uint8_t> out, std::span<const uint8_t> in) override {

@@ -29,17 +29,29 @@ class FEC_Share final {
       FEC_Share(size_t share, size_t k, size_t n, size_t padding, const uint8_t bits[], size_t len) :
             m_share(share), m_k(k), m_n(n), m_padding(padding), m_bits(bits, bits + len) {}
 
-      size_t share_id() const { return m_share; }
+      size_t share_id() const {
+         return m_share;
+      }
 
-      size_t k() const { return m_k; }
+      size_t k() const {
+         return m_k;
+      }
 
-      size_t n() const { return m_n; }
+      size_t n() const {
+         return m_n;
+      }
 
-      size_t padding() const { return m_padding; }
+      size_t padding() const {
+         return m_padding;
+      }
 
-      size_t share_size() const { return m_bits.size(); }
+      size_t share_size() const {
+         return m_bits.size();
+      }
 
-      const uint8_t* share_data() const { return m_bits.data(); }
+      const uint8_t* share_data() const {
+         return m_bits.data();
+      }
 
       static FEC_Share deserialize(const uint8_t bits[], size_t len, Botan::HashFunction& hash) {
          const size_t hash_len = hash.output_length();
@@ -115,9 +127,13 @@ class FEC_Encode final : public Command {
    public:
       FEC_Encode() : Command("fec_encode --suffix=fec --prefix= --output-dir= k n input") {}
 
-      std::string group() const override { return "fec"; }
+      std::string group() const override {
+         return "fec";
+      }
 
-      std::string description() const override { return "Forward error encode a file"; }
+      std::string description() const override {
+         return "Forward error encode a file";
+      }
 
       void go() override {
          const size_t k = get_arg_sz("k");
@@ -181,9 +197,13 @@ class FEC_Decode final : public Command {
    public:
       FEC_Decode() : Command("fec_decode *shares") {}
 
-      std::string group() const override { return "fec"; }
+      std::string group() const override {
+         return "fec";
+      }
 
-      std::string description() const override { return "Recover data from FEC shares"; }
+      std::string description() const override {
+         return "Recover data from FEC shares";
+      }
 
       void go() override {
          auto hash = Botan::HashFunction::create_or_throw(FEC_SHARE_HASH);
@@ -273,9 +293,13 @@ class FEC_Info final : public Command {
    public:
       FEC_Info() : Command("fec_info share") {}
 
-      std::string group() const override { return "fec"; }
+      std::string group() const override {
+         return "fec";
+      }
 
-      std::string description() const override { return "Display information about a FEC share"; }
+      std::string description() const override {
+         return "Display information about a FEC share";
+      }
 
       void go() override {
          auto hash = Botan::HashFunction::create_or_throw(FEC_SHARE_HASH);

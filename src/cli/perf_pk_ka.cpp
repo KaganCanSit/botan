@@ -19,7 +19,9 @@ class PerfTest_PKKa : public PerfTest {
    public:
       virtual std::string algo() const = 0;
 
-      virtual std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const { return {""}; }
+      virtual std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const {
+         return {""};
+      }
 
       void go(const PerfConfig& config) override {
          const std::string alg = this->algo();
@@ -86,7 +88,9 @@ class PerfTest_PKKa : public PerfTest {
 
 class PerfTest_DH final : public PerfTest_PKKa {
    public:
-      std::string algo() const override { return "DH"; }
+      std::string algo() const override {
+         return "DH";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          return {
@@ -111,9 +115,13 @@ BOTAN_REGISTER_PERF_TEST("DH", PerfTest_DH);
 
 class PerfTest_ECDH final : public PerfTest_PKKa {
    public:
-      std::string algo() const override { return "ECDH"; }
+      std::string algo() const override {
+         return "ECDH";
+      }
 
-      std::vector<std::string> keygen_params(const PerfConfig& config) const override { return config.ecc_groups(); }
+      std::vector<std::string> keygen_params(const PerfConfig& config) const override {
+         return config.ecc_groups();
+      }
 };
 
 BOTAN_REGISTER_PERF_TEST("ECDH", PerfTest_ECDH);
@@ -124,7 +132,9 @@ BOTAN_REGISTER_PERF_TEST("ECDH", PerfTest_ECDH);
 
 class PerfTest_X25519 final : public PerfTest_PKKa {
    public:
-      std::string algo() const override { return "X25519"; }
+      std::string algo() const override {
+         return "X25519";
+      }
 };
 
 BOTAN_REGISTER_PERF_TEST("X25519", PerfTest_X25519);
@@ -135,7 +145,9 @@ BOTAN_REGISTER_PERF_TEST("X25519", PerfTest_X25519);
 
 class PerfTest_X448 final : public PerfTest_PKKa {
    public:
-      std::string algo() const override { return "X448"; }
+      std::string algo() const override {
+         return "X448";
+      }
 };
 
 BOTAN_REGISTER_PERF_TEST("X448", PerfTest_X448);

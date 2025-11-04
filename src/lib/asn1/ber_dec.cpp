@@ -185,9 +185,13 @@ class DataSource_BERObject final : public DataSource {
          return (n <= (m_obj.length() - m_offset));
       }
 
-      bool end_of_data() const override { return get_bytes_read() == m_obj.length(); }
+      bool end_of_data() const override {
+         return get_bytes_read() == m_obj.length();
+      }
 
-      size_t get_bytes_read() const override { return m_offset; }
+      size_t get_bytes_read() const override {
+         return m_offset;
+      }
 
       explicit DataSource_BERObject(BER_Object&& obj) : m_obj(std::move(obj)) {}
 

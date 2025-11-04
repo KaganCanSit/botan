@@ -47,7 +47,9 @@ class SIMD_4x64 final {
          return SIMD_4x64(_mm256_loadu_si256(reinterpret_cast<const __m256i*>(in)));
       }
 
-      static BOTAN_FN_ISA_SIMD_4X64 SIMD_4x64 load_be(const void* in) { return SIMD_4x64::load_le(in).bswap(); }
+      static BOTAN_FN_ISA_SIMD_4X64 SIMD_4x64 load_be(const void* in) {
+         return SIMD_4x64::load_le(in).bswap();
+      }
 
       SIMD_4x64 BOTAN_FN_ISA_SIMD_4X64 bswap() const {
          const auto idx = _mm256_set_epi8(
@@ -56,7 +58,9 @@ class SIMD_4x64 final {
          return SIMD_4x64(_mm256_shuffle_epi8(m_simd, idx));
       }
 
-      void store_le(uint64_t out[4]) const { this->store_le(reinterpret_cast<uint8_t*>(out)); }
+      void store_le(uint64_t out[4]) const {
+         this->store_le(reinterpret_cast<uint8_t*>(out));
+      }
 
       BOTAN_FN_ISA_SIMD_4X64 void store_le(uint8_t out[]) const {
          _mm256_storeu_si256(reinterpret_cast<__m256i*>(out), m_simd);

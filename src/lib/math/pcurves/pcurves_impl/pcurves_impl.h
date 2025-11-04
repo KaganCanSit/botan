@@ -75,7 +75,9 @@ class MontgomeryRep final {
       /**
       * Return the constant one, pre-converted into Montgomery form
       */
-      constexpr static std::array<W, N> one() { return R1; }
+      constexpr static std::array<W, N> one() {
+         return R1;
+      }
 
       /**
       * Modular reduction
@@ -171,12 +173,16 @@ class IntMod final {
       * sequence of words. This is true for both Montgomery and standard
       * representations.
       */
-      static constexpr Self zero() { return Self(std::array<W, N>{0}); }
+      static constexpr Self zero() {
+         return Self(std::array<W, N>{0});
+      }
 
       /**
       * Return integer one
       */
-      static constexpr Self one() { return Self(Rep::one()); }
+      static constexpr Self one() {
+         return Self(Rep::one());
+      }
 
       /**
       * Consume an array of words and convert it to an IntMod
@@ -201,17 +207,23 @@ class IntMod final {
       /**
       * Check in constant time if this is equal to zero
       */
-      constexpr CT::Choice is_zero() const { return CT::all_zeros(m_val.data(), m_val.size()).as_choice(); }
+      constexpr CT::Choice is_zero() const {
+         return CT::all_zeros(m_val.data(), m_val.size()).as_choice();
+      }
 
       /**
       * Check in constant time if this not equal to zero
       */
-      constexpr CT::Choice is_nonzero() const { return !is_zero(); }
+      constexpr CT::Choice is_nonzero() const {
+         return !is_zero();
+      }
 
       /**
       * Check in constant time if this equal to one
       */
-      constexpr CT::Choice is_one() const { return (*this == Self::one()); }
+      constexpr CT::Choice is_one() const {
+         return (*this == Self::one());
+      }
 
       /**
       * Check in constant time if this is an even integer
@@ -298,13 +310,19 @@ class IntMod final {
       }
 
       /// Return (*this) multiplied by 3
-      constexpr Self mul3() const { return mul2() + (*this); }
+      constexpr Self mul3() const {
+         return mul2() + (*this);
+      }
 
       /// Return (*this) multiplied by 4
-      constexpr Self mul4() const { return mul2().mul2(); }
+      constexpr Self mul4() const {
+         return mul2().mul2();
+      }
 
       /// Return (*this) multiplied by 8
-      constexpr Self mul8() const { return mul2().mul2().mul2(); }
+      constexpr Self mul8() const {
+         return mul2().mul2().mul2();
+      }
 
       /**
       * Modular multiplication; return c = a * b
@@ -501,7 +519,9 @@ class IntMod final {
       * This function is only used if the curve does not provide an addition
       * chain for specific inversions (see for example pcurves_secp256r1.cpp)
       */
-      constexpr Self invert() const { return pow_vartime(Self::P_MINUS_2); }
+      constexpr Self invert() const {
+         return pow_vartime(Self::P_MINUS_2);
+      }
 
       /**
       * Helper for variable time BEEA
@@ -692,12 +712,16 @@ class IntMod final {
       /**
       * Constant time integer inequality test
       */
-      constexpr CT::Choice operator!=(const Self& other) const { return !(*this == other); }
+      constexpr CT::Choice operator!=(const Self& other) const {
+         return !(*this == other);
+      }
 
       /**
       * Convert the integer to standard representation and return the sequence of words
       */
-      constexpr std::array<W, Self::N> to_words() const { return Rep::from_rep(m_val); }
+      constexpr std::array<W, Self::N> to_words() const {
+         return Rep::from_rep(m_val);
+      }
 
       /**
       * Serialize the integer to a bytestring
@@ -852,14 +876,22 @@ class IntMod final {
          return (x >= 0) ? s : s.negate();
       }
 
-      constexpr void _const_time_poison() const { CT::poison(m_val); }
+      constexpr void _const_time_poison() const {
+         CT::poison(m_val);
+      }
 
-      constexpr void _const_time_unpoison() const { CT::unpoison(m_val); }
+      constexpr void _const_time_unpoison() const {
+         CT::unpoison(m_val);
+      }
 
    private:
-      constexpr const std::array<W, N>& value() const { return m_val; }
+      constexpr const std::array<W, N>& value() const {
+         return m_val;
+      }
 
-      constexpr const W* data() const { return m_val.data(); }
+      constexpr const W* data() const {
+         return m_val.data();
+      }
 
       explicit constexpr IntMod(std::array<W, N> v) : m_val(v) {}
 
@@ -884,14 +916,18 @@ class AffineCurvePoint final {
 
       constexpr AffineCurvePoint() : m_x(FieldElement::zero()), m_y(FieldElement::zero()) {}
 
-      static constexpr Self identity() { return Self(FieldElement::zero(), FieldElement::zero()); }
+      static constexpr Self identity() {
+         return Self(FieldElement::zero(), FieldElement::zero());
+      }
 
       // Helper for ct_select of pcurves_generic
       static constexpr Self identity(const Self& /*unused*/) {
          return Self(FieldElement::zero(), FieldElement::zero());
       }
 
-      constexpr CT::Choice is_identity() const { return x().is_zero() && y().is_zero(); }
+      constexpr CT::Choice is_identity() const {
+         return x().is_zero() && y().is_zero();
+      }
 
       AffineCurvePoint(const Self& other) = default;
       AffineCurvePoint(Self&& other) = default;
@@ -899,7 +935,9 @@ class AffineCurvePoint final {
       AffineCurvePoint& operator=(Self&& other) = default;
       ~AffineCurvePoint() = default;
 
-      constexpr Self negate() const { return Self(x(), y().negate()); }
+      constexpr Self negate() const {
+         return Self(x(), y().negate());
+      }
 
       /**
       * Serialize the point in uncompressed format
@@ -934,12 +972,16 @@ class AffineCurvePoint final {
       /**
       * Return the affine x coordinate
       */
-      constexpr const FieldElement& x() const { return m_x; }
+      constexpr const FieldElement& x() const {
+         return m_x;
+      }
 
       /**
       * Return the affine y coordinate
       */
-      constexpr const FieldElement& y() const { return m_y; }
+      constexpr const FieldElement& y() const {
+         return m_y;
+      }
 
       /**
       * Conditional assignment of an affine point
@@ -948,9 +990,13 @@ class AffineCurvePoint final {
          FieldElement::conditional_assign(m_x, m_y, cond, pt.x(), pt.y());
       }
 
-      constexpr void _const_time_poison() const { CT::poison_all(m_x, m_y); }
+      constexpr void _const_time_poison() const {
+         CT::poison_all(m_x, m_y);
+      }
 
-      constexpr void _const_time_unpoison() const { CT::unpoison_all(m_x, m_y); }
+      constexpr void _const_time_unpoison() const {
+         CT::unpoison_all(m_x, m_y);
+      }
 
    private:
       FieldElement m_x;
@@ -1001,7 +1047,9 @@ class ProjectiveCurvePoint {
       /**
       * Return the identity element
       */
-      static constexpr Self identity() { return Self(FieldElement::zero(), FieldElement::one(), FieldElement::zero()); }
+      static constexpr Self identity() {
+         return Self(FieldElement::zero(), FieldElement::one(), FieldElement::zero());
+      }
 
       /**
       * Default constructor: the identity element
@@ -1027,11 +1075,17 @@ class ProjectiveCurvePoint {
       ProjectiveCurvePoint& operator=(Self&& other) = default;
       ~ProjectiveCurvePoint() = default;
 
-      friend constexpr Self operator+(const Self& a, const Self& b) { return Self::add(a, b); }
+      friend constexpr Self operator+(const Self& a, const Self& b) {
+         return Self::add(a, b);
+      }
 
-      friend constexpr Self operator+(const Self& a, const AffinePoint& b) { return Self::add_mixed(a, b); }
+      friend constexpr Self operator+(const Self& a, const AffinePoint& b) {
+         return Self::add_mixed(a, b);
+      }
 
-      friend constexpr Self operator+(const AffinePoint& a, const Self& b) { return Self::add_mixed(b, a); }
+      friend constexpr Self operator+(const AffinePoint& a, const Self& b) {
+         return Self::add_mixed(b, a);
+      }
 
       constexpr Self& operator+=(const Self& other) {
          (*this) = (*this) + other;
@@ -1043,9 +1097,13 @@ class ProjectiveCurvePoint {
          return (*this);
       }
 
-      friend constexpr Self operator-(const Self& a, const Self& b) { return a + b.negate(); }
+      friend constexpr Self operator-(const Self& a, const Self& b) {
+         return a + b.negate();
+      }
 
-      constexpr CT::Choice is_identity() const { return z().is_zero(); }
+      constexpr CT::Choice is_identity() const {
+         return z().is_zero();
+      }
 
       constexpr void conditional_assign(CT::Choice cond, const Self& pt) {
          FieldElement::conditional_assign(m_x, m_y, m_z, cond, pt.x(), pt.y(), pt.z());
@@ -1066,7 +1124,9 @@ class ProjectiveCurvePoint {
       /**
       * Projective point addition
       */
-      constexpr static Self add(const Self& a, const Self& b) { return point_add<Self, FieldElement>(a, b); }
+      constexpr static Self add(const Self& a, const Self& b) {
+         return point_add<Self, FieldElement>(a, b);
+      }
 
       /**
       * Iterated point doubling
@@ -1097,7 +1157,9 @@ class ProjectiveCurvePoint {
       /**
       * Point negation
       */
-      constexpr Self negate() const { return Self(x(), y().negate(), z()); }
+      constexpr Self negate() const {
+         return Self(x(), y().negate(), z());
+      }
 
       /**
       * Randomize the point representation
@@ -1125,21 +1187,31 @@ class ProjectiveCurvePoint {
       /**
       * Return the projective x coordinate
       */
-      constexpr const FieldElement& x() const { return m_x; }
+      constexpr const FieldElement& x() const {
+         return m_x;
+      }
 
       /**
       * Return the projective y coordinate
       */
-      constexpr const FieldElement& y() const { return m_y; }
+      constexpr const FieldElement& y() const {
+         return m_y;
+      }
 
       /**
       * Return the projective z coordinate
       */
-      constexpr const FieldElement& z() const { return m_z; }
+      constexpr const FieldElement& z() const {
+         return m_z;
+      }
 
-      constexpr void _const_time_poison() const { CT::poison_all(m_x, m_y, m_z); }
+      constexpr void _const_time_poison() const {
+         CT::poison_all(m_x, m_y, m_z);
+      }
 
-      constexpr void _const_time_unpoison() const { CT::unpoison_all(m_x, m_y, m_z); }
+      constexpr void _const_time_unpoison() const {
+         CT::unpoison_all(m_x, m_y, m_z);
+      }
 
    private:
       FieldElement m_x;
@@ -1238,7 +1310,9 @@ class EllipticCurve {
       /**
       * Return (x^3 + A*x + B) mod p
       */
-      static constexpr FieldElement x3_ax_b(const FieldElement& x) { return (x.square() + A) * x + B; }
+      static constexpr FieldElement x3_ax_b(const FieldElement& x) {
+         return (x.square() + A) * x + B;
+      }
 };
 
 /**
@@ -1296,7 +1370,9 @@ class BlindedScalarBits final {
       static constexpr size_t Bits = C::Scalar::BITS + (BlindingEnabled ? BlindingBits : 0);
       static constexpr size_t Bytes = (Bits + 7) / 8;
 
-      constexpr size_t bits() const { return Bits; }
+      constexpr size_t bits() const {
+         return Bits;
+      }
 
       BlindedScalarBits(const typename C::Scalar& scalar, RandomNumberGenerator& rng) {
          if constexpr(BlindingEnabled) {
@@ -1372,7 +1448,9 @@ class UnblindedScalarBits final {
    public:
       static constexpr size_t Bits = C::Scalar::BITS;
 
-      explicit UnblindedScalarBits(const typename C::Scalar& scalar) { scalar.serialize_to(std::span{m_bytes}); }
+      explicit UnblindedScalarBits(const typename C::Scalar& scalar) {
+         scalar.serialize_to(std::span{m_bytes});
+      }
 
       size_t get_window(size_t offset) const {
          // Extract a WindowBits sized window out of s, depending on offset.

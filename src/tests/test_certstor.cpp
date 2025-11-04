@@ -41,11 +41,17 @@ class CertificateAndKey {
          return true;
       }
 
-      const Botan::X509_DN& subject_dn() const { return certificate().subject_dn(); }
+      const Botan::X509_DN& subject_dn() const {
+         return certificate().subject_dn();
+      }
 
-      const Botan::X509_Certificate& certificate() const { return m_certificate; }
+      const Botan::X509_Certificate& certificate() const {
+         return m_certificate;
+      }
 
-      const Botan::Private_Key& private_key() const { return *m_private_key; }
+      const Botan::Private_Key& private_key() const {
+         return *m_private_key;
+      }
 
    private:
       const Botan::X509_Certificate m_certificate;

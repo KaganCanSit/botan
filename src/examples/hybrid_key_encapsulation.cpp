@@ -92,15 +92,21 @@ class Hybrid_PublicKey : public virtual Botan::Public_Key {
          return std::max(m_kex_pk->estimated_strength(), m_kem_pk->estimated_strength());
       }
 
-      size_t key_length() const override { return m_kex_pk->key_length() + m_kem_pk->key_length(); }
+      size_t key_length() const override {
+         return m_kex_pk->key_length() + m_kem_pk->key_length();
+      }
 
       bool check_key(Botan::RandomNumberGenerator& rng, bool strong) const override {
          return m_kex_pk->check_key(rng, strong) && m_kem_pk->check_key(rng, strong);
       }
 
-      const Botan::Public_Key& kex_public_key() const { return *m_kex_pk; }
+      const Botan::Public_Key& kex_public_key() const {
+         return *m_kex_pk;
+      }
 
-      const Botan::Public_Key& kem_public_key() const { return *m_kem_pk; }
+      const Botan::Public_Key& kem_public_key() const {
+         return *m_kem_pk;
+      }
 
    private:
       std::unique_ptr<Botan::Public_Key> m_kex_pk;
@@ -147,9 +153,13 @@ class Hybrid_PrivateKey : public virtual Botan::Private_Key,
          return std::make_unique<Hybrid_PublicKey>(m_kex_sk->public_key(), m_kem_sk->public_key());
       }
 
-      const Botan::Private_Key& kex_private_key() const { return *m_kex_sk; }
+      const Botan::Private_Key& kex_private_key() const {
+         return *m_kex_sk;
+      }
 
-      const Botan::Private_Key& kem_private_key() const { return *m_kem_sk; }
+      const Botan::Private_Key& kem_private_key() const {
+         return *m_kem_sk;
+      }
 
    private:
       std::unique_ptr<Botan::Private_Key> m_kex_sk;
@@ -187,7 +197,9 @@ class Hybrid_Encryption_Operation : public Botan::PK_Ops::KEM_Encryption {
        * the output length of the KDF, which acts as the "combiner" of the
        * shared secrets of both algorithms.
        */
-      size_t shared_key_length(size_t desired_shared_key_length) const override { return desired_shared_key_length; }
+      size_t shared_key_length(size_t desired_shared_key_length) const override {
+         return desired_shared_key_length;
+      }
 
       /**
        * This method performs the actual hybrid key encapsulation operation.
@@ -303,7 +315,9 @@ class Hybrid_Decryption_Operation : public Botan::PK_Ops::KEM_Decryption {
        * the output length of the KDF, which acts as the "combiner" of the
        * shared secrets of both algorithms.
        */
-      size_t shared_key_length(size_t desired_shared_key_length) const override { return desired_shared_key_length; }
+      size_t shared_key_length(size_t desired_shared_key_length) const override {
+         return desired_shared_key_length;
+      }
 
       /**
        * This method performs the actual hybrid key decapsulation operation.

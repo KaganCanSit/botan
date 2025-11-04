@@ -175,9 +175,13 @@ class BOTAN_PUBLIC_API(2, 9) Compression_Error final : public Exception {
       */
       Compression_Error(const char* func_name, ErrorType type, int rc);
 
-      ErrorType error_type() const noexcept override { return m_type; }
+      ErrorType error_type() const noexcept override {
+         return m_type;
+      }
 
-      int error_code() const noexcept override { return m_rc; }
+      int error_code() const noexcept override {
+         return m_rc;
+      }
 
    private:
       ErrorType m_type;

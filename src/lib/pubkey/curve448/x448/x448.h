@@ -31,11 +31,17 @@ class BOTAN_PUBLIC_API(3, 4) X448_PublicKey : public virtual Public_Key {
       */
       explicit X448_PublicKey(std::span<const uint8_t> pub);
 
-      std::string algo_name() const override { return "X448"; }
+      std::string algo_name() const override {
+         return "X448";
+      }
 
-      size_t estimated_strength() const override { return 224; }
+      size_t estimated_strength() const override {
+         return 224;
+      }
 
-      size_t key_length() const override { return 448; }
+      size_t key_length() const override {
+         return 448;
+      }
 
       bool check_key(RandomNumberGenerator& rng, bool strong) const override;
 
@@ -49,7 +55,9 @@ class BOTAN_PUBLIC_API(3, 4) X448_PublicKey : public virtual Public_Key {
 
       std::vector<uint8_t> public_key_bits() const override;
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::KeyAgreement); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::KeyAgreement);
+      }
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator& rng) const final;
 
@@ -87,9 +95,13 @@ class BOTAN_PUBLIC_API(3, 4) X448_PrivateKey final : public X448_PublicKey,
       */
       explicit X448_PrivateKey(std::span<const uint8_t> secret_key);
 
-      std::vector<uint8_t> public_value() const override { return raw_public_key_bits(); }
+      std::vector<uint8_t> public_value() const override {
+         return raw_public_key_bits();
+      }
 
-      secure_vector<uint8_t> raw_private_key_bits() const override { return {m_private.begin(), m_private.end()}; }
+      secure_vector<uint8_t> raw_private_key_bits() const override {
+         return {m_private.begin(), m_private.end()};
+      }
 
       secure_vector<uint8_t> private_key_bits() const override;
 

@@ -1335,13 +1335,19 @@ class UUID_Tests : public Test {
                   std::fill(output.begin(), output.end(), m_val);
                }
 
-               std::string name() const override { return "zeros"; }
+               std::string name() const override {
+                  return "zeros";
+               }
 
-               bool accepts_input() const override { return false; }
+               bool accepts_input() const override {
+                  return false;
+               }
 
                void clear() override {}
 
-               bool is_seeded() const override { return true; }
+               bool is_seeded() const override {
+                  return true;
+               }
 
             private:
                uint8_t m_val;

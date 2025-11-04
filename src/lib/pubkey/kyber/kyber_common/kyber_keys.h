@@ -58,15 +58,25 @@ class Kyber_PublicKeyInternal final {
          return ct;
       }
 
-      const KyberPolyVecNTT& t() const { return m_t; }
+      const KyberPolyVecNTT& t() const {
+         return m_t;
+      }
 
-      const KyberSeedRho& rho() const { return m_rho; }
+      const KyberSeedRho& rho() const {
+         return m_rho;
+      }
 
-      const KyberConstants& mode() const { return m_mode; }
+      const KyberConstants& mode() const {
+         return m_mode;
+      }
 
-      const KyberSerializedPublicKey& public_key_bits_raw() const { return m_public_key_bits_raw; }
+      const KyberSerializedPublicKey& public_key_bits_raw() const {
+         return m_public_key_bits_raw;
+      }
 
-      const KyberHashedPublicKey& H_public_key_bits_raw() const { return m_H_public_key_bits_raw; }
+      const KyberHashedPublicKey& H_public_key_bits_raw() const {
+         return m_H_public_key_bits_raw;
+      }
 
       Kyber_PublicKeyInternal() = delete;
 
@@ -85,21 +95,35 @@ class Kyber_PrivateKeyInternal {
 
       KyberMessage indcpa_decrypt(StrongSpan<const KyberCompressedCiphertext> ct) const;
 
-      KyberPolyVecNTT& s() { return m_s; }
+      KyberPolyVecNTT& s() {
+         return m_s;
+      }
 
-      const KyberPolyVecNTT& s() const { return m_s; }
+      const KyberPolyVecNTT& s() const {
+         return m_s;
+      }
 
-      const KyberPrivateKeySeed& seed() const { return m_seed; }
+      const KyberPrivateKeySeed& seed() const {
+         return m_seed;
+      }
 
-      const KyberImplicitRejectionValue& z() const { return m_seed.z; }
+      const KyberImplicitRejectionValue& z() const {
+         return m_seed.z;
+      }
 
-      const KyberConstants& mode() const { return m_mode; }
+      const KyberConstants& mode() const {
+         return m_mode;
+      }
 
       Kyber_PrivateKeyInternal() = delete;
 
-      void _const_time_poison() const { CT::poison_all(m_s, m_seed.d, m_seed.z); }
+      void _const_time_poison() const {
+         CT::poison_all(m_s, m_seed.d, m_seed.z);
+      }
 
-      void _const_time_unpoison() const { CT::unpoison_all(m_s, m_seed.d, m_seed.z); }
+      void _const_time_unpoison() const {
+         CT::unpoison_all(m_s, m_seed.d, m_seed.z);
+      }
 
    private:
       KyberConstants m_mode;

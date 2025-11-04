@@ -25,7 +25,9 @@ class ECC_H2C_XMD_Tests final : public Text_Based_Test {
    public:
       ECC_H2C_XMD_Tests() : Text_Based_Test("pubkey/ec_h2c_xmd.vec", "Domain,Input,Output") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       Test::Result run_one_test(const std::string& hash, const VarMap& vars) override {
          Test::Result result("ECC hash to curve XMD " + hash);
@@ -52,7 +54,9 @@ class ECC_H2S_Tests final : public Text_Based_Test {
    public:
       ECC_H2S_Tests() : Text_Based_Test("pubkey/ec_h2s.vec", "Hash,Domain,Input,Output") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       bool skip_this_test(const std::string& group_id, const VarMap& /*vars*/) override {
          return !Botan::EC_Group::supports_named_group(group_id);
@@ -92,7 +96,9 @@ class ECC_H2C_Tests final : public Text_Based_Test {
    public:
       ECC_H2C_Tests() : Text_Based_Test("pubkey/ec_h2c.vec", "Group,Hash,Domain,Input,Point") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       bool skip_this_test(const std::string& /*header*/, const VarMap& vars) override {
          return !Botan::EC_Group::supports_named_group(vars.get_req_str("Group"));

@@ -64,11 +64,15 @@ class BOTAN_PUBLIC_API(2, 0) Stateful_RNG : public RandomNumberGenerator {
       */
       void initialize_with(std::span<const uint8_t> input);
 
-      void initialize_with(const uint8_t input[], size_t length) { this->initialize_with(std::span(input, length)); }
+      void initialize_with(const uint8_t input[], size_t length) {
+         this->initialize_with(std::span(input, length));
+      }
 
       bool is_seeded() const final;
 
-      bool accepts_input() const final { return true; }
+      bool accepts_input() const final {
+         return true;
+      }
 
       /**
       * Mark state as requiring a reseed on next use
@@ -103,7 +107,9 @@ class BOTAN_PUBLIC_API(2, 0) Stateful_RNG : public RandomNumberGenerator {
       */
       virtual size_t max_number_of_bytes_per_request() const = 0;
 
-      size_t reseed_interval() const { return m_reseed_interval; }
+      size_t reseed_interval() const {
+         return m_reseed_interval;
+      }
 
       void clear() final;
 

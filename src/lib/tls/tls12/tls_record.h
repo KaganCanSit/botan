@@ -52,11 +52,17 @@ class Connection_Cipher_State final {
 
       std::vector<uint8_t> format_ad(uint64_t seq, Record_Type type, Protocol_Version version, uint16_t ptext_length);
 
-      size_t nonce_bytes_from_handshake() const { return m_nonce_bytes_from_handshake; }
+      size_t nonce_bytes_from_handshake() const {
+         return m_nonce_bytes_from_handshake;
+      }
 
-      size_t nonce_bytes_from_record() const { return m_nonce_bytes_from_record; }
+      size_t nonce_bytes_from_record() const {
+         return m_nonce_bytes_from_record;
+      }
 
-      Nonce_Format nonce_format() const { return m_nonce_format; }
+      Nonce_Format nonce_format() const {
+         return m_nonce_format;
+      }
 
    private:
       std::unique_ptr<AEAD_Mode> m_aead;
@@ -74,7 +80,9 @@ class Record_Header final {
 
       explicit Record_Header(size_t needed) : m_needed(needed), m_sequence(0), m_type(Record_Type::Invalid) {}
 
-      size_t needed() const { return m_needed; }
+      size_t needed() const {
+         return m_needed;
+      }
 
       Protocol_Version version() const {
          BOTAN_ASSERT_NOMSG(m_needed == 0);
@@ -86,7 +94,9 @@ class Record_Header final {
          return m_sequence;
       }
 
-      uint16_t epoch() const { return static_cast<uint16_t>(sequence() >> 48); }
+      uint16_t epoch() const {
+         return static_cast<uint16_t>(sequence() >> 48);
+      }
 
       Record_Type type() const {
          BOTAN_ASSERT_NOMSG(m_needed == 0);

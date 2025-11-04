@@ -55,7 +55,9 @@ class BOTAN_PUBLIC_API(2, 0) Protocol_Version final {
       *
       * @return latest known DTLS version
       */
-      static Protocol_Version latest_dtls_version() { return Protocol_Version(DTLS_V12); }
+      static Protocol_Version latest_dtls_version() {
+         return Protocol_Version(DTLS_V12);
+      }
 
       Protocol_Version() : m_version(0) {}
 
@@ -87,17 +89,23 @@ class BOTAN_PUBLIC_API(2, 0) Protocol_Version final {
       /**
       * @return major version of the protocol version
       */
-      uint8_t major_version() const { return static_cast<uint8_t>(m_version >> 8); }
+      uint8_t major_version() const {
+         return static_cast<uint8_t>(m_version >> 8);
+      }
 
       /**
       * @return minor version of the protocol version
       */
-      uint8_t minor_version() const { return static_cast<uint8_t>(m_version & 0xFF); }
+      uint8_t minor_version() const {
+         return static_cast<uint8_t>(m_version & 0xFF);
+      }
 
       /**
       * @return the version code
       */
-      uint16_t version_code() const { return m_version; }
+      uint16_t version_code() const {
+         return m_version;
+      }
 
       /**
       * Generate a human readable version string.
@@ -126,12 +134,16 @@ class BOTAN_PUBLIC_API(2, 0) Protocol_Version final {
       /**
       * @return if this version is equal to other
       */
-      bool operator==(const Protocol_Version& other) const { return (m_version == other.m_version); }
+      bool operator==(const Protocol_Version& other) const {
+         return (m_version == other.m_version);
+      }
 
       /**
       * @return if this version is not equal to other
       */
-      bool operator!=(const Protocol_Version& other) const { return (m_version != other.m_version); }
+      bool operator!=(const Protocol_Version& other) const {
+         return (m_version != other.m_version);
+      }
 
       /**
       * @return if this version is later than other
@@ -141,17 +153,23 @@ class BOTAN_PUBLIC_API(2, 0) Protocol_Version final {
       /**
       * @return if this version is later than or equal to other
       */
-      bool operator>=(const Protocol_Version& other) const { return (*this == other || *this > other); }
+      bool operator>=(const Protocol_Version& other) const {
+         return (*this == other || *this > other);
+      }
 
       /**
       * @return if this version is earlier to other
       */
-      bool operator<(const Protocol_Version& other) const { return !(*this >= other); }
+      bool operator<(const Protocol_Version& other) const {
+         return !(*this >= other);
+      }
 
       /**
       * @return if this version is earlier than or equal to other
       */
-      bool operator<=(const Protocol_Version& other) const { return (*this == other || *this < other); }
+      bool operator<=(const Protocol_Version& other) const {
+         return (*this == other || *this < other);
+      }
 
    private:
       uint16_t m_version;

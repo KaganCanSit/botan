@@ -18,7 +18,9 @@ namespace Botan {
 */
 class BOTAN_PUBLIC_API(2, 0) Zlib_Compression final : public Stream_Compression {
    public:
-      std::string name() const override { return "Zlib_Compression"; }
+      std::string name() const override {
+         return "Zlib_Compression";
+      }
 
    private:
       std::unique_ptr<Compression_Stream> make_stream(size_t level) const override;
@@ -29,7 +31,9 @@ class BOTAN_PUBLIC_API(2, 0) Zlib_Compression final : public Stream_Compression 
 */
 class BOTAN_PUBLIC_API(2, 0) Zlib_Decompression final : public Stream_Decompression {
    public:
-      std::string name() const override { return "Zlib_Decompression"; }
+      std::string name() const override {
+         return "Zlib_Decompression";
+      }
 
    private:
       std::unique_ptr<Compression_Stream> make_stream() const override;
@@ -40,7 +44,9 @@ class BOTAN_PUBLIC_API(2, 0) Zlib_Decompression final : public Stream_Decompress
 */
 class BOTAN_PUBLIC_API(2, 0) Deflate_Compression final : public Stream_Compression {
    public:
-      std::string name() const override { return "Deflate_Compression"; }
+      std::string name() const override {
+         return "Deflate_Compression";
+      }
 
    private:
       std::unique_ptr<Compression_Stream> make_stream(size_t level) const override;
@@ -51,7 +57,9 @@ class BOTAN_PUBLIC_API(2, 0) Deflate_Compression final : public Stream_Compressi
 */
 class BOTAN_PUBLIC_API(2, 0) Deflate_Decompression final : public Stream_Decompression {
    public:
-      std::string name() const override { return "Deflate_Decompression"; }
+      std::string name() const override {
+         return "Deflate_Decompression";
+      }
 
    private:
       std::unique_ptr<Compression_Stream> make_stream() const override;
@@ -65,7 +73,9 @@ class BOTAN_PUBLIC_API(2, 0) Gzip_Compression final : public Stream_Compression 
       explicit Gzip_Compression(uint8_t os_code = 255, uint64_t hdr_time = 0) :
             m_hdr_time(hdr_time), m_os_code(os_code) {}
 
-      std::string name() const override { return "Gzip_Compression"; }
+      std::string name() const override {
+         return "Gzip_Compression";
+      }
 
    private:
       std::unique_ptr<Compression_Stream> make_stream(size_t level) const override;
@@ -78,7 +88,9 @@ class BOTAN_PUBLIC_API(2, 0) Gzip_Compression final : public Stream_Compression 
 */
 class BOTAN_PUBLIC_API(2, 0) Gzip_Decompression final : public Stream_Decompression {
    public:
-      std::string name() const override { return "Gzip_Decompression"; }
+      std::string name() const override {
+         return "Gzip_Decompression";
+      }
 
    private:
       std::unique_ptr<Compression_Stream> make_stream() const override;

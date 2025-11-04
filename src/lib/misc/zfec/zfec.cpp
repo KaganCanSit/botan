@@ -96,7 +96,9 @@ const uint8_t* GF_MUL_TABLE(uint8_t y) {
             }
          }
 
-         const uint8_t* ptr(uint8_t y) const { return &m_table[256 * y]; }
+         const uint8_t* ptr(uint8_t y) const {
+            return &m_table[256 * y];
+         }
 
       private:
          std::vector<uint8_t> m_table;

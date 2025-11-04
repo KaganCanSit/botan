@@ -24,9 +24,13 @@ class Kuznyechik final : public Botan::Block_Cipher_Fixed_Params<16, 32> {
 
       void clear() override;
 
-      std::string name() const override { return "Kuznyechik"; }
+      std::string name() const override {
+         return "Kuznyechik";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<Kuznyechik>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<Kuznyechik>();
+      }
 
       bool has_keying_material() const override;
 

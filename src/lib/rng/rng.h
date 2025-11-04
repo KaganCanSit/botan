@@ -68,9 +68,13 @@ class BOTAN_PUBLIC_API(2, 0) RandomNumberGenerator {
       * @throws PRNG_Unseeded if the RNG fails because it has not enough entropy
       * @throws Exception if the RNG fails
       */
-      void randomize(std::span<uint8_t> output) { this->fill_bytes_with_input(output, {}); }
+      void randomize(std::span<uint8_t> output) {
+         this->fill_bytes_with_input(output, {});
+      }
 
-      void randomize(uint8_t output[], size_t length) { this->randomize(std::span(output, length)); }
+      void randomize(uint8_t output[], size_t length) {
+         this->randomize(std::span(output, length));
+      }
 
       /**
       * Returns false if it is known that this RNG object is not able to accept
@@ -91,9 +95,13 @@ class BOTAN_PUBLIC_API(2, 0) RandomNumberGenerator {
       * @param input a byte array containing the entropy to be added
       * @throws Exception may throw if the RNG accepts input, but adding the entropy failed.
       */
-      void add_entropy(std::span<const uint8_t> input) { this->fill_bytes_with_input({}, input); }
+      void add_entropy(std::span<const uint8_t> input) {
+         this->fill_bytes_with_input({}, input);
+      }
 
-      void add_entropy(const uint8_t input[], size_t length) { this->add_entropy(std::span(input, length)); }
+      void add_entropy(const uint8_t input[], size_t length) {
+         this->add_entropy(std::span(input, length));
+      }
 
       /**
       * Incorporate some additional data into the RNG state.
@@ -196,7 +204,9 @@ class BOTAN_PUBLIC_API(2, 0) RandomNumberGenerator {
       * @param  v     the container to be filled with @p bytes random bytes
       * @throws Exception if RNG fails
       */
-      void random_vec(std::span<uint8_t> v) { this->randomize(v); }
+      void random_vec(std::span<uint8_t> v) {
+         this->randomize(v);
+      }
 
       /**
       * Resize a given byte container to @p bytes and fill it with random bytes
@@ -302,13 +312,19 @@ class BOTAN_PUBLIC_API(2, 0) Hardware_RNG : public RandomNumberGenerator {
 */
 class BOTAN_PUBLIC_API(2, 0) Null_RNG final : public RandomNumberGenerator {
    public:
-      bool is_seeded() const override { return false; }
+      bool is_seeded() const override {
+         return false;
+      }
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
       void clear() override {}
 
-      std::string name() const override { return "Null_RNG"; }
+      std::string name() const override {
+         return "Null_RNG";
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> /* ignored */) override;

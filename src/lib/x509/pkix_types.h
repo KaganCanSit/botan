@@ -69,17 +69,25 @@ class BOTAN_PUBLIC_API(2, 0) X509_DN final : public ASN1_Object {
       /*
       * Return the BER encoded data, if any
       */
-      const std::vector<uint8_t>& get_bits() const { return m_dn_bits; }
+      const std::vector<uint8_t>& get_bits() const {
+         return m_dn_bits;
+      }
 
       std::vector<uint8_t> DER_encode() const;
 
-      bool empty() const { return m_rdn.empty(); }
+      bool empty() const {
+         return m_rdn.empty();
+      }
 
-      size_t count() const { return m_rdn.size(); }
+      size_t count() const {
+         return m_rdn.size();
+      }
 
       std::string to_string() const;
 
-      const std::vector<std::pair<OID, ASN1_String>>& dn_info() const { return m_rdn; }
+      const std::vector<std::pair<OID, ASN1_String>>& dn_info() const {
+         return m_rdn;
+      }
 
       std::multimap<OID, std::string> get_attributes() const;
       std::multimap<std::string, std::string> contents() const;
@@ -90,7 +98,9 @@ class BOTAN_PUBLIC_API(2, 0) X509_DN final : public ASN1_Object {
 
       void add_attribute(std::string_view key, std::string_view val);
 
-      void add_attribute(const OID& oid, std::string_view val) { add_attribute(oid, ASN1_String(val)); }
+      void add_attribute(const OID& oid, std::string_view val) {
+         add_attribute(oid, ASN1_String(val));
+      }
 
       void add_attribute(const OID& oid, const ASN1_String& val);
 
@@ -152,16 +162,24 @@ class BOTAN_PUBLIC_API(2, 0) AlternativeName final : public ASN1_Object {
       void add_ipv4_address(uint32_t ipv4);
 
       /// Return the set of URIs included in this alternative name
-      const std::set<std::string>& uris() const { return m_uri; }
+      const std::set<std::string>& uris() const {
+         return m_uri;
+      }
 
       /// Return the set of email addresses included in this alternative name
-      const std::set<std::string>& email() const { return m_email; }
+      const std::set<std::string>& email() const {
+         return m_email;
+      }
 
       /// Return the set of DNS names included in this alternative name
-      const std::set<std::string>& dns() const { return m_dns; }
+      const std::set<std::string>& dns() const {
+         return m_dns;
+      }
 
       /// Return the set of IPv4 addresses included in this alternative name
-      const std::set<uint32_t>& ipv4_address() const { return m_ipv4_addr; }
+      const std::set<uint32_t>& ipv4_address() const {
+         return m_ipv4_addr;
+      }
 
       /// Return the set of "other names" included in this alternative name
       BOTAN_DEPRECATED("Support for other names is deprecated")
@@ -170,7 +188,9 @@ class BOTAN_PUBLIC_API(2, 0) AlternativeName final : public ASN1_Object {
       }
 
       /// Return the set of directory names included in this alternative name
-      const std::set<X509_DN>& directory_names() const { return m_dn_names; }
+      const std::set<X509_DN>& directory_names() const {
+         return m_dn_names;
+      }
 
       /// Return the total number of names in this AlternativeName
       ///
@@ -234,13 +254,21 @@ class BOTAN_PUBLIC_API(2, 0) Attribute final : public ASN1_Object {
       Attribute(const OID& oid, const std::vector<uint8_t>& params);
       Attribute(std::string_view oid_str, const std::vector<uint8_t>& params);
 
-      const OID& oid() const { return m_oid; }
+      const OID& oid() const {
+         return m_oid;
+      }
 
-      const std::vector<uint8_t>& parameters() const { return m_parameters; }
+      const std::vector<uint8_t>& parameters() const {
+         return m_parameters;
+      }
 
-      const OID& object_identifier() const { return m_oid; }
+      const OID& object_identifier() const {
+         return m_oid;
+      }
 
-      const std::vector<uint8_t>& get_parameters() const { return m_parameters; }
+      const std::vector<uint8_t>& get_parameters() const {
+         return m_parameters;
+      }
 
    private:
       OID m_oid;
@@ -287,7 +315,9 @@ class BOTAN_PUBLIC_API(2, 0) GeneralName final : public ASN1_Object {
       /**
       * @return Type of the name expressed in this restriction
       */
-      NameType type_code() const { return m_type; }
+      NameType type_code() const {
+         return m_type;
+      }
 
       /**
       * @return Type of the name. Can be DN, DNS, IP, RFC822 or URI.
@@ -351,7 +381,9 @@ class BOTAN_PUBLIC_API(2, 0) GeneralSubtree final : public ASN1_Object {
       /**
       * @return name
       */
-      const GeneralName& base() const { return m_base; }
+      const GeneralName& base() const {
+         return m_base;
+      }
 
    private:
       GeneralName m_base;
@@ -463,7 +495,9 @@ class BOTAN_PUBLIC_API(2, 0) Certificate_Extension /* NOLINT(*-special-member-fu
    protected:
       friend class Extensions;
 
-      virtual bool should_encode() const { return true; }
+      virtual bool should_encode() const {
+         return true;
+      }
 
       virtual std::vector<uint8_t> encode_inner() const = 0;
       virtual void decode_inner(const std::vector<uint8_t>&) = 0;
@@ -503,7 +537,9 @@ class BOTAN_PUBLIC_API(2, 0) Extensions final : public ASN1_Object {
       * Return the set of extensions in the order they appeared in the certificate
       * (or as they were added, if constructed)
       */
-      const std::vector<OID>& get_extension_oids() const { return m_extension_oids; }
+      const std::vector<OID>& get_extension_oids() const {
+         return m_extension_oids;
+      }
 
       /**
       * Return true if an extension was set
@@ -629,9 +665,13 @@ class BOTAN_PUBLIC_API(2, 0) Extensions final : public ASN1_Object {
                             std::unique_ptr<Certificate_Extension> ext) :
                   m_obj(std::move(ext)), m_bits(encoding), m_critical(critical) {}
 
-            bool is_critical() const { return m_critical; }
+            bool is_critical() const {
+               return m_critical;
+            }
 
-            const std::vector<uint8_t>& bits() const { return m_bits; }
+            const std::vector<uint8_t>& bits() const {
+               return m_bits;
+            }
 
             const Certificate_Extension& obj() const;
 

@@ -51,7 +51,9 @@ class BOTAN_PUBLIC_API(3, 0) Session_Manager_SQL : public Session_Manager {
       size_t remove(const Session_Handle& handle) override;
       size_t remove_all() override;
 
-      bool emits_session_tickets() override { return false; }
+      bool emits_session_tickets() override {
+         return false;
+      }
 
    protected:
       std::optional<Session> retrieve_one(const Session_Handle& handle) override;
@@ -62,7 +64,9 @@ class BOTAN_PUBLIC_API(3, 0) Session_Manager_SQL : public Session_Manager {
        * context the Session_Manager is used. If this returns `false`, accesses
        * to the database are serialized with the base class' recursive mutex.
        */
-      virtual bool database_is_threadsafe() const { return m_db->is_threadsafe(); }
+      virtual bool database_is_threadsafe() const {
+         return m_db->is_threadsafe();
+      }
 
    private:
       // Database Schema Revision history

@@ -155,7 +155,9 @@ class BOTAN_PUBLIC_API(3, 6) Session {
 
       Session(Object session, SessionAttributes attributes);
 
-      ESYS_TR transient_handle() const noexcept { return m_session.transient_handle(); }
+      ESYS_TR transient_handle() const noexcept {
+         return m_session.transient_handle();
+      }
 
    private:
       Object m_session;

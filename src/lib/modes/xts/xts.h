@@ -42,17 +42,27 @@ class XTS_Mode : public Cipher_Mode {
    protected:
       explicit XTS_Mode(std::unique_ptr<BlockCipher> cipher);
 
-      const uint8_t* tweak() const { return m_tweak.data(); }
+      const uint8_t* tweak() const {
+         return m_tweak.data();
+      }
 
-      bool tweak_set() const { return !m_tweak.empty(); }
+      bool tweak_set() const {
+         return !m_tweak.empty();
+      }
 
-      size_t tweak_blocks() const { return m_tweak_blocks; }
+      size_t tweak_blocks() const {
+         return m_tweak_blocks;
+      }
 
-      const BlockCipher& cipher() const { return *m_cipher; }
+      const BlockCipher& cipher() const {
+         return *m_cipher;
+      }
 
       void update_tweak(size_t last_used);
 
-      size_t cipher_block_size() const { return m_cipher_block_size; }
+      size_t cipher_block_size() const {
+         return m_cipher_block_size;
+      }
 
    private:
       void start_msg(const uint8_t nonce[], size_t nonce_len) override;

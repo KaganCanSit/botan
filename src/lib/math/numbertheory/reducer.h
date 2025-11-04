@@ -21,7 +21,9 @@ namespace Botan {
 */
 class BOTAN_PUBLIC_API(2, 0) Modular_Reducer final {
    public:
-      const BigInt& get_modulus() const { return m_modulus; }
+      const BigInt& get_modulus() const {
+         return m_modulus;
+      }
 
       BigInt reduce(const BigInt& x) const;
 
@@ -31,27 +33,35 @@ class BOTAN_PUBLIC_API(2, 0) Modular_Reducer final {
       * @param y the second operand
       * @return (x * y) % p
       */
-      BigInt multiply(const BigInt& x, const BigInt& y) const { return reduce(x * y); }
+      BigInt multiply(const BigInt& x, const BigInt& y) const {
+         return reduce(x * y);
+      }
 
       /**
       * Multiply mod p
       * @return (x * y * z) % p
       */
-      BigInt multiply(const BigInt& x, const BigInt& y, const BigInt& z) const { return multiply(x, multiply(y, z)); }
+      BigInt multiply(const BigInt& x, const BigInt& y, const BigInt& z) const {
+         return multiply(x, multiply(y, z));
+      }
 
       /**
       * Square mod p
       * @param x the value to square
       * @return (x * x) % p
       */
-      BigInt square(const BigInt& x) const { return reduce(x * x); }
+      BigInt square(const BigInt& x) const {
+         return reduce(x * x);
+      }
 
       /**
       * Cube mod p
       * @param x the value to cube
       * @return (x * x * x) % p
       */
-      BigInt cube(const BigInt& x) const { return multiply(x, this->square(x)); }
+      BigInt cube(const BigInt& x) const {
+         return multiply(x, this->square(x));
+      }
 
       /**
       * Low level reduction function. Mostly for internal use.
@@ -62,9 +72,13 @@ class BOTAN_PUBLIC_API(2, 0) Modular_Reducer final {
       *
       * ws is an (ignored) a temporary workspace.
       */
-      void reduce(BigInt& out, const BigInt& x, secure_vector<word>& /*ws*/) const { out = reduce(x); }
+      void reduce(BigInt& out, const BigInt& x, secure_vector<word>& /*ws*/) const {
+         out = reduce(x);
+      }
 
-      bool initialized() const { return (m_mod_words != 0); }
+      bool initialized() const {
+         return (m_mod_words != 0);
+      }
 
       BOTAN_DEPRECATED("Use for_public_modulus or for_secret_modulus") Modular_Reducer() : m_mod_words(0) {}
 
@@ -76,12 +90,16 @@ class BOTAN_PUBLIC_API(2, 0) Modular_Reducer final {
       /**
       * Requires that m > 0
       */
-      static Modular_Reducer for_public_modulus(const BigInt& m) { return Modular_Reducer(m); }
+      static Modular_Reducer for_public_modulus(const BigInt& m) {
+         return Modular_Reducer(m);
+      }
 
       /**
       * Requires that m > 0
       */
-      static Modular_Reducer for_secret_modulus(const BigInt& m) { return Modular_Reducer(m); }
+      static Modular_Reducer for_secret_modulus(const BigInt& m) {
+         return Modular_Reducer(m);
+      }
 
    private:
       Modular_Reducer(const BigInt& m, BigInt mu, size_t mw) : m_modulus(m), m_mu(std::move(mu)), m_mod_words(mw) {}

@@ -44,9 +44,13 @@ class BOTAN_TEST_API Hybrid_PublicKey : public virtual Public_Key {
       Hybrid_PublicKey& operator=(const Hybrid_PublicKey&) = delete;
       ~Hybrid_PublicKey() override = default;
 
-      size_t estimated_strength() const override { return m_estimated_strength; }
+      size_t estimated_strength() const override {
+         return m_estimated_strength;
+      }
 
-      size_t key_length() const override { return m_key_length; }
+      size_t key_length() const override {
+         return m_key_length;
+      }
 
       bool check_key(RandomNumberGenerator& rng, bool strong) const override;
 
@@ -58,12 +62,16 @@ class BOTAN_TEST_API Hybrid_PublicKey : public virtual Public_Key {
        *
        * @return the public key bytes
        */
-      std::vector<uint8_t> public_key_bits() const override { return raw_public_key_bits(); }
+      std::vector<uint8_t> public_key_bits() const override {
+         return raw_public_key_bits();
+      }
 
       bool supports_operation(PublicKeyOperation op) const override;
 
       /// @returns the public keys combined in this hybrid key
-      const std::vector<std::unique_ptr<Public_Key>>& public_keys() const { return m_pks; }
+      const std::vector<std::unique_ptr<Public_Key>>& public_keys() const {
+         return m_pks;
+      }
 
    protected:
       // Default constructor used for virtual inheritance to prevent, that the derived class
@@ -116,7 +124,9 @@ class BOTAN_TEST_API Hybrid_PrivateKey : virtual public Private_Key {
       secure_vector<uint8_t> private_key_bits() const override;
 
       /// @returns the private keys combined in this hybrid key
-      const std::vector<std::unique_ptr<Private_Key>>& private_keys() const { return m_sks; }
+      const std::vector<std::unique_ptr<Private_Key>>& private_keys() const {
+         return m_sks;
+      }
 
       bool check_key(RandomNumberGenerator& rng, bool strong) const override;
 

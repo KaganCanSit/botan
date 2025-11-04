@@ -27,7 +27,9 @@ class LZMA_Stream : public Zlib_Style_Stream<lzma_stream, uint8_t> {
          streamp()->allocator = &m_allocator;
       }
 
-      ~LZMA_Stream() override { ::lzma_end(streamp()); }
+      ~LZMA_Stream() override {
+         ::lzma_end(streamp());
+      }
 
       LZMA_Stream(const LZMA_Stream& other) = delete;
       LZMA_Stream(LZMA_Stream&& other) = delete;
@@ -44,11 +46,17 @@ class LZMA_Stream : public Zlib_Style_Stream<lzma_stream, uint8_t> {
          return (rc == LZMA_STREAM_END);
       }
 
-      uint32_t run_flag() const override { return LZMA_RUN; }
+      uint32_t run_flag() const override {
+         return LZMA_RUN;
+      }
 
-      uint32_t flush_flag() const override { return LZMA_FULL_FLUSH; }
+      uint32_t flush_flag() const override {
+         return LZMA_FULL_FLUSH;
+      }
 
-      uint32_t finish_flag() const override { return LZMA_FINISH; }
+      uint32_t finish_flag() const override {
+         return LZMA_FINISH;
+      }
 
    private:
       ::lzma_allocator m_allocator{};

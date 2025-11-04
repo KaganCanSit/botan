@@ -29,9 +29,13 @@ class BOTAN_PUBLIC_API(2, 0) CommonCrypto_Error final : public Exception {
 
       CommonCrypto_Error(std::string_view what, int32_t status);
 
-      ErrorType error_type() const noexcept override { return ErrorType::CommonCryptoError; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::CommonCryptoError;
+      }
 
-      int error_code() const noexcept override { return m_rc; }
+      int error_code() const noexcept override {
+         return m_rc;
+      }
 
    private:
       static std::string ccryptorstatus_to_string(CCCryptorStatus status);

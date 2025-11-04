@@ -36,19 +36,33 @@ class BOTAN_TEST_API Montgomery_Params final {
 
       bool operator==(const Montgomery_Params& other) const;
 
-      bool operator!=(const Montgomery_Params& other) const { return !((*this) == other); }
+      bool operator!=(const Montgomery_Params& other) const {
+         return !((*this) == other);
+      }
 
-      const BigInt& p() const { return m_data->p(); }
+      const BigInt& p() const {
+         return m_data->p();
+      }
 
-      const BigInt& R1() const { return m_data->r1(); }
+      const BigInt& R1() const {
+         return m_data->r1();
+      }
 
-      const BigInt& R2() const { return m_data->r2(); }
+      const BigInt& R2() const {
+         return m_data->r2();
+      }
 
-      const BigInt& R3() const { return m_data->r3(); }
+      const BigInt& R3() const {
+         return m_data->r3();
+      }
 
-      word p_dash() const { return m_data->p_dash(); }
+      word p_dash() const {
+         return m_data->p_dash();
+      }
 
-      size_t p_words() const { return m_data->p_size(); }
+      size_t p_words() const {
+         return m_data->p_size();
+      }
 
       BigInt redc(const BigInt& x, secure_vector<word>& ws) const;
 
@@ -73,17 +87,29 @@ class BOTAN_TEST_API Montgomery_Params final {
          public:
             Data(const BigInt& p, const Barrett_Reduction& mod_p);
 
-            const BigInt& p() const { return m_p; }
+            const BigInt& p() const {
+               return m_p;
+            }
 
-            const BigInt& r1() const { return m_r1; }
+            const BigInt& r1() const {
+               return m_r1;
+            }
 
-            const BigInt& r2() const { return m_r2; }
+            const BigInt& r2() const {
+               return m_r2;
+            }
 
-            const BigInt& r3() const { return m_r3; }
+            const BigInt& r3() const {
+               return m_r3;
+            }
 
-            word p_dash() const { return m_p_dash; }
+            word p_dash() const {
+               return m_p_dash;
+            }
 
-            size_t p_size() const { return m_p_words; }
+            size_t p_size() const {
+               return m_p_words;
+            }
 
          private:
             BigInt m_p;
@@ -140,7 +166,9 @@ class BOTAN_TEST_API Montgomery_Int final {
       /**
       * Return the Montgomery representation
       */
-      const secure_vector<word>& repr() const { return m_v; }
+      const secure_vector<word>& repr() const {
+         return m_v;
+      }
 
       Montgomery_Int operator+(const Montgomery_Int& other) const;
 
@@ -156,11 +184,17 @@ class BOTAN_TEST_API Montgomery_Int final {
 
       Montgomery_Int& square_this_n_times(secure_vector<word>& ws, size_t n);
 
-      void _const_time_poison() const { CT::poison(m_v); }
+      void _const_time_poison() const {
+         CT::poison(m_v);
+      }
 
-      void _const_time_unpoison() const { CT::unpoison(m_v); }
+      void _const_time_unpoison() const {
+         CT::unpoison(m_v);
+      }
 
-      const Montgomery_Params& _params() const { return m_params; }
+      const Montgomery_Params& _params() const {
+         return m_params;
+      }
 
    private:
       Montgomery_Int(const Montgomery_Params& params, secure_vector<word> words);

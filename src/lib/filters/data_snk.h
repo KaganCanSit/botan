@@ -20,7 +20,9 @@ namespace Botan {
 */
 class BOTAN_PUBLIC_API(2, 0) DataSink : public Filter {
    public:
-      bool attachable() override { return false; }
+      bool attachable() override {
+         return false;
+      }
 };
 
 /**
@@ -51,7 +53,9 @@ class BOTAN_PUBLIC_API(2, 0) DataSink_Stream final : public DataSink {
       DataSink_Stream& operator=(const DataSink_Stream& other) = delete;
       DataSink_Stream& operator=(DataSink_Stream&& other) = delete;
 
-      std::string name() const override { return m_identifier; }
+      std::string name() const override {
+         return m_identifier;
+      }
 
       void write(const uint8_t buf[], size_t len) override;
 

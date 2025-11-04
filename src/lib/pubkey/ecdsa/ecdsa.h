@@ -59,13 +59,17 @@ class BOTAN_PUBLIC_API(2, 0) ECDSA_PublicKey : public virtual EC_PublicKey {
       * Get this keys algorithm name.
       * @result this keys algorithm name ("ECDSA")
       */
-      std::string algo_name() const override { return "ECDSA"; }
+      std::string algo_name() const override {
+         return "ECDSA";
+      }
 
       std::optional<size_t> _signature_element_size_for_DER_encoding() const override {
          return domain().get_order_bytes();
       }
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::Signature); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::Signature);
+      }
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator& rng) const override;
 

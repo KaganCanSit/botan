@@ -24,9 +24,13 @@ class Noekeon final : public Block_Cipher_Fixed_Params<16, 16> {
       std::string provider() const override;
       void clear() override;
 
-      std::string name() const override { return "Noekeon"; }
+      std::string name() const override {
+         return "Noekeon";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<Noekeon>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<Noekeon>();
+      }
 
       size_t parallelism() const override;
       bool has_keying_material() const override;

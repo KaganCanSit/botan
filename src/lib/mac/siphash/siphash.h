@@ -21,11 +21,15 @@ class SipHash final : public MessageAuthenticationCode {
 
       std::unique_ptr<MessageAuthenticationCode> new_object() const override;
 
-      size_t output_length() const override { return 8; }
+      size_t output_length() const override {
+         return 8;
+      }
 
       bool has_keying_material() const override;
 
-      Key_Length_Specification key_spec() const override { return Key_Length_Specification(16); }
+      Key_Length_Specification key_spec() const override {
+         return Key_Length_Specification(16);
+      }
 
    private:
       void add_data(std::span<const uint8_t> input) override;

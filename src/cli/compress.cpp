@@ -35,9 +35,13 @@ class Compress final : public Command {
          return input_fsname + "." + suffix_info->second;
       }
 
-      std::string group() const override { return "compression"; }
+      std::string group() const override {
+         return "compression";
+      }
 
-      std::string description() const override { return "Compress a given file"; }
+      std::string description() const override {
+         return "Compress a given file";
+      }
 
       void go() override {
          const std::string comp_type = get_arg("type");
@@ -99,9 +103,13 @@ class Decompress final : public Command {
          suffix = in_file.substr(last_dot + 1, std::string::npos);
       }
 
-      std::string group() const override { return "compression"; }
+      std::string group() const override {
+         return "compression";
+      }
 
-      std::string description() const override { return "Decompress a given compressed archive"; }
+      std::string description() const override {
+         return "Decompress a given compressed archive";
+      }
 
       void go() override {
          const size_t buf_size = get_arg_sz("buf-size");

@@ -67,7 +67,9 @@ class Test_Callbacks : public Botan::TLS::Callbacks {
          m_result.test_failure("unsolicited call to tls_record_received");
       }
 
-      void tls_alert(Botan::TLS::Alert) override { m_result.test_failure("unsolicited call to tls_alert"); }
+      void tls_alert(Botan::TLS::Alert) override {
+         m_result.test_failure("unsolicited call to tls_alert");
+      }
 
       void tls_session_established(const Botan::TLS::Session_Summary&) override {
          m_result.test_failure("unsolicited call to tls_session_established");

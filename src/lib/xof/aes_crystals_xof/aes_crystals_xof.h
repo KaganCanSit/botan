@@ -30,7 +30,9 @@ class BOTAN_TEST_API AES_256_CTR_XOF final : public XOF /* NOLINT(*-special-memb
 
       void reset() override;
 
-      std::string name() const override { return "CTR-BE(AES-256)"; }
+      std::string name() const override {
+         return "CTR-BE(AES-256)";
+      }
 
       /**
        * Checks that the given @p iv_length is compatible with this XOF
@@ -38,13 +40,19 @@ class BOTAN_TEST_API AES_256_CTR_XOF final : public XOF /* NOLINT(*-special-memb
       bool valid_salt_length(size_t iv_length) const override;
       Key_Length_Specification key_spec() const override;
 
-      size_t block_size() const override { return 16; }
+      size_t block_size() const override {
+         return 16;
+      }
 
       std::unique_ptr<XOF> copy_state() const override;
 
-      std::unique_ptr<XOF> new_object() const override { return std::make_unique<AES_256_CTR_XOF>(); }
+      std::unique_ptr<XOF> new_object() const override {
+         return std::make_unique<AES_256_CTR_XOF>();
+      }
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
    private:
       /**

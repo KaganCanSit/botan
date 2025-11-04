@@ -40,7 +40,9 @@ class BOTAN_PUBLIC_API(2, 0) Basic_Constraints final : public Certificate_Extens
 
       Basic_Constraints(bool is_ca, std::optional<size_t> path_length_constraint);
 
-      BOTAN_DEPRECATED("Use is_ca") bool get_is_ca() const { return m_is_ca; }
+      BOTAN_DEPRECATED("Use is_ca") bool get_is_ca() const {
+         return m_is_ca;
+      }
 
       /**
       * Note that this function returns NO_CERT_PATH_LIMIT if the value was not set
@@ -48,16 +50,26 @@ class BOTAN_PUBLIC_API(2, 0) Basic_Constraints final : public Certificate_Extens
       */
       BOTAN_DEPRECATED("Use path_length_constraint") size_t get_path_limit() const;
 
-      bool is_ca() const { return m_is_ca; }
+      bool is_ca() const {
+         return m_is_ca;
+      }
 
-      std::optional<size_t> path_length_constraint() const { return m_path_length_constraint; }
+      std::optional<size_t> path_length_constraint() const {
+         return m_path_length_constraint;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 19}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 19});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "X509v3.BasicConstraints"; }
+      std::string oid_name() const override {
+         return "X509v3.BasicConstraints";
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -79,16 +91,26 @@ class BOTAN_PUBLIC_API(2, 0) Key_Usage final : public Certificate_Extension {
 
       explicit Key_Usage() : m_constraints(Key_Constraints::None) {}
 
-      Key_Constraints get_constraints() const { return m_constraints; }
+      Key_Constraints get_constraints() const {
+         return m_constraints;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 15}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 15});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "X509v3.KeyUsage"; }
+      std::string oid_name() const override {
+         return "X509v3.KeyUsage";
+      }
 
-      bool should_encode() const override { return !m_constraints.empty(); }
+      bool should_encode() const override {
+         return !m_constraints.empty();
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -111,16 +133,26 @@ class BOTAN_PUBLIC_API(2, 0) Subject_Key_ID final : public Certificate_Extension
          return std::make_unique<Subject_Key_ID>(m_key_id);
       }
 
-      const std::vector<uint8_t>& get_key_id() const { return m_key_id; }
+      const std::vector<uint8_t>& get_key_id() const {
+         return m_key_id;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 14}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 14});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "X509v3.SubjectKeyIdentifier"; }
+      std::string oid_name() const override {
+         return "X509v3.SubjectKeyIdentifier";
+      }
 
-      bool should_encode() const override { return (!m_key_id.empty()); }
+      bool should_encode() const override {
+         return (!m_key_id.empty());
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -141,16 +173,26 @@ class BOTAN_PUBLIC_API(2, 0) Authority_Key_ID final : public Certificate_Extensi
 
       explicit Authority_Key_ID(const std::vector<uint8_t>& k) : m_key_id(k) {}
 
-      const std::vector<uint8_t>& get_key_id() const { return m_key_id; }
+      const std::vector<uint8_t>& get_key_id() const {
+         return m_key_id;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 35}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 35});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "X509v3.AuthorityKeyIdentifier"; }
+      std::string oid_name() const override {
+         return "X509v3.AuthorityKeyIdentifier";
+      }
 
-      bool should_encode() const override { return (!m_key_id.empty()); }
+      bool should_encode() const override {
+         return (!m_key_id.empty());
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -163,11 +205,17 @@ class BOTAN_PUBLIC_API(2, 0) Authority_Key_ID final : public Certificate_Extensi
 */
 class BOTAN_PUBLIC_API(2, 4) Subject_Alternative_Name final : public Certificate_Extension {
    public:
-      const AlternativeName& get_alt_name() const { return m_alt_name; }
+      const AlternativeName& get_alt_name() const {
+         return m_alt_name;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 17}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 17});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
       std::unique_ptr<Certificate_Extension> copy() const override {
          return std::make_unique<Subject_Alternative_Name>(get_alt_name());
@@ -176,9 +224,13 @@ class BOTAN_PUBLIC_API(2, 4) Subject_Alternative_Name final : public Certificate
       explicit Subject_Alternative_Name(const AlternativeName& name = AlternativeName()) : m_alt_name(name) {}
 
    private:
-      std::string oid_name() const override { return "X509v3.SubjectAlternativeName"; }
+      std::string oid_name() const override {
+         return "X509v3.SubjectAlternativeName";
+      }
 
-      bool should_encode() const override { return m_alt_name.has_items(); }
+      bool should_encode() const override {
+         return m_alt_name.has_items();
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -191,11 +243,17 @@ class BOTAN_PUBLIC_API(2, 4) Subject_Alternative_Name final : public Certificate
 */
 class BOTAN_PUBLIC_API(2, 0) Issuer_Alternative_Name final : public Certificate_Extension {
    public:
-      const AlternativeName& get_alt_name() const { return m_alt_name; }
+      const AlternativeName& get_alt_name() const {
+         return m_alt_name;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 18}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 18});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
       std::unique_ptr<Certificate_Extension> copy() const override {
          return std::make_unique<Issuer_Alternative_Name>(get_alt_name());
@@ -204,9 +262,13 @@ class BOTAN_PUBLIC_API(2, 0) Issuer_Alternative_Name final : public Certificate_
       explicit Issuer_Alternative_Name(const AlternativeName& name = AlternativeName()) : m_alt_name(name) {}
 
    private:
-      std::string oid_name() const override { return "X509v3.IssuerAlternativeName"; }
+      std::string oid_name() const override {
+         return "X509v3.IssuerAlternativeName";
+      }
 
-      bool should_encode() const override { return m_alt_name.has_items(); }
+      bool should_encode() const override {
+         return m_alt_name.has_items();
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -227,16 +289,26 @@ class BOTAN_PUBLIC_API(2, 0) Extended_Key_Usage final : public Certificate_Exten
 
       explicit Extended_Key_Usage(const std::vector<OID>& o) : m_oids(o) {}
 
-      const std::vector<OID>& object_identifiers() const { return m_oids; }
+      const std::vector<OID>& object_identifiers() const {
+         return m_oids;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 37}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 37});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "X509v3.ExtendedKeyUsage"; }
+      std::string oid_name() const override {
+         return "X509v3.ExtendedKeyUsage";
+      }
 
-      bool should_encode() const override { return (!m_oids.empty()); }
+      bool should_encode() const override {
+         return (!m_oids.empty());
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -263,16 +335,26 @@ class BOTAN_PUBLIC_API(2, 0) Name_Constraints final : public Certificate_Extensi
                     std::vector<std::set<Certificate_Status_Code>>& cert_status,
                     size_t pos) override;
 
-      const NameConstraints& get_name_constraints() const { return m_name_constraints; }
+      const NameConstraints& get_name_constraints() const {
+         return m_name_constraints;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 30}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 30});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "X509v3.NameConstraints"; }
+      std::string oid_name() const override {
+         return "X509v3.NameConstraints";
+      }
 
-      bool should_encode() const override { return true; }
+      bool should_encode() const override {
+         return true;
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -293,11 +375,17 @@ class BOTAN_PUBLIC_API(2, 0) Certificate_Policies final : public Certificate_Ext
 
       explicit Certificate_Policies(const std::vector<OID>& o) : m_oids(o) {}
 
-      const std::vector<OID>& get_policy_oids() const { return m_oids; }
+      const std::vector<OID>& get_policy_oids() const {
+         return m_oids;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 32}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 32});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
       void validate(const X509_Certificate& subject,
                     const std::optional<X509_Certificate>& issuer,
@@ -306,9 +394,13 @@ class BOTAN_PUBLIC_API(2, 0) Certificate_Policies final : public Certificate_Ext
                     size_t pos) override;
 
    private:
-      std::string oid_name() const override { return "X509v3.CertificatePolicies"; }
+      std::string oid_name() const override {
+         return "X509v3.CertificatePolicies";
+      }
 
-      bool should_encode() const override { return (!m_oids.empty()); }
+      bool should_encode() const override {
+         return (!m_oids.empty());
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -331,18 +423,30 @@ class BOTAN_PUBLIC_API(2, 0) Authority_Information_Access final : public Certifi
                                             const std::vector<std::string>& ca_issuers = std::vector<std::string>()) :
             m_ocsp_responder(ocsp), m_ca_issuers(ca_issuers) {}
 
-      std::string ocsp_responder() const { return m_ocsp_responder; }
+      std::string ocsp_responder() const {
+         return m_ocsp_responder;
+      }
 
-      static OID static_oid() { return OID({1, 3, 6, 1, 5, 5, 7, 1, 1}); }
+      static OID static_oid() {
+         return OID({1, 3, 6, 1, 5, 5, 7, 1, 1});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
-      const std::vector<std::string>& ca_issuers() const { return m_ca_issuers; }
+      const std::vector<std::string>& ca_issuers() const {
+         return m_ca_issuers;
+      }
 
    private:
-      std::string oid_name() const override { return "PKIX.AuthorityInformationAccess"; }
+      std::string oid_name() const override {
+         return "PKIX.AuthorityInformationAccess";
+      }
 
-      bool should_encode() const override { return (!m_ocsp_responder.empty() || !m_ca_issuers.empty()); }
+      bool should_encode() const override {
+         return (!m_ocsp_responder.empty() || !m_ca_issuers.empty());
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -364,14 +468,22 @@ class BOTAN_PUBLIC_API(2, 0) CRL_Number final : public Certificate_Extension {
 
       size_t get_crl_number() const;
 
-      static OID static_oid() { return OID({2, 5, 29, 20}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 20});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "X509v3.CRLNumber"; }
+      std::string oid_name() const override {
+         return "X509v3.CRLNumber";
+      }
 
-      bool should_encode() const override { return m_has_value; }
+      bool should_encode() const override {
+         return m_has_value;
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -391,16 +503,26 @@ class BOTAN_PUBLIC_API(2, 0) CRL_ReasonCode final : public Certificate_Extension
 
       explicit CRL_ReasonCode(CRL_Code r = CRL_Code::Unspecified) : m_reason(r) {}
 
-      CRL_Code get_reason() const { return m_reason; }
+      CRL_Code get_reason() const {
+         return m_reason;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 21}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 21});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "X509v3.ReasonCode"; }
+      std::string oid_name() const override {
+         return "X509v3.ReasonCode";
+      }
 
-      bool should_encode() const override { return (m_reason != CRL_Code::Unspecified); }
+      bool should_encode() const override {
+         return (m_reason != CRL_Code::Unspecified);
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -421,7 +543,9 @@ class BOTAN_PUBLIC_API(2, 0) CRL_Distribution_Points final : public Certificate_
 
             explicit Distribution_Point(const AlternativeName& name = AlternativeName()) : m_point(name) {}
 
-            const AlternativeName& point() const { return m_point; }
+            const AlternativeName& point() const {
+               return m_point;
+            }
 
          private:
             AlternativeName m_point;
@@ -435,18 +559,30 @@ class BOTAN_PUBLIC_API(2, 0) CRL_Distribution_Points final : public Certificate_
 
       explicit CRL_Distribution_Points(const std::vector<Distribution_Point>& points) : m_distribution_points(points) {}
 
-      const std::vector<Distribution_Point>& distribution_points() const { return m_distribution_points; }
+      const std::vector<Distribution_Point>& distribution_points() const {
+         return m_distribution_points;
+      }
 
-      const std::vector<std::string>& crl_distribution_urls() const { return m_crl_distribution_urls; }
+      const std::vector<std::string>& crl_distribution_urls() const {
+         return m_crl_distribution_urls;
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 31}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 31});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "X509v3.CRLDistributionPoints"; }
+      std::string oid_name() const override {
+         return "X509v3.CRLDistributionPoints";
+      }
 
-      bool should_encode() const override { return !m_distribution_points.empty(); }
+      bool should_encode() const override {
+         return !m_distribution_points.empty();
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -470,16 +606,26 @@ class CRL_Issuing_Distribution_Point final : public Certificate_Extension {
          return std::make_unique<CRL_Issuing_Distribution_Point>(m_distribution_point);
       }
 
-      const AlternativeName& get_point() const { return m_distribution_point.point(); }
+      const AlternativeName& get_point() const {
+         return m_distribution_point.point();
+      }
 
-      static OID static_oid() { return OID({2, 5, 29, 28}); }
+      static OID static_oid() {
+         return OID({2, 5, 29, 28});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "X509v3.CRLIssuingDistributionPoint"; }
+      std::string oid_name() const override {
+         return "X509v3.CRLIssuingDistributionPoint";
+      }
 
-      bool should_encode() const override { return true; }
+      bool should_encode() const override {
+         return true;
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -502,18 +648,30 @@ class OCSP_NoCheck final : public Certificate_Extension {
    public:
       OCSP_NoCheck() = default;
 
-      std::unique_ptr<Certificate_Extension> copy() const override { return std::make_unique<OCSP_NoCheck>(); }
+      std::unique_ptr<Certificate_Extension> copy() const override {
+         return std::make_unique<OCSP_NoCheck>();
+      }
 
-      static OID static_oid() { return OID({1, 3, 6, 1, 5, 5, 7, 48, 1, 5}); }
+      static OID static_oid() {
+         return OID({1, 3, 6, 1, 5, 5, 7, 48, 1, 5});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
    private:
-      std::string oid_name() const override { return "PKIX.OCSP.NoCheck"; }
+      std::string oid_name() const override {
+         return "PKIX.OCSP.NoCheck";
+      }
 
-      bool should_encode() const override { return true; }
+      bool should_encode() const override {
+         return true;
+      }
 
-      std::vector<uint8_t> encode_inner() const override { return {}; }
+      std::vector<uint8_t> encode_inner() const override {
+         return {};
+      }
 
       void decode_inner(const std::vector<uint8_t>& in) override;
 };
@@ -547,7 +705,9 @@ class BOTAN_PUBLIC_API(3, 5) TNAuthList final : public Certificate_Extension {
             void encode_into(DER_Encoder& to) const override;
             void decode_from(class BER_Decoder& from) override;
 
-            Type type() const { return m_type; }
+            Type type() const {
+               return m_type;
+            }
 
             const std::string& service_provider_code() const;
 
@@ -562,18 +722,30 @@ class BOTAN_PUBLIC_API(3, 5) TNAuthList final : public Certificate_Extension {
 
       TNAuthList() = default;
 
-      std::unique_ptr<Certificate_Extension> copy() const override { return std::make_unique<TNAuthList>(*this); }
+      std::unique_ptr<Certificate_Extension> copy() const override {
+         return std::make_unique<TNAuthList>(*this);
+      }
 
-      static OID static_oid() { return OID({1, 3, 6, 1, 5, 5, 7, 1, 26}); }
+      static OID static_oid() {
+         return OID({1, 3, 6, 1, 5, 5, 7, 1, 26});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
-      const std::vector<Entry>& entries() const { return m_tn_entries; }
+      const std::vector<Entry>& entries() const {
+         return m_tn_entries;
+      }
 
    private:
-      std::string oid_name() const override { return "PKIX.TNAuthList"; }
+      std::string oid_name() const override {
+         return "PKIX.TNAuthList";
+      }
 
-      bool should_encode() const override { return true; }
+      bool should_encode() const override {
+         return true;
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -601,7 +773,9 @@ class BOTAN_PUBLIC_API(3, 9) IPAddressBlocks final : public Certificate_Extensio
          public:
             explicit IPAddress(std::span<const uint8_t> v);
 
-            std::array<uint8_t, Length> value() const { return m_value; }
+            std::array<uint8_t, Length> value() const {
+               return m_value;
+            }
 
          private:
             friend class IPAddressBlocks;
@@ -660,9 +834,13 @@ class BOTAN_PUBLIC_API(3, 9) IPAddressBlocks final : public Certificate_Extensio
                }
             }
 
-            IPAddress<V> min() const { return m_min; }
+            IPAddress<V> min() const {
+               return m_min;
+            }
 
-            IPAddress<V> max() const { return m_max; }
+            IPAddress<V> max() const {
+               return m_max;
+            }
 
          private:
             IPAddress<V> m_min{};
@@ -677,7 +855,9 @@ class BOTAN_PUBLIC_API(3, 9) IPAddressBlocks final : public Certificate_Extensio
             void encode_into(DER_Encoder& to) const override;
             void decode_from(BER_Decoder& from) override;
 
-            const std::optional<std::vector<IPAddressOrRange<V>>>& ranges() const { return m_ip_addr_ranges; }
+            const std::optional<std::vector<IPAddressOrRange<V>>>& ranges() const {
+               return m_ip_addr_ranges;
+            }
 
             IPAddressChoice() = default;
 
@@ -705,11 +885,17 @@ class BOTAN_PUBLIC_API(3, 9) IPAddressBlocks final : public Certificate_Extensio
                }
             }
 
-            uint16_t afi() const { return m_afi; }
+            uint16_t afi() const {
+               return m_afi;
+            }
 
-            std::optional<uint8_t> safi() const { return m_safi; }
+            std::optional<uint8_t> safi() const {
+               return m_safi;
+            }
 
-            const AddrChoice& addr_choice() const { return m_ip_addr_choice; }
+            const AddrChoice& addr_choice() const {
+               return m_ip_addr_choice;
+            }
 
          private:
             uint16_t m_afi = 1;
@@ -723,11 +909,17 @@ class BOTAN_PUBLIC_API(3, 9) IPAddressBlocks final : public Certificate_Extensio
          this->sort_and_merge();
       }
 
-      std::unique_ptr<Certificate_Extension> copy() const override { return std::make_unique<IPAddressBlocks>(*this); }
+      std::unique_ptr<Certificate_Extension> copy() const override {
+         return std::make_unique<IPAddressBlocks>(*this);
+      }
 
-      static OID static_oid() { return OID({1, 3, 6, 1, 5, 5, 7, 1, 7}); }
+      static OID static_oid() {
+         return OID({1, 3, 6, 1, 5, 5, 7, 1, 7});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
       void validate(const X509_Certificate& subject,
                     const std::optional<X509_Certificate>& issuer,
@@ -767,12 +959,18 @@ class BOTAN_PUBLIC_API(3, 9) IPAddressBlocks final : public Certificate_Extensio
          sort_and_merge();
       }
 
-      const std::vector<IPAddressFamily>& addr_blocks() const { return m_ip_addr_blocks; }
+      const std::vector<IPAddressFamily>& addr_blocks() const {
+         return m_ip_addr_blocks;
+      }
 
    private:
-      std::string oid_name() const override { return "PKIX.IpAddrBlocks"; }
+      std::string oid_name() const override {
+         return "PKIX.IpAddrBlocks";
+      }
 
-      bool should_encode() const override { return true; }
+      bool should_encode() const override {
+         return true;
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;
@@ -799,9 +997,13 @@ class BOTAN_PUBLIC_API(3, 9) ASBlocks final : public Certificate_Extension {
             void encode_into(DER_Encoder& to) const override;
             void decode_from(BER_Decoder& from) override;
 
-            asnum_t min() const { return m_min; }
+            asnum_t min() const {
+               return m_min;
+            }
 
-            asnum_t max() const { return m_max; }
+            asnum_t max() const {
+               return m_max;
+            }
 
             ASIdOrRange() = default;
 
@@ -827,7 +1029,9 @@ class BOTAN_PUBLIC_API(3, 9) ASBlocks final : public Certificate_Extension {
 
             explicit ASIdentifierChoice(const std::optional<std::vector<ASIdOrRange>>& ranges);
 
-            const std::optional<std::vector<ASIdOrRange>>& ranges() const { return m_as_ranges; }
+            const std::optional<std::vector<ASIdOrRange>>& ranges() const {
+               return m_as_ranges;
+            }
 
          private:
             std::optional<std::vector<ASIdOrRange>> m_as_ranges;
@@ -846,9 +1050,13 @@ class BOTAN_PUBLIC_API(3, 9) ASBlocks final : public Certificate_Extension {
                }
             }
 
-            const std::optional<ASIdentifierChoice>& asnum() const { return m_asnum; }
+            const std::optional<ASIdentifierChoice>& asnum() const {
+               return m_asnum;
+            }
 
-            const std::optional<ASIdentifierChoice>& rdi() const { return m_rdi; }
+            const std::optional<ASIdentifierChoice>& rdi() const {
+               return m_rdi;
+            }
 
          private:
             friend class ASBlocks;
@@ -862,11 +1070,17 @@ class BOTAN_PUBLIC_API(3, 9) ASBlocks final : public Certificate_Extension {
 
       explicit ASBlocks(const ASIdentifiers& as_idents) : m_as_identifiers(as_idents) {}
 
-      std::unique_ptr<Certificate_Extension> copy() const override { return std::make_unique<ASBlocks>(*this); }
+      std::unique_ptr<Certificate_Extension> copy() const override {
+         return std::make_unique<ASBlocks>(*this);
+      }
 
-      static OID static_oid() { return OID({1, 3, 6, 1, 5, 5, 7, 1, 8}); }
+      static OID static_oid() {
+         return OID({1, 3, 6, 1, 5, 5, 7, 1, 8});
+      }
 
-      OID oid_of() const override { return static_oid(); }
+      OID oid_of() const override {
+         return static_oid();
+      }
 
       void validate(const X509_Certificate& subject,
                     const std::optional<X509_Certificate>& issuer,
@@ -875,7 +1089,9 @@ class BOTAN_PUBLIC_API(3, 9) ASBlocks final : public Certificate_Extension {
                     size_t pos) override;
 
       /// Add a single asnum to this extension
-      void add_asnum(asnum_t asnum) { add_asnum(asnum, asnum); }
+      void add_asnum(asnum_t asnum) {
+         add_asnum(asnum, asnum);
+      }
 
       /// Add an asnum range to this extension
       void add_asnum(asnum_t min, asnum_t max) {
@@ -889,10 +1105,14 @@ class BOTAN_PUBLIC_API(3, 9) ASBlocks final : public Certificate_Extension {
       }
 
       /// Mark the asnum entry as 'inherit'
-      void inherit_asnum() { m_as_identifiers = ASIdentifiers(ASIdentifierChoice(), m_as_identifiers.rdi()); }
+      void inherit_asnum() {
+         m_as_identifiers = ASIdentifiers(ASIdentifierChoice(), m_as_identifiers.rdi());
+      }
 
       /// Add a single rdi to this extension
-      void add_rdi(asnum_t rdi) { add_rdi(rdi, rdi); }
+      void add_rdi(asnum_t rdi) {
+         add_rdi(rdi, rdi);
+      }
 
       /// Add an rdi range to this extension
       void add_rdi(asnum_t min, asnum_t max) {
@@ -906,16 +1126,24 @@ class BOTAN_PUBLIC_API(3, 9) ASBlocks final : public Certificate_Extension {
       }
 
       /// Mark the rdi entry as 'inherit'
-      void inherit_rdi() { m_as_identifiers = ASIdentifiers(m_as_identifiers.asnum(), ASIdentifierChoice()); }
+      void inherit_rdi() {
+         m_as_identifiers = ASIdentifiers(m_as_identifiers.asnum(), ASIdentifierChoice());
+      }
 
-      const ASIdentifiers& as_identifiers() const { return m_as_identifiers; }
+      const ASIdentifiers& as_identifiers() const {
+         return m_as_identifiers;
+      }
 
    private:
       ASIdentifiers m_as_identifiers;
 
-      std::string oid_name() const override { return "PKIX.AutonomousSysIds"; }
+      std::string oid_name() const override {
+         return "PKIX.AutonomousSysIds";
+      }
 
-      bool should_encode() const override { return true; }
+      bool should_encode() const override {
+         return true;
+      }
 
       static ASIdentifierChoice add_new(const std::optional<ASIdentifierChoice>& old, asnum_t min, asnum_t max);
 
@@ -938,19 +1166,25 @@ class BOTAN_PUBLIC_API(2, 4) Unknown_Extension final : public Certificate_Extens
       /**
       * Return the OID of this unknown extension
       */
-      OID oid_of() const override { return m_oid; }
+      OID oid_of() const override {
+         return m_oid;
+      }
 
       //static_oid not defined for Unknown_Extension
 
       /**
       * Return the extension contents
       */
-      const std::vector<uint8_t>& extension_contents() const { return m_bytes; }
+      const std::vector<uint8_t>& extension_contents() const {
+         return m_bytes;
+      }
 
       /**
       * Return if this extension was marked critical
       */
-      bool is_critical_extension() const { return m_critical; }
+      bool is_critical_extension() const {
+         return m_critical;
+      }
 
       void validate(const X509_Certificate& /*subject*/,
                     const std::optional<X509_Certificate>& /*issuer*/,
@@ -963,9 +1197,13 @@ class BOTAN_PUBLIC_API(2, 4) Unknown_Extension final : public Certificate_Extens
       }
 
    private:
-      std::string oid_name() const override { return ""; }
+      std::string oid_name() const override {
+         return "";
+      }
 
-      bool should_encode() const override { return true; }
+      bool should_encode() const override {
+         return true;
+      }
 
       std::vector<uint8_t> encode_inner() const override;
       void decode_inner(const std::vector<uint8_t>& in) override;

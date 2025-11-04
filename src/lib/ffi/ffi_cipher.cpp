@@ -27,11 +27,17 @@ struct botan_cipher_struct final : public botan_struct<Botan::Cipher_Mode, 0xB4A
          m_buf.reserve(m_ideal_update_size);
       }
 
-      Botan::secure_vector<uint8_t>& buf() { return m_buf; }
+      Botan::secure_vector<uint8_t>& buf() {
+         return m_buf;
+      }
 
-      size_t update_size() const { return m_update_size; }
+      size_t update_size() const {
+         return m_update_size;
+      }
 
-      size_t ideal_update_size() const { return m_ideal_update_size; }
+      size_t ideal_update_size() const {
+         return m_ideal_update_size;
+      }
 
    private:
       Botan::secure_vector<uint8_t> m_buf;

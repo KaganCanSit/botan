@@ -49,7 +49,9 @@ class BOTAN_TEST_API SIV_Mode : public AEAD_Mode /* NOLINT(*-special-member-func
 
       void reset() final;
 
-      size_t tag_size() const final { return 16; }
+      size_t tag_size() const final {
+         return 16;
+      }
 
       bool has_keying_material() const final;
 
@@ -58,13 +60,19 @@ class BOTAN_TEST_API SIV_Mode : public AEAD_Mode /* NOLINT(*-special-member-func
    protected:
       explicit SIV_Mode(std::unique_ptr<BlockCipher> cipher);
 
-      size_t block_size() const { return m_bs; }
+      size_t block_size() const {
+         return m_bs;
+      }
 
-      StreamCipher& ctr() { return *m_ctr; }
+      StreamCipher& ctr() {
+         return *m_ctr;
+      }
 
       void set_ctr_iv(secure_vector<uint8_t> V);
 
-      secure_vector<uint8_t>& msg_buf() { return m_msg_buf; }
+      secure_vector<uint8_t>& msg_buf() {
+         return m_msg_buf;
+      }
 
       secure_vector<uint8_t> S2V(const uint8_t text[], size_t text_len);
 
@@ -93,9 +101,13 @@ class BOTAN_TEST_API SIV_Encryption final : public SIV_Mode {
       */
       explicit SIV_Encryption(std::unique_ptr<BlockCipher> cipher) : SIV_Mode(std::move(cipher)) {}
 
-      size_t output_length(size_t input_length) const override { return input_length + tag_size(); }
+      size_t output_length(size_t input_length) const override {
+         return input_length + tag_size();
+      }
 
-      size_t minimum_final_size() const override { return 0; }
+      size_t minimum_final_size() const override {
+         return 0;
+      }
 
    private:
       void finish_msg(secure_vector<uint8_t>& final_block, size_t offset = 0) override;
@@ -116,7 +128,9 @@ class BOTAN_TEST_API SIV_Decryption final : public SIV_Mode {
          return input_length - tag_size();
       }
 
-      size_t minimum_final_size() const override { return tag_size(); }
+      size_t minimum_final_size() const override {
+         return tag_size();
+      }
 
    private:
       void finish_msg(secure_vector<uint8_t>& final_block, size_t offset = 0) override;

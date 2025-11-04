@@ -44,11 +44,17 @@ class MySoC_RandomNumberGenerator final : public Botan::Hardware_RNG {
       MySoC_RandomNumberGenerator& operator=(const MySoC_RandomNumberGenerator&) = delete;
       MySoC_RandomNumberGenerator& operator=(MySoC_RandomNumberGenerator&&) = delete;
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
-      std::string name() const override { return "my_soc_rng"; }
+      std::string name() const override {
+         return "my_soc_rng";
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> /*input*/) override {
          /*

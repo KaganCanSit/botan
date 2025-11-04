@@ -134,7 +134,9 @@ class BOTAN_PUBLIC_API(3, 0) Asymmetric_Key /* NOLINT(*special-member-functions)
       * If this returns a value x then the signature is checked to
       * be exactly 2*x bytes and split in half for DER encoding.
       */
-      virtual std::optional<size_t> _signature_element_size_for_DER_encoding() const { return {}; }
+      virtual std::optional<size_t> _signature_element_size_for_DER_encoding() const {
+         return {};
+      }
 
       /*
       * Return the format normally used by this algorithm for X.509 signatures
@@ -158,7 +160,9 @@ class BOTAN_PUBLIC_API(2, 0) Public_Key : public virtual Asymmetric_Key {
       /**
       * Deprecated version of object_identifier
       */
-      BOTAN_DEPRECATED("Use object_identifier") OID get_oid() const { return this->object_identifier(); }
+      BOTAN_DEPRECATED("Use object_identifier") OID get_oid() const {
+         return this->object_identifier();
+      }
 
       /**
       * @return X.509 AlgorithmIdentifier for this key
@@ -321,20 +325,26 @@ class BOTAN_PUBLIC_API(2, 0) Private_Key : public virtual Public_Key {
       * @return PKCS #8 AlgorithmIdentifier for this key
       * Might be different from the X.509 identifier, but normally is not
       */
-      virtual AlgorithmIdentifier pkcs8_algorithm_identifier() const { return algorithm_identifier(); }
+      virtual AlgorithmIdentifier pkcs8_algorithm_identifier() const {
+         return algorithm_identifier();
+      }
 
       /**
       * Indicates if this key is stateful, ie that performing a private
       * key operation requires updating the key storage.
       */
-      virtual bool stateful_operation() const { return false; }
+      virtual bool stateful_operation() const {
+         return false;
+      }
 
       /**
        * @brief Retrieves the number of remaining operations if this is a stateful private key.
        *
        * @returns the number of remaining operations or std::nullopt if not applicable.
        */
-      virtual std::optional<uint64_t> remaining_operations() const { return std::nullopt; }
+      virtual std::optional<uint64_t> remaining_operations() const {
+         return std::nullopt;
+      }
 
       // Declarations for internal library functions not covered by SemVer follow
 

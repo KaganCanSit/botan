@@ -44,15 +44,25 @@ class L_computer final {
          m_offset_buf.resize(m_BS * m_max_blocks);
       }
 
-      void init(const secure_vector<uint8_t>& offset) { m_offset = offset; }
+      void init(const secure_vector<uint8_t>& offset) {
+         m_offset = offset;
+      }
 
-      bool initialized() const { return !m_offset.empty(); }
+      bool initialized() const {
+         return !m_offset.empty();
+      }
 
-      const secure_vector<uint8_t>& star() const { return m_L_star; }
+      const secure_vector<uint8_t>& star() const {
+         return m_L_star;
+      }
 
-      const secure_vector<uint8_t>& dollar() const { return m_L_dollar; }
+      const secure_vector<uint8_t>& dollar() const {
+         return m_L_dollar;
+      }
 
-      const secure_vector<uint8_t>& offset() const { return m_offset; }
+      const secure_vector<uint8_t>& offset() const {
+         return m_offset;
+      }
 
       const secure_vector<uint8_t>& get(size_t i) const {
          while(m_L.size() <= i) {

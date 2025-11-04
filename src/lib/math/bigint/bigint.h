@@ -46,12 +46,16 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
       /**
        * Create a 0-value BigInt
        */
-      static BigInt zero() { return BigInt(); }
+      static BigInt zero() {
+         return BigInt();
+      }
 
       /**
        * Create a 1-value BigInt
        */
-      static BigInt one() { return BigInt::from_u64(1); }
+      static BigInt one() {
+         return BigInt::from_u64(1);
+      }
 
       /**
        * Create BigInt from an unsigned 64 bit integer
@@ -114,13 +118,17 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        * @param buf the byte array holding the value
        * @param length size of buf
        */
-      BigInt(const uint8_t buf[], size_t length) { assign_from_bytes(std::span{buf, length}); }
+      BigInt(const uint8_t buf[], size_t length) {
+         assign_from_bytes(std::span{buf, length});
+      }
 
       /**
        * Create a BigInt from an integer in a byte array
        * @param bytes the byte vector holding the value
        */
-      explicit BigInt(std::span<const uint8_t> bytes) { assign_from_bytes(bytes); }
+      explicit BigInt(std::span<const uint8_t> bytes) {
+         assign_from_bytes(bytes);
+      }
 
       /**
        * Create a BigInt from an integer in a byte array
@@ -164,9 +172,13 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
       /**
        * Move constructor
        */
-      BigInt(BigInt&& other) noexcept { this->swap(other); }
+      BigInt(BigInt&& other) noexcept {
+         this->swap(other);
+      }
 
-      ~BigInt() { _const_time_unpoison(); }
+      ~BigInt() {
+         _const_time_unpoison();
+      }
 
       /**
        * Move assignment
@@ -193,7 +205,9 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
          std::swap(m_signedness, other.m_signedness);
       }
 
-      friend void swap(BigInt& x, BigInt& y) noexcept { x.swap(y); }
+      friend void swap(BigInt& x, BigInt& y) noexcept {
+         x.swap(y);
+      }
 
       BOTAN_DEPRECATED("Deprecated no replacement") void swap_reg(secure_vector<word>& reg) {
          m_data.swap(reg);
@@ -204,25 +218,33 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        * += operator
        * @param y the BigInt to add to this
        */
-      BigInt& operator+=(const BigInt& y) { return add(y._data(), y.sig_words(), y.sign()); }
+      BigInt& operator+=(const BigInt& y) {
+         return add(y._data(), y.sig_words(), y.sign());
+      }
 
       /**
        * += operator
        * @param y the word to add to this
        */
-      BigInt& operator+=(word y) { return add(&y, 1, Positive); }
+      BigInt& operator+=(word y) {
+         return add(&y, 1, Positive);
+      }
 
       /**
        * -= operator
        * @param y the BigInt to subtract from this
        */
-      BigInt& operator-=(const BigInt& y) { return sub(y._data(), y.sig_words(), y.sign()); }
+      BigInt& operator-=(const BigInt& y) {
+         return sub(y._data(), y.sig_words(), y.sign());
+      }
 
       /**
        * -= operator
        * @param y the word to subtract from this
        */
-      BigInt& operator-=(word y) { return sub(&y, 1, Positive); }
+      BigInt& operator-=(word y) {
+         return sub(&y, 1, Positive);
+      }
 
       /**
        * *= operator
@@ -269,12 +291,16 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
       /**
        * Increment operator
        */
-      BigInt& operator++() { return (*this += 1); }
+      BigInt& operator++() {
+         return (*this += 1);
+      }
 
       /**
        * Decrement operator
        */
-      BigInt& operator--() { return (*this -= 1); }
+      BigInt& operator--() {
+         return (*this -= 1);
+      }
 
       /**
        * Postfix increment operator
@@ -304,7 +330,9 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        * ! operator
        * @return true iff this is zero, otherwise false
        */
-      bool operator!() const { return (!is_nonzero()); }
+      bool operator!() const {
+         return (!is_nonzero());
+      }
 
       //BOTAN_DEPRECATED("Just use operator+/operator-")
       static BigInt add2(const BigInt& x, const word y[], size_t y_words, Sign y_sign);
@@ -436,31 +464,41 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        * Test if the integer has an even value
        * @result true if the integer is even, false otherwise
        */
-      bool is_even() const { return !get_bit(0); }
+      bool is_even() const {
+         return !get_bit(0);
+      }
 
       /**
        * Test if the integer has an odd value
        * @result true if the integer is odd, false otherwise
        */
-      bool is_odd() const { return get_bit(0); }
+      bool is_odd() const {
+         return get_bit(0);
+      }
 
       /**
        * Test if the integer is not zero
        * @result true if the integer is non-zero, false otherwise
        */
-      bool is_nonzero() const { return (!is_zero()); }
+      bool is_nonzero() const {
+         return (!is_zero());
+      }
 
       /**
        * Test if the integer is zero
        * @result true if the integer is zero, false otherwise
        */
-      bool is_zero() const { return (sig_words() == 0); }
+      bool is_zero() const {
+         return (sig_words() == 0);
+      }
 
       /**
        * Set bit at specified position
        * @param n bit position to set
        */
-      void set_bit(size_t n) { conditionally_set_bit(n, true); }
+      void set_bit(size_t n) {
+         conditionally_set_bit(n, true);
+      }
 
       /**
        * Conditionally set bit at specified position. Note if set_it is
@@ -486,14 +524,18 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        * Clear all but the lowest n bits
        * @param n amount of bits to keep
        */
-      BOTAN_DEPRECATED("Deprecated no replacement") void mask_bits(size_t n) { m_data.mask_bits(n); }
+      BOTAN_DEPRECATED("Deprecated no replacement") void mask_bits(size_t n) {
+         m_data.mask_bits(n);
+      }
 
       /**
        * Return bit value at specified position
        * @param n the bit offset to test
        * @result true, if the bit at position n is set, false otherwise
        */
-      bool get_bit(size_t n) const { return ((word_at(n / (sizeof(word) * 8)) >> (n % (sizeof(word) * 8))) & 1) == 1; }
+      bool get_bit(size_t n) const {
+         return ((word_at(n / (sizeof(word) * 8)) >> (n % (sizeof(word) * 8))) & 1) == 1;
+      }
 
       /**
        * Return (a maximum of) 32 bits of the complete value
@@ -544,9 +586,13 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        * @param n position in the register
        * @return value at position n
        */
-      word word_at(size_t n) const { return m_data.get_word_at(n); }
+      word word_at(size_t n) const {
+         return m_data.get_word_at(n);
+      }
 
-      BOTAN_DEPRECATED("Deprecated no replacement") void set_word_at(size_t i, word w) { m_data.set_word_at(i, w); }
+      BOTAN_DEPRECATED("Deprecated no replacement") void set_word_at(size_t i, word w) {
+         m_data.set_word_at(i, w);
+      }
 
       BOTAN_DEPRECATED("Deprecated no replacement") void set_words(const word w[], size_t len) {
          m_data.set_words(w, len);
@@ -556,19 +602,25 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        * Tests if the sign of the integer is negative
        * @result true, iff the integer has a negative sign
        */
-      bool is_negative() const { return (sign() == Negative); }
+      bool is_negative() const {
+         return (sign() == Negative);
+      }
 
       /**
        * Tests if the sign of the integer is positive
        * @result true, iff the integer has a positive sign
        */
-      bool is_positive() const { return (sign() == Positive); }
+      bool is_positive() const {
+         return (sign() == Positive);
+      }
 
       /**
        * Return the sign of the integer
        * @result the sign of the integer
        */
-      Sign sign() const { return (m_signedness); }
+      Sign sign() const {
+         return (m_signedness);
+      }
 
       /**
        * @result the opposite sign of the represented integer value
@@ -583,7 +635,9 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
       /**
        * Flip the sign of this BigInt
        */
-      BOTAN_DEPRECATED("Deprecated no replacement") void flip_sign() { set_sign(reverse_sign()); }
+      BOTAN_DEPRECATED("Deprecated no replacement") void flip_sign() {
+         set_sign(reverse_sign());
+      }
 
       /**
        * Set sign of the integer
@@ -606,13 +660,17 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        * Give size of internal register
        * @result size of internal register in words
        */
-      size_t size() const { return m_data.size(); }
+      size_t size() const {
+         return m_data.size();
+      }
 
       /**
        * Return how many words we need to hold this value
        * @result significant words of the represented integer value
        */
-      size_t sig_words() const { return m_data.sig_words(); }
+      size_t sig_words() const {
+         return m_data.sig_words();
+      }
 
       /**
        * Give byte length of the integer
@@ -637,13 +695,17 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        * Return a mutable pointer to the register
        * @result a pointer to the start of the internal register
        */
-      BOTAN_DEPRECATED("Deprecated no replacement") word* mutable_data() { return m_data.mutable_data(); }
+      BOTAN_DEPRECATED("Deprecated no replacement") word* mutable_data() {
+         return m_data.mutable_data();
+      }
 
       /**
        * Return a const pointer to the register
        * @result a pointer to the start of the internal register
        */
-      BOTAN_DEPRECATED("Deprecated no replacement") const word* data() const { return m_data.const_data(); }
+      BOTAN_DEPRECATED("Deprecated no replacement") const word* data() const {
+         return m_data.const_data();
+      }
 
       /**
        * Don't use this function in application code
@@ -663,9 +725,13 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        * Increase internal register buffer to at least n words
        * @param n new size of register
        */
-      BOTAN_DEPRECATED("Deprecated no replacement") void grow_to(size_t n) const { m_data.grow_to(n); }
+      BOTAN_DEPRECATED("Deprecated no replacement") void grow_to(size_t n) const {
+         m_data.grow_to(n);
+      }
 
-      BOTAN_DEPRECATED("Deprecated no replacement") void resize(size_t s) { m_data.resize(s); }
+      BOTAN_DEPRECATED("Deprecated no replacement") void resize(size_t s) {
+         m_data.resize(s);
+      }
 
       /**
        * Fill BigInt with a random number with size of bitsize
@@ -800,9 +866,13 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        */
       void cond_flip_sign(bool predicate);
 
-      BOTAN_DEPRECATED("replaced by internal API") void const_time_poison() const { _const_time_poison(); }
+      BOTAN_DEPRECATED("replaced by internal API") void const_time_poison() const {
+         _const_time_poison();
+      }
 
-      BOTAN_DEPRECATED("replaced by internal API") void const_time_unpoison() const { _const_time_unpoison(); }
+      BOTAN_DEPRECATED("replaced by internal API") void const_time_unpoison() const {
+         _const_time_unpoison();
+      }
 
       /**
        * @param rng a random number generator
@@ -923,7 +993,9 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        *
        * @result span over the internal register
        */
-      std::span<const word> _as_span() const { return m_data.const_span(); }
+      std::span<const word> _as_span() const {
+         return m_data.const_span();
+      }
 
       /**
        * Return a const pointer to the register
@@ -933,7 +1005,9 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        *
        * @result a pointer to the start of the internal register
        */
-      const word* _data() const { return m_data.const_data(); }
+      const word* _data() const {
+         return m_data.const_data();
+      }
 
       /**
        * Read integer value from a byte vector (big endian)
@@ -944,7 +1018,9 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
        *
        * @param bytes the span of bytes to load
        */
-      void _assign_from_bytes(std::span<const uint8_t> bytes) { assign_from_bytes(bytes); }
+      void _assign_from_bytes(std::span<const uint8_t> bytes) {
+         assign_from_bytes(bytes);
+      }
 
       /**
        * Create a BigInt from a word vector
@@ -988,16 +1064,22 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
                return m_reg.data();
             }
 
-            const word* const_data() const { return m_reg.data(); }
+            const word* const_data() const {
+               return m_reg.data();
+            }
 
-            std::span<const word> const_span() const { return std::span{m_reg}; }
+            std::span<const word> const_span() const {
+               return std::span{m_reg};
+            }
 
             secure_vector<word>& mutable_vector() {
                invalidate_sig_words();
                return m_reg;
             }
 
-            const secure_vector<word>& const_vector() const { return m_reg; }
+            const secure_vector<word>& const_vector() const {
+               return m_reg;
+            }
 
             word get_word_at(size_t n) const {
                if(n < m_reg.size()) {
@@ -1036,14 +1118,18 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
                }
             }
 
-            size_t size() const { return m_reg.size(); }
+            size_t size() const {
+               return m_reg.size();
+            }
 
             void shrink_to_fit(size_t min_size = 0) {
                const size_t words = std::max(min_size, sig_words());
                m_reg.resize(words);
             }
 
-            void resize(size_t s) { m_reg.resize(s); }
+            void resize(size_t s) {
+               m_reg.resize(s);
+            }
 
             void swap(Data& other) noexcept {
                m_reg.swap(other.m_reg);
@@ -1055,7 +1141,9 @@ class BOTAN_PUBLIC_API(2, 0) BigInt final {
                invalidate_sig_words();
             }
 
-            void invalidate_sig_words() const noexcept { m_sig_words = sig_words_npos; }
+            void invalidate_sig_words() const noexcept {
+               m_sig_words = sig_words_npos;
+            }
 
             size_t sig_words() const {
                if(m_sig_words == sig_words_npos) {

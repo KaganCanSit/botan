@@ -46,28 +46,40 @@ class BOTAN_TEST_API Classic_McEliece_Polynomial {
       /**
        * @brief Get the coefficient of the i-th monomial as a reference (from low to high degree).
        */
-      Classic_McEliece_GF& coef_at(size_t i) { return m_coef.at(i); }
+      Classic_McEliece_GF& coef_at(size_t i) {
+         return m_coef.at(i);
+      }
 
       /**
        * @brief Get the coefficient of the i-th monomial (from low to high degree).
        */
-      const Classic_McEliece_GF& coef_at(size_t i) const { return m_coef.at(i); }
+      const Classic_McEliece_GF& coef_at(size_t i) const {
+         return m_coef.at(i);
+      }
 
       /**
        * @brief Get the entire coefficients vector of the polynomial.
        */
-      const std::vector<Classic_McEliece_GF>& coef() const { return m_coef; }
+      const std::vector<Classic_McEliece_GF>& coef() const {
+         return m_coef;
+      }
 
       /**
        * @brief Get the degree of the polynomial.
        *
        * Note that the degree is given by the size of the coefficient vector, even if the leading coefficient is zero.
        */
-      size_t degree() const { return m_coef.size() + 1; }
+      size_t degree() const {
+         return m_coef.size() + 1;
+      }
 
-      void _const_time_poison() const { CT::poison(m_coef); }
+      void _const_time_poison() const {
+         CT::poison(m_coef);
+      }
 
-      void _const_time_unpoison() const { CT::unpoison(m_coef); }
+      void _const_time_unpoison() const {
+         CT::unpoison(m_coef);
+      }
 
    private:
       std::vector<Classic_McEliece_GF> m_coef;
@@ -127,12 +139,16 @@ class BOTAN_TEST_API Classic_McEliece_Polynomial_Ring {
       Classic_McEliece_Polynomial_Ring(std::vector<Big_F_Coefficient> poly_big_f_coef, CmceGfMod poly_f, size_t t) :
             m_position_map(std::move(poly_big_f_coef)), m_t(t), m_poly_f(poly_f) {}
 
-      CmceGfMod poly_f() const { return m_poly_f; }
+      CmceGfMod poly_f() const {
+         return m_poly_f;
+      }
 
       /**
        * @brief The degree of polynomials in this ring (and of F(y)).
        */
-      size_t degree() const { return m_t; }
+      size_t degree() const {
+         return m_t;
+      }
 
       /**
        * @returns a*b over GF(q)[y]/F(y).

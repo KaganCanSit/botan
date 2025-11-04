@@ -23,9 +23,13 @@ class RoughtimeCheck final : public Command {
    public:
       RoughtimeCheck() : Command("roughtime_check --raw-time chain-file") {}
 
-      std::string group() const override { return "misc"; }
+      std::string group() const override {
+         return "misc";
+      }
 
-      std::string description() const override { return "Parse and validate Roughtime chain file"; }
+      std::string description() const override {
+         return "Parse and validate Roughtime chain file";
+      }
 
       void go() override {
          const auto chain = Botan::Roughtime::Chain(slurp_file_as_str(get_arg("chain-file")));
@@ -75,9 +79,13 @@ class Roughtime final : public Command {
 )";
       }
 
-      std::string group() const override { return "misc"; }
+      std::string group() const override {
+         return "misc";
+      }
 
-      std::string description() const override { return "Retrieve time from Roughtime server"; }
+      std::string description() const override {
+         return "Retrieve time from Roughtime server";
+      }
 
       void query(std::unique_ptr<Botan::Roughtime::Chain>& chain,
                  const size_t max_chain_size,

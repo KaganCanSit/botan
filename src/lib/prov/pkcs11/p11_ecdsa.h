@@ -45,7 +45,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_ECDSA_PublicKey final : public PKCS11_EC_Pub
       PKCS11_ECDSA_PublicKey(Session& session, const EC_PublicKeyImportProperties& props) :
             PKCS11_EC_PublicKey(session, props) {}
 
-      inline std::string algo_name() const override { return "ECDSA"; }
+      inline std::string algo_name() const override {
+         return "ECDSA";
+      }
 
       /// @return the exported ECDSA public key
       ECDSA_PublicKey export_key() const;
@@ -93,7 +95,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_ECDSA_PrivateKey final : public PKCS11_EC_Pr
                               const EC_PrivateKeyGenerationProperties& props) :
             PKCS11_EC_PrivateKey(session, ec_params, props) {}
 
-      inline std::string algo_name() const override { return "ECDSA"; }
+      inline std::string algo_name() const override {
+         return "ECDSA";
+      }
 
       /**
        * @throws Not_Implemented as this operation is not possible in PKCS11
@@ -102,7 +106,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_ECDSA_PrivateKey final : public PKCS11_EC_Pr
          throw Not_Implemented("Cannot generate a new PKCS#11 ECDSA keypair from this private key");
       }
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::Signature); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::Signature);
+      }
 
       std::optional<size_t> _signature_element_size_for_DER_encoding() const override {
          return domain().get_order_bytes();

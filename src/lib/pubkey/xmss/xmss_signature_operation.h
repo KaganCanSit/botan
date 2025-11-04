@@ -43,7 +43,9 @@ class XMSS_Signature_Operation final : public virtual PK_Ops::Signature {
 
       AlgorithmIdentifier algorithm_identifier() const override;
 
-      std::string hash_function() const override { return m_hash.hash_function(); }
+      std::string hash_function() const override {
+         return m_hash.hash_function();
+      }
 
    private:
       /**

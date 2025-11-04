@@ -767,9 +767,13 @@ std::vector<Test::Result> BSI_Path_Validation_Tests::run() {
             public:
                using result_type = size_t;
 
-               static constexpr result_type min() { return 0; }
+               static constexpr result_type min() {
+                  return 0;
+               }
 
-               static constexpr result_type max() { return std::numeric_limits<size_t>::max(); }
+               static constexpr result_type max() {
+                  return std::numeric_limits<size_t>::max();
+               }
 
                result_type operator()() {
                   size_t s = 0;

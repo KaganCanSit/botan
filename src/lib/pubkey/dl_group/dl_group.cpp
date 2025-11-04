@@ -58,38 +58,62 @@ class DL_Group_Data final {
       DL_Group_Data& operator=(const DL_Group_Data& other) = delete;
       DL_Group_Data& operator=(DL_Group_Data&& other) = delete;
 
-      const BigInt& p() const { return m_p; }
+      const BigInt& p() const {
+         return m_p;
+      }
 
-      const BigInt& q() const { return m_q; }
+      const BigInt& q() const {
+         return m_q;
+      }
 
-      const BigInt& g() const { return m_g; }
+      const BigInt& g() const {
+         return m_g;
+      }
 
-      const Barrett_Reduction& reducer_mod_p() const { return m_mod_p; }
+      const Barrett_Reduction& reducer_mod_p() const {
+         return m_mod_p;
+      }
 
       const Barrett_Reduction& reducer_mod_q() const {
          BOTAN_STATE_CHECK(m_mod_q);
          return *m_mod_q;
       }
 
-      const Montgomery_Params& monty_params_p() const { return m_monty_params; }
+      const Montgomery_Params& monty_params_p() const {
+         return m_monty_params;
+      }
 
-      size_t p_bits() const { return m_p_bits; }
+      size_t p_bits() const {
+         return m_p_bits;
+      }
 
-      size_t q_bits() const { return m_q_bits; }
+      size_t q_bits() const {
+         return m_q_bits;
+      }
 
-      size_t p_bytes() const { return (m_p_bits + 7) / 8; }
+      size_t p_bytes() const {
+         return (m_p_bits + 7) / 8;
+      }
 
-      size_t q_bytes() const { return (m_q_bits + 7) / 8; }
+      size_t q_bytes() const {
+         return (m_q_bits + 7) / 8;
+      }
 
-      size_t estimated_strength() const { return m_estimated_strength; }
+      size_t estimated_strength() const {
+         return m_estimated_strength;
+      }
 
-      size_t exponent_bits() const { return m_exponent_bits; }
+      size_t exponent_bits() const {
+         return m_exponent_bits;
+      }
 
       BigInt power_g_p(const BigInt& k, size_t max_k_bits) const {
          return monty_execute(*m_monty, k, max_k_bits).value();
       }
 
-      BigInt power_g_p_vartime(const BigInt& k) const { return monty_execute_vartime(*m_monty, k).value(); }
+      BigInt power_g_p_vartime(const BigInt& k) const {
+         return monty_execute_vartime(*m_monty, k).value();
+      }
 
       BigInt power_b_p(const BigInt& b, const BigInt& k, size_t max_k_bits) const {
          return monty_exp(m_monty_params, b, k, max_k_bits).value();
@@ -99,7 +123,9 @@ class DL_Group_Data final {
          return monty_exp_vartime(m_monty_params, b, k).value();
       }
 
-      bool q_is_set() const { return m_q_bits > 0; }
+      bool q_is_set() const {
+         return m_q_bits > 0;
+      }
 
       void assert_q_is_set(std::string_view function) const {
          if(!q_is_set()) {
@@ -107,7 +133,9 @@ class DL_Group_Data final {
          }
       }
 
-      DL_Group_Source source() const { return m_source; }
+      DL_Group_Source source() const {
+         return m_source;
+      }
 
    private:
       BigInt m_p;

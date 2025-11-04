@@ -26,17 +26,25 @@ class SHAKE_128 final : public HashFunction {
       */
       explicit SHAKE_128(size_t output_bits);
 
-      size_t hash_block_size() const override { return m_keccak.byte_rate(); }
+      size_t hash_block_size() const override {
+         return m_keccak.byte_rate();
+      }
 
-      size_t output_length() const override { return m_output_bits / 8; }
+      size_t output_length() const override {
+         return m_output_bits / 8;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
       std::unique_ptr<HashFunction> copy_state() const override;
       std::string name() const override;
 
-      void clear() override { m_keccak.clear(); }
+      void clear() override {
+         m_keccak.clear();
+      }
 
-      std::string provider() const override { return m_keccak.provider(); }
+      std::string provider() const override {
+         return m_keccak.provider();
+      }
 
    private:
       void add_data(std::span<const uint8_t> input) override;
@@ -57,17 +65,25 @@ class SHAKE_256 final : public HashFunction {
       */
       explicit SHAKE_256(size_t output_bits);
 
-      size_t hash_block_size() const override { return m_keccak.byte_rate(); }
+      size_t hash_block_size() const override {
+         return m_keccak.byte_rate();
+      }
 
-      size_t output_length() const override { return m_output_bits / 8; }
+      size_t output_length() const override {
+         return m_output_bits / 8;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
       std::unique_ptr<HashFunction> copy_state() const override;
       std::string name() const override;
 
-      void clear() override { m_keccak.clear(); }
+      void clear() override {
+         m_keccak.clear();
+      }
 
-      std::string provider() const override { return m_keccak.provider(); }
+      std::string provider() const override {
+         return m_keccak.provider();
+      }
 
    private:
       void add_data(std::span<const uint8_t> input) override;

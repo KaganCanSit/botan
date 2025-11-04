@@ -111,14 +111,20 @@ class DH_KA_Operation final : public PK_Ops::Key_Agreement_with_KDF {
                [](const BigInt& k) { return k; },
                [this](const BigInt& k) { return powermod_x_p(group().inverse_mod_p(k)); }) {}
 
-      size_t agreed_value_size() const override { return group().p_bytes(); }
+      size_t agreed_value_size() const override {
+         return group().p_bytes();
+      }
 
       secure_vector<uint8_t> raw_agree(const uint8_t w[], size_t w_len) override;
 
    private:
-      const DL_Group& group() const { return m_key->group(); }
+      const DL_Group& group() const {
+         return m_key->group();
+      }
 
-      BigInt powermod_x_p(const BigInt& v) const { return group().power_b_p(v, m_key->private_key(), m_key_bits); }
+      BigInt powermod_x_p(const BigInt& v) const {
+         return group().power_b_p(v, m_key->private_key(), m_key_bits);
+      }
 
       std::shared_ptr<const DL_PrivateKey> m_key;
       const size_t m_key_bits;

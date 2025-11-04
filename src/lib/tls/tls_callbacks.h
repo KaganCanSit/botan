@@ -161,7 +161,9 @@ class BOTAN_PUBLIC_API(2, 0) Callbacks /* NOLINT(*-special-member-functions) */ 
        *
        * @return true causes the implementation to respond with a "close_notify"
        */
-      virtual bool tls_peer_closed_connection() { return true; }
+      virtual bool tls_peer_closed_connection() {
+         return true;
+      }
 
       /**
        * Optional callback: Resumption information was received/established

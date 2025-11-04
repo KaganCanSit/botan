@@ -133,7 +133,9 @@ class DSA_Signature_Operation final : public PK_Ops::Signature_with_Hash {
          m_b_inv = m_key->group().inverse_mod_q(m_b);
       }
 
-      size_t signature_length() const override { return 2 * m_key->group().q_bytes(); }
+      size_t signature_length() const override {
+         return 2 * m_key->group().q_bytes();
+      }
 
       std::vector<uint8_t> raw_sign(std::span<const uint8_t> msg, RandomNumberGenerator& rng) override;
 

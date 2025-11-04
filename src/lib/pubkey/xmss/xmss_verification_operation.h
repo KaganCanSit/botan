@@ -26,7 +26,9 @@ class XMSS_Verification_Operation final : public virtual PK_Ops::Verification {
 
       void update(std::span<const uint8_t> input) override;
 
-      std::string hash_function() const override { return m_hash.hash_function(); }
+      std::string hash_function() const override {
+         return m_hash.hash_function();
+      }
 
    private:
       /**

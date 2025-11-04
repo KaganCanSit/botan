@@ -23,7 +23,9 @@ class BOTAN_PUBLIC_API(2, 0) AutoSeeded_RNG final : public RandomNumberGenerator
    public:
       bool is_seeded() const override;
 
-      bool accepts_input() const override { return true; }
+      bool accepts_input() const override {
+         return true;
+      }
 
       /**
       * Mark state as requiring a reseed on next use

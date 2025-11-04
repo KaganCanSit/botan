@@ -62,9 +62,13 @@ class BOTAN_PUBLIC_API(2, 0) DER_Encoder final {
 
       DER_Encoder& start_cons(ASN1_Type type_tag, ASN1_Class class_tag);
 
-      DER_Encoder& start_sequence() { return start_cons(ASN1_Type::Sequence, ASN1_Class::Universal); }
+      DER_Encoder& start_sequence() {
+         return start_cons(ASN1_Type::Sequence, ASN1_Class::Universal);
+      }
 
-      DER_Encoder& start_set() { return start_cons(ASN1_Type::Set, ASN1_Class::Universal); }
+      DER_Encoder& start_set() {
+         return start_cons(ASN1_Type::Set, ASN1_Class::Universal);
+      }
 
       DER_Encoder& start_context_specific(uint32_t tag) {
          return start_cons(ASN1_Type(tag), ASN1_Class::ContextSpecific);

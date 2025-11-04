@@ -33,7 +33,9 @@ class Ed25519_FieldElement final {
       */
       constexpr Ed25519_FieldElement() : m_fe{} {}
 
-      constexpr static Ed25519_FieldElement zero() { return Ed25519_FieldElement(); }
+      constexpr static Ed25519_FieldElement zero() {
+         return Ed25519_FieldElement();
+      }
 
       constexpr static Ed25519_FieldElement one() {
          auto o = Ed25519_FieldElement();
@@ -42,7 +44,9 @@ class Ed25519_FieldElement final {
       }
 
       // NOLINTNEXTLINE(*-member-init)
-      constexpr explicit Ed25519_FieldElement(std::span<int32_t, 10> fe) { copy_mem(m_fe.data(), fe.data(), 10); }
+      constexpr explicit Ed25519_FieldElement(std::span<int32_t, 10> fe) {
+         copy_mem(m_fe.data(), fe.data(), 10);
+      }
 
       // NOLINTNEXTLINE(*-member-init)
       constexpr Ed25519_FieldElement(int64_t h0,
@@ -116,7 +120,9 @@ class Ed25519_FieldElement final {
 
       Ed25519_FieldElement sqr_iter(size_t iter) const;
 
-      Ed25519_FieldElement sqr() const { return sqr_iter(1); }
+      Ed25519_FieldElement sqr() const {
+         return sqr_iter(1);
+      }
 
       // Return 2*a^2
       Ed25519_FieldElement sqr2() const;
@@ -126,9 +132,13 @@ class Ed25519_FieldElement final {
       Ed25519_FieldElement pow_22523() const;
 
       // TODO remove
-      int32_t operator[](size_t i) const { return m_fe[i]; }
+      int32_t operator[](size_t i) const {
+         return m_fe[i];
+      }
 
-      int32_t& operator[](size_t i) { return m_fe[i]; }
+      int32_t& operator[](size_t i) {
+         return m_fe[i];
+      }
 
    private:
       std::array<int32_t, 10> m_fe;

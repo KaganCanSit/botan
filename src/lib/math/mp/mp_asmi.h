@@ -417,11 +417,17 @@ class word3 final {
    public:
       constexpr word3() : m_w(0) {}
 
-      inline constexpr void mul(W x, W y) { m_w += static_cast<W3>(x) * y; }
+      inline constexpr void mul(W x, W y) {
+         m_w += static_cast<W3>(x) * y;
+      }
 
-      inline constexpr void mul_x2(W x, W y) { m_w += static_cast<W3>(x) * y * 2; }
+      inline constexpr void mul_x2(W x, W y) {
+         m_w += static_cast<W3>(x) * y * 2;
+      }
 
-      inline constexpr void add(W x) { m_w += x; }
+      inline constexpr void add(W x) {
+         m_w += x;
+      }
 
       inline constexpr W extract() {
          W r = static_cast<W>(m_w);

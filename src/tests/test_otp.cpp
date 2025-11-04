@@ -21,7 +21,9 @@ class HOTP_KAT_Tests final : public Text_Based_Test {
    public:
       HOTP_KAT_Tests() : Text_Based_Test("otp/hotp.vec", "Key,Digits,Counter,OTP") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       Test::Result run_one_test(const std::string& hash_algo, const VarMap& vars) override {
          Test::Result result("HOTP " + hash_algo);
@@ -69,7 +71,9 @@ class TOTP_KAT_Tests final : public Text_Based_Test {
    public:
       TOTP_KAT_Tests() : Text_Based_Test("otp/totp.vec", "Key,Digits,Timestep,Timestamp,OTP") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       Test::Result run_one_test(const std::string& hash_algo, const VarMap& vars) override {
          Test::Result result("TOTP " + hash_algo);

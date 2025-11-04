@@ -22,9 +22,13 @@ namespace {
 */
 class Null_Filter final : public Filter {
    public:
-      void write(const uint8_t input[], size_t length) override { send(input, length); }
+      void write(const uint8_t input[], size_t length) override {
+         send(input, length);
+      }
 
-      std::string name() const override { return "Null"; }
+      std::string name() const override {
+         return "Null";
+      }
 };
 
 }  // namespace

@@ -110,7 +110,9 @@ class GenericPrimeOrderCurve final : public PrimeOrderCurve,
 
       Scalar random_scalar(RandomNumberGenerator& rng) const override;
 
-      const GenericCurveParams& _params() const { return *m_params; }
+      const GenericCurveParams& _params() const {
+         return *m_params;
+      }
 
       void _precompute_base_mul();
 

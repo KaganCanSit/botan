@@ -31,9 +31,13 @@ class ARIA_128 final : public Block_Cipher_Fixed_Params<16, 16> {
 
       void clear() override;
 
-      std::string name() const override { return "ARIA-128"; }
+      std::string name() const override {
+         return "ARIA-128";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<ARIA_128>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<ARIA_128>();
+      }
 
       bool has_keying_material() const override;
 
@@ -54,9 +58,13 @@ class ARIA_192 final : public Block_Cipher_Fixed_Params<16, 24> {
 
       void clear() override;
 
-      std::string name() const override { return "ARIA-192"; }
+      std::string name() const override {
+         return "ARIA-192";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<ARIA_192>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<ARIA_192>();
+      }
 
       bool has_keying_material() const override;
 
@@ -77,9 +85,13 @@ class ARIA_256 final : public Block_Cipher_Fixed_Params<16, 32> {
 
       void clear() override;
 
-      std::string name() const override { return "ARIA-256"; }
+      std::string name() const override {
+         return "ARIA-256";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<ARIA_256>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<ARIA_256>();
+      }
 
       bool has_keying_material() const override;
 

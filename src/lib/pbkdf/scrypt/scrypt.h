@@ -34,11 +34,17 @@ class BOTAN_PUBLIC_API(2, 8) Scrypt final : public PasswordHash {
 
       std::string to_string() const override;
 
-      size_t iterations() const override { return m_r; }
+      size_t iterations() const override {
+         return m_r;
+      }
 
-      size_t parallelism() const override { return m_p; }
+      size_t parallelism() const override {
+         return m_p;
+      }
 
-      size_t memory_param() const override { return m_N; }
+      size_t memory_param() const override {
+         return m_N;
+      }
 
       size_t total_memory_usage() const override;
 

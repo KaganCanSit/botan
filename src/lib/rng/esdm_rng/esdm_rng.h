@@ -75,7 +75,9 @@ class BOTAN_PUBLIC_API(3, 7) ESDM_RNG final : public Botan::RandomNumberGenerato
       *
       * @return true
       */
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
       /**
       * ESDM can inject additional inputs
@@ -83,7 +85,9 @@ class BOTAN_PUBLIC_API(3, 7) ESDM_RNG final : public Botan::RandomNumberGenerato
       *
       * @return true
       */
-      bool accepts_input() const override { return true; }
+      bool accepts_input() const override {
+         return true;
+      }
 
       /**
       * the ESDM RNG does not hold any state outside ESDM, that should be cleared

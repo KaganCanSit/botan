@@ -75,7 +75,9 @@ class Channel_Impl_13 : public Channel_Impl,
              */
             std::vector<uint8_t> send();
 
-            bool contains_messages() const { return !m_message_buffer.empty(); }
+            bool contains_messages() const {
+               return !m_message_buffer.empty();
+            }
 
          protected:
             std::vector<uint8_t> m_message_buffer;  // NOLINT(*non-private-member-variable*)
@@ -165,11 +167,17 @@ class Channel_Impl_13 : public Channel_Impl,
       * @return true iff the connection has been closed, i.e. CloseNotify
       * has been received from the peer.
       */
-      bool is_closed() const override { return is_closed_for_reading() && is_closed_for_writing(); }
+      bool is_closed() const override {
+         return is_closed_for_reading() && is_closed_for_writing();
+      }
 
-      bool is_closed_for_reading() const override { return !m_can_read; }
+      bool is_closed_for_reading() const override {
+         return !m_can_read;
+      }
 
-      bool is_closed_for_writing() const override { return !m_can_write; }
+      bool is_closed_for_writing() const override {
+         return !m_can_write;
+      }
 
       /**
       * Key material export (RFC 5705)
@@ -213,7 +221,9 @@ class Channel_Impl_13 : public Channel_Impl,
       *
       * In the TLS 1.3 implementation, this always returns false.
       */
-      bool timeout_check() override { return false; }
+      bool timeout_check() override {
+         return false;
+      }
 
    protected:
       virtual void process_handshake_msg(Handshake_Message_13 msg) = 0;
@@ -227,7 +237,9 @@ class Channel_Impl_13 : public Channel_Impl,
        * should prepend a CCS before the actual record. This is useful for
        * middlebox compatibility mode. See RFC 8446 D.4.
        */
-      virtual bool prepend_ccs() { return false; }
+      virtual bool prepend_ccs() {
+         return false;
+      }
 
       void handle(const Key_Update& key_update);
 
@@ -236,7 +248,9 @@ class Channel_Impl_13 : public Channel_Impl,
        * channel sends application data the next time. Such a key update will
        * never request a reciprocal key update from the peer.
        */
-      void opportunistically_update_traffic_keys() { m_opportunistic_key_update = true; }
+      void opportunistically_update_traffic_keys() {
+         m_opportunistic_key_update = true;
+      }
 
       template <typename... MsgTs>
       std::vector<uint8_t> send_handshake_message(const std::variant<MsgTs...>& message) {
@@ -262,15 +276,25 @@ class Channel_Impl_13 : public Channel_Impl,
          return AggregatedPostHandshakeMessages(*this, m_handshake_layer);
       }
 
-      Callbacks& callbacks() const { return *m_callbacks; }
+      Callbacks& callbacks() const {
+         return *m_callbacks;
+      }
 
-      Session_Manager& session_manager() { return *m_session_manager; }
+      Session_Manager& session_manager() {
+         return *m_session_manager;
+      }
 
-      Credentials_Manager& credentials_manager() { return *m_credentials_manager; }
+      Credentials_Manager& credentials_manager() {
+         return *m_credentials_manager;
+      }
 
-      RandomNumberGenerator& rng() { return *m_rng; }
+      RandomNumberGenerator& rng() {
+         return *m_rng;
+      }
 
-      const Policy& policy() const { return *m_policy; }
+      const Policy& policy() const {
+         return *m_policy;
+      }
 
    private:
       void send_record(Record_Type record_type, const std::vector<uint8_t>& record);

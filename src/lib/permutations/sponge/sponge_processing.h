@@ -92,11 +92,17 @@ class FullWordBounds final {
       constexpr static auto word_bytes = SpongeT::word_bytes;
 
    public:
-      word_t read_from(BufferSlicer& slicer) const { return load_le(slicer.take<word_bytes>()); }
+      word_t read_from(BufferSlicer& slicer) const {
+         return load_le(slicer.take<word_bytes>());
+      }
 
-      void write_into(BufferStuffer& stuffer, word_t full_word) const { stuffer.append(store_le(full_word)); }
+      void write_into(BufferStuffer& stuffer, word_t full_word) const {
+         stuffer.append(store_le(full_word));
+      }
 
-      word_t masked_assignment(word_t, word_t full_input_word) const { return full_input_word; }
+      word_t masked_assignment(word_t, word_t full_input_word) const {
+         return full_input_word;
+      }
 };
 
 template <typename T>

@@ -21,11 +21,15 @@ class ANSI_X919_MAC final : public MessageAuthenticationCode {
       void clear() override;
       std::string name() const override;
 
-      size_t output_length() const override { return 8; }
+      size_t output_length() const override {
+         return 8;
+      }
 
       std::unique_ptr<MessageAuthenticationCode> new_object() const override;
 
-      Key_Length_Specification key_spec() const override { return Key_Length_Specification(8, 16, 8); }
+      Key_Length_Specification key_spec() const override {
+         return Key_Length_Specification(8, 16, 8);
+      }
 
       bool has_keying_material() const override;
 

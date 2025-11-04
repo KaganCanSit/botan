@@ -87,13 +87,21 @@ class BOTAN_PUBLIC_API(2, 11) Context {
        *
        * @note This function should only be called before initiating the TLS handshake
        */
-      void set_verify_callback(Verify_Callback callback) { m_verify_callback = std::move(callback); }
+      void set_verify_callback(Verify_Callback callback) {
+         m_verify_callback = std::move(callback);
+      }
 
-      bool has_verify_callback() const { return static_cast<bool>(m_verify_callback); }
+      bool has_verify_callback() const {
+         return static_cast<bool>(m_verify_callback);
+      }
 
-      const Verify_Callback& get_verify_callback() const { return m_verify_callback; }
+      const Verify_Callback& get_verify_callback() const {
+         return m_verify_callback;
+      }
 
-      void set_server_info(Server_Information server_info) { m_server_info = std::move(server_info); }
+      void set_server_info(Server_Information server_info) {
+         m_server_info = std::move(server_info);
+      }
 
    protected:
       template <class S, class C>

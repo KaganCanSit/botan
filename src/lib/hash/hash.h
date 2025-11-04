@@ -46,7 +46,9 @@ class BOTAN_PUBLIC_API(2, 0) HashFunction : public Buffered_Computation {
       * @return provider information about this implementation. Default is "base",
       * might also return "sse2", "avx2", "openssl", or some other arbitrary string.
       */
-      virtual std::string provider() const { return "base"; }
+      virtual std::string provider() const {
+         return "base";
+      }
 
       /**
       * Reset the state.
@@ -61,7 +63,9 @@ class BOTAN_PUBLIC_API(2, 0) HashFunction : public Buffered_Computation {
       /**
       * @return hash block size as defined for this algorithm
       */
-      virtual size_t hash_block_size() const { return 0; }
+      virtual size_t hash_block_size() const {
+         return 0;
+      }
 
       /**
       * Return a new hash object with the same state as *this. This
@@ -82,7 +86,9 @@ class BOTAN_PUBLIC_API(2, 0) HashFunction : public Buffered_Computation {
       /**
       * @return new object representing the same algorithm as *this
       */
-      HashFunction* clone() const { return this->new_object().release(); }
+      HashFunction* clone() const {
+         return this->new_object().release();
+      }
 };
 
 }  // namespace Botan

@@ -21,16 +21,24 @@ struct KeccakPadding {
       uint8_t bit_len;   /// The number of relevant bits in 'padding'
 
       /// NIST FIPS 202 Section 6.1
-      static constexpr KeccakPadding sha3() { return {.padding = 0b10 /* little-endian */, .bit_len = 2}; }
+      static constexpr KeccakPadding sha3() {
+         return {.padding = 0b10 /* little-endian */, .bit_len = 2};
+      }
 
       /// NIST FIPS 202 Section 6.2
-      static constexpr KeccakPadding shake() { return {.padding = 0b1111, .bit_len = 4}; }
+      static constexpr KeccakPadding shake() {
+         return {.padding = 0b1111, .bit_len = 4};
+      }
 
       /// NIST SP.800-185 Section 3.3
-      static constexpr KeccakPadding cshake() { return {.padding = 0b00, .bit_len = 2}; }
+      static constexpr KeccakPadding cshake() {
+         return {.padding = 0b00, .bit_len = 2};
+      }
 
       /// Keccak submission, prior to the introduction of an algorithm specific padding
-      static constexpr KeccakPadding keccak1600() { return {.padding = 0, .bit_len = 0}; }
+      static constexpr KeccakPadding keccak1600() {
+         return {.padding = 0, .bit_len = 0};
+      }
 };
 
 /**

@@ -40,10 +40,14 @@ class BOTAN_TEST_API cSHAKE_XOF : public XOF {
 
       size_t block_size() const final;
 
-      bool accepts_input() const final { return !m_output_generated; }
+      bool accepts_input() const final {
+         return !m_output_generated;
+      }
 
    protected:
-      const std::vector<uint8_t>& function_name() const { return m_function_name; }
+      const std::vector<uint8_t>& function_name() const {
+         return m_function_name;
+      }
 
    private:
       /**
@@ -73,11 +77,17 @@ class BOTAN_TEST_API cSHAKE_128_XOF final : public cSHAKE_XOF {
 
       explicit cSHAKE_128_XOF(std::string_view function_name) : cSHAKE_XOF(256, function_name) {}
 
-      std::string name() const final { return "cSHAKE-128"; }
+      std::string name() const final {
+         return "cSHAKE-128";
+      }
 
-      std::unique_ptr<XOF> copy_state() const final { return std::make_unique<cSHAKE_128_XOF>(*this); }
+      std::unique_ptr<XOF> copy_state() const final {
+         return std::make_unique<cSHAKE_128_XOF>(*this);
+      }
 
-      std::unique_ptr<XOF> new_object() const final { return std::make_unique<cSHAKE_128_XOF>(function_name()); }
+      std::unique_ptr<XOF> new_object() const final {
+         return std::make_unique<cSHAKE_128_XOF>(function_name());
+      }
 };
 
 /**
@@ -92,11 +102,17 @@ class BOTAN_TEST_API cSHAKE_256_XOF final : public cSHAKE_XOF {
 
       explicit cSHAKE_256_XOF(std::string_view function_name) : cSHAKE_XOF(512, function_name) {}
 
-      std::string name() const final { return "cSHAKE-256"; }
+      std::string name() const final {
+         return "cSHAKE-256";
+      }
 
-      std::unique_ptr<XOF> copy_state() const final { return std::make_unique<cSHAKE_256_XOF>(*this); }
+      std::unique_ptr<XOF> copy_state() const final {
+         return std::make_unique<cSHAKE_256_XOF>(*this);
+      }
 
-      std::unique_ptr<XOF> new_object() const final { return std::make_unique<cSHAKE_256_XOF>(function_name()); }
+      std::unique_ptr<XOF> new_object() const final {
+         return std::make_unique<cSHAKE_256_XOF>(function_name());
+      }
 };
 
 }  // namespace Botan

@@ -330,21 +330,37 @@ class Choice final {
       /**
       * Create a Choice directly from a mask value - this assumes v is either |0| or |1|
       */
-      constexpr static Choice from_mask(uint32_t v) { return Choice(v); }
+      constexpr static Choice from_mask(uint32_t v) {
+         return Choice(v);
+      }
 
-      constexpr static Choice yes() { return Choice(static_cast<uint32_t>(-1)); }
+      constexpr static Choice yes() {
+         return Choice(static_cast<uint32_t>(-1));
+      }
 
-      constexpr static Choice no() { return Choice(0); }
+      constexpr static Choice no() {
+         return Choice(0);
+      }
 
-      constexpr Choice operator!() const { return Choice(~value()); }
+      constexpr Choice operator!() const {
+         return Choice(~value());
+      }
 
-      constexpr Choice operator&&(const Choice& other) const { return Choice(value() & other.value()); }
+      constexpr Choice operator&&(const Choice& other) const {
+         return Choice(value() & other.value());
+      }
 
-      constexpr Choice operator||(const Choice& other) const { return Choice(value() | other.value()); }
+      constexpr Choice operator||(const Choice& other) const {
+         return Choice(value() | other.value());
+      }
 
-      constexpr Choice operator!=(const Choice& other) const { return Choice(value() ^ other.value()); }
+      constexpr Choice operator!=(const Choice& other) const {
+         return Choice(value() ^ other.value());
+      }
 
-      constexpr Choice operator==(const Choice& other) const { return !(*this != other); }
+      constexpr Choice operator==(const Choice& other) const {
+         return !(*this != other);
+      }
 
       /**
       * Unsafe conversion to bool
@@ -356,10 +372,14 @@ class Choice final {
       * obviously branchy way (`if(choice.as_bool()) ...`) a smart compiler
       * may introduce branches depending on the value.
       */
-      constexpr bool as_bool() const { return m_value != 0; }
+      constexpr bool as_bool() const {
+         return m_value != 0;
+      }
 
       /// Return the masked value
-      constexpr uint32_t value() const { return value_barrier(m_value); }
+      constexpr uint32_t value() const {
+         return value_barrier(m_value);
+      }
 
       constexpr Choice(const Choice& other) = default;
       constexpr Choice(Choice&& other) = default;
@@ -409,22 +429,30 @@ class Mask final {
       /**
       * Return a Mask<T> of |1| (all bits set)
       */
-      static constexpr Mask<T> set() { return Mask<T>(static_cast<T>(~0)); }
+      static constexpr Mask<T> set() {
+         return Mask<T>(static_cast<T>(~0));
+      }
 
       /**
       * Return a Mask<T> of |0| (all bits cleared)
       */
-      static constexpr Mask<T> cleared() { return Mask<T>(0); }
+      static constexpr Mask<T> cleared() {
+         return Mask<T>(0);
+      }
 
       /**
       * Return a Mask<T> which is set if v is != 0
       */
-      static constexpr Mask<T> expand(T v) { return ~Mask<T>::is_zero(value_barrier<T>(v)); }
+      static constexpr Mask<T> expand(T v) {
+         return ~Mask<T>::is_zero(value_barrier<T>(v));
+      }
 
       /**
       * Return a Mask<T> which is set if v is true
       */
-      static constexpr Mask<T> expand_bool(bool v) { return Mask<T>::expand(static_cast<T>(v)); }
+      static constexpr Mask<T> expand_bool(bool v) {
+         return Mask<T>::expand(static_cast<T>(v));
+      }
 
       /**
       * Return a Mask<T> which is set if choice is set
@@ -442,7 +470,9 @@ class Mask final {
       /**
       * Return a Mask<T> which is set if the top bit of v is set
       */
-      static constexpr Mask<T> expand_top_bit(T v) { return Mask<T>(Botan::expand_top_bit<T>(value_barrier<T>(v))); }
+      static constexpr Mask<T> expand_top_bit(T v) {
+         return Mask<T>(Botan::expand_top_bit<T>(value_barrier<T>(v)));
+      }
 
       /**
        * Return a Mask<T> which is set if the given @p bit of @p v is set.
@@ -464,7 +494,9 @@ class Mask final {
       /**
       * Return a Mask<T> which is set if v is == 0 or cleared otherwise
       */
-      static constexpr Mask<T> is_zero(T x) { return Mask<T>(ct_is_zero<T>(value_barrier<T>(x))); }
+      static constexpr Mask<T> is_zero(T x) {
+         return Mask<T>(ct_is_zero<T>(value_barrier<T>(x)));
+      }
 
       /**
       * Return a Mask<T> which is set if x == y
@@ -485,17 +517,23 @@ class Mask final {
       /**
       * Return a Mask<T> which is set if x > y
       */
-      static constexpr Mask<T> is_gt(T x, T y) { return Mask<T>::is_lt(y, x); }
+      static constexpr Mask<T> is_gt(T x, T y) {
+         return Mask<T>::is_lt(y, x);
+      }
 
       /**
       * Return a Mask<T> which is set if x <= y
       */
-      static constexpr Mask<T> is_lte(T x, T y) { return ~Mask<T>::is_gt(x, y); }
+      static constexpr Mask<T> is_lte(T x, T y) {
+         return ~Mask<T>::is_gt(x, y);
+      }
 
       /**
       * Return a Mask<T> which is set if x >= y
       */
-      static constexpr Mask<T> is_gte(T x, T y) { return ~Mask<T>::is_lt(x, y); }
+      static constexpr Mask<T> is_gte(T x, T y) {
+         return ~Mask<T>::is_lt(x, y);
+      }
 
       static constexpr Mask<T> is_within_range(T v, T l, T u) {
          //return Mask<T>::is_gte(v, l) & Mask<T>::is_lte(v, u);
@@ -545,37 +583,51 @@ class Mask final {
       /**
       * AND-combine two masks
       */
-      friend Mask<T> operator&(Mask<T> x, Mask<T> y) { return Mask<T>(x.value() & y.value()); }
+      friend Mask<T> operator&(Mask<T> x, Mask<T> y) {
+         return Mask<T>(x.value() & y.value());
+      }
 
       /**
       * XOR-combine two masks
       */
-      friend Mask<T> operator^(Mask<T> x, Mask<T> y) { return Mask<T>(x.value() ^ y.value()); }
+      friend Mask<T> operator^(Mask<T> x, Mask<T> y) {
+         return Mask<T>(x.value() ^ y.value());
+      }
 
       /**
       * OR-combine two masks
       */
-      friend Mask<T> operator|(Mask<T> x, Mask<T> y) { return Mask<T>(x.value() | y.value()); }
+      friend Mask<T> operator|(Mask<T> x, Mask<T> y) {
+         return Mask<T>(x.value() | y.value());
+      }
 
       /**
       * Negate this mask
       */
-      constexpr Mask<T> operator~() const { return Mask<T>(~value()); }
+      constexpr Mask<T> operator~() const {
+         return Mask<T>(~value());
+      }
 
       /**
       * Return x if the mask is set, or otherwise zero
       */
-      constexpr T if_set_return(T x) const { return value() & x; }
+      constexpr T if_set_return(T x) const {
+         return value() & x;
+      }
 
       /**
       * Return x if the mask is cleared, or otherwise zero
       */
-      constexpr T if_not_set_return(T x) const { return ~value() & x; }
+      constexpr T if_not_set_return(T x) const {
+         return ~value() & x;
+      }
 
       /**
       * If this mask is set, return x, otherwise return y
       */
-      constexpr T select(T x, T y) const { return choose(value(), x, y); }
+      constexpr T select(T x, T y) const {
+         return choose(value(), x, y);
+      }
 
       constexpr T select_and_unpoison(T x, T y) const {
          T r = this->select(x, y);
@@ -586,7 +638,9 @@ class Mask final {
       /**
       * If this mask is set, return x, otherwise return y
       */
-      Mask<T> select_mask(Mask<T> x, Mask<T> y) const { return Mask<T>(select(x.value(), y.value())); }
+      Mask<T> select_mask(Mask<T> x, Mask<T> y) const {
+         return Mask<T>(select(x.value(), y.value()));
+      }
 
       /**
       * Conditionally set output to x or y, depending on if mask is set or
@@ -641,7 +695,9 @@ class Mask final {
       * obviously branchy way (`if(mask.as_bool()) ...`) a smart compiler
       * may introduce branches depending on the value.
       */
-      constexpr bool as_bool() const { return unpoisoned_value() != 0; }
+      constexpr bool as_bool() const {
+         return unpoisoned_value() != 0;
+      }
 
       /**
       * Return a Choice based on this mask
@@ -657,11 +713,17 @@ class Mask final {
       /**
       * Return the underlying value of the mask
       */
-      constexpr T value() const { return value_barrier<T>(m_mask); }
+      constexpr T value() const {
+         return value_barrier<T>(m_mask);
+      }
 
-      constexpr void _const_time_poison() const { CT::poison(m_mask); }
+      constexpr void _const_time_poison() const {
+         CT::poison(m_mask);
+      }
 
-      constexpr void _const_time_unpoison() const { CT::unpoison(m_mask); }
+      constexpr void _const_time_unpoison() const {
+         CT::unpoison(m_mask);
+      }
 
    private:
       constexpr explicit Mask(T m) : m_mask(m) {}
@@ -691,7 +753,9 @@ class Option final {
             : Option(T(), Choice::no()) {}
 
       /// Return true if this Option contains a value
-      constexpr Choice has_value() const { return m_has_value; }
+      constexpr Choice has_value() const {
+         return m_has_value;
+      }
 
       /**
       * Apply a function to the inner value and return a new Option
@@ -746,7 +810,9 @@ class Option final {
       }
 
       /// Return a new CT::Option that is set if @p also is set as well
-      constexpr CT::Option<T> operator&&(CT::Choice also) { return CT::Option<T>(m_value, m_has_value && also); }
+      constexpr CT::Option<T> operator&&(CT::Choice also) {
+         return CT::Option<T>(m_value, m_has_value && also);
+      }
 
    private:
       Choice m_has_value;

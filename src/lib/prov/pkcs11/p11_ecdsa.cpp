@@ -88,11 +88,15 @@ class PKCS11_ECDSA_Signature_Operation final : public PK_Ops::Signature {
          return signature;
       }
 
-      size_t signature_length() const override { return 2 * m_order_bytes; }
+      size_t signature_length() const override {
+         return 2 * m_order_bytes;
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override;
 
-      std::string hash_function() const override { return m_hash; }
+      std::string hash_function() const override {
+         return m_hash;
+      }
 
    private:
       const PKCS11_ECDSA_PrivateKey m_key;
@@ -158,7 +162,9 @@ class PKCS11_ECDSA_Verification_Operation final : public PK_Ops::Verification {
          return return_value == ReturnValue::OK;
       }
 
-      std::string hash_function() const override { return m_hash; }
+      std::string hash_function() const override {
+         return m_hash;
+      }
 
    private:
       const PKCS11_ECDSA_PublicKey m_key;

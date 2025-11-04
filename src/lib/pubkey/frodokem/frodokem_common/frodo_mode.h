@@ -43,7 +43,9 @@ class BOTAN_PUBLIC_API(3, 3) FrodoKEMMode {
       OID object_identifier() const;
       std::string to_string() const;
 
-      Mode mode() const { return m_mode; }
+      Mode mode() const {
+         return m_mode;
+      }
 
       bool is_ephemeral() const {
          return m_mode == eFrodoKEM640_SHAKE || m_mode == eFrodoKEM976_SHAKE || m_mode == eFrodoKEM1344_SHAKE ||
@@ -67,9 +69,13 @@ class BOTAN_PUBLIC_API(3, 3) FrodoKEMMode {
 
       bool is_available() const;
 
-      bool operator==(const FrodoKEMMode& other) const { return m_mode == other.m_mode; }
+      bool operator==(const FrodoKEMMode& other) const {
+         return m_mode == other.m_mode;
+      }
 
-      bool operator!=(const FrodoKEMMode& other) const { return !(*this == other); }
+      bool operator!=(const FrodoKEMMode& other) const {
+         return !(*this == other);
+      }
 
    private:
       Mode m_mode;

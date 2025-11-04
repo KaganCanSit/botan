@@ -32,7 +32,9 @@ class BOTAN_TEST_API TLS_NULL_HMAC_AEAD_Mode : public AEAD_Mode {
 
       bool valid_nonce_length(size_t nl) const final;
 
-      size_t tag_size() const final { return m_tag_size; }
+      size_t tag_size() const final {
+         return m_tag_size;
+      }
 
       void clear() final;
 
@@ -73,7 +75,9 @@ class BOTAN_TEST_API TLS_NULL_HMAC_AEAD_Encryption final : public TLS_NULL_HMAC_
 
       size_t output_length(size_t input_length) const override;
 
-      size_t minimum_final_size() const override { return 0; }
+      size_t minimum_final_size() const override {
+         return 0;
+      }
 
    private:
       void finish_msg(secure_vector<uint8_t>& final_block, size_t offset = 0) override;
@@ -89,7 +93,9 @@ class BOTAN_TEST_API TLS_NULL_HMAC_AEAD_Decryption final : public TLS_NULL_HMAC_
 
       size_t output_length(size_t input_length) const override;
 
-      size_t minimum_final_size() const override { return tag_size(); }
+      size_t minimum_final_size() const override {
+         return tag_size();
+      }
 
       void finish_msg(secure_vector<uint8_t>& final_block, size_t offset = 0) override;
 };

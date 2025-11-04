@@ -23,27 +23,37 @@ class Session_Keys final {
       /**
       * @return client AEAD key
       */
-      const secure_vector<uint8_t>& client_aead_key() const { return m_c_aead; }
+      const secure_vector<uint8_t>& client_aead_key() const {
+         return m_c_aead;
+      }
 
       /**
       * @return server AEAD key
       */
-      const secure_vector<uint8_t>& server_aead_key() const { return m_s_aead; }
+      const secure_vector<uint8_t>& server_aead_key() const {
+         return m_s_aead;
+      }
 
       /**
       * @return client nonce
       */
-      const std::vector<uint8_t>& client_nonce() const { return m_c_nonce; }
+      const std::vector<uint8_t>& client_nonce() const {
+         return m_c_nonce;
+      }
 
       /**
       * @return server nonce
       */
-      const std::vector<uint8_t>& server_nonce() const { return m_s_nonce; }
+      const std::vector<uint8_t>& server_nonce() const {
+         return m_s_nonce;
+      }
 
       /**
       * @return TLS master secret
       */
-      const secure_vector<uint8_t>& master_secret() const { return m_master_sec; }
+      const secure_vector<uint8_t>& master_secret() const {
+         return m_master_sec;
+      }
 
       const secure_vector<uint8_t>& aead_key(Connection_Side side) const {
          return (side == Connection_Side::Client) ? client_aead_key() : server_aead_key();

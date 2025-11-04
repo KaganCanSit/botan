@@ -27,7 +27,9 @@ class BOTAN_PUBLIC_API(2, 0) TPM_Error final : public Exception {
    public:
       TPM_Error(std::string_view err) : Exception(err) {}
 
-      ErrorType error_type() const noexcept override { return ErrorType::TPMError; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::TPMError;
+      }
 };
 
 /**
@@ -58,13 +60,19 @@ class BOTAN_PUBLIC_API(2, 0) TPM_Context final {
       // Uses Tspi_TPM_StirRandom to add data to TPM's internal pool
       void stir_random(const uint8_t in[], size_t in_len);
 
-      std::string get_user_pin(const std::string& who) { return m_pin_cb(who); }
+      std::string get_user_pin(const std::string& who) {
+         return m_pin_cb(who);
+      }
 
       uint32_t current_counter();
 
-      TSS_HCONTEXT handle() const { return m_ctx; }
+      TSS_HCONTEXT handle() const {
+         return m_ctx;
+      }
 
-      TSS_HKEY srk() const { return m_srk; }
+      TSS_HKEY srk() const {
+         return m_srk;
+      }
 
    private:
       std::function<std::string(std::string)> m_pin_cb;
@@ -78,11 +86,17 @@ class BOTAN_PUBLIC_API(2, 0) TPM_RNG final : public Hardware_RNG {
    public:
       TPM_RNG(TPM_Context& ctx) : m_ctx(ctx) {}
 
-      bool accepts_input() const override { return true; }
+      bool accepts_input() const override {
+         return true;
+      }
 
-      std::string name() const override { return "TPM_RNG"; }
+      std::string name() const override {
+         return "TPM_RNG";
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> input) override {
@@ -137,9 +151,13 @@ class BOTAN_PUBLIC_API(2, 0) TPM_PrivateKey final : public Private_Key {
 
       std::vector<uint8_t> export_blob() const;
 
-      TPM_Context& ctx() const { return m_ctx; }
+      TPM_Context& ctx() const {
+         return m_ctx;
+      }
 
-      TSS_HKEY handle() const { return m_key; }
+      TSS_HKEY handle() const {
+         return m_key;
+      }
 
       /*
       * Returns the list of all keys (in URL format) registered with the system
@@ -164,13 +182,17 @@ class BOTAN_PUBLIC_API(2, 0) TPM_PrivateKey final : public Private_Key {
 
       BigInt get_e() const;
 
-      std::string algo_name() const override { return "RSA"; }  // ???
+      std::string algo_name() const override {
+         return "RSA";
+      }  // ???
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator&) const override {
          throw Not_Implemented("Cannot generate a new TPM-based keypair from this asymmetric key");
       }
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::Signature); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::Signature);
+      }
 
       std::unique_ptr<PK_Ops::Signature> create_signature_op(RandomNumberGenerator& rng,
                                                              std::string_view params,

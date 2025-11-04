@@ -60,7 +60,9 @@ class BOTAN_PUBLIC_API(2, 0) EC_Point final {
       /**
       * Move Constructor
       */
-      EC_Point(EC_Point&& other) noexcept { this->swap(other); }
+      EC_Point(EC_Point&& other) noexcept {
+         this->swap(other);
+      }
 
       /**
       * Standard Assignment
@@ -161,7 +163,9 @@ class BOTAN_PUBLIC_API(2, 0) EC_Point final {
       * Is this the point at infinity?
       * @result true, if this point is at infinity, false otherwise.
       */
-      bool is_zero() const { return m_z.is_zero(); }
+      bool is_zero() const {
+         return m_z.is_zero();
+      }
 
       /**
       * Checks whether the point is to be found on the underlying
@@ -236,21 +240,27 @@ class BOTAN_PUBLIC_API(2, 0) EC_Point final {
       *
       * Note this may be in Montgomery form
       */
-      BOTAN_DEPRECATED("Use affine coordinates only") const BigInt& get_x() const { return m_x; }
+      BOTAN_DEPRECATED("Use affine coordinates only") const BigInt& get_x() const {
+         return m_x;
+      }
 
       /**
       * Return the internal y coordinate
       *
       * Note this may be in Montgomery form
       */
-      BOTAN_DEPRECATED("Use affine coordinates only") const BigInt& get_y() const { return m_y; }
+      BOTAN_DEPRECATED("Use affine coordinates only") const BigInt& get_y() const {
+         return m_y;
+      }
 
       /**
       * Return the internal z coordinate
       *
       * Note this may be in Montgomery form
       */
-      BOTAN_DEPRECATED("Use affine coordinates only") const BigInt& get_z() const { return m_z; }
+      BOTAN_DEPRECATED("Use affine coordinates only") const BigInt& get_z() const {
+         return m_z;
+      }
 
       BOTAN_DEPRECATED("Deprecated no replacement")
 
@@ -260,7 +270,9 @@ class BOTAN_PUBLIC_API(2, 0) EC_Point final {
          m_z.swap(new_z);
       }
 
-      friend void swap(EC_Point& x, EC_Point& y) noexcept { x.swap(y); }
+      friend void swap(EC_Point& x, EC_Point& y) noexcept {
+         x.swap(y);
+      }
 
       /**
       * Randomize the point representation
@@ -359,7 +371,9 @@ class BOTAN_PUBLIC_API(2, 0) EC_Point final {
       *
       * You should not need to use this
       */
-      BOTAN_DEPRECATED("Deprecated no replacement") const CurveGFp& get_curve() const { return m_curve; }
+      BOTAN_DEPRECATED("Deprecated no replacement") const CurveGFp& get_curve() const {
+         return m_curve;
+      }
 
    private:
       CurveGFp m_curve;

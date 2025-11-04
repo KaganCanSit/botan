@@ -27,7 +27,9 @@ class RFC6066_Empty_Certificate_Status_Request {
          }
       }
 
-      std::vector<uint8_t> serialize() const { return {}; }
+      std::vector<uint8_t> serialize() const {
+         return {};
+      }
 };
 
 class RFC6066_Certificate_Status_Request {

@@ -27,21 +27,31 @@ namespace Botan_Tests {
  */
 class Fixed_Output_RNG : public Botan::RandomNumberGenerator {
    public:
-      bool empty() const { return !is_seeded(); }
+      bool empty() const {
+         return !is_seeded();
+      }
 
-      bool is_seeded() const override { return !m_buf.empty(); }
+      bool is_seeded() const override {
+         return !m_buf.empty();
+      }
 
-      bool accepts_input() const override { return true; }
+      bool accepts_input() const override {
+         return true;
+      }
 
       size_t reseed(Botan::Entropy_Sources& /*src*/, size_t /*bits*/, std::chrono::milliseconds /*timeout*/) override {
          return 0;
       }
 
-      std::string name() const override { return "Fixed_Output_RNG"; }
+      std::string name() const override {
+         return "Fixed_Output_RNG";
+      }
 
       void clear() noexcept override {}
 
-      explicit Fixed_Output_RNG(std::span<const uint8_t> in) { m_buf.insert(m_buf.end(), in.begin(), in.end()); }
+      explicit Fixed_Output_RNG(std::span<const uint8_t> in) {
+         m_buf.insert(m_buf.end(), in.begin(), in.end());
+      }
 
       explicit Fixed_Output_RNG(const std::string& in_str) {
          std::vector<uint8_t> in = Botan::hex_decode(in_str);
@@ -97,11 +107,17 @@ class Fixed_Output_RNG : public Botan::RandomNumberGenerator {
 class Fixed_Output_Position_RNG final : public Fixed_Output_RNG {
    public:
       // We output either the fixed output, or otherwise random
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
-      std::string name() const override { return "Fixed_Output_Position_RNG"; }
+      std::string name() const override {
+         return "Fixed_Output_Position_RNG";
+      }
 
       Fixed_Output_Position_RNG(const std::vector<uint8_t>& in, size_t pos, Botan::RandomNumberGenerator& rng) :
             Fixed_Output_RNG(in), m_pos(pos), m_rng(rng) {}
@@ -134,17 +150,27 @@ class Fixed_Output_Position_RNG final : public Fixed_Output_RNG {
 
 class SeedCapturing_RNG final : public Botan::RandomNumberGenerator {
    public:
-      bool accepts_input() const override { return true; }
+      bool accepts_input() const override {
+         return true;
+      }
 
       void clear() override {}
 
-      bool is_seeded() const override { return false; }
+      bool is_seeded() const override {
+         return false;
+      }
 
-      std::string name() const override { return "SeedCapturing"; }
+      std::string name() const override {
+         return "SeedCapturing";
+      }
 
-      size_t samples() const { return m_samples; }
+      size_t samples() const {
+         return m_samples;
+      }
 
-      const std::vector<uint8_t>& seed_material() const { return m_seed; }
+      const std::vector<uint8_t>& seed_material() const {
+         return m_seed;
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> input) override {
@@ -167,15 +193,25 @@ class SeedCapturing_RNG final : public Botan::RandomNumberGenerator {
 */
 class Request_Counting_RNG final : public Botan::RandomNumberGenerator {
    public:
-      size_t randomize_count() const { return m_randomize_count; }
+      size_t randomize_count() const {
+         return m_randomize_count;
+      }
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
-      void clear() override { m_randomize_count = 0; }
+      void clear() override {
+         m_randomize_count = 0;
+      }
 
-      std::string name() const override { return "Request_Counting_RNG"; }
+      std::string name() const override {
+         return "Request_Counting_RNG";
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> /* ignored */) override {
@@ -200,13 +236,19 @@ class Request_Counting_RNG final : public Botan::RandomNumberGenerator {
 // CTR_DRBG implementation, but is sufficient for running such tests
 class CTR_DRBG_AES256 final : public Botan::RandomNumberGenerator {
    public:
-      std::string name() const override { return "CTR_DRBG(AES-256)"; }
+      std::string name() const override {
+         return "CTR_DRBG(AES-256)";
+      }
 
       void clear() override;
 
-      bool accepts_input() const override { return true; }
+      bool accepts_input() const override {
+         return true;
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
       explicit CTR_DRBG_AES256(std::span<const uint8_t> seed);
 

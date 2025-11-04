@@ -37,7 +37,9 @@ namespace {
 
 class JSON_Output final {
    public:
-      void add(const Timer& timer) { m_results.push_back(timer); }
+      void add(const Timer& timer) {
+         m_results.push_back(timer);
+      }
 
       std::string print() const {
          std::ostringstream out;
@@ -372,9 +374,13 @@ class Speed final : public Command {
          // clang-format on
       }
 
-      std::string group() const override { return "misc"; }
+      std::string group() const override {
+         return "misc";
+      }
 
-      std::string description() const override { return "Measures the speed of algorithms"; }
+      std::string description() const override {
+         return "Measures the speed of algorithms";
+      }
 
       void go() override {
          std::chrono::milliseconds msec(get_arg_sz("msec"));

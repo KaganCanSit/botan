@@ -23,9 +23,13 @@ class Entropy final : public Command {
    public:
       Entropy() : Command("entropy --truncate-at=128 source") {}
 
-      std::string group() const override { return "misc"; }
+      std::string group() const override {
+         return "misc";
+      }
 
-      std::string description() const override { return "Sample a raw entropy source"; }
+      std::string description() const override {
+         return "Sample a raw entropy source";
+      }
 
       void go() override {
          const std::string req_source = get_arg("source");

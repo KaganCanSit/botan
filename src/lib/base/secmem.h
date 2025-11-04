@@ -50,9 +50,13 @@ class secure_allocator {
       template <typename U>
       explicit secure_allocator(const secure_allocator<U>& /*other*/) noexcept {}
 
-      T* allocate(std::size_t n) { return static_cast<T*>(allocate_memory(n, sizeof(T))); }
+      T* allocate(std::size_t n) {
+         return static_cast<T*>(allocate_memory(n, sizeof(T)));
+      }
 
-      void deallocate(T* p, std::size_t n) { deallocate_memory(p, n, sizeof(T)); }
+      void deallocate(T* p, std::size_t n) {
+         deallocate_memory(p, n, sizeof(T));
+      }
 };
 
 template <typename T, typename U>

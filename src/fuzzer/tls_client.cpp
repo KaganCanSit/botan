@@ -12,9 +12,13 @@
 
 class Fuzzer_TLS_Client_Creds : public Botan::Credentials_Manager {
    public:
-      std::string psk_identity_hint(const std::string&, const std::string&) override { return "psk_hint"; }
+      std::string psk_identity_hint(const std::string&, const std::string&) override {
+         return "psk_hint";
+      }
 
-      std::string psk_identity(const std::string&, const std::string&, const std::string&) override { return "psk_id"; }
+      std::string psk_identity(const std::string&, const std::string&, const std::string&) override {
+         return "psk_id";
+      }
 
       Botan::secure_vector<uint8_t> session_ticket_key() override {
          return Botan::hex_decode_locked("AABBCCDDEEFF00112233445566778899");

@@ -87,9 +87,13 @@ class Stream_Handshake_IO final : public Handshake_IO {
 
       Protocol_Version initial_record_version() const override;
 
-      bool timeout_check() override { return false; }
+      bool timeout_check() override {
+         return false;
+      }
 
-      bool have_more_data() const override { return !m_queue.empty(); }
+      bool have_more_data() const override {
+         return !m_queue.empty();
+      }
 
       std::vector<uint8_t> send(const Handshake_Message& msg) override;
 
@@ -174,7 +178,9 @@ class Datagram_Handshake_IO final : public Handshake_IO {
 
             bool complete() const;
 
-            uint16_t epoch() const { return m_epoch; }
+            uint16_t epoch() const {
+               return m_epoch;
+            }
 
             std::pair<Handshake_Type, std::vector<uint8_t>> message() const;
 

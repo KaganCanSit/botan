@@ -21,11 +21,17 @@ class Ascon_Hash256 final : public HashFunction {
    public:
       Ascon_Hash256();
 
-      size_t output_length() const override { return 32; }
+      size_t output_length() const override {
+         return 32;
+      }
 
-      std::string name() const override { return "Ascon-Hash256"; }
+      std::string name() const override {
+         return "Ascon-Hash256";
+      }
 
-      std::string provider() const override { return m_ascon_p.provider(); }
+      std::string provider() const override {
+         return m_ascon_p.provider();
+      }
 
       void clear() override;
 

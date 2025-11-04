@@ -39,16 +39,22 @@ class SIMD_2x64 final {
          return SIMD_2x64(_mm_loadu_si128(reinterpret_cast<const __m128i*>(in)));
       }
 
-      static SIMD_2x64 load_be(const void* in) { return SIMD_2x64::load_le(in).bswap(); }
+      static SIMD_2x64 load_be(const void* in) {
+         return SIMD_2x64::load_le(in).bswap();
+      }
 
       SIMD_2x64 BOTAN_FN_ISA_SIMD_2X64 bswap() const {
          const auto idx = _mm_set_epi8(8, 9, 10, 11, 12, 13, 14, 15, 0, 1, 2, 3, 4, 5, 6, 7);
          return SIMD_2x64(_mm_shuffle_epi8(m_simd, idx));
       }
 
-      void store_le(uint64_t out[2]) const { this->store_le(reinterpret_cast<uint8_t*>(out)); }
+      void store_le(uint64_t out[2]) const {
+         this->store_le(reinterpret_cast<uint8_t*>(out));
+      }
 
-      void store_le(uint8_t out[]) const { _mm_storeu_si128(reinterpret_cast<__m128i*>(out), m_simd); }
+      void store_le(uint8_t out[]) const {
+         _mm_storeu_si128(reinterpret_cast<__m128i*>(out), m_simd);
+      }
 
       SIMD_2x64 operator+(const SIMD_2x64& other) const {
          SIMD_2x64 retval(*this);
@@ -62,9 +68,13 @@ class SIMD_2x64 final {
          return retval;
       }
 
-      void operator+=(const SIMD_2x64& other) { m_simd = _mm_add_epi64(m_simd, other.m_simd); }
+      void operator+=(const SIMD_2x64& other) {
+         m_simd = _mm_add_epi64(m_simd, other.m_simd);
+      }
 
-      void operator^=(const SIMD_2x64& other) { m_simd = _mm_xor_si128(m_simd, other.m_simd); }
+      void operator^=(const SIMD_2x64& other) {
+         m_simd = _mm_xor_si128(m_simd, other.m_simd);
+      }
 
       template <size_t ROT>
       BOTAN_FN_ISA_SIMD_2X64 SIMD_2x64 rotr() const

@@ -35,7 +35,9 @@ class Ed25519_Verification_Tests : public PK_Signature_Verification_Test {
       Ed25519_Verification_Tests() :
             PK_Signature_Verification_Test("Ed25519", "pubkey/ed25519_verify.vec", "Pubkey,Msg,Signature", "Valid") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          const std::vector<uint8_t> pubkey = vars.get_req_bin("Pubkey");
@@ -48,7 +50,9 @@ class Ed25519_Signature_Tests final : public PK_Signature_Generation_Test {
       Ed25519_Signature_Tests() :
             PK_Signature_Generation_Test("Ed25519", "pubkey/ed25519.vec", "Privkey,Pubkey,Msg,Signature") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) override {
          const std::vector<uint8_t> privkey = vars.get_req_bin("Privkey");
@@ -102,9 +106,13 @@ class Ed25519_Curdle_Format_Tests final : public Test {
 
 class Ed25519_Keygen_Tests final : public PK_Key_Generation_Test {
    public:
-      std::vector<std::string> keygen_params() const override { return {""}; }
+      std::vector<std::string> keygen_params() const override {
+         return {""};
+      }
 
-      std::string algo_name() const override { return "Ed25519"; }
+      std::string algo_name() const override {
+         return "Ed25519";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view /* keygen_params */,
                                                              std::string_view /* provider */,

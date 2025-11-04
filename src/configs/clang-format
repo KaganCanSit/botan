@@ -47,7 +47,7 @@ EmptyLineBeforeAccessModifier: Always
 BreakConstructorInitializers: AfterColon
 BreakInheritanceList: AfterComma
 AllowShortBlocksOnASingleLine: Empty
-AllowShortFunctionsOnASingleLine: Inline
+AllowShortFunctionsOnASingleLine: Empty
 SpaceBeforeParens: Never
 IndentPPDirectives: BeforeHash
 FixNamespaceComments: true

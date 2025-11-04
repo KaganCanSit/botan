@@ -90,17 +90,23 @@ class BOTAN_PUBLIC_API(2, 0) Buffered_Filter /* NOLINT(*-special-member-function
       /**
       * @return block size of inputs
       */
-      size_t buffered_block_size() const { return m_main_block_mod; }
+      size_t buffered_block_size() const {
+         return m_main_block_mod;
+      }
 
       /**
       * @return current position in the buffer
       */
-      size_t current_position() const { return m_buffer_pos; }
+      size_t current_position() const {
+         return m_buffer_pos;
+      }
 
       /**
       * Reset the buffer position
       */
-      void buffer_reset() { m_buffer_pos = 0; }
+      void buffer_reset() {
+         m_buffer_pos = 0;
+      }
 
    private:
       size_t m_main_block_mod, m_final_minimum;
@@ -137,7 +143,9 @@ class BOTAN_PUBLIC_API(2, 0) Keyed_Filter : public Filter {
       * @param length the key length to be checked for validity
       * @return true if the key length is valid, false otherwise
       */
-      bool valid_keylength(size_t length) const { return key_spec().valid_keylength(length); }
+      bool valid_keylength(size_t length) const {
+         return key_spec().valid_keylength(length);
+      }
 
       /**
       * @return object describing limits on key size
@@ -149,7 +157,9 @@ class BOTAN_PUBLIC_API(2, 0) Keyed_Filter : public Filter {
       * @param length the IV length to be checked for validity
       * @return true if the IV length is valid, false otherwise
       */
-      virtual bool valid_iv_length(size_t length) const { return (length == 0); }
+      virtual bool valid_iv_length(size_t length) const {
+         return (length == 0);
+      }
 };
 
 /**
@@ -247,7 +257,9 @@ inline Keyed_Filter* get_cipher(std::string_view algo_spec,
 */
 class BOTAN_PUBLIC_API(2, 0) StreamCipher_Filter final : public Keyed_Filter {
    public:
-      std::string name() const override { return m_cipher->name(); }
+      std::string name() const override {
+         return m_cipher->name();
+      }
 
       /**
       * Write input data
@@ -256,21 +268,29 @@ class BOTAN_PUBLIC_API(2, 0) StreamCipher_Filter final : public Keyed_Filter {
       */
       void write(const uint8_t input[], size_t input_len) override;
 
-      bool valid_iv_length(size_t iv_len) const override { return m_cipher->valid_iv_length(iv_len); }
+      bool valid_iv_length(size_t iv_len) const override {
+         return m_cipher->valid_iv_length(iv_len);
+      }
 
       /**
       * Set the initialization vector for this filter.
       * @param iv the initialization vector to set
       */
-      void set_iv(const InitializationVector& iv) override { m_cipher->set_iv(iv.begin(), iv.length()); }
+      void set_iv(const InitializationVector& iv) override {
+         m_cipher->set_iv(iv.begin(), iv.length());
+      }
 
       /**
       * Set the key of this filter.
       * @param key the key to set
       */
-      void set_key(const SymmetricKey& key) override { m_cipher->set_key(key); }
+      void set_key(const SymmetricKey& key) override {
+         m_cipher->set_key(key);
+      }
 
-      Key_Length_Specification key_spec() const override { return m_cipher->key_spec(); }
+      Key_Length_Specification key_spec() const override {
+         return m_cipher->key_spec();
+      }
 
       /**
       * Construct a stream cipher filter.
@@ -311,11 +331,15 @@ class BOTAN_PUBLIC_API(2, 0) StreamCipher_Filter final : public Keyed_Filter {
 */
 class BOTAN_PUBLIC_API(2, 0) Hash_Filter final : public Filter {
    public:
-      void write(const uint8_t input[], size_t len) override { m_hash->update(input, len); }
+      void write(const uint8_t input[], size_t len) override {
+         m_hash->update(input, len);
+      }
 
       void end_msg() override;
 
-      std::string name() const override { return m_hash->name(); }
+      std::string name() const override {
+         return m_hash->name();
+      }
 
       /**
       * Construct a hash filter.
@@ -350,19 +374,27 @@ class BOTAN_PUBLIC_API(2, 0) Hash_Filter final : public Filter {
 */
 class BOTAN_PUBLIC_API(2, 0) MAC_Filter final : public Keyed_Filter {
    public:
-      void write(const uint8_t input[], size_t len) override { m_mac->update(input, len); }
+      void write(const uint8_t input[], size_t len) override {
+         m_mac->update(input, len);
+      }
 
       void end_msg() override;
 
-      std::string name() const override { return m_mac->name(); }
+      std::string name() const override {
+         return m_mac->name();
+      }
 
       /**
       * Set the key of this filter.
       * @param key the key to set
       */
-      void set_key(const SymmetricKey& key) override { m_mac->set_key(key); }
+      void set_key(const SymmetricKey& key) override {
+         m_mac->set_key(key);
+      }
 
-      Key_Length_Specification key_spec() const override { return m_mac->key_spec(); }
+      Key_Length_Specification key_spec() const override {
+         return m_mac->key_spec();
+      }
 
       /**
       * Construct a MAC filter. The MAC key will be left empty.
@@ -482,7 +514,9 @@ class BOTAN_PUBLIC_API(2, 0) Decompression_Filter final : public Filter {
 */
 class BOTAN_PUBLIC_API(2, 0) Base64_Encoder final : public Filter {
    public:
-      std::string name() const override { return "Base64_Encoder"; }
+      std::string name() const override {
+         return "Base64_Encoder";
+      }
 
       /**
       * Input a part of a message to the encoder.
@@ -522,7 +556,9 @@ class BOTAN_PUBLIC_API(2, 0) Base64_Encoder final : public Filter {
 */
 class BOTAN_PUBLIC_API(2, 0) Base64_Decoder final : public Filter {
    public:
-      std::string name() const override { return "Base64_Decoder"; }
+      std::string name() const override {
+         return "Base64_Decoder";
+      }
 
       /**
       * Input a part of a message to the decoder.
@@ -561,7 +597,9 @@ class BOTAN_PUBLIC_API(2, 0) Hex_Encoder final : public Filter {
       */
       enum Case : uint8_t /* NOLINT(*-use-enum-class) */ { Uppercase, Lowercase };
 
-      std::string name() const override { return "Hex_Encoder"; }
+      std::string name() const override {
+         return "Hex_Encoder";
+      }
 
       void write(const uint8_t in[], size_t length) override;
       void end_msg() override;
@@ -596,7 +634,9 @@ class BOTAN_PUBLIC_API(2, 0) Hex_Encoder final : public Filter {
 */
 class BOTAN_PUBLIC_API(2, 0) Hex_Decoder final : public Filter {
    public:
-      std::string name() const override { return "Hex_Decoder"; }
+      std::string name() const override {
+         return "Hex_Decoder";
+      }
 
       void write(const uint8_t input[], size_t length) override;
       void end_msg() override;
@@ -622,7 +662,9 @@ class BOTAN_PUBLIC_API(2, 0) BitBucket final : public Filter {
       void write(const uint8_t /*input*/[], size_t /*length*/) override { /* discard */
       }
 
-      std::string name() const override { return "BitBucket"; }
+      std::string name() const override {
+         return "BitBucket";
+      }
 };
 
 /**
@@ -633,9 +675,13 @@ class BOTAN_PUBLIC_API(2, 0) BitBucket final : public Filter {
 
 class BOTAN_PUBLIC_API(2, 0) Chain final : public Fanout_Filter {
    public:
-      void write(const uint8_t input[], size_t length) override { send(input, length); }
+      void write(const uint8_t input[], size_t length) override {
+         send(input, length);
+      }
 
-      std::string name() const override { return "Chain"; }
+      std::string name() const override {
+         return "Chain";
+      }
 
       /**
       * Construct a chain of up to four filters. The filters are set
@@ -661,11 +707,17 @@ class BOTAN_PUBLIC_API(2, 0) Chain final : public Fanout_Filter {
 */
 class BOTAN_PUBLIC_API(2, 0) Fork : public Fanout_Filter {
    public:
-      void write(const uint8_t input[], size_t length) override { send(input, length); }
+      void write(const uint8_t input[], size_t length) override {
+         send(input, length);
+      }
 
-      void set_port(size_t n) { Fanout_Filter::set_port(n); }
+      void set_port(size_t n) {
+         Fanout_Filter::set_port(n);
+      }
 
-      std::string name() const override { return "Fork"; }
+      std::string name() const override {
+         return "Fork";
+      }
 
       /**
       * Construct a Fork filter with up to four forks.

@@ -135,21 +135,37 @@ class Server_Hello_Internal {
          return (extensions().has<Supported_Versions>()) ? Protocol_Version::TLS_V13 : m_legacy_version;
       }
 
-      Protocol_Version legacy_version() const { return m_legacy_version; }
+      Protocol_Version legacy_version() const {
+         return m_legacy_version;
+      }
 
-      const Session_ID& session_id() const { return m_session_id; }
+      const Session_ID& session_id() const {
+         return m_session_id;
+      }
 
-      const std::vector<uint8_t>& random() const { return m_random; }
+      const std::vector<uint8_t>& random() const {
+         return m_random;
+      }
 
-      uint16_t ciphersuite() const { return m_ciphersuite; }
+      uint16_t ciphersuite() const {
+         return m_ciphersuite;
+      }
 
-      uint8_t comp_method() const { return m_comp_method; }
+      uint8_t comp_method() const {
+         return m_comp_method;
+      }
 
-      bool is_hello_retry_request() const { return m_is_hello_retry_request; }
+      bool is_hello_retry_request() const {
+         return m_is_hello_retry_request;
+      }
 
-      const Extensions& extensions() const { return m_extensions; }
+      const Extensions& extensions() const {
+         return m_extensions;
+      }
 
-      Extensions& extensions() { return m_extensions; }
+      Extensions& extensions() {
+         return m_extensions;
+      }
 
    private:
       Protocol_Version m_legacy_version;

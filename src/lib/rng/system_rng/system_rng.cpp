@@ -55,14 +55,20 @@ class System_RNG_Impl final : public RandomNumberGenerator {
       System_RNG_Impl& operator=(const System_RNG_Impl& other) = delete;
       System_RNG_Impl& operator=(System_RNG_Impl&& other) = delete;
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
       void clear() override { /* not possible */
       }
 
-      std::string name() const override { return "RtlGenRandom"; }
+      std::string name() const override {
+         return "RtlGenRandom";
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> /* ignored */) override {
@@ -107,16 +113,24 @@ class System_RNG_Impl final : public RandomNumberGenerator {
       System_RNG_Impl& operator=(const System_RNG_Impl& other) = delete;
       System_RNG_Impl& operator=(System_RNG_Impl&& other) = delete;
 
-      ~System_RNG_Impl() override { ::BCryptCloseAlgorithmProvider(m_prov, 0); }
+      ~System_RNG_Impl() override {
+         ::BCryptCloseAlgorithmProvider(m_prov, 0);
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
       void clear() override { /* not possible */
       }
 
-      std::string name() const override { return "crypto_ng"; }
+      std::string name() const override {
+         return "crypto_ng";
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> /* ignored */) override {
@@ -151,14 +165,20 @@ class System_RNG_Impl final : public RandomNumberGenerator {
 
 class System_RNG_Impl final : public RandomNumberGenerator {
    public:
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
       void clear() override { /* not possible */
       }
 
-      std::string name() const override { return "CCRandomGenerateBytes"; }
+      std::string name() const override {
+         return "CCRandomGenerateBytes";
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> /* ignored */) override {
@@ -174,14 +194,20 @@ class System_RNG_Impl final : public RandomNumberGenerator {
    public:
       // No constructor or destructor needed as no userland state maintained
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
       void clear() override { /* not possible */
       }
 
-      std::string name() const override { return "arc4random"; }
+      std::string name() const override {
+         return "arc4random";
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> /* ignored */) override {
@@ -200,14 +226,20 @@ class System_RNG_Impl final : public RandomNumberGenerator {
    public:
       // No constructor or destructor needed as no userland state maintained
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
       void clear() override { /* not possible */
       }
 
-      std::string name() const override { return "getrandom"; }
+      std::string name() const override {
+         return "getrandom";
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> /* ignored */) override {
@@ -288,14 +320,20 @@ class System_RNG_Impl final : public RandomNumberGenerator {
          m_fd = -1;
       }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
-      bool accepts_input() const override { return m_writable; }
+      bool accepts_input() const override {
+         return m_writable;
+      }
 
       void clear() override { /* not possible */
       }
 
-      std::string name() const override { return "urandom"; }
+      std::string name() const override {
+         return "urandom";
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> /* ignored */) override;

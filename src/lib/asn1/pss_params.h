@@ -47,19 +47,33 @@ class BOTAN_PUBLIC_API(3, 7) PSS_Params final : public ASN1_Object {
       */
       BOTAN_FUTURE_EXPLICIT PSS_Params(std::span<const uint8_t> der);
 
-      const AlgorithmIdentifier& hash_algid() const { return m_hash; }
+      const AlgorithmIdentifier& hash_algid() const {
+         return m_hash;
+      }
 
-      const AlgorithmIdentifier& mgf_algid() const { return m_mgf; }
+      const AlgorithmIdentifier& mgf_algid() const {
+         return m_mgf;
+      }
 
-      const AlgorithmIdentifier& mgf_hash_algid() const { return m_mgf_hash; }
+      const AlgorithmIdentifier& mgf_hash_algid() const {
+         return m_mgf_hash;
+      }
 
-      size_t salt_length() const { return m_salt_len; }
+      size_t salt_length() const {
+         return m_salt_len;
+      }
 
-      size_t trailer_field() const { return m_trailer_field; }
+      size_t trailer_field() const {
+         return m_trailer_field;
+      }
 
-      std::string hash_function() const { return hash_algid().oid().to_formatted_string(); }
+      std::string hash_function() const {
+         return hash_algid().oid().to_formatted_string();
+      }
 
-      std::string mgf_function() const { return mgf_algid().oid().to_formatted_string(); }
+      std::string mgf_function() const {
+         return mgf_algid().oid().to_formatted_string();
+      }
 
       std::vector<uint8_t> serialize() const;
 

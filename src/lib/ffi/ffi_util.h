@@ -24,9 +24,13 @@ class BOTAN_UNSTABLE_API FFI_Error final : public Botan::Exception {
    public:
       FFI_Error(std::string_view what, int err_code) : Exception("FFI error", what), m_err_code(err_code) {}
 
-      int error_code() const noexcept override { return m_err_code; }
+      int error_code() const noexcept override {
+         return m_err_code;
+      }
 
-      Botan::ErrorType error_type() const noexcept override { return Botan::ErrorType::InvalidArgument; }
+      Botan::ErrorType error_type() const noexcept override {
+         return Botan::ErrorType::InvalidArgument;
+      }
 
    private:
       int m_err_code;
@@ -47,9 +51,13 @@ struct botan_struct {
       botan_struct& operator=(const botan_struct& other) = delete;
       botan_struct& operator=(botan_struct&& other) = delete;
 
-      bool magic_ok() const { return (m_magic == MAGIC); }
+      bool magic_ok() const {
+         return (m_magic == MAGIC);
+      }
 
-      T* unsafe_get() const { return m_obj.get(); }
+      T* unsafe_get() const {
+         return m_obj.get();
+      }
 
    private:
       uint32_t m_magic = 0;

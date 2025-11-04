@@ -30,15 +30,23 @@ class BOTAN_TEST_API URI {
 
       URI(Type type, std::string_view host, uint16_t port) : m_type(type), m_host(host), m_port(port) {}
 
-      bool operator==(const URI& a) const { return m_type == a.m_type && m_host == a.m_host && m_port == a.m_port; }
+      bool operator==(const URI& a) const {
+         return m_type == a.m_type && m_host == a.m_host && m_port == a.m_port;
+      }
 
       std::string to_string() const;
 
-      const std::string& host() const { return m_host; }
+      const std::string& host() const {
+         return m_host;
+      }
 
-      uint16_t port() const { return m_port; }
+      uint16_t port() const {
+         return m_port;
+      }
 
-      Type type() const { return m_type; }
+      Type type() const {
+         return m_type;
+      }
 
    private:
       const Type m_type;

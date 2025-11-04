@@ -22,9 +22,13 @@ class ML_DSA_Verify_KAT_Tests final : public PK_Signature_Verification_Test {
       ML_DSA_Verify_KAT_Tests() :
             PK_Signature_Verification_Test("ML-DSA", "pubkey/ml_dsa_verify.vec", "Mode,Key,Msg,Signature,Valid") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
-      std::string default_padding(const VarMap& /*unused*/) const override { return "Pure"; }
+      std::string default_padding(const VarMap& /*unused*/) const override {
+         return "Pure";
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          Botan::ML_DSA_Mode mode(vars.get_req_str("Mode"));

@@ -573,9 +573,13 @@ class Policy_Information final : public ASN1_Object {
 
       explicit Policy_Information(const OID& oid) : m_oid(oid) {}
 
-      const OID& oid() const { return m_oid; }
+      const OID& oid() const {
+         return m_oid;
+      }
 
-      void encode_into(DER_Encoder& codec) const override { codec.start_sequence().encode(m_oid).end_cons(); }
+      void encode_into(DER_Encoder& codec) const override {
+         codec.start_sequence().encode(m_oid).end_cons();
+      }
 
       void decode_from(BER_Decoder& codec) override {
          codec.start_sequence().decode(m_oid).discard_remaining().end_cons();

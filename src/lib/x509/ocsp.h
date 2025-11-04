@@ -34,7 +34,9 @@ class BOTAN_PUBLIC_API(2, 0) CertID final : public ASN1_Object {
 
       void decode_from(BER_Decoder& from) override;
 
-      const std::vector<uint8_t>& issuer_key_hash() const { return m_issuer_key_hash; }
+      const std::vector<uint8_t>& issuer_key_hash() const {
+         return m_issuer_key_hash;
+      }
 
    private:
       AlgorithmIdentifier m_hash_id;
@@ -45,13 +47,21 @@ class BOTAN_PUBLIC_API(2, 0) CertID final : public ASN1_Object {
 
 class BOTAN_PUBLIC_API(2, 0) SingleResponse final : public ASN1_Object {
    public:
-      const CertID& certid() const { return m_certid; }
+      const CertID& certid() const {
+         return m_certid;
+      }
 
-      size_t cert_status() const { return m_cert_status; }
+      size_t cert_status() const {
+         return m_cert_status;
+      }
 
-      X509_Time this_update() const { return m_thisupdate; }
+      X509_Time this_update() const {
+         return m_thisupdate;
+      }
 
-      X509_Time next_update() const { return m_nextupdate; }
+      X509_Time next_update() const {
+         return m_nextupdate;
+      }
 
       void encode_into(DER_Encoder& to) const override;
 
@@ -91,7 +101,9 @@ class BOTAN_PUBLIC_API(2, 0) Request final {
       /**
       * @return issuer certificate
       */
-      const X509_Certificate& issuer() const { return m_issuer; }
+      const X509_Certificate& issuer() const {
+         return m_issuer;
+      }
 
       /**
       * @return subject certificate
@@ -101,7 +113,9 @@ class BOTAN_PUBLIC_API(2, 0) Request final {
          throw Not_Implemented("Method have been deprecated");
       }
 
-      const std::vector<uint8_t>& issuer_key_hash() const { return m_certid.issuer_key_hash(); }
+      const std::vector<uint8_t>& issuer_key_hash() const {
+         return m_certid.issuer_key_hash();
+      }
 
    private:
       X509_Certificate m_issuer;
@@ -178,24 +192,34 @@ class BOTAN_PUBLIC_API(2, 0) Response final {
       /**
       * @return the status of the response
       */
-      Response_Status_Code status() const { return m_status; }
+      Response_Status_Code status() const {
+         return m_status;
+      }
 
       /**
       * @return the time this OCSP response was supposedly produced at
       */
-      const X509_Time& produced_at() const { return m_produced_at; }
+      const X509_Time& produced_at() const {
+         return m_produced_at;
+      }
 
       /**
       * @return DN of signer, if provided in response (may be empty)
       */
-      const X509_DN& signer_name() const { return m_signer_name; }
+      const X509_DN& signer_name() const {
+         return m_signer_name;
+      }
 
       /**
       * @return key hash, if provided in response (may be empty)
       */
-      const std::vector<uint8_t>& signer_key_hash() const { return m_key_hash; }
+      const std::vector<uint8_t>& signer_key_hash() const {
+         return m_key_hash;
+      }
 
-      const std::vector<uint8_t>& raw_bits() const { return m_response_bits; }
+      const std::vector<uint8_t>& raw_bits() const {
+         return m_response_bits;
+      }
 
       /**
        * Searches the OCSP response for issuer and subject certificate.
@@ -222,12 +246,16 @@ class BOTAN_PUBLIC_API(2, 0) Response final {
       /**
        * @return the certificate chain, if provided in response
        */
-      const std::vector<X509_Certificate>& certificates() const { return m_certs; }
+      const std::vector<X509_Certificate>& certificates() const {
+         return m_certs;
+      }
 
       /**
       * @return the dummy response if this is a 'fake' OCSP response otherwise std::nullopt
       */
-      std::optional<Certificate_Status_Code> dummy_status() const { return m_dummy_response_status; }
+      std::optional<Certificate_Status_Code> dummy_status() const {
+         return m_dummy_response_status;
+      }
 
    private:
       bool is_issued_by(const X509_Certificate& candidate) const;

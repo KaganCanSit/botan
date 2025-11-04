@@ -62,7 +62,9 @@ class BOTAN_PUBLIC_API(2, 0) DataSource {
       * return the id of this data source
       * @return std::string representing the id of this data source
       */
-      virtual std::string id() const { return ""; }
+      virtual std::string id() const {
+         return "";
+      }
 
       /**
       * Read one byte.
@@ -148,7 +150,9 @@ class BOTAN_PUBLIC_API(2, 0) DataSource_Memory final : public DataSource {
       */
       explicit DataSource_Memory(const std::vector<uint8_t>& in) : m_source(in.begin(), in.end()), m_offset(0) {}
 
-      size_t get_bytes_read() const override { return m_offset; }
+      size_t get_bytes_read() const override {
+         return m_offset;
+      }
 
    private:
       secure_vector<uint8_t> m_source;
@@ -184,7 +188,9 @@ class BOTAN_PUBLIC_API(2, 0) DataSource_Stream final : public DataSource {
 
       ~DataSource_Stream() override;
 
-      size_t get_bytes_read() const override { return m_total_read; }
+      size_t get_bytes_read() const override {
+         return m_total_read;
+      }
 
    private:
       const std::string m_identifier;

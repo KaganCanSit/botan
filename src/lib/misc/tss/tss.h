@@ -74,7 +74,9 @@ class BOTAN_PUBLIC_API(2, 0) RTSS_Share final {
       /**
       * @return binary representation
       */
-      const secure_vector<uint8_t>& data() const { return m_contents; }
+      const secure_vector<uint8_t>& data() const {
+         return m_contents;
+      }
 
       /**
       * @return hex representation
@@ -89,12 +91,16 @@ class BOTAN_PUBLIC_API(2, 0) RTSS_Share final {
       /**
       * @return size of this share in bytes
       */
-      size_t size() const { return m_contents.size(); }
+      size_t size() const {
+         return m_contents.size();
+      }
 
       /**
       * @return if this TSS share was initialized or not
       */
-      bool initialized() const { return (!m_contents.empty()); }
+      bool initialized() const {
+         return (!m_contents.empty());
+      }
 
    private:
       secure_vector<uint8_t> m_contents;

@@ -44,23 +44,31 @@ class BOTAN_PUBLIC_API(2, 0) Server_Information final {
       /**
       * @return the host's DNS name, if known
       */
-      std::string hostname() const { return m_hostname; }
+      std::string hostname() const {
+         return m_hostname;
+      }
 
       /**
       * @return text string of the service type, e.g.,
       * "https", "tor", or "git"
       */
-      std::string service() const { return m_service; }
+      std::string service() const {
+         return m_service;
+      }
 
       /**
       * @return the protocol port of the server, or zero if unknown
       */
-      uint16_t port() const { return m_port; }
+      uint16_t port() const {
+         return m_port;
+      }
 
       /**
       * @return whether the hostname is known
       */
-      bool empty() const { return m_hostname.empty(); }
+      bool empty() const {
+         return m_hostname.empty();
+      }
 
    private:
       std::string m_hostname;

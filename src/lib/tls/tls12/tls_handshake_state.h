@@ -66,7 +66,9 @@ class Handshake_State {
       Handshake_State& operator=(const Handshake_State& other) = delete;
       Handshake_State& operator=(Handshake_State&& other) = delete;
 
-      Handshake_IO& handshake_io() { return *m_handshake_io; }
+      Handshake_IO& handshake_io() {
+         return *m_handshake_io;
+      }
 
       /**
       * Return true iff we have received a particular message already
@@ -103,7 +105,9 @@ class Handshake_State {
 
       std::unique_ptr<KDF> protocol_specific_prf() const;
 
-      Protocol_Version version() const { return m_version; }
+      Protocol_Version version() const {
+         return m_version;
+      }
 
       void set_version(const Protocol_Version& version);
 
@@ -128,49 +132,85 @@ class Handshake_State {
 
       void new_session_ticket(std::unique_ptr<New_Session_Ticket_12> new_session_ticket);
 
-      const Client_Hello_12* client_hello() const { return m_client_hello.get(); }
+      const Client_Hello_12* client_hello() const {
+         return m_client_hello.get();
+      }
 
-      const Server_Hello_12* server_hello() const { return m_server_hello.get(); }
+      const Server_Hello_12* server_hello() const {
+         return m_server_hello.get();
+      }
 
-      const Certificate_12* server_certs() const { return m_server_certs.get(); }
+      const Certificate_12* server_certs() const {
+         return m_server_certs.get();
+      }
 
-      const Server_Key_Exchange* server_kex() const { return m_server_kex.get(); }
+      const Server_Key_Exchange* server_kex() const {
+         return m_server_kex.get();
+      }
 
-      const Certificate_Request_12* cert_req() const { return m_cert_req.get(); }
+      const Certificate_Request_12* cert_req() const {
+         return m_cert_req.get();
+      }
 
-      const Server_Hello_Done* server_hello_done() const { return m_server_hello_done.get(); }
+      const Server_Hello_Done* server_hello_done() const {
+         return m_server_hello_done.get();
+      }
 
-      const Certificate_12* client_certs() const { return m_client_certs.get(); }
+      const Certificate_12* client_certs() const {
+         return m_client_certs.get();
+      }
 
-      const Client_Key_Exchange* client_kex() const { return m_client_kex.get(); }
+      const Client_Key_Exchange* client_kex() const {
+         return m_client_kex.get();
+      }
 
-      const Certificate_Verify_12* client_verify() const { return m_client_verify.get(); }
+      const Certificate_Verify_12* client_verify() const {
+         return m_client_verify.get();
+      }
 
-      const Certificate_Verify_12* server_verify() const { return m_server_verify.get(); }
+      const Certificate_Verify_12* server_verify() const {
+         return m_server_verify.get();
+      }
 
-      const Certificate_Status* server_cert_status() const { return m_server_cert_status.get(); }
+      const Certificate_Status* server_cert_status() const {
+         return m_server_cert_status.get();
+      }
 
-      const New_Session_Ticket_12* new_session_ticket() const { return m_new_session_ticket.get(); }
+      const New_Session_Ticket_12* new_session_ticket() const {
+         return m_new_session_ticket.get();
+      }
 
-      const Finished_12* server_finished() const { return m_server_finished.get(); }
+      const Finished_12* server_finished() const {
+         return m_server_finished.get();
+      }
 
-      const Finished_12* client_finished() const { return m_client_finished.get(); }
+      const Finished_12* client_finished() const {
+         return m_client_finished.get();
+      }
 
       const Ciphersuite& ciphersuite() const;
 
       std::optional<std::string> psk_identity() const;
 
-      const Session_Keys& session_keys() const { return m_session_keys; }
+      const Session_Keys& session_keys() const {
+         return m_session_keys;
+      }
 
-      Callbacks& callbacks() const { return m_callbacks; }
+      Callbacks& callbacks() const {
+         return m_callbacks;
+      }
 
       void compute_session_keys();
 
       void compute_session_keys(const secure_vector<uint8_t>& resume_master_secret);
 
-      Handshake_Hash& hash() { return m_handshake_hash; }
+      Handshake_Hash& hash() {
+         return m_handshake_hash;
+      }
 
-      const Handshake_Hash& hash() const { return m_handshake_hash; }
+      const Handshake_Hash& hash() const {
+         return m_handshake_hash;
+      }
 
       void note_message(const Handshake_Message& msg);
 

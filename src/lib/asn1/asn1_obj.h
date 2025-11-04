@@ -135,23 +135,41 @@ class BOTAN_PUBLIC_API(2, 0) BER_Object final {
       BER_Object& operator=(BER_Object&& other) = default;
       ~BER_Object() = default;
 
-      bool is_set() const { return m_type_tag != ASN1_Type::NoObject; }
+      bool is_set() const {
+         return m_type_tag != ASN1_Type::NoObject;
+      }
 
-      uint32_t tagging() const { return type_tag() | class_tag(); }
+      uint32_t tagging() const {
+         return type_tag() | class_tag();
+      }
 
-      ASN1_Type type_tag() const { return m_type_tag; }
+      ASN1_Type type_tag() const {
+         return m_type_tag;
+      }
 
-      ASN1_Class class_tag() const { return m_class_tag; }
+      ASN1_Class class_tag() const {
+         return m_class_tag;
+      }
 
-      ASN1_Type type() const { return m_type_tag; }
+      ASN1_Type type() const {
+         return m_type_tag;
+      }
 
-      ASN1_Class get_class() const { return m_class_tag; }
+      ASN1_Class get_class() const {
+         return m_class_tag;
+      }
 
-      const uint8_t* bits() const { return m_value.data(); }
+      const uint8_t* bits() const {
+         return m_value.data();
+      }
 
-      size_t length() const { return m_value.size(); }
+      size_t length() const {
+         return m_value.size();
+      }
 
-      std::span<const uint8_t> data() const { return std::span{m_value}; }
+      std::span<const uint8_t> data() const {
+         return std::span{m_value};
+      }
 
       void assert_is_a(ASN1_Type type_tag, ASN1_Class class_tag, std::string_view descr = "object") const;
 
@@ -262,13 +280,17 @@ class BOTAN_PUBLIC_API(2, 0) OID final : public ASN1_Object {
       * Find out whether this OID is empty
       * @return true is no OID value is set
       */
-      bool empty() const { return m_id.empty(); }
+      bool empty() const {
+         return m_id.empty();
+      }
 
       /**
       * Find out whether this OID has a value
       * @return true is this OID has a value
       */
-      bool has_value() const { return !empty(); }
+      bool has_value() const {
+         return !empty();
+      }
 
       /**
       * Get this OID as a dotted-decimal string
@@ -298,7 +320,9 @@ class BOTAN_PUBLIC_API(2, 0) OID final : public ASN1_Object {
       * Compare two OIDs.
       * @return true if they are equal, false otherwise
       */
-      bool operator==(const OID& other) const { return m_id == other.m_id; }
+      bool operator==(const OID& other) const {
+         return m_id == other.m_id;
+      }
 
       /**
       * Return a hash code for this OID
@@ -432,22 +456,34 @@ class BOTAN_PUBLIC_API(2, 0) ASN1_String final : public ASN1_Object {
       void encode_into(DER_Encoder& to) const override;
       void decode_from(BER_Decoder& from) override;
 
-      ASN1_Type tagging() const { return m_tag; }
+      ASN1_Type tagging() const {
+         return m_tag;
+      }
 
-      const std::string& value() const { return m_utf8_str; }
+      const std::string& value() const {
+         return m_utf8_str;
+      }
 
-      size_t size() const { return value().size(); }
+      size_t size() const {
+         return value().size();
+      }
 
-      bool empty() const { return m_utf8_str.empty(); }
+      bool empty() const {
+         return m_utf8_str.empty();
+      }
 
       /**
       * Return true iff this is a tag for a known string type we can handle.
       */
       static bool is_string_type(ASN1_Type tag);
 
-      bool operator==(const ASN1_String& other) const { return value() == other.value(); }
+      bool operator==(const ASN1_String& other) const {
+         return value() == other.value();
+      }
 
-      friend bool operator<(const ASN1_String& a, const ASN1_String& b) { return a.value() < b.value(); }
+      friend bool operator<(const ASN1_String& a, const ASN1_String& b) {
+         return a.value() < b.value();
+      }
 
       explicit ASN1_String(std::string_view utf8 = "");
       ASN1_String(std::string_view utf8, ASN1_Type tag);
@@ -476,11 +512,17 @@ class BOTAN_PUBLIC_API(2, 0) AlgorithmIdentifier final : public ASN1_Object {
       AlgorithmIdentifier(const OID& oid, const std::vector<uint8_t>& params);
       AlgorithmIdentifier(std::string_view oid_name, const std::vector<uint8_t>& params);
 
-      const OID& oid() const { return m_oid; }
+      const OID& oid() const {
+         return m_oid;
+      }
 
-      const std::vector<uint8_t>& parameters() const { return m_parameters; }
+      const std::vector<uint8_t>& parameters() const {
+         return m_parameters;
+      }
 
-      BOTAN_DEPRECATED("Use AlgorithmIdentifier::oid") const OID& get_oid() const { return m_oid; }
+      BOTAN_DEPRECATED("Use AlgorithmIdentifier::oid") const OID& get_oid() const {
+         return m_oid;
+      }
 
       BOTAN_DEPRECATED("Use AlgorithmIdentifier::parameters") const std::vector<uint8_t>& get_parameters() const {
          return m_parameters;
@@ -488,11 +530,17 @@ class BOTAN_PUBLIC_API(2, 0) AlgorithmIdentifier final : public ASN1_Object {
 
       bool parameters_are_null() const;
 
-      bool parameters_are_empty() const { return m_parameters.empty(); }
+      bool parameters_are_empty() const {
+         return m_parameters.empty();
+      }
 
-      bool parameters_are_null_or_empty() const { return parameters_are_empty() || parameters_are_null(); }
+      bool parameters_are_null_or_empty() const {
+         return parameters_are_empty() || parameters_are_null();
+      }
 
-      bool empty() const { return m_oid.empty() && m_parameters.empty(); }
+      bool empty() const {
+         return m_oid.empty() && m_parameters.empty();
+      }
 
    private:
       OID m_oid;
@@ -510,7 +558,9 @@ BOTAN_PUBLIC_API(2, 0) bool operator!=(const AlgorithmIdentifier& x, const Algor
 template <>
 class std::hash<Botan::OID> {
    public:
-      size_t operator()(const Botan::OID& oid) const noexcept { return static_cast<size_t>(oid.hash_code()); }
+      size_t operator()(const Botan::OID& oid) const noexcept {
+         return static_cast<size_t>(oid.hash_code());
+      }
 };
 
 #endif

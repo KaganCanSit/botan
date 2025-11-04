@@ -33,25 +33,35 @@ class Client_Handshake_State_12 final : public Handshake_State {
          return *m_server_public_key;
       }
 
-      const Public_Key* maybe_server_public_key() const { return m_server_public_key.get(); }
+      const Public_Key* maybe_server_public_key() const {
+         return m_server_public_key.get();
+      }
 
       void record_server_public_key(std::unique_ptr<Public_Key> spk) {
          BOTAN_STATE_CHECK(!m_server_public_key);
          m_server_public_key = std::move(spk);
       }
 
-      bool is_a_resumption() const { return m_resumed_session.has_value(); }
+      bool is_a_resumption() const {
+         return m_resumed_session.has_value();
+      }
 
-      void discard_resumption_state() { m_resumed_session.reset(); }
+      void discard_resumption_state() {
+         m_resumed_session.reset();
+      }
 
       void record_resumption_info(std::optional<Session> session_info) {
          BOTAN_STATE_CHECK(!m_resumed_session.has_value());
          m_resumed_session = std::move(session_info);
       }
 
-      bool is_a_renegotiation() const { return m_is_reneg; }
+      bool is_a_renegotiation() const {
+         return m_is_reneg;
+      }
 
-      void mark_as_renegotiation() { m_is_reneg = true; }
+      void mark_as_renegotiation() {
+         m_is_reneg = true;
+      }
 
       const secure_vector<uint8_t>& resume_master_secret() const {
          BOTAN_STATE_CHECK(is_a_resumption());

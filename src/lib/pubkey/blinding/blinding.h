@@ -79,7 +79,9 @@ class Blinder final {
       Blinder& operator=(Blinder&&) = delete;
       ~Blinder() = default;
 
-      RandomNumberGenerator& rng() const { return m_rng; }
+      RandomNumberGenerator& rng() const {
+         return m_rng;
+      }
 
    private:
       BigInt blinding_nonce() const;

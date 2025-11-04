@@ -125,9 +125,13 @@ class RNG final : public Command {
                "rng --format=hex --system --esdm-full --esdm-pr --jitter --rdrand --auto --entropy --drbg --drbg-seed= *bytes") {
       }
 
-      std::string group() const override { return "misc"; }
+      std::string group() const override {
+         return "misc";
+      }
 
-      std::string description() const override { return "Sample random bytes from the specified rng"; }
+      std::string description() const override {
+         return "Sample random bytes from the specified rng";
+      }
 
       void go() override {
          const std::string format = get_arg("format");

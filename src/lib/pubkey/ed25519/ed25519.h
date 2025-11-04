@@ -16,11 +16,17 @@ namespace Botan {
 
 class BOTAN_PUBLIC_API(2, 2) Ed25519_PublicKey : public virtual Public_Key {
    public:
-      std::string algo_name() const override { return "Ed25519"; }
+      std::string algo_name() const override {
+         return "Ed25519";
+      }
 
-      size_t estimated_strength() const override { return 128; }
+      size_t estimated_strength() const override {
+         return 128;
+      }
 
-      size_t key_length() const override { return 255; }
+      size_t key_length() const override {
+         return 255;
+      }
 
       bool check_key(RandomNumberGenerator& rng, bool strong) const override;
 
@@ -32,7 +38,9 @@ class BOTAN_PUBLIC_API(2, 2) Ed25519_PublicKey : public virtual Public_Key {
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator& rng) const final;
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::Signature); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::Signature);
+      }
 
       BOTAN_DEPRECATED("Use raw_public_key_bits") const std::vector<uint8_t>& get_public_key() const {
          return m_public;
@@ -115,7 +123,9 @@ class BOTAN_PUBLIC_API(2, 2) Ed25519_PrivateKey final : public Ed25519_PublicKey
          return m_private;
       }
 
-      secure_vector<uint8_t> raw_private_key_bits() const override { return m_private; }
+      secure_vector<uint8_t> raw_private_key_bits() const override {
+         return m_private;
+      }
 
       secure_vector<uint8_t> private_key_bits() const override;
 

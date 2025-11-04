@@ -33,9 +33,13 @@ class BOTAN_TEST_API Classic_McEliece_Decryptor final : public PK_Ops::KEM_Decry
       Classic_McEliece_Decryptor(std::shared_ptr<Classic_McEliece_PrivateKeyInternal> key, std::string_view kdf) :
             KEM_Decryption_with_KDF(kdf), m_key(std::move(key)) {}
 
-      size_t raw_kem_shared_key_length() const override { return m_key->params().hash_out_bytes(); }
+      size_t raw_kem_shared_key_length() const override {
+         return m_key->params().hash_out_bytes();
+      }
 
-      size_t encapsulated_key_length() const override { return m_key->params().ciphertext_size(); }
+      size_t encapsulated_key_length() const override {
+         return m_key->params().ciphertext_size();
+      }
 
       void raw_kem_decrypt(std::span<uint8_t> out_shared_key, std::span<const uint8_t> encapsulated_key) override;
 

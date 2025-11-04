@@ -99,9 +99,13 @@ class Channel_Impl_12 : public Channel_Impl {
       */
       bool is_closed() const override;
 
-      bool is_closed_for_reading() const override { return is_closed(); }
+      bool is_closed_for_reading() const override {
+         return is_closed();
+      }
 
-      bool is_closed_for_writing() const override { return is_closed(); }
+      bool is_closed_for_writing() const override {
+         return is_closed();
+      }
 
       /**
       * @return certificate chain of the peer (may be empty)
@@ -114,7 +118,9 @@ class Channel_Impl_12 : public Channel_Impl {
       *
       * @return raw public key of the peer (will be nullptr)
       */
-      std::shared_ptr<const Public_Key> peer_raw_public_key() const override { return nullptr; }
+      std::shared_ptr<const Public_Key> peer_raw_public_key() const override {
+         return nullptr;
+      }
 
       std::optional<std::string> external_psk_identity() const override;
 
@@ -182,13 +188,21 @@ class Channel_Impl_12 : public Channel_Impl {
       std::vector<uint8_t> secure_renegotiation_data_for_client_hello() const;
       std::vector<uint8_t> secure_renegotiation_data_for_server_hello() const;
 
-      RandomNumberGenerator& rng() { return *m_rng; }
+      RandomNumberGenerator& rng() {
+         return *m_rng;
+      }
 
-      Session_Manager& session_manager() { return *m_session_manager; }
+      Session_Manager& session_manager() {
+         return *m_session_manager;
+      }
 
-      const Policy& policy() const { return *m_policy; }
+      const Policy& policy() const {
+         return *m_policy;
+      }
 
-      Callbacks& callbacks() const { return *m_callbacks; }
+      Callbacks& callbacks() const {
+         return *m_callbacks;
+      }
 
       void reset_active_association_state();
 
@@ -214,9 +228,13 @@ class Channel_Impl_12 : public Channel_Impl {
 
       std::shared_ptr<Connection_Cipher_State> write_cipher_state_epoch(uint16_t epoch) const;
 
-      const Handshake_State* active_state() const { return m_active_state.get(); }
+      const Handshake_State* active_state() const {
+         return m_active_state.get();
+      }
 
-      const Handshake_State* pending_state() const { return m_pending_state.get(); }
+      const Handshake_State* pending_state() const {
+         return m_pending_state.get();
+      }
 
       /* methods to handle incoming traffic through Channel_Impl_12::receive_data. */
       void process_handshake_ccs(const secure_vector<uint8_t>& record,

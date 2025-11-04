@@ -158,7 +158,9 @@ class BOTAN_PUBLIC_API(3, 6) EC_Scalar final {
       /**
       * Return true if this EC_Scalar is not zero
       */
-      bool is_nonzero() const { return !is_zero(); }
+      bool is_nonzero() const {
+         return !is_zero();
+      }
 
       /**
       * Constant time modular inversion
@@ -225,13 +227,21 @@ class BOTAN_PUBLIC_API(3, 6) EC_Scalar final {
       */
       BigInt to_bigint() const;
 
-      friend EC_Scalar operator+(const EC_Scalar& x, const EC_Scalar& y) { return x.add(y); }
+      friend EC_Scalar operator+(const EC_Scalar& x, const EC_Scalar& y) {
+         return x.add(y);
+      }
 
-      friend EC_Scalar operator-(const EC_Scalar& x, const EC_Scalar& y) { return x.sub(y); }
+      friend EC_Scalar operator-(const EC_Scalar& x, const EC_Scalar& y) {
+         return x.sub(y);
+      }
 
-      friend EC_Scalar operator*(const EC_Scalar& x, const EC_Scalar& y) { return x.mul(y); }
+      friend EC_Scalar operator*(const EC_Scalar& x, const EC_Scalar& y) {
+         return x.mul(y);
+      }
 
-      friend bool operator==(const EC_Scalar& x, const EC_Scalar& y) { return x.is_eq(y); }
+      friend bool operator==(const EC_Scalar& x, const EC_Scalar& y) {
+         return x.is_eq(y);
+      }
 
       EC_Scalar(const EC_Scalar& other);
       EC_Scalar(EC_Scalar&& other) noexcept;
@@ -241,7 +251,9 @@ class BOTAN_PUBLIC_API(3, 6) EC_Scalar final {
 
       ~EC_Scalar();
 
-      const EC_Scalar_Data& _inner() const { return inner(); }
+      const EC_Scalar_Data& _inner() const {
+         return inner();
+      }
 
       static EC_Scalar _from_inner(std::unique_ptr<EC_Scalar_Data> inner);
 
@@ -250,7 +262,9 @@ class BOTAN_PUBLIC_API(3, 6) EC_Scalar final {
 
       explicit EC_Scalar(std::unique_ptr<EC_Scalar_Data> scalar);
 
-      const EC_Scalar_Data& inner() const { return *m_scalar; }
+      const EC_Scalar_Data& inner() const {
+         return *m_scalar;
+      }
 
       std::unique_ptr<EC_Scalar_Data> m_scalar;
 };

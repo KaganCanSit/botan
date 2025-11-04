@@ -131,7 +131,9 @@ class PKCS11_RSA_Decryption_Operation final : public PK_Ops::Decryption {
                },
                [this](const BigInt& k) { return inverse_mod_rsa_public_modulus(k, m_key.get_n()); }) {}
 
-      size_t plaintext_length(size_t /*ctext_len*/) const override { return m_key.get_n().bytes(); }
+      size_t plaintext_length(size_t /*ctext_len*/) const override {
+         return m_key.get_n().bytes();
+      }
 
       secure_vector<uint8_t> decrypt(uint8_t& valid_mask, std::span<const uint8_t> ctext) override {
          valid_mask = 0;
@@ -182,7 +184,9 @@ class PKCS11_RSA_Decryption_Operation_Software_EME final : public PK_Ops::Decryp
                                                    RandomNumberGenerator& rng) :
             PK_Ops::Decryption_with_Padding(padding), m_raw_decryptor(key, rng, "Raw") {}
 
-      size_t plaintext_length(size_t ctext_len) const override { return m_raw_decryptor.plaintext_length(ctext_len); }
+      size_t plaintext_length(size_t ctext_len) const override {
+         return m_raw_decryptor.plaintext_length(ctext_len);
+      }
 
       secure_vector<uint8_t> raw_decrypt(std::span<const uint8_t> input) override {
          return m_raw_decryptor.decrypt(input);
@@ -201,9 +205,13 @@ class PKCS11_RSA_Encryption_Operation final : public PK_Ops::Encryption {
             m_mechanism(MechanismWrapper::create_rsa_crypt_mechanism(padding)),
             m_bits(8 * (key.get_n().bytes() - m_mechanism.padding_size()) - 1) {}
 
-      size_t ciphertext_length(size_t /*ptext_len*/) const override { return m_key.get_n().bytes(); }
+      size_t ciphertext_length(size_t /*ptext_len*/) const override {
+         return m_key.get_n().bytes();
+      }
 
-      size_t max_input_bits() const override { return m_bits; }
+      size_t max_input_bits() const override {
+         return m_bits;
+      }
 
       std::vector<uint8_t> encrypt(std::span<const uint8_t> input, RandomNumberGenerator& /*rng*/) override {
          m_key.module()->C_EncryptInit(m_key.session().handle(), m_mechanism.data(), m_key.handle());
@@ -225,7 +233,9 @@ class PKCS11_RSA_Signature_Operation final : public PK_Ops::Signature {
       PKCS11_RSA_Signature_Operation(const PKCS11_RSA_PrivateKey& key, std::string_view padding) :
             m_key(key), m_mechanism(MechanismWrapper::create_rsa_sign_mechanism(padding)) {}
 
-      size_t signature_length() const override { return m_key.get_n().bytes(); }
+      size_t signature_length() const override {
+         return m_key.get_n().bytes();
+      }
 
       void update(std::span<const uint8_t> input) override {
          if(!m_initialized) {

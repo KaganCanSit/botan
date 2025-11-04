@@ -30,9 +30,13 @@ class Dictionary {
          return r;
       }
 
-      std::string derank(size_t rank) const { return m_dict.at(rank); }
+      std::string derank(size_t rank) const {
+         return m_dict.at(rank);
+      }
 
-      size_t size() const { return m_dict.size(); }
+      size_t size() const {
+         return m_dict.size();
+      }
 
    private:
       std::vector<std::string> m_dict;

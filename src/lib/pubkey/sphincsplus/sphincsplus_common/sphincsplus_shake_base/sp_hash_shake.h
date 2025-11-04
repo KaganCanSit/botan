@@ -59,7 +59,9 @@ class Sphincs_Hash_Functions_Shake : public Sphincs_Hash_Functions {
          m_hash.final(out);
       }
 
-      std::string msg_hash_function_name() const override { return m_h_msg_hash.name(); }
+      std::string msg_hash_function_name() const override {
+         return m_h_msg_hash.name();
+      }
 
    private:
       SHAKE_256 m_seeded_hash;

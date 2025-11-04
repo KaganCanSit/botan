@@ -50,23 +50,33 @@ class BOTAN_PUBLIC_API(2, 0) Channel {
       * @return a hint as to how many more bytes we need to process the
       *         current record (this may be 0 if on a record boundary)
       */
-      size_t received_data(std::span<const uint8_t> data) { return this->from_peer(data); }
+      size_t received_data(std::span<const uint8_t> data) {
+         return this->from_peer(data);
+      }
 
-      size_t received_data(const uint8_t buf[], size_t buf_size) { return this->from_peer(std::span(buf, buf_size)); }
-
-      /**
-      * Inject plaintext intended for counterparty
-      * Throws an exception if is_active() is false
-      */
-      void send(std::span<const uint8_t> data) { this->to_peer(data); }
-
-      void send(const uint8_t buf[], size_t buf_size) { this->to_peer(std::span(buf, buf_size)); }
+      size_t received_data(const uint8_t buf[], size_t buf_size) {
+         return this->from_peer(std::span(buf, buf_size));
+      }
 
       /**
       * Inject plaintext intended for counterparty
       * Throws an exception if is_active() is false
       */
-      void send(std::string_view s) { this->send({reinterpret_cast<const uint8_t*>(s.data()), s.size()}); }
+      void send(std::span<const uint8_t> data) {
+         this->to_peer(data);
+      }
+
+      void send(const uint8_t buf[], size_t buf_size) {
+         this->to_peer(std::span(buf, buf_size));
+      }
+
+      /**
+      * Inject plaintext intended for counterparty
+      * Throws an exception if is_active() is false
+      */
+      void send(std::string_view s) {
+         this->send({reinterpret_cast<const uint8_t*>(s.data()), s.size()});
+      }
 
       /**
       * Inject plaintext intended for counterparty

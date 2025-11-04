@@ -78,7 +78,9 @@ class HSS_LMS_Verification_Operation final : public PK_Ops::Verification {
          }
       }
 
-      std::string hash_function() const override { return m_public->lms_pub_key().lms_params().hash_name(); }
+      std::string hash_function() const override {
+         return m_public->lms_pub_key().lms_params().hash_name();
+      }
 
    private:
       std::shared_ptr<HSS_LMS_PublicKeyInternal> m_public;
@@ -183,11 +185,17 @@ class HSS_LMS_Signature_Operation final : public PK_Ops::Signature {
          return CT::driveby_unpoison(m_private->sign(message_to_sign));
       }
 
-      size_t signature_length() const override { return m_private->signature_size(); }
+      size_t signature_length() const override {
+         return m_private->signature_size();
+      }
 
-      AlgorithmIdentifier algorithm_identifier() const override { return m_public->algorithm_identifier(); }
+      AlgorithmIdentifier algorithm_identifier() const override {
+         return m_public->algorithm_identifier();
+      }
 
-      std::string hash_function() const override { return m_public->lms_pub_key().lms_params().hash_name(); }
+      std::string hash_function() const override {
+         return m_public->lms_pub_key().lms_params().hash_name();
+      }
 
    private:
       std::shared_ptr<HSS_LMS_PrivateKeyInternal> m_private;

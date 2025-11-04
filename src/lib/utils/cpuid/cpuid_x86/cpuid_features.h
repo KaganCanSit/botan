@@ -49,7 +49,9 @@ class BOTAN_TEST_API CPUFeature {
 
       CPUFeature(Bit b) : m_bit(b) {}  // NOLINT(*-explicit-conversions)
 
-      uint32_t as_u32() const { return static_cast<uint32_t>(m_bit); }
+      uint32_t as_u32() const {
+         return static_cast<uint32_t>(m_bit);
+      }
 
       std::string to_string() const;
 

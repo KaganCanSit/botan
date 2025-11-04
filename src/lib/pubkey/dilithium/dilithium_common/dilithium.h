@@ -46,11 +46,15 @@ class BOTAN_PUBLIC_API(3, 0) DilithiumMode {
       BOTAN_DEPRECATED("Dilithium AES mode is deprecated") bool is_modern() const;
       bool is_ml_dsa() const;
 
-      bool is_dilithium_round3() const { return !is_ml_dsa(); }
+      bool is_dilithium_round3() const {
+         return !is_ml_dsa();
+      }
 
       bool is_available() const;
 
-      Mode mode() const { return m_mode; }
+      Mode mode() const {
+         return m_mode;
+      }
 
    private:
       Mode m_mode;
@@ -83,7 +87,9 @@ class BOTAN_PUBLIC_API(3, 0) Dilithium_PublicKey : public virtual Public_Key {
 
       bool check_key(RandomNumberGenerator& rng, bool strong) const override;
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::Signature); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::Signature);
+      }
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator& rng) const final;
 

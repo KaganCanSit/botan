@@ -33,7 +33,9 @@ class PerfTest_ASN1_Parsing final : public PerfTest {
       };
 
    private:
-      static std::string_view get_hash_function() { return "SHAKE-256(512)"; }
+      static std::string_view get_hash_function() {
+         return "SHAKE-256(512)";
+      }
 
       static std::unique_ptr<Botan::Private_Key> create_private_key(Botan::RandomNumberGenerator& rng) {
          return Botan::create_private_key("ML-DSA", rng, "ML-DSA-6x5");

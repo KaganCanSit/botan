@@ -78,13 +78,17 @@ class BOTAN_PUBLIC_API(2, 0) Pipe final : public DataSource {
       * Write input to the pipe, i.e. to its first filter.
       * @param in the secure_vector containing the data to write
       */
-      void write(const secure_vector<uint8_t>& in) { write(in.data(), in.size()); }
+      void write(const secure_vector<uint8_t>& in) {
+         write(in.data(), in.size());
+      }
 
       /**
       * Write input to the pipe, i.e. to its first filter.
       * @param in the std::vector containing the data to write
       */
-      void write(const std::vector<uint8_t>& in) { write(in.data(), in.size()); }
+      void write(const std::vector<uint8_t>& in) {
+         write(in.data(), in.size());
+      }
 
       /**
       * Write input to the pipe, i.e. to its first filter.
@@ -253,7 +257,9 @@ class BOTAN_PUBLIC_API(2, 0) Pipe final : public DataSource {
       /**
       * @return currently set default message
       */
-      size_t default_msg() const { return m_default_read; }
+      size_t default_msg() const {
+         return m_default_read;
+      }
 
       /**
       * Set the default message

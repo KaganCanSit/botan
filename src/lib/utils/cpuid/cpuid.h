@@ -91,7 +91,9 @@ class BOTAN_TEST_API CPUID final {
       /**
       * Check if a feature is supported
       */
-      static bool has(CPUID::Feature feat) { return state().has_bit(feat.as_u32()); }
+      static bool has(CPUID::Feature feat) {
+         return state().has_bit(feat.as_u32());
+      }
 
       /**
       * Check if two features are both supported
@@ -106,7 +108,9 @@ class BOTAN_TEST_API CPUID final {
       *
       * This is only exposed for testing and should never be called within the library
       */
-      static void clear_cpuid_bit(CPUID::Feature bit) { state().clear_cpuid_bit(bit.as_u32()); }
+      static void clear_cpuid_bit(CPUID::Feature bit) {
+         state().clear_cpuid_bit(bit.as_u32());
+      }
 
       static std::optional<CPUID::Feature> bit_from_string(std::string_view tok);
 
@@ -139,11 +143,17 @@ class BOTAN_TEST_API CPUID final {
             CPUID_Data& operator=(CPUID_Data&& other) = default;
             ~CPUID_Data() = default;
 
-            void clear_cpuid_bit(uint32_t bit) { m_processor_features &= ~bit; }
+            void clear_cpuid_bit(uint32_t bit) {
+               m_processor_features &= ~bit;
+            }
 
-            bool has_bit(uint32_t bit) const { return (m_processor_features & bit) == bit; }
+            bool has_bit(uint32_t bit) const {
+               return (m_processor_features & bit) == bit;
+            }
 
-            uint32_t bitset() const { return m_processor_features; }
+            uint32_t bitset() const {
+               return m_processor_features;
+            }
 
          private:
 #if defined(BOTAN_HAS_CPUID_DETECTION)

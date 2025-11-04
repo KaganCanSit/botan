@@ -69,17 +69,25 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_PublicKey : public virtual Public_Key {
                      secure_vector<uint8_t> root,
                      secure_vector<uint8_t> public_seed);
 
-      std::string algo_name() const override { return "XMSS"; }
+      std::string algo_name() const override {
+         return "XMSS";
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override {
          return AlgorithmIdentifier(object_identifier(), AlgorithmIdentifier::USE_EMPTY_PARAM);
       }
 
-      bool check_key(RandomNumberGenerator& /*rng*/, bool /*strong*/) const override { return true; }
+      bool check_key(RandomNumberGenerator& /*rng*/, bool /*strong*/) const override {
+         return true;
+      }
 
-      size_t estimated_strength() const override { return m_xmss_params.estimated_strength(); }
+      size_t estimated_strength() const override {
+         return m_xmss_params.estimated_strength();
+      }
 
-      size_t key_length() const override { return m_xmss_params.estimated_strength(); }
+      size_t key_length() const override {
+         return m_xmss_params.estimated_strength();
+      }
 
       /**
        * Generates a byte sequence representing the XMSS
@@ -102,7 +110,9 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_PublicKey : public virtual Public_Key {
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator& rng) const final;
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::Signature); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::Signature);
+      }
 
       std::unique_ptr<PK_Ops::Verification> create_verification_op(std::string_view params,
                                                                    std::string_view provider) const override;
@@ -113,11 +123,17 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_PublicKey : public virtual Public_Key {
    protected:
       friend class XMSS_Verification_Operation;
 
-      const secure_vector<uint8_t>& public_seed() const { return m_public_seed; }
+      const secure_vector<uint8_t>& public_seed() const {
+         return m_public_seed;
+      }
 
-      const secure_vector<uint8_t>& root() const { return m_root; }
+      const secure_vector<uint8_t>& root() const {
+         return m_root;
+      }
 
-      const XMSS_Parameters& xmss_parameters() const { return m_xmss_params; }
+      const XMSS_Parameters& xmss_parameters() const {
+         return m_xmss_params;
+      }
 
    protected:
       std::vector<uint8_t> m_raw_key;        // NOLINT(*non-private-member-variable*)
@@ -212,7 +228,9 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_PrivateKey final : public virtual XMSS_PublicK
                       secure_vector<uint8_t> public_seed,
                       WOTS_Derivation_Method wots_derivation_method = WOTS_Derivation_Method::NIST_SP800_208);
 
-      bool stateful_operation() const override { return true; }
+      bool stateful_operation() const override {
+         return true;
+      }
 
       std::unique_ptr<Public_Key> public_key() const override;
 

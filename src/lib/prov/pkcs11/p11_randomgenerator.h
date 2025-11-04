@@ -25,10 +25,14 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_RNG final : public Hardware_RNG {
       /// Initialize the RNG with the PKCS#11 session that provides access to the cryptoki functions
       explicit PKCS11_RNG(Session& session);
 
-      std::string name() const override { return "PKCS11_RNG"; }
+      std::string name() const override {
+         return "PKCS11_RNG";
+      }
 
       /// Always returns true
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
       /// No operation - always returns 0
       size_t reseed(Entropy_Sources& /*srcs*/, size_t /*bits*/, std::chrono::milliseconds /*timeout*/) override {
@@ -36,10 +40,14 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_RNG final : public Hardware_RNG {
       }
 
       /// @return the module used by this RNG
-      inline Module& module() const { return m_session.get().module(); }
+      inline Module& module() const {
+         return m_session.get().module();
+      }
 
       // C_SeedRandom may succeed
-      bool accepts_input() const override { return true; }
+      bool accepts_input() const override {
+         return true;
+      }
 
    private:
       /// Calls `C_GenerateRandom` to generate random data

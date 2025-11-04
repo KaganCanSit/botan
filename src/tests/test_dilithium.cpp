@@ -266,7 +266,9 @@ class Dilithium_Keygen_Tests final : public PK_Key_Generation_Test {
          }
       }
 
-      std::string algo_name() const override { throw Test_Error("No default algo name set for Dilithium"); }
+      std::string algo_name() const override {
+         throw Test_Error("No default algo name set for Dilithium");
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /* provider */,

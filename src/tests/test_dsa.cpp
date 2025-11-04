@@ -33,7 +33,9 @@ class DSA_KAT_Tests final : public PK_Signature_Generation_Test {
                                          "") {
       }
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) override {
          const Botan::BigInt p = vars.get_req_bn("P");
@@ -46,7 +48,9 @@ class DSA_KAT_Tests final : public PK_Signature_Generation_Test {
          return std::make_unique<Botan::DSA_PrivateKey>(group, x);
       }
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Hash"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Hash");
+      }
 };
 
 class DSA_KAT_Verification_Tests final : public PK_Signature_Verification_Test {
@@ -63,7 +67,9 @@ class DSA_KAT_Verification_Tests final : public PK_Signature_Verification_Test {
                                            "") {
       }
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          const Botan::BigInt p = vars.get_req_bn("P");
@@ -78,7 +84,9 @@ class DSA_KAT_Verification_Tests final : public PK_Signature_Verification_Test {
          return priv_key.public_key();
       }
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Hash"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Hash");
+      }
 };
 
 class DSA_Verification_Tests final : public PK_Signature_Verification_Test {
@@ -86,7 +94,9 @@ class DSA_Verification_Tests final : public PK_Signature_Verification_Test {
       DSA_Verification_Tests() :
             PK_Signature_Verification_Test("DSA", "pubkey/dsa_verify.vec", "P,Q,G,Y,Msg,Signature") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          const Botan::BigInt p = vars.get_req_bn("P");
@@ -99,14 +109,20 @@ class DSA_Verification_Tests final : public PK_Signature_Verification_Test {
          return std::make_unique<Botan::DSA_PublicKey>(group, y);
       }
 
-      std::string default_padding(const VarMap& /*unused*/) const override { return "Raw"; }
+      std::string default_padding(const VarMap& /*unused*/) const override {
+         return "Raw";
+      }
 };
 
 class DSA_Keygen_Tests final : public PK_Key_Generation_Test {
    public:
-      std::vector<std::string> keygen_params() const override { return {"dsa/jce/1024"}; }
+      std::vector<std::string> keygen_params() const override {
+         return {"dsa/jce/1024"};
+      }
 
-      std::string algo_name() const override { return "DSA"; }
+      std::string algo_name() const override {
+         return "DSA";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /* provider */,

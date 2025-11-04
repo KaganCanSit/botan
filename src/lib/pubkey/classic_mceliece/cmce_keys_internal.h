@@ -55,19 +55,27 @@ class BOTAN_TEST_API Classic_McEliece_PublicKeyInternal {
       /**
        * @brief Serializes the Classic McEliece public key as defined in Classic McEliece ISO Section 9.2.7.
        */
-      std::vector<uint8_t> serialize() const { return m_matrix.bytes(); }
+      std::vector<uint8_t> serialize() const {
+         return m_matrix.bytes();
+      }
 
       /**
        * @brief The Classic McEliece matrix.
        */
-      const Classic_McEliece_Matrix& matrix() const { return m_matrix; }
+      const Classic_McEliece_Matrix& matrix() const {
+         return m_matrix;
+      }
 
       /**
        * @brief The Classic McEliece parameters.
        */
-      const Classic_McEliece_Parameters& params() const { return m_params; }
+      const Classic_McEliece_Parameters& params() const {
+         return m_params;
+      }
 
-      constexpr void _const_time_unpoison() const { CT::unpoison(m_matrix); }
+      constexpr void _const_time_unpoison() const {
+         CT::unpoison(m_matrix);
+      }
 
    private:
       Classic_McEliece_Parameters m_params;
@@ -133,32 +141,44 @@ class BOTAN_TEST_API Classic_McEliece_PrivateKeyInternal {
       /**
        * @brief The seed delta that was used to create the private key.
        */
-      const CmceKeyGenSeed& delta() const { return m_delta; }
+      const CmceKeyGenSeed& delta() const {
+         return m_delta;
+      }
 
       /**
        * @brief The column selection pivot vector c as defined in Classic McEliece ISO Section 9.2.11.
        */
-      const CmceColumnSelection& c() const { return m_c; }
+      const CmceColumnSelection& c() const {
+         return m_c;
+      }
 
       /**
        * @brief The minimal polynomial g.
        */
-      const Classic_McEliece_Minimal_Polynomial& g() const { return m_g; }
+      const Classic_McEliece_Minimal_Polynomial& g() const {
+         return m_g;
+      }
 
       /**
        * @brief The field ordering alpha.
        */
-      const Classic_McEliece_Field_Ordering& field_ordering() const { return m_field_ordering; }
+      const Classic_McEliece_Field_Ordering& field_ordering() const {
+         return m_field_ordering;
+      }
 
       /**
        * @brief The seed s for implicit rejection on decryption failure.
        */
-      const CmceRejectionSeed& s() const { return m_s; }
+      const CmceRejectionSeed& s() const {
+         return m_s;
+      }
 
       /**
        * @brief The Classic McEliece parameters.
        */
-      const Classic_McEliece_Parameters& params() const { return m_params; }
+      const Classic_McEliece_Parameters& params() const {
+         return m_params;
+      }
 
       /**
        * @brief Checks the private key for consistency with the first component delta, i.e.,
@@ -170,9 +190,13 @@ class BOTAN_TEST_API Classic_McEliece_PrivateKeyInternal {
        */
       bool check_key() const;
 
-      constexpr void _const_time_poison() const { CT::poison_all(m_delta, m_c, m_g, m_field_ordering, m_s); }
+      constexpr void _const_time_poison() const {
+         CT::poison_all(m_delta, m_c, m_g, m_field_ordering, m_s);
+      }
 
-      constexpr void _const_time_unpoison() const { CT::unpoison_all(m_delta, m_c, m_g, m_field_ordering, m_s); }
+      constexpr void _const_time_unpoison() const {
+         CT::unpoison_all(m_delta, m_c, m_g, m_field_ordering, m_s);
+      }
 
    private:
       Classic_McEliece_Parameters m_params;

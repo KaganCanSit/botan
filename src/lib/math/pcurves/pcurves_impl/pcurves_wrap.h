@@ -29,11 +29,17 @@ class PrimeOrderCurveImpl final : public PrimeOrderCurve {
       static_assert(C::OrderBits <= PrimeOrderCurve::MaximumBitLength);
       static_assert(C::PrimeFieldBits <= PrimeOrderCurve::MaximumBitLength);
 
-      size_t order_bits() const override { return C::OrderBits; }
+      size_t order_bits() const override {
+         return C::OrderBits;
+      }
 
-      size_t scalar_bytes() const override { return C::Scalar::BYTES; }
+      size_t scalar_bytes() const override {
+         return C::Scalar::BYTES;
+      }
 
-      size_t field_element_bytes() const override { return C::FieldElement::BYTES; }
+      size_t field_element_bytes() const override {
+         return C::FieldElement::BYTES;
+      }
 
       ProjectivePoint mul_by_g(const Scalar& scalar, RandomNumberGenerator& rng) const override {
          return stash(m_mul_by_g.mul(from_stash(scalar), rng));
@@ -56,7 +62,9 @@ class PrimeOrderCurveImpl final : public PrimeOrderCurve {
 
       class PrecomputedMul2TableC final : public PrimeOrderCurve::PrecomputedMul2Table {
          public:
-            const auto& table() const { return m_table; }
+            const auto& table() const {
+               return m_table;
+            }
 
             explicit PrecomputedMul2TableC(const typename C::AffinePoint& x, const typename C::AffinePoint& y) :
                   m_table(x, y) {}
@@ -184,7 +192,9 @@ class PrimeOrderCurveImpl final : public PrimeOrderCurve {
          return stash(C::Scalar::from_wide_bytes(std::span<const uint8_t, C::FieldElement::BYTES>{x_bytes}));
       }
 
-      AffinePoint generator() const override { return stash(C::G); }
+      AffinePoint generator() const override {
+         return stash(C::G);
+      }
 
       AffinePoint point_to_affine(const ProjectivePoint& pt) const override {
          auto affine = to_affine<C>(from_stash(pt));
@@ -202,7 +212,9 @@ class PrimeOrderCurveImpl final : public PrimeOrderCurve {
          return stash(C::ProjectivePoint::from_affine(from_stash(a)) + from_stash(b));
       }
 
-      AffinePoint point_negate(const AffinePoint& pt) const override { return stash(from_stash(pt).negate()); }
+      AffinePoint point_negate(const AffinePoint& pt) const override {
+         return stash(from_stash(pt).negate());
+      }
 
       bool affine_point_is_identity(const AffinePoint& pt) const override {
          return from_stash(pt).is_identity().as_bool();
@@ -302,7 +314,9 @@ class PrimeOrderCurveImpl final : public PrimeOrderCurve {
          return stash(from_stash(a) * from_stash(b));
       }
 
-      Scalar scalar_square(const Scalar& s) const override { return stash(from_stash(s).square()); }
+      Scalar scalar_square(const Scalar& s) const override {
+         return stash(from_stash(s).square());
+      }
 
       Scalar scalar_invert(const Scalar& ss) const override {
          auto s = from_stash(ss);
@@ -318,17 +332,25 @@ class PrimeOrderCurveImpl final : public PrimeOrderCurve {
          return stash(s.invert_vartime());
       }
 
-      Scalar scalar_negate(const Scalar& s) const override { return stash(from_stash(s).negate()); }
+      Scalar scalar_negate(const Scalar& s) const override {
+         return stash(from_stash(s).negate());
+      }
 
-      bool scalar_is_zero(const Scalar& s) const override { return from_stash(s).is_zero().as_bool(); }
+      bool scalar_is_zero(const Scalar& s) const override {
+         return from_stash(s).is_zero().as_bool();
+      }
 
       bool scalar_equal(const Scalar& a, const Scalar& b) const override {
          return (from_stash(a) == from_stash(b)).as_bool();
       }
 
-      Scalar scalar_one() const override { return stash(C::Scalar::one()); }
+      Scalar scalar_one() const override {
+         return stash(C::Scalar::one());
+      }
 
-      Scalar random_scalar(RandomNumberGenerator& rng) const override { return stash(C::Scalar::random(rng)); }
+      Scalar random_scalar(RandomNumberGenerator& rng) const override {
+         return stash(C::Scalar::random(rng));
+      }
 
       PrimeOrderCurveImpl() : m_mul_by_g(C::G) {}
 

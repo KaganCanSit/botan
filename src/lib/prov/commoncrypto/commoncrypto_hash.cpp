@@ -34,9 +34,13 @@ class CommonCrypto_HashFunction final : public HashFunction {
             throw CommonCrypto_Error("CC_" + m_info.name + "_Init");
       }
 
-      std::string provider() const override { return "commoncrypto"; }
+      std::string provider() const override {
+         return "commoncrypto";
+      }
 
-      std::string name() const override { return m_info.name; }
+      std::string name() const override {
+         return m_info.name;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override {
          return std::make_unique<CommonCrypto_HashFunction>(m_info);
@@ -46,11 +50,17 @@ class CommonCrypto_HashFunction final : public HashFunction {
          return std::unique_ptr<CommonCrypto_HashFunction>(new CommonCrypto_HashFunction(m_info, m_ctx));
       }
 
-      size_t output_length() const override { return m_info.digestLength; }
+      size_t output_length() const override {
+         return m_info.digestLength;
+      }
 
-      size_t hash_block_size() const override { return m_info.blockSize; }
+      size_t hash_block_size() const override {
+         return m_info.blockSize;
+      }
 
-      CommonCrypto_HashFunction(const digest_config_t& info) : m_info(info) { clear(); }
+      CommonCrypto_HashFunction(const digest_config_t& info) : m_info(info) {
+         clear();
+      }
 
       CommonCrypto_HashFunction(const digest_config_t& info, const CTX& ctx) : m_ctx(ctx), m_info(info) {}
 

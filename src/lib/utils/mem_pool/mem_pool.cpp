@@ -276,11 +276,17 @@ class Bucket final {
          return true;
       }
 
-      bool in_this_bucket(void* p) const { return ptr_in_pool(m_range, m_page_size, p, m_item_size); }
+      bool in_this_bucket(void* p) const {
+         return ptr_in_pool(m_range, m_page_size, p, m_item_size);
+      }
 
-      bool empty() const { return m_bitmap.empty(); }
+      bool empty() const {
+         return m_bitmap.empty();
+      }
 
-      uint8_t* ptr() const { return m_range; }
+      uint8_t* ptr() const {
+         return m_range;
+      }
 
    private:
       size_t m_item_size;

@@ -62,7 +62,9 @@ class Client_Impl_12 : public Channel_Impl_12 {
       /**
       * @return network protocol as advertised by the TLS server, if server sent the ALPN extension
       */
-      std::string application_protocol() const override { return m_application_protocol; }
+      std::string application_protocol() const override {
+         return m_application_protocol;
+      }
 
    private:
       std::vector<X509_Certificate> get_peer_cert_chain(const Handshake_State& state) const override;

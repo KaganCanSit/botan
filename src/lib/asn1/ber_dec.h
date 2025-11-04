@@ -122,9 +122,13 @@ class BOTAN_PUBLIC_API(2, 0) BER_Decoder final {
 
       BER_Decoder start_cons(ASN1_Type type_tag, ASN1_Class class_tag);
 
-      BER_Decoder start_sequence() { return start_cons(ASN1_Type::Sequence, ASN1_Class::Universal); }
+      BER_Decoder start_sequence() {
+         return start_cons(ASN1_Type::Sequence, ASN1_Class::Universal);
+      }
 
-      BER_Decoder start_set() { return start_cons(ASN1_Type::Set, ASN1_Class::Universal); }
+      BER_Decoder start_set() {
+         return start_cons(ASN1_Type::Set, ASN1_Class::Universal);
+      }
 
       BER_Decoder start_context_specific(uint32_t tag) {
          return start_cons(ASN1_Type(tag), ASN1_Class::ContextSpecific);
@@ -185,17 +189,23 @@ class BOTAN_PUBLIC_API(2, 0) BER_Decoder final {
       /**
       * Decode a BER encoded BOOLEAN
       */
-      BER_Decoder& decode(bool& out) { return decode(out, ASN1_Type::Boolean, ASN1_Class::Universal); }
+      BER_Decoder& decode(bool& out) {
+         return decode(out, ASN1_Type::Boolean, ASN1_Class::Universal);
+      }
 
       /*
       * Decode a small BER encoded INTEGER
       */
-      BER_Decoder& decode(size_t& out) { return decode(out, ASN1_Type::Integer, ASN1_Class::Universal); }
+      BER_Decoder& decode(size_t& out) {
+         return decode(out, ASN1_Type::Integer, ASN1_Class::Universal);
+      }
 
       /*
       * Decode a BER encoded INTEGER
       */
-      BER_Decoder& decode(BigInt& out) { return decode(out, ASN1_Type::Integer, ASN1_Class::Universal); }
+      BER_Decoder& decode(BigInt& out) {
+         return decode(out, ASN1_Type::Integer, ASN1_Class::Universal);
+      }
 
       std::vector<uint8_t> get_next_octet_string() {
          std::vector<uint8_t> out_vec;

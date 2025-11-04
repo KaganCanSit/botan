@@ -71,9 +71,13 @@ class BOTAN_PUBLIC_API(3, 4) Classic_McEliece_Parameter_Set {
       /**
        * @brief Get the code for a given parameter set.
        */
-      Code code() const { return m_code; }
+      Code code() const {
+         return m_code;
+      }
 
-      bool operator==(const Classic_McEliece_Parameter_Set& other) const { return m_code == other.m_code; }
+      bool operator==(const Classic_McEliece_Parameter_Set& other) const {
+         return m_code == other.m_code;
+      }
 
    private:
       const Code m_code;

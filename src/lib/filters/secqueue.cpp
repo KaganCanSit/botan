@@ -54,7 +54,9 @@ class SecureQueueNode final {
          return copied;
       }
 
-      size_t size() const { return (m_end - m_start); }
+      size_t size() const {
+         return (m_end - m_start);
+      }
 
    private:
       friend class SecureQueue;

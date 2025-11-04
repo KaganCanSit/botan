@@ -28,12 +28,18 @@ class EC_PublicKey_Data final {
       EC_PublicKey_Data(const EC_Group& group, std::span<const uint8_t> bytes) :
             EC_PublicKey_Data(group, EC_AffinePoint(group, bytes)) {}
 
-      const EC_Group& group() const { return m_group; }
+      const EC_Group& group() const {
+         return m_group;
+      }
 
-      const EC_AffinePoint& public_key() const { return m_point; }
+      const EC_AffinePoint& public_key() const {
+         return m_point;
+      }
 
 #if defined(BOTAN_HAS_LEGACY_EC_POINT)
-      const EC_Point& legacy_point() const { return m_legacy_point; }
+      const EC_Point& legacy_point() const {
+         return m_legacy_point;
+      }
 #endif
 
    private:
@@ -69,11 +75,17 @@ class EC_PrivateKey_Data final {
          return bytes;
       }
 
-      const EC_Group& group() const { return m_group; }
+      const EC_Group& group() const {
+         return m_group;
+      }
 
-      const EC_Scalar& private_key() const { return m_scalar; }
+      const EC_Scalar& private_key() const {
+         return m_scalar;
+      }
 
-      const BigInt& legacy_bigint() const { return m_legacy_x; }
+      const BigInt& legacy_bigint() const {
+         return m_legacy_x;
+      }
 
    private:
       EC_Group m_group;

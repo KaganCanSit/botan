@@ -60,19 +60,25 @@ class BOTAN_PUBLIC_API(2, 0) MessageAuthenticationCode : public Buffered_Computa
       *
       * @param nonce the message nonce bytes
       */
-      void start(std::span<const uint8_t> nonce) { start_msg(nonce); }
+      void start(std::span<const uint8_t> nonce) {
+         start_msg(nonce);
+      }
 
       /**
       * Begin processing a message.
       * @param nonce the per message nonce
       * @param nonce_len length of nonce
       */
-      void start(const uint8_t nonce[], size_t nonce_len) { start_msg({nonce, nonce_len}); }
+      void start(const uint8_t nonce[], size_t nonce_len) {
+         start_msg({nonce, nonce_len});
+      }
 
       /**
       * Begin processing a message.
       */
-      void start() { return start_msg({}); }
+      void start() {
+         return start_msg({});
+      }
 
       /**
       * Verify a MAC.
@@ -80,14 +86,18 @@ class BOTAN_PUBLIC_API(2, 0) MessageAuthenticationCode : public Buffered_Computa
       * @param length the length of param in
       * @return true if the MAC is valid, false otherwise
       */
-      bool verify_mac(const uint8_t in[], size_t length) { return verify_mac_result({in, length}); }
+      bool verify_mac(const uint8_t in[], size_t length) {
+         return verify_mac_result({in, length});
+      }
 
       /**
       * Verify a MAC.
       * @param in the MAC to verify as a byte array
       * @return true if the MAC is valid, false otherwise
       */
-      bool verify_mac(std::span<const uint8_t> in) { return verify_mac_result(in); }
+      bool verify_mac(std::span<const uint8_t> in) {
+         return verify_mac_result(in);
+      }
 
       /**
       * @return new object representing the same algorithm as *this
@@ -97,13 +107,17 @@ class BOTAN_PUBLIC_API(2, 0) MessageAuthenticationCode : public Buffered_Computa
       /**
       * Get a new object representing the same algorithm as *this
       */
-      MessageAuthenticationCode* clone() const { return this->new_object().release(); }
+      MessageAuthenticationCode* clone() const {
+         return this->new_object().release();
+      }
 
       /**
       * @return provider information about this implementation. Default is "base",
       * might also return "sse2", "avx2", "openssl", or some other arbitrary string.
       */
-      virtual std::string provider() const { return "base"; }
+      virtual std::string provider() const {
+         return "base";
+      }
 
       /**
       * @return if a fresh key must be set for each message that is processed.
@@ -111,7 +125,9 @@ class BOTAN_PUBLIC_API(2, 0) MessageAuthenticationCode : public Buffered_Computa
       * This is required for certain polynomial-based MACs which are insecure
       * if a key is ever reused for two different messages.
       */
-      virtual bool fresh_key_required_per_message() const { return false; }
+      virtual bool fresh_key_required_per_message() const {
+         return false;
+      }
 
    protected:
       /**

@@ -45,14 +45,18 @@ class XMSS_Address final {
        *
        * @return Layer address, which is constant 0 for XMSS.
        **/
-      uint8_t get_layer_addr() const { return 0; }
+      uint8_t get_layer_addr() const {
+         return 0;
+      }
 
       /**
        * Layer Address for XMSS is constantly zero and can not be changed this
        * property is only of relevance to XMSS_MT. Calling this method for
        * XMSS will result in an error.
        **/
-      void set_layer_addr() { BOTAN_ASSERT(false, "Only available in XMSS_MT."); }
+      void set_layer_addr() {
+         BOTAN_ASSERT(false, "Only available in XMSS_MT.");
+      }
 
       /**
        * Tree Address for XMSS is constantly zero and can not be changed this
@@ -60,14 +64,18 @@ class XMSS_Address final {
        *
        * @return Tree address, which is constant 0 for XMSS.
        **/
-      uint64_t get_tree_addr() const { return 0; }
+      uint64_t get_tree_addr() const {
+         return 0;
+      }
 
       /**
        * Tree Address for XMSS is constantly zero and can not be changed this
        * property is only of relevance to XMSS_MT. Calling this method for
        * XMSS will result in an error.
        **/
-      void set_tree_addr() { BOTAN_ASSERT(false, "Only available in XMSS_MT."); }
+      void set_tree_addr() {
+         BOTAN_ASSERT(false, "Only available in XMSS_MT.");
+      }
 
       /**
        * retrieves the logical type currently assigned to the XMSS Address
@@ -76,7 +84,9 @@ class XMSS_Address final {
        * @return Type of the address (OTS_Hash_Address, LTree_Address or
        *         Hash_Tree_Address)
        **/
-      Type get_type() const { return static_cast<Type>(m_data[15]); }
+      Type get_type() const {
+         return static_cast<Type>(m_data[15]);
+      }
 
       /**
        * Changes the logical type currently assigned to the XMSS Address
@@ -99,7 +109,9 @@ class XMSS_Address final {
        *
        * @return currently active mode
        **/
-      Key_Mask get_key_mask_mode() const { return Key_Mask(m_data[31]); }
+      Key_Mask get_key_mask_mode() const {
+         return Key_Mask(m_data[31]);
+      }
 
       /**
        * Changes the mode the address currently used address mode.
@@ -277,18 +289,28 @@ class XMSS_Address final {
          set_hi32(3, value);
       }
 
-      const secure_vector<uint8_t>& bytes() const { return m_data; }
+      const secure_vector<uint8_t>& bytes() const {
+         return m_data;
+      }
 
-      secure_vector<uint8_t>& bytes() { return m_data; }
+      secure_vector<uint8_t>& bytes() {
+         return m_data;
+      }
 
       /**
        * @return the size of an XMSS_Address
        **/
-      size_t size() const { return m_data.size(); }
+      size_t size() const {
+         return m_data.size();
+      }
 
-      XMSS_Address() : m_data(m_address_size) { set_type(Type::None); }
+      XMSS_Address() : m_data(m_address_size) {
+         set_type(Type::None);
+      }
 
-      explicit XMSS_Address(Type type) : m_data(m_address_size) { set_type(type); }
+      explicit XMSS_Address(Type type) : m_data(m_address_size) {
+         set_type(type);
+      }
 
       explicit XMSS_Address(secure_vector<uint8_t> data) : m_data(std::move(data)) {
          BOTAN_ASSERT(m_data.size() == m_address_size, "XMSS_Address must be of 256 bits size.");

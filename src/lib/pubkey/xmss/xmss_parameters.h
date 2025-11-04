@@ -69,7 +69,9 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_WOTS_Parameters final {
       /**
        * @return XMSS WOTS registry name for the chosen parameter set.
        **/
-      const std::string& name() const { return m_name; }
+      const std::string& name() const {
+         return m_name;
+      }
 
       /**
        * Retrieves the uniform length of a message, and the size of
@@ -78,7 +80,9 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_WOTS_Parameters final {
        *
        * @return element length in bytes.
        **/
-      size_t element_size() const { return m_element_size; }
+      size_t element_size() const {
+         return m_element_size;
+      }
 
       /**
        * The Winternitz parameter.
@@ -86,21 +90,37 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_WOTS_Parameters final {
        * @return numeric base used for internal representation of
        *         data.
        **/
-      size_t wots_parameter() const { return m_w; }
+      size_t wots_parameter() const {
+         return m_w;
+      }
 
-      size_t len() const { return m_len; }
+      size_t len() const {
+         return m_len;
+      }
 
-      size_t len_1() const { return m_len_1; }
+      size_t len_1() const {
+         return m_len_1;
+      }
 
-      size_t len_2() const { return m_len_2; }
+      size_t len_2() const {
+         return m_len_2;
+      }
 
-      size_t lg_w() const { return m_lg_w; }
+      size_t lg_w() const {
+         return m_lg_w;
+      }
 
-      ots_algorithm_t oid() const { return m_oid; }
+      ots_algorithm_t oid() const {
+         return m_oid;
+      }
 
-      size_t estimated_strength() const { return m_strength; }
+      size_t estimated_strength() const {
+         return m_strength;
+      }
 
-      bool operator==(const XMSS_WOTS_Parameters& p) const { return m_oid == p.m_oid; }
+      bool operator==(const XMSS_WOTS_Parameters& p) const {
+         return m_oid == p.m_oid;
+      }
 
    private:
       static const std::map<std::string, ots_algorithm_t> m_oid_name_lut;
@@ -167,9 +187,13 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_Parameters {
       /**
        * @return XMSS registry name for the chosen parameter set.
        **/
-      const std::string& name() const { return m_name; }
+      const std::string& name() const {
+         return m_name;
+      }
 
-      const std::string& hash_function_name() const { return m_hash_name; }
+      const std::string& hash_function_name() const {
+         return m_hash_name;
+      }
 
       /**
        * Retrieves the uniform length of a message, and the size of
@@ -178,7 +202,9 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_Parameters {
        *
        * @return element length in bytes.
        **/
-      size_t element_size() const { return m_element_size; }
+      size_t element_size() const {
+         return m_element_size;
+      }
 
       /**
        * Retrieves the length of the hash identifier (domain separator)
@@ -188,17 +214,23 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_Parameters {
        * underlying hash primitive. Also see NIST SP.800-208 where
        * instantiations utilizing truncated hashes use shorter hash IDs.
        */
-      size_t hash_id_size() const { return m_hash_id_size; }
+      size_t hash_id_size() const {
+         return m_hash_id_size;
+      }
 
       /**
        * @returns The height (number of levels - 1) of the tree
        **/
-      size_t tree_height() const { return m_tree_height; }
+      size_t tree_height() const {
+         return m_tree_height;
+      }
 
       /**
        * @returns total number of signatures allowed for this XMSS instance
        */
-      size_t total_number_of_signatures() const { return size_t(1) << tree_height(); }
+      size_t total_number_of_signatures() const {
+         return size_t(1) << tree_height();
+      }
 
       /**
        * The Winternitz parameter.
@@ -206,21 +238,33 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_Parameters {
        * @return numeric base used for internal representation of
        *         data.
        **/
-      size_t wots_parameter() const { return m_w; }
+      size_t wots_parameter() const {
+         return m_w;
+      }
 
-      size_t len() const { return m_len; }
+      size_t len() const {
+         return m_len;
+      }
 
-      xmss_algorithm_t oid() const { return m_oid; }
+      xmss_algorithm_t oid() const {
+         return m_oid;
+      }
 
-      XMSS_WOTS_Parameters::ots_algorithm_t ots_oid() const { return m_wots_oid; }
+      XMSS_WOTS_Parameters::ots_algorithm_t ots_oid() const {
+         return m_wots_oid;
+      }
 
       /**
        * Returns the estimated pre-quantum security level of
        * the chosen algorithm.
        **/
-      size_t estimated_strength() const { return m_strength; }
+      size_t estimated_strength() const {
+         return m_strength;
+      }
 
-      size_t raw_public_key_size() const { return sizeof(uint32_t) + 2 * element_size(); }
+      size_t raw_public_key_size() const {
+         return sizeof(uint32_t) + 2 * element_size();
+      }
 
       size_t raw_legacy_private_key_size() const {
          return raw_public_key_size() + sizeof(uint32_t) + 2 * element_size();
@@ -230,7 +274,9 @@ class BOTAN_PUBLIC_API(2, 0) XMSS_Parameters {
          return raw_legacy_private_key_size() + 1 /* identifier for WOTS+ key derivation method */;
       }
 
-      bool operator==(const XMSS_Parameters& p) const { return m_oid == p.m_oid; }
+      bool operator==(const XMSS_Parameters& p) const {
+         return m_oid == p.m_oid;
+      }
 
    private:
       xmss_algorithm_t m_oid;

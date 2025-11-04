@@ -80,13 +80,21 @@ class SphincsPlus_PublicKeyInternal final {
          BOTAN_ASSERT_NOMSG(s.empty());
       }
 
-      std::vector<uint8_t> key_bits() const { return concat<std::vector<uint8_t>>(m_public_seed, m_sphincs_root); }
+      std::vector<uint8_t> key_bits() const {
+         return concat<std::vector<uint8_t>>(m_public_seed, m_sphincs_root);
+      }
 
-      const SphincsPublicSeed& seed() const { return m_public_seed; }
+      const SphincsPublicSeed& seed() const {
+         return m_public_seed;
+      }
 
-      const SphincsTreeNode& root() const { return m_sphincs_root; }
+      const SphincsTreeNode& root() const {
+         return m_sphincs_root;
+      }
 
-      const Sphincs_Parameters& parameters() const { return m_params; }
+      const Sphincs_Parameters& parameters() const {
+         return m_params;
+      }
 
    private:
       Sphincs_Parameters m_params;
@@ -111,11 +119,17 @@ class SphincsPlus_PrivateKeyInternal final {
          BOTAN_ASSERT_NOMSG(s.empty());
       }
 
-      const SphincsSecretSeed& seed() const { return m_secret_seed; }
+      const SphincsSecretSeed& seed() const {
+         return m_secret_seed;
+      }
 
-      const SphincsSecretPRF& prf() const { return m_prf; }
+      const SphincsSecretPRF& prf() const {
+         return m_prf;
+      }
 
-      secure_vector<uint8_t> key_bits() const { return concat<secure_vector<uint8_t>>(m_secret_seed, m_prf); }
+      secure_vector<uint8_t> key_bits() const {
+         return concat<secure_vector<uint8_t>>(m_secret_seed, m_prf);
+      }
 
    private:
       SphincsSecretSeed m_secret_seed;
@@ -208,7 +222,9 @@ class SphincsPlus_Verification_Operation final : public PK_Ops::Verification {
          return slh_verify_internal(internal_msg, sig);
       }
 
-      std::string hash_function() const override { return m_hashes->msg_hash_function_name(); }
+      std::string hash_function() const override {
+         return m_hashes->msg_hash_function_name();
+      }
 
    private:
       /// FIPS 205, Algorithm 20
@@ -368,13 +384,17 @@ class SphincsPlus_Signature_Operation final : public PK_Ops::Signature {
          return slh_sign_internal(internal_msg, addrnd);
       }
 
-      size_t signature_length() const override { return m_public->parameters().sphincs_signature_bytes(); }
+      size_t signature_length() const override {
+         return m_public->parameters().sphincs_signature_bytes();
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override {
          return m_public->parameters().algorithm_identifier();
       }
 
-      std::string hash_function() const override { return m_hashes->msg_hash_function_name(); }
+      std::string hash_function() const override {
+         return m_hashes->msg_hash_function_name();
+      }
 
    private:
       // FIPS 205, Algorithm 19

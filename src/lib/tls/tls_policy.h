@@ -576,13 +576,17 @@ class BOTAN_PUBLIC_API(2, 0) NSA_Suite_B_128 : public Policy {
    public:
       BOTAN_DEPRECATED("This suite is no longer approved") NSA_Suite_B_128() = default;
 
-      std::vector<std::string> allowed_ciphers() const override { return std::vector<std::string>({"AES-128/GCM"}); }
+      std::vector<std::string> allowed_ciphers() const override {
+         return std::vector<std::string>({"AES-128/GCM"});
+      }
 
       std::vector<std::string> allowed_signature_hashes() const override {
          return std::vector<std::string>({"SHA-256"});
       }
 
-      std::vector<std::string> allowed_macs() const override { return std::vector<std::string>({"AEAD"}); }
+      std::vector<std::string> allowed_macs() const override {
+         return std::vector<std::string>({"AEAD"});
+      }
 
       std::vector<std::string> allowed_key_exchange_methods() const override {
          return std::vector<std::string>({"ECDH"});
@@ -592,15 +596,25 @@ class BOTAN_PUBLIC_API(2, 0) NSA_Suite_B_128 : public Policy {
          return std::vector<std::string>({"ECDSA"});
       }
 
-      std::vector<Group_Params> key_exchange_groups() const override { return {Group_Params::SECP256R1}; }
+      std::vector<Group_Params> key_exchange_groups() const override {
+         return {Group_Params::SECP256R1};
+      }
 
-      size_t minimum_signature_strength() const override { return 128; }
+      size_t minimum_signature_strength() const override {
+         return 128;
+      }
 
-      bool allow_tls12() const override { return true; }
+      bool allow_tls12() const override {
+         return true;
+      }
 
-      bool allow_tls13() const override { return false; }
+      bool allow_tls13() const override {
+         return false;
+      }
 
-      bool allow_dtls12() const override { return false; }
+      bool allow_dtls12() const override {
+         return false;
+      }
 };
 
 /**
@@ -608,13 +622,17 @@ class BOTAN_PUBLIC_API(2, 0) NSA_Suite_B_128 : public Policy {
 */
 class BOTAN_PUBLIC_API(2, 7) NSA_Suite_B_192 : public Policy {
    public:
-      std::vector<std::string> allowed_ciphers() const override { return std::vector<std::string>({"AES-256/GCM"}); }
+      std::vector<std::string> allowed_ciphers() const override {
+         return std::vector<std::string>({"AES-256/GCM"});
+      }
 
       std::vector<std::string> allowed_signature_hashes() const override {
          return std::vector<std::string>({"SHA-384"});
       }
 
-      std::vector<std::string> allowed_macs() const override { return std::vector<std::string>({"AEAD"}); }
+      std::vector<std::string> allowed_macs() const override {
+         return std::vector<std::string>({"AEAD"});
+      }
 
       std::vector<std::string> allowed_key_exchange_methods() const override {
          return std::vector<std::string>({"ECDH"});
@@ -624,15 +642,25 @@ class BOTAN_PUBLIC_API(2, 7) NSA_Suite_B_192 : public Policy {
          return std::vector<std::string>({"ECDSA"});
       }
 
-      std::vector<Group_Params> key_exchange_groups() const override { return {Group_Params::SECP384R1}; }
+      std::vector<Group_Params> key_exchange_groups() const override {
+         return {Group_Params::SECP384R1};
+      }
 
-      size_t minimum_signature_strength() const override { return 192; }
+      size_t minimum_signature_strength() const override {
+         return 192;
+      }
 
-      bool allow_tls12() const override { return true; }
+      bool allow_tls12() const override {
+         return true;
+      }
 
-      bool allow_tls13() const override { return false; }
+      bool allow_tls13() const override {
+         return false;
+      }
 
-      bool allow_dtls12() const override { return false; }
+      bool allow_dtls12() const override {
+         return false;
+      }
 };
 
 /**
@@ -672,29 +700,53 @@ class BOTAN_PUBLIC_API(2, 0) BSI_TR_02102_2 : public Policy {
                                            Group_Params::FFDHE_3072});
       }
 
-      size_t minimum_signature_strength() const override { return 120; }
+      size_t minimum_signature_strength() const override {
+         return 120;
+      }
 
-      bool allow_insecure_renegotiation() const override { return false; }
+      bool allow_insecure_renegotiation() const override {
+         return false;
+      }
 
-      bool allow_server_initiated_renegotiation() const override { return true; }
+      bool allow_server_initiated_renegotiation() const override {
+         return true;
+      }
 
-      bool server_uses_own_ciphersuite_preferences() const override { return true; }
+      bool server_uses_own_ciphersuite_preferences() const override {
+         return true;
+      }
 
-      bool negotiate_encrypt_then_mac() const override { return true; }
+      bool negotiate_encrypt_then_mac() const override {
+         return true;
+      }
 
-      size_t minimum_rsa_bits() const override { return 3000; }
+      size_t minimum_rsa_bits() const override {
+         return 3000;
+      }
 
-      size_t minimum_dh_group_size() const override { return 3000; }
+      size_t minimum_dh_group_size() const override {
+         return 3000;
+      }
 
-      size_t minimum_ecdh_group_size() const override { return 250; }
+      size_t minimum_ecdh_group_size() const override {
+         return 250;
+      }
 
-      size_t minimum_ecdsa_group_size() const override { return 250; }
+      size_t minimum_ecdsa_group_size() const override {
+         return 250;
+      }
 
-      bool allow_tls12() const override { return true; }
+      bool allow_tls12() const override {
+         return true;
+      }
 
-      bool allow_tls13() const override { return true; }
+      bool allow_tls13() const override {
+         return true;
+      }
 
-      bool allow_dtls12() const override { return false; }
+      bool allow_dtls12() const override {
+         return false;
+      }
 };
 
 /**
@@ -702,13 +754,21 @@ class BOTAN_PUBLIC_API(2, 0) BSI_TR_02102_2 : public Policy {
 */
 class BOTAN_PUBLIC_API(2, 0) Datagram_Policy : public Policy {
    public:
-      std::vector<std::string> allowed_macs() const override { return std::vector<std::string>({"AEAD"}); }
+      std::vector<std::string> allowed_macs() const override {
+         return std::vector<std::string>({"AEAD"});
+      }
 
-      bool allow_tls12() const override { return false; }
+      bool allow_tls12() const override {
+         return false;
+      }
 
-      bool allow_tls13() const override { return false; }
+      bool allow_tls13() const override {
+         return false;
+      }
 
-      bool allow_dtls12() const override { return true; }
+      bool allow_dtls12() const override {
+         return true;
+      }
 };
 
 /*

@@ -23,9 +23,13 @@ class Cipher final : public Command {
    public:
       Cipher() : Command("cipher --cipher=AES-256/GCM --decrypt --key= --nonce= --ad= --buf-size=4096 input-file") {}
 
-      std::string group() const override { return "crypto"; }
+      std::string group() const override {
+         return "crypto";
+      }
 
-      std::string description() const override { return "Encrypt or decrypt with a symmetric cipher"; }
+      std::string description() const override {
+         return "Encrypt or decrypt with a symmetric cipher";
+      }
 
       void go() override {
          const std::string cipher_algo = get_arg_or("cipher", "");

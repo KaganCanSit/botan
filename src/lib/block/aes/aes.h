@@ -25,9 +25,13 @@ class AES_128 final : public Block_Cipher_Fixed_Params<16, 16> {
 
       std::string provider() const override;
 
-      std::string name() const override { return "AES-128"; }
+      std::string name() const override {
+         return "AES-128";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<AES_128>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<AES_128>();
+      }
 
       size_t parallelism() const override;
 
@@ -71,9 +75,13 @@ class AES_192 final : public Block_Cipher_Fixed_Params<16, 24> {
 
       std::string provider() const override;
 
-      std::string name() const override { return "AES-192"; }
+      std::string name() const override {
+         return "AES-192";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<AES_192>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<AES_192>();
+      }
 
       size_t parallelism() const override;
       bool has_keying_material() const override;
@@ -116,9 +124,13 @@ class AES_256 final : public Block_Cipher_Fixed_Params<16, 32> {
 
       std::string provider() const override;
 
-      std::string name() const override { return "AES-256"; }
+      std::string name() const override {
+         return "AES-256";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<AES_256>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<AES_256>();
+      }
 
       size_t parallelism() const override;
       bool has_keying_material() const override;

@@ -23,7 +23,9 @@ class DL_PrivateKey;
 */
 class BOTAN_PUBLIC_API(2, 0) ElGamal_PublicKey : public virtual Public_Key {
    public:
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::Encryption); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::Encryption);
+      }
 
       /**
       * Load a public key from the ASN.1 encoding
@@ -48,7 +50,9 @@ class BOTAN_PUBLIC_API(2, 0) ElGamal_PublicKey : public virtual Public_Key {
       size_t estimated_strength() const override;
       size_t key_length() const override;
 
-      std::string algo_name() const override { return "ElGamal"; }
+      std::string algo_name() const override {
+         return "ElGamal";
+      }
 
       const BigInt& get_int_field(std::string_view field) const override;
 

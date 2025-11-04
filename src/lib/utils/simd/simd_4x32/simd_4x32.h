@@ -193,15 +193,25 @@ class SIMD_4x32 final {
 #endif
       }
 
-      static SIMD_4x32 load_le(std::span<const uint8_t, 16> in) { return SIMD_4x32::load_le(in.data()); }
+      static SIMD_4x32 load_le(std::span<const uint8_t, 16> in) {
+         return SIMD_4x32::load_le(in.data());
+      }
 
-      static SIMD_4x32 load_be(std::span<const uint8_t, 16> in) { return SIMD_4x32::load_be(in.data()); }
+      static SIMD_4x32 load_be(std::span<const uint8_t, 16> in) {
+         return SIMD_4x32::load_be(in.data());
+      }
 
-      void store_le(uint32_t out[4]) const noexcept { this->store_le(reinterpret_cast<uint8_t*>(out)); }
+      void store_le(uint32_t out[4]) const noexcept {
+         this->store_le(reinterpret_cast<uint8_t*>(out));
+      }
 
-      void store_be(uint32_t out[4]) const noexcept { this->store_be(reinterpret_cast<uint8_t*>(out)); }
+      void store_be(uint32_t out[4]) const noexcept {
+         this->store_be(reinterpret_cast<uint8_t*>(out));
+      }
 
-      void store_le(uint64_t out[2]) const noexcept { this->store_le(reinterpret_cast<uint8_t*>(out)); }
+      void store_le(uint64_t out[2]) const noexcept {
+         this->store_le(reinterpret_cast<uint8_t*>(out));
+      }
 
       /**
       * Load a SIMD register with little-endian convention
@@ -263,9 +273,13 @@ class SIMD_4x32 final {
 #endif
       }
 
-      void store_be(std::span<uint8_t, 16> out) const { this->store_be(out.data()); }
+      void store_be(std::span<uint8_t, 16> out) const {
+         this->store_be(out.data());
+      }
 
-      void store_le(std::span<uint8_t, 16> out) const { this->store_le(out.data()); }
+      void store_le(std::span<uint8_t, 16> out) const {
+         this->store_le(out.data());
+      }
 
       /*
       * This is used for SHA-2/SHACAL2
@@ -431,7 +445,9 @@ class SIMD_4x32 final {
 #endif
       }
 
-      void operator^=(uint32_t other) noexcept { *this ^= SIMD_4x32::splat(other); }
+      void operator^=(uint32_t other) noexcept {
+         *this ^= SIMD_4x32::splat(other);
+      }
 
       void operator|=(const SIMD_4x32& other) noexcept {
 #if defined(BOTAN_SIMD_USE_SSSE3)
@@ -765,7 +781,9 @@ class SIMD_4x32 final {
 #endif
       }
 
-      native_simd_type raw() const noexcept { return m_simd; }
+      native_simd_type raw() const noexcept {
+         return m_simd;
+      }
 
       explicit SIMD_4x32(native_simd_type x) noexcept : m_simd(x) {}
 

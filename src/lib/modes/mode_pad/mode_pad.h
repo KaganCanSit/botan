@@ -109,9 +109,13 @@ class BOTAN_FUZZER_API PKCS7_Padding final : public BlockCipherModePaddingMethod
 
       size_t remove_padding(std::span<const uint8_t> last_block) const override;
 
-      bool valid_blocksize(size_t bs) const override { return (bs > 2 && bs < 256); }
+      bool valid_blocksize(size_t bs) const override {
+         return (bs > 2 && bs < 256);
+      }
 
-      std::string name() const override { return "PKCS7"; }
+      std::string name() const override {
+         return "PKCS7";
+      }
 };
 
 /**
@@ -123,9 +127,13 @@ class BOTAN_FUZZER_API ANSI_X923_Padding final : public BlockCipherModePaddingMe
 
       size_t remove_padding(std::span<const uint8_t> last_block) const override;
 
-      bool valid_blocksize(size_t bs) const override { return (bs > 2 && bs < 256); }
+      bool valid_blocksize(size_t bs) const override {
+         return (bs > 2 && bs < 256);
+      }
 
-      std::string name() const override { return "X9.23"; }
+      std::string name() const override {
+         return "X9.23";
+      }
 };
 
 /**
@@ -137,9 +145,13 @@ class BOTAN_FUZZER_API OneAndZeros_Padding final : public BlockCipherModePadding
 
       size_t remove_padding(std::span<const uint8_t> last_block) const override;
 
-      bool valid_blocksize(size_t bs) const override { return (bs > 2); }
+      bool valid_blocksize(size_t bs) const override {
+         return (bs > 2);
+      }
 
-      std::string name() const override { return "OneAndZeros"; }
+      std::string name() const override {
+         return "OneAndZeros";
+      }
 };
 
 /**
@@ -151,9 +163,13 @@ class BOTAN_FUZZER_API ESP_Padding final : public BlockCipherModePaddingMethod {
 
       size_t remove_padding(std::span<const uint8_t> last_block) const override;
 
-      bool valid_blocksize(size_t bs) const override { return (bs > 2 && bs < 256); }
+      bool valid_blocksize(size_t bs) const override {
+         return (bs > 2 && bs < 256);
+      }
 
-      std::string name() const override { return "ESP"; }
+      std::string name() const override {
+         return "ESP";
+      }
 };
 
 /**
@@ -167,13 +183,21 @@ class Null_Padding final : public BlockCipherModePaddingMethod {
          // no padding
       }
 
-      size_t remove_padding(std::span<const uint8_t> last_block) const override { return last_block.size(); }
+      size_t remove_padding(std::span<const uint8_t> last_block) const override {
+         return last_block.size();
+      }
 
-      bool valid_blocksize(size_t /*block_size*/) const override { return true; }
+      bool valid_blocksize(size_t /*block_size*/) const override {
+         return true;
+      }
 
-      size_t output_length(size_t input_length, size_t /*block_size*/) const override { return input_length; }
+      size_t output_length(size_t input_length, size_t /*block_size*/) const override {
+         return input_length;
+      }
 
-      std::string name() const override { return "NoPadding"; }
+      std::string name() const override {
+         return "NoPadding";
+      }
 
    private:
       void apply_padding(std::span<uint8_t> /*last_block*/, size_t /*padding_start_pos*/) const override {

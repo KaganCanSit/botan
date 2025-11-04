@@ -58,11 +58,15 @@ class BOTAN_PUBLIC_API(2, 0) GOST_3410_PublicKey : public virtual EC_PublicKey {
          return domain().get_order_bytes();
       }
 
-      Signature_Format _default_x509_signature_format() const override { return Signature_Format::Standard; }
+      Signature_Format _default_x509_signature_format() const override {
+         return Signature_Format::Standard;
+      }
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator& rng) const final;
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::Signature); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::Signature);
+      }
 
       std::unique_ptr<PK_Ops::Verification> create_verification_op(std::string_view params,
                                                                    std::string_view provider) const override;

@@ -90,12 +90,16 @@ class BOTAN_PUBLIC_API(2, 0) Exception : public std::exception {
       * messages may change from release to release. Thus the main use of this
       * function is for logging or debugging.
       */
-      const char* what() const noexcept override { return m_msg.c_str(); }
+      const char* what() const noexcept override {
+         return m_msg.c_str();
+      }
 
       /**
       * Return the "type" of error which occurred.
       */
-      virtual ErrorType error_type() const noexcept { return ErrorType::Unknown; }
+      virtual ErrorType error_type() const noexcept {
+         return ErrorType::Unknown;
+      }
 
       /**
       * Return an error code associated with this exception, or otherwise 0.
@@ -104,7 +108,9 @@ class BOTAN_PUBLIC_API(2, 0) Exception : public std::exception {
       * POSIX systems it might be errno, while on a Windows system it might be
       * the result of GetLastError or WSAGetLastError.
       */
-      virtual int error_code() const noexcept { return 0; }
+      virtual int error_code() const noexcept {
+         return 0;
+      }
 
       /**
       * Avoid throwing base Exception, use a subclass
@@ -136,7 +142,9 @@ class BOTAN_PUBLIC_API(2, 0) Invalid_Argument : public Exception {
 
       Invalid_Argument(std::string_view msg, const std::exception& e);
 
-      ErrorType error_type() const noexcept override { return ErrorType::InvalidArgument; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::InvalidArgument;
+      }
 };
 
 /**
@@ -154,7 +162,9 @@ class BOTAN_PUBLIC_API(2, 0) Invalid_Key_Length final : public Invalid_Argument 
    public:
       Invalid_Key_Length(std::string_view name, size_t length);
 
-      ErrorType error_type() const noexcept override { return ErrorType::InvalidKeyLength; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::InvalidKeyLength;
+      }
 };
 
 /**
@@ -164,7 +174,9 @@ class BOTAN_PUBLIC_API(2, 0) Invalid_IV_Length final : public Invalid_Argument {
    public:
       Invalid_IV_Length(std::string_view mode, size_t bad_len);
 
-      ErrorType error_type() const noexcept override { return ErrorType::InvalidNonceLength; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::InvalidNonceLength;
+      }
 };
 
 /**
@@ -182,7 +194,9 @@ class BOTAN_PUBLIC_API(2, 0) Encoding_Error final : public Exception {
    public:
       explicit Encoding_Error(std::string_view name);
 
-      ErrorType error_type() const noexcept override { return ErrorType::EncodingFailure; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::EncodingFailure;
+      }
 };
 
 /**
@@ -196,7 +210,9 @@ class BOTAN_PUBLIC_API(2, 0) Decoding_Error : public Exception {
 
       Decoding_Error(std::string_view msg, const std::exception& e);
 
-      ErrorType error_type() const noexcept override { return ErrorType::DecodingFailure; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::DecodingFailure;
+      }
 };
 
 /**
@@ -207,7 +223,9 @@ class BOTAN_PUBLIC_API(2, 0) Invalid_State : public Exception {
    public:
       explicit Invalid_State(std::string_view err) : Exception(err) {}
 
-      ErrorType error_type() const noexcept override { return ErrorType::InvalidObjectState; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::InvalidObjectState;
+      }
 };
 
 /**
@@ -226,7 +244,9 @@ class BOTAN_PUBLIC_API(2, 4) Key_Not_Set : public Invalid_State {
    public:
       explicit Key_Not_Set(std::string_view algo);
 
-      ErrorType error_type() const noexcept override { return ErrorType::KeyNotSet; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::KeyNotSet;
+      }
 };
 
 /**
@@ -238,7 +258,9 @@ class BOTAN_PUBLIC_API(2, 0) Lookup_Error : public Exception {
 
       Lookup_Error(std::string_view type, std::string_view algo, std::string_view provider = "");
 
-      ErrorType error_type() const noexcept override { return ErrorType::LookupError; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::LookupError;
+      }
 };
 
 /**
@@ -274,7 +296,9 @@ class BOTAN_PUBLIC_API(2, 0) Invalid_Authentication_Tag final : public Exception
    public:
       explicit Invalid_Authentication_Tag(std::string_view msg);
 
-      ErrorType error_type() const noexcept override { return ErrorType::InvalidTag; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::InvalidTag;
+      }
 };
 
 /**
@@ -289,7 +313,9 @@ class BOTAN_PUBLIC_API(2, 0) Stream_IO_Error final : public Exception {
    public:
       explicit Stream_IO_Error(std::string_view err);
 
-      ErrorType error_type() const noexcept override { return ErrorType::IoError; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::IoError;
+      }
 };
 
 /**
@@ -307,9 +333,13 @@ class BOTAN_PUBLIC_API(2, 9) System_Error : public Exception {
 
       System_Error(std::string_view msg, int err_code);
 
-      ErrorType error_type() const noexcept override { return ErrorType::SystemError; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::SystemError;
+      }
 
-      int error_code() const noexcept override { return m_error_code; }
+      int error_code() const noexcept override {
+         return m_error_code;
+      }
 
    private:
       int m_error_code;
@@ -322,7 +352,9 @@ class BOTAN_PUBLIC_API(2, 0) Internal_Error : public Exception {
    public:
       explicit Internal_Error(std::string_view err);
 
-      ErrorType error_type() const noexcept override { return ErrorType::InternalError; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::InternalError;
+      }
 };
 
 /**
@@ -335,7 +367,9 @@ class BOTAN_PUBLIC_API(2, 0) Not_Implemented final : public Exception {
    public:
       explicit Not_Implemented(std::string_view err);
 
-      ErrorType error_type() const noexcept override { return ErrorType::NotImplemented; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::NotImplemented;
+      }
 };
 
 template <typename E, typename... Args>

@@ -82,9 +82,13 @@ class BufferSlicer final {
          return ContainerT(result.begin(), result.end());
       }
 
-      auto copy_as_vector(const size_t count) { return copy<std::vector<uint8_t>>(count); }
+      auto copy_as_vector(const size_t count) {
+         return copy<std::vector<uint8_t>>(count);
+      }
 
-      auto copy_as_secure_vector(const size_t count) { return copy<secure_vector<uint8_t>>(count); }
+      auto copy_as_secure_vector(const size_t count) {
+         return copy<secure_vector<uint8_t>>(count);
+      }
 
       std::span<const uint8_t> take(const size_t count) {
          BOTAN_STATE_CHECK(remaining() >= count);
@@ -106,18 +110,26 @@ class BufferSlicer final {
          return StrongSpan<const T>(take(count));
       }
 
-      uint8_t take_byte() { return take(1)[0]; }
+      uint8_t take_byte() {
+         return take(1)[0];
+      }
 
       void copy_into(std::span<uint8_t> sink) {
          const auto data = take(sink.size());
          std::copy(data.begin(), data.end(), sink.begin());
       }
 
-      void skip(const size_t count) { take(count); }
+      void skip(const size_t count) {
+         take(count);
+      }
 
-      size_t remaining() const { return m_remaining.size(); }
+      size_t remaining() const {
+         return m_remaining.size();
+      }
 
-      bool empty() const { return m_remaining.empty(); }
+      bool empty() const {
+         return m_remaining.empty();
+      }
 
    private:
       std::span<const uint8_t> m_remaining;
@@ -163,7 +175,9 @@ class BufferStuffer final {
       /**
        * @returns a reference to the next single byte in the buffer
        */
-      constexpr uint8_t& next_byte() { return next(1)[0]; }
+      constexpr uint8_t& next_byte() {
+         return next(1)[0];
+      }
 
       constexpr void append(std::span<const uint8_t> buffer) {
          auto sink = next(buffer.size());
@@ -175,9 +189,13 @@ class BufferStuffer final {
          std::fill(sink.begin(), sink.end(), b);
       }
 
-      constexpr bool full() const { return m_buffer.empty(); }
+      constexpr bool full() const {
+         return m_buffer.empty();
+      }
 
-      constexpr size_t remaining_capacity() const { return m_buffer.size(); }
+      constexpr size_t remaining_capacity() const {
+         return m_buffer.size();
+      }
 
    private:
       std::span<uint8_t> m_buffer;
@@ -349,7 +367,9 @@ class scoped_cleanup final {
       scoped_cleanup(const scoped_cleanup&) = delete;
       scoped_cleanup& operator=(const scoped_cleanup&) = delete;
 
-      scoped_cleanup(scoped_cleanup&& other) noexcept : m_cleanup(std::move(other.m_cleanup)) { other.disengage(); }
+      scoped_cleanup(scoped_cleanup&& other) noexcept : m_cleanup(std::move(other.m_cleanup)) {
+         other.disengage();
+      }
 
       scoped_cleanup& operator=(scoped_cleanup&& other) noexcept {
          if(this != &other) {
@@ -368,7 +388,9 @@ class scoped_cleanup final {
       /**
        * Disengage the cleanup callback, i.e., prevent it from being called
        */
-      void disengage() noexcept { m_cleanup.reset(); }
+      void disengage() noexcept {
+         m_cleanup.reset();
+      }
 
    private:
       std::optional<FunT> m_cleanup;
@@ -396,7 +418,9 @@ template <size_t N>
 class StringLiteral final {
    public:
       // NOLINTNEXTLINE(*-explicit-conversions)
-      constexpr StringLiteral(const char (&str)[N]) : value() { std::copy_n(str, N, value); }
+      constexpr StringLiteral(const char (&str)[N]) : value() {
+         std::copy_n(str, N, value);
+      }
 
       // NOLINTNEXTLINE(*non-private-member-variable*)
       char value[N];
@@ -449,7 +473,9 @@ template <typename T>
 constexpr auto out_opt(std::optional<T>& outopt) noexcept {
    class out_opt_t {
       public:
-         constexpr ~out_opt_t() noexcept { m_opt = m_raw; }
+         constexpr ~out_opt_t() noexcept {
+            m_opt = m_raw;
+         }
 
          // NOLINTNEXTLINE(*-explicit-conversions) FIXME
          constexpr out_opt_t(std::optional<T>& outopt) noexcept : m_opt(outopt) {}

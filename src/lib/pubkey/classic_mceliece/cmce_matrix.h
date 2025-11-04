@@ -74,7 +74,9 @@ class BOTAN_TEST_API Classic_McEliece_Matrix {
        *
        * @return The matrix bytes
        */
-      const std::vector<uint8_t>& bytes() const { return m_mat_bytes; }
+      const std::vector<uint8_t>& bytes() const {
+         return m_mat_bytes;
+      }
 
       /**
        * @brief Create a Classic_McEliece_Matrix from bytes.
@@ -105,7 +107,9 @@ class BOTAN_TEST_API Classic_McEliece_Matrix {
        */
       CmceCodeWord mul(const Classic_McEliece_Parameters& params, const CmceErrorVector& e) const;
 
-      constexpr void _const_time_unpoison() const { CT::unpoison(m_mat_bytes); }
+      constexpr void _const_time_unpoison() const {
+         CT::unpoison(m_mat_bytes);
+      }
 
    private:
       /// The bytes of the submatrix T

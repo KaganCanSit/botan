@@ -20,17 +20,27 @@ namespace Botan {
 */
 class Poly1305 final : public MessageAuthenticationCode {
    public:
-      std::string name() const override { return "Poly1305"; }
+      std::string name() const override {
+         return "Poly1305";
+      }
 
-      std::unique_ptr<MessageAuthenticationCode> new_object() const override { return std::make_unique<Poly1305>(); }
+      std::unique_ptr<MessageAuthenticationCode> new_object() const override {
+         return std::make_unique<Poly1305>();
+      }
 
       void clear() override;
 
-      size_t output_length() const override { return 16; }
+      size_t output_length() const override {
+         return 16;
+      }
 
-      Key_Length_Specification key_spec() const override { return Key_Length_Specification(32); }
+      Key_Length_Specification key_spec() const override {
+         return Key_Length_Specification(32);
+      }
 
-      bool fresh_key_required_per_message() const override { return true; }
+      bool fresh_key_required_per_message() const override {
+         return true;
+      }
 
       bool has_keying_material() const override;
 

@@ -29,11 +29,17 @@ class SHA_1 final : public HashFunction {
       static void init(digest_type& digest);
 
    public:
-      std::string name() const override { return "SHA-1"; }
+      std::string name() const override {
+         return "SHA-1";
+      }
 
-      size_t output_length() const override { return 20; }
+      size_t output_length() const override {
+         return 20;
+      }
 
-      size_t hash_block_size() const override { return block_bytes; }
+      size_t hash_block_size() const override {
+         return block_bytes;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
 
@@ -41,7 +47,9 @@ class SHA_1 final : public HashFunction {
 
       std::string provider() const override;
 
-      void clear() override { m_md.clear(); }
+      void clear() override {
+         m_md.clear();
+      }
 
 #if defined(BOTAN_HAS_SHA1_ARMV8)
       static void sha1_armv8_compress_n(digest_type& digest, std::span<const uint8_t> blocks, size_t block_count);

@@ -63,7 +63,9 @@ class Server_Impl_12 : public Channel_Impl_12 {
       * tied to the session and a later renegotiation of the same
       * session can choose a new protocol.
       */
-      std::string application_protocol() const override { return m_next_protocol; }
+      std::string application_protocol() const override {
+         return m_next_protocol;
+      }
 
       std::vector<X509_Certificate> get_peer_cert_chain(const Handshake_State& state) const override;
 

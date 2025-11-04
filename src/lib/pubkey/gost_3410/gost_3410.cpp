@@ -127,7 +127,9 @@ class GOST_3410_Signature_Operation final : public PK_Ops::Signature_with_Hash {
       GOST_3410_Signature_Operation(const GOST_3410_PrivateKey& gost_3410, std::string_view hash_fn) :
             PK_Ops::Signature_with_Hash(hash_fn), m_group(gost_3410.domain()), m_x(gost_3410._private_key()) {}
 
-      size_t signature_length() const override { return 2 * m_group.get_order_bytes(); }
+      size_t signature_length() const override {
+         return 2 * m_group.get_order_bytes();
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override;
 

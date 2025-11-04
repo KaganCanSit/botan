@@ -31,7 +31,9 @@ class binary_matrix final {
       /**
       * return the coefficient out of F_2
       */
-      uint32_t coef(size_t i, size_t j) { return (m_elem[(i)*m_rwdcnt + (j) / 32] >> (j % 32)) & 1; }
+      uint32_t coef(size_t i, size_t j) {
+         return (m_elem[(i)*m_rwdcnt + (j) / 32] >> (j % 32)) & 1;
+      }
 
       void set_coef_to_one(size_t i, size_t j) {
          m_elem[(i)*m_rwdcnt + (j) / 32] |= (static_cast<uint32_t>(1) << ((j) % 32));
@@ -41,11 +43,17 @@ class binary_matrix final {
          m_elem[(i)*m_rwdcnt + (j) / 32] ^= (static_cast<uint32_t>(1) << ((j) % 32));
       }
 
-      size_t rows() const { return m_rown; }
+      size_t rows() const {
+         return m_rown;
+      }
 
-      size_t columns() const { return m_coln; }
+      size_t columns() const {
+         return m_coln;
+      }
 
-      const std::vector<uint32_t>& elem() const { return m_elem; }
+      const std::vector<uint32_t>& elem() const {
+         return m_elem;
+      }
 
    private:
       size_t m_rown;    // number of rows.

@@ -50,7 +50,9 @@ class EC_Scalar_Data_PC final : public EC_Scalar_Data {
 
       void serialize_to(std::span<uint8_t> bytes) const override;
 
-      const auto& value() const { return m_v; }
+      const auto& value() const {
+         return m_v;
+      }
 
    private:
       std::shared_ptr<const EC_Group_Data> m_group;
@@ -85,7 +87,9 @@ class EC_AffinePoint_Data_PC final : public EC_AffinePoint_Data {
 
       secure_vector<uint8_t> mul_x_only(const EC_Scalar_Data& scalar, RandomNumberGenerator& rng) const override;
 
-      const PCurve::PrimeOrderCurve::AffinePoint& value() const { return m_pt; }
+      const PCurve::PrimeOrderCurve::AffinePoint& value() const {
+         return m_pt;
+      }
 
 #if defined(BOTAN_HAS_LEGACY_EC_POINT)
       EC_Point to_legacy_point() const override;

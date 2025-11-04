@@ -61,9 +61,13 @@ class polyn_gf2m {
 
       bool operator==(const polyn_gf2m& other) const;
 
-      bool operator!=(const polyn_gf2m& other) const { return !(*this == other); }
+      bool operator!=(const polyn_gf2m& other) const {
+         return !(*this == other);
+      }
 
-      polyn_gf2m(polyn_gf2m&& other) noexcept { this->swap(other); }
+      polyn_gf2m(polyn_gf2m&& other) noexcept {
+         this->swap(other);
+      }
 
       polyn_gf2m& operator=(polyn_gf2m&& other) noexcept {
          if(this != &other) {
@@ -76,19 +80,33 @@ class polyn_gf2m {
 
       secure_vector<uint8_t> encode() const;
 
-      std::shared_ptr<GF2m_Field> get_sp_field() const { return m_sp_field; }
+      std::shared_ptr<GF2m_Field> get_sp_field() const {
+         return m_sp_field;
+      }
 
-      gf2m& operator[](size_t i) { return m_coeff[i]; }
+      gf2m& operator[](size_t i) {
+         return m_coeff[i];
+      }
 
-      gf2m operator[](size_t i) const { return m_coeff[i]; }
+      gf2m operator[](size_t i) const {
+         return m_coeff[i];
+      }
 
-      gf2m get_lead_coef() const { return m_coeff[m_deg]; }
+      gf2m get_lead_coef() const {
+         return m_coeff[m_deg];
+      }
 
-      gf2m get_coef(size_t i) const { return m_coeff[i]; }
+      gf2m get_coef(size_t i) const {
+         return m_coeff[i];
+      }
 
-      inline void set_coef(size_t i, gf2m v) { m_coeff[i] = v; }
+      inline void set_coef(size_t i, gf2m v) {
+         m_coeff[i] = v;
+      }
 
-      inline void add_to_coef(size_t i, gf2m v) { m_coeff[i] ^= v; }
+      inline void add_to_coef(size_t i, gf2m v) {
+         m_coeff[i] ^= v;
+      }
 
       void encode(uint32_t min_numo_coeffs, uint8_t* mem, uint32_t mem_len) const;
 
@@ -118,7 +136,9 @@ class polyn_gf2m {
       void patchup_deg_secure(uint32_t trgt_deg, gf2m patch_elem);
 
    private:
-      void set_degree(int d) { m_deg = d; }
+      void set_degree(int d) {
+         m_deg = d;
+      }
 
       void poly_shiftmod(const polyn_gf2m& g);
       void realloc(uint32_t new_size);

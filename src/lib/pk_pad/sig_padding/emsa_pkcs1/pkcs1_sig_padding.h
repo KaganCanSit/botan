@@ -75,7 +75,9 @@ class PKCS1v15_Raw_SignaturePaddingScheme final : public SignaturePaddingScheme 
       */
       explicit PKCS1v15_Raw_SignaturePaddingScheme(std::string_view hash_algo);
 
-      std::string hash_function() const override { return m_hash_name; }
+      std::string hash_function() const override {
+         return m_hash_name;
+      }
 
       std::string name() const override;
 

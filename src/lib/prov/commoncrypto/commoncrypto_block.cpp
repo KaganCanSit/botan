@@ -25,17 +25,27 @@ class CommonCrypto_BlockCipher final : public BlockCipher {
 
       void clear() override;
 
-      std::string provider() const override { return "commoncrypto"; }
+      std::string provider() const override {
+         return "commoncrypto";
+      }
 
-      std::string name() const override { return m_cipher_name; }
+      std::string name() const override {
+         return m_cipher_name;
+      }
 
       std::unique_ptr<BlockCipher> new_object() const override;
 
-      size_t block_size() const override { return m_opts.block_size; }
+      size_t block_size() const override {
+         return m_opts.block_size;
+      }
 
-      Key_Length_Specification key_spec() const override { return m_opts.key_spec; }
+      Key_Length_Specification key_spec() const override {
+         return m_opts.key_spec;
+      }
 
-      bool has_keying_material() const override { return m_key_set; }
+      bool has_keying_material() const override {
+         return m_key_set;
+      }
 
       void encrypt_n(const uint8_t in[], uint8_t out[], size_t blocks) const override {
          assert_key_material_set();

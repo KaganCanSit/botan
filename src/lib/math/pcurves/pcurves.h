@@ -77,11 +77,17 @@ class PrimeOrderCurve /* NOLINT(*-special-member-functions) */ {
                std::ranges::fill(m_value, 0);  // secure_scrub_memory does not guarantee zero output!
             }
 
-            const auto& _curve() const { return m_curve; }
+            const auto& _curve() const {
+               return m_curve;
+            }
 
-            const auto& _value() const { return m_value; }
+            const auto& _value() const {
+               return m_value;
+            }
 
-            static Scalar _create(CurvePtr curve, StorageUnit v) { return Scalar(std::move(curve), v); }
+            static Scalar _create(CurvePtr curve, StorageUnit v) {
+               return Scalar(std::move(curve), v);
+            }
 
          private:
             Scalar(CurvePtr curve, StorageUnit v) : m_curve(std::move(curve)), m_value(v) {}
@@ -103,13 +109,21 @@ class PrimeOrderCurve /* NOLINT(*-special-member-functions) */ {
             AffinePoint& operator=(AffinePoint&& other) = default;
             ~AffinePoint() = default;
 
-            static AffinePoint generator(const CurvePtr& curve) { return curve->generator(); }
+            static AffinePoint generator(const CurvePtr& curve) {
+               return curve->generator();
+            }
 
-            const auto& _curve() const { return m_curve; }
+            const auto& _curve() const {
+               return m_curve;
+            }
 
-            const auto& _x() const { return m_x; }
+            const auto& _x() const {
+               return m_x;
+            }
 
-            const auto& _y() const { return m_y; }
+            const auto& _y() const {
+               return m_y;
+            }
 
             static AffinePoint _create(CurvePtr curve, StorageUnit x, StorageUnit y) {
                return AffinePoint(std::move(curve), x, y);
@@ -137,13 +151,21 @@ class PrimeOrderCurve /* NOLINT(*-special-member-functions) */ {
             ProjectivePoint& operator=(ProjectivePoint&& other) = default;
             ~ProjectivePoint() = default;
 
-            const auto& _curve() const { return m_curve; }
+            const auto& _curve() const {
+               return m_curve;
+            }
 
-            const auto& _x() const { return m_x; }
+            const auto& _x() const {
+               return m_x;
+            }
 
-            const auto& _y() const { return m_y; }
+            const auto& _y() const {
+               return m_y;
+            }
 
-            const auto& _z() const { return m_z; }
+            const auto& _z() const {
+               return m_z;
+            }
 
             static ProjectivePoint _create(CurvePtr curve, StorageUnit x, StorageUnit y, StorageUnit z) {
                return ProjectivePoint(std::move(curve), x, y, z);

@@ -48,17 +48,23 @@ class BOTAN_PUBLIC_API(2, 0) Key_Length_Specification final {
       /**
       * @return minimum key length in bytes
       */
-      size_t minimum_keylength() const { return m_min_keylen; }
+      size_t minimum_keylength() const {
+         return m_min_keylen;
+      }
 
       /**
       * @return maximum key length in bytes
       */
-      size_t maximum_keylength() const { return m_max_keylen; }
+      size_t maximum_keylength() const {
+         return m_max_keylen;
+      }
 
       /**
       * @return key length multiple in bytes
       */
-      size_t keylength_multiple() const { return m_keylen_mod; }
+      size_t keylength_multiple() const {
+         return m_keylen_mod;
+      }
 
       /*
       * Multiplies all length requirements with the given factor
@@ -99,19 +105,25 @@ class BOTAN_PUBLIC_API(2, 0) SymmetricAlgorithm {
       /**
       * @return maximum allowed key length
       */
-      size_t maximum_keylength() const { return key_spec().maximum_keylength(); }
+      size_t maximum_keylength() const {
+         return key_spec().maximum_keylength();
+      }
 
       /**
       * @return minimum allowed key length
       */
-      size_t minimum_keylength() const { return key_spec().minimum_keylength(); }
+      size_t minimum_keylength() const {
+         return key_spec().minimum_keylength();
+      }
 
       /**
       * Check whether a given key length is valid for this algorithm.
       * @param length the key length to be checked.
       * @return true if the key length is valid.
       */
-      bool valid_keylength(size_t length) const { return key_spec().valid_keylength(length); }
+      bool valid_keylength(size_t length) const {
+         return key_spec().valid_keylength(length);
+      }
 
       /**
       * Set the symmetric key of this object.
@@ -130,7 +142,9 @@ class BOTAN_PUBLIC_API(2, 0) SymmetricAlgorithm {
       * @param key the to be set as a byte array.
       * @param length in bytes of key param
       */
-      void set_key(const uint8_t key[], size_t length) { set_key(std::span{key, length}); }
+      void set_key(const uint8_t key[], size_t length) {
+         set_key(std::span{key, length});
+      }
 
       /**
       * @return the algorithm name
@@ -143,7 +157,9 @@ class BOTAN_PUBLIC_API(2, 0) SymmetricAlgorithm {
       virtual bool has_keying_material() const = 0;
 
    protected:
-      void assert_key_material_set() const { assert_key_material_set(has_keying_material()); }
+      void assert_key_material_set() const {
+         assert_key_material_set(has_keying_material());
+      }
 
       void assert_key_material_set(bool predicate) const {
          if(!predicate) {

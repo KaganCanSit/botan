@@ -77,19 +77,27 @@ class BOTAN_PUBLIC_API(3, 7) MechanismWrapper final {
       }
 
       /// @return a pointer to the CK_MECHANISM struct that can be passed to the cryptoki functions
-      inline Mechanism* data() const { return const_cast<Mechanism*>(&m_mechanism); }
+      inline Mechanism* data() const {
+         return const_cast<Mechanism*>(&m_mechanism);
+      }
 
-      inline MechanismType mechanism_type() const { return static_cast<MechanismType>(m_mechanism.mechanism); }
+      inline MechanismType mechanism_type() const {
+         return static_cast<MechanismType>(m_mechanism.mechanism);
+      }
 
       /// @return the size of the padding in bytes (for encryption/decryption)
-      inline size_t padding_size() const { return m_padding_size; }
+      inline size_t padding_size() const {
+         return m_padding_size;
+      }
 
       /// Holds the mechanism parameters for OAEP, PSS and ECDH
       ///
       /// TODO(Botan4) use a std::variant here
       /// TODO(Botan4) make this union decl private
       union MechanismParameters {
-            MechanismParameters() /* NOLINT(*-member-init) */ { std::memset(this, 0, sizeof(MechanismParameters)); }
+            MechanismParameters() /* NOLINT(*-member-init) */ {
+               std::memset(this, 0, sizeof(MechanismParameters));
+            }
 
             RsaPkcsOaepParams oaep_params;
             RsaPkcsPssParams pss_params;

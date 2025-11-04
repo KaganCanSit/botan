@@ -21,20 +21,30 @@ class BLAKE2bMAC final : public MessageAuthenticationCode {
    public:
       explicit BLAKE2bMAC(size_t output_bits = 512);
 
-      std::string name() const override { return m_blake.name(); }
+      std::string name() const override {
+         return m_blake.name();
+      }
 
-      size_t output_length() const override { return m_blake.output_length(); }
+      size_t output_length() const override {
+         return m_blake.output_length();
+      }
 
       std::unique_ptr<MessageAuthenticationCode> new_object() const override;
 
       void clear() override;
 
-      bool has_keying_material() const override { return m_blake.has_keying_material(); }
+      bool has_keying_material() const override {
+         return m_blake.has_keying_material();
+      }
 
-      Key_Length_Specification key_spec() const override { return m_blake.key_spec(); }
+      Key_Length_Specification key_spec() const override {
+         return m_blake.key_spec();
+      }
 
    private:
-      void key_schedule(std::span<const uint8_t> key) override { m_blake.set_key(key); }
+      void key_schedule(std::span<const uint8_t> key) override {
+         m_blake.set_key(key);
+      }
 
       void add_data(std::span<const uint8_t> input) override {
          assert_key_material_set();

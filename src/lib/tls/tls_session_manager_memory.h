@@ -51,9 +51,13 @@ class BOTAN_PUBLIC_API(3, 0) Session_Manager_In_Memory : public Session_Manager 
       size_t remove(const Session_Handle& handle) override;
       size_t remove_all() override;
 
-      size_t capacity() const { return m_max_sessions; }
+      size_t capacity() const {
+         return m_max_sessions;
+      }
 
-      bool emits_session_tickets() override { return false; }
+      bool emits_session_tickets() override {
+         return false;
+      }
 
    protected:
       std::optional<Session> retrieve_one(const Session_Handle& handle) override;

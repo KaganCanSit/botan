@@ -20,14 +20,18 @@ class CMAC final : public MessageAuthenticationCode {
    public:
       std::string name() const override;
 
-      size_t output_length() const override { return m_block_size; }
+      size_t output_length() const override {
+         return m_block_size;
+      }
 
       std::unique_ptr<MessageAuthenticationCode> new_object() const override;
 
       void clear() override;
       bool has_keying_material() const override;
 
-      Key_Length_Specification key_spec() const override { return m_cipher->key_spec(); }
+      Key_Length_Specification key_spec() const override {
+         return m_cipher->key_spec();
+      }
 
       /**
       * @param cipher the block cipher to use

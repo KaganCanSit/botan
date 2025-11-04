@@ -104,7 +104,9 @@ class Server_Credential : public Botan::Credentials_Manager {
 
 class Allow_Secrets_Policy : public Botan::TLS::Datagram_Policy {
    public:
-      bool allow_ssl_key_log_file() const override { return true; }
+      bool allow_ssl_key_log_file() const override {
+         return true;
+      }
 };
 
 class BotanTLSCallbacksProxy : public Botan::TLS::Callbacks {
@@ -113,7 +115,9 @@ class BotanTLSCallbacksProxy : public Botan::TLS::Callbacks {
    public:
       explicit BotanTLSCallbacksProxy(Botan::TLS::Callbacks& callbacks) : parent(callbacks) {}
 
-      void tls_emit_data(std::span<const uint8_t> data) override { parent.tls_emit_data(data); }
+      void tls_emit_data(std::span<const uint8_t> data) override {
+         parent.tls_emit_data(data);
+      }
 
       void tls_record_received([[maybe_unused]] uint64_t seq_no,
                                [[maybe_unused]] std::span<const uint8_t> data) override {}
@@ -126,7 +130,9 @@ class BotanTLSCallbacksProxy : public Botan::TLS::Callbacks {
          parent.tls_ssl_key_log_data(label, client_random, secret);
       }
 
-      void tls_session_activated() override { parent.tls_session_activated(); }
+      void tls_session_activated() override {
+         parent.tls_session_activated();
+      }
 };
 
 class DtlsConnection : public Botan::TLS::Callbacks {
@@ -198,9 +204,13 @@ class DtlsConnection : public Botan::TLS::Callbacks {
          stream.close();
       }
 
-      void received_data(std::span<const uint8_t> data) { dtls_channel->received_data(data); }
+      void received_data(std::span<const uint8_t> data) {
+         dtls_channel->received_data(data);
+      }
 
-      void set_activated_callback(std::function<void()> callback) { activated_callback = std::move(callback); }
+      void set_activated_callback(std::function<void()> callback) {
+         activated_callback = std::move(callback);
+      }
 
       void close() const {
          if(fd >= 0) {

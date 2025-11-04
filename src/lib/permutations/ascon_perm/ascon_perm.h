@@ -42,20 +42,30 @@ class Ascon_p final : public Sponge<5, uint64_t> {
          }
       }
 
-      std::string provider() const { return "base"; }
+      std::string provider() const {
+         return "base";
+      }
 
       void absorb(std::span<const uint8_t> input, std::optional<uint8_t> permutation_rounds = std::nullopt);
       void squeeze(std::span<uint8_t> output);
       void percolate_in(std::span<uint8_t> data);
       void percolate_out(std::span<uint8_t> data);
 
-      void finish() { finish(m_init_final_rounds); }
+      void finish() {
+         finish(m_init_final_rounds);
+      }
 
-      void intermediate_finish() { finish(m_processing_rounds); }
+      void intermediate_finish() {
+         finish(m_processing_rounds);
+      }
 
-      void permute() { permute(m_processing_rounds); }
+      void permute() {
+         permute(m_processing_rounds);
+      }
 
-      void initial_permute() { permute(m_init_final_rounds); }
+      void initial_permute() {
+         permute(m_init_final_rounds);
+      }
 
       template <size_t offset, size_t count>
          requires(offset + count <= state_bytes())

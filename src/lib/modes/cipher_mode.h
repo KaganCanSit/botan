@@ -95,14 +95,18 @@ class BOTAN_PUBLIC_API(2, 0) Cipher_Mode : public SymmetricAlgorithm {
       *
       * @param nonce the per message nonce
       */
-      void start(std::span<const uint8_t> nonce) { start_msg(nonce.data(), nonce.size()); }
+      void start(std::span<const uint8_t> nonce) {
+         start_msg(nonce.data(), nonce.size());
+      }
 
       /**
       * Begin processing a message with a fresh nonce.
       * @param nonce the per message nonce
       * @param nonce_len length of nonce
       */
-      void start(const uint8_t nonce[], size_t nonce_len) { start_msg(nonce, nonce_len); }
+      void start(const uint8_t nonce[], size_t nonce_len) {
+         start_msg(nonce, nonce_len);
+      }
 
       /**
       * Begin processing a message.
@@ -114,7 +118,9 @@ class BOTAN_PUBLIC_API(2, 0) Cipher_Mode : public SymmetricAlgorithm {
       * ciphertext block to be used as the nonce of the new message; doing this
       * isn't a good idea, but some (mostly older) protocols do this.
       */
-      void start() { return start_msg(nullptr, 0); }
+      void start() {
+         return start_msg(nullptr, 0);
+      }
 
       /**
       * Process message blocks
@@ -129,9 +135,13 @@ class BOTAN_PUBLIC_API(2, 0) Cipher_Mode : public SymmetricAlgorithm {
       * @param msg the message to be processed
       * @return bytes written in-place
       */
-      size_t process(std::span<uint8_t> msg) { return this->process_msg(msg.data(), msg.size()); }
+      size_t process(std::span<uint8_t> msg) {
+         return this->process_msg(msg.data(), msg.size());
+      }
 
-      size_t process(uint8_t msg[], size_t msg_len) { return this->process_msg(msg, msg_len); }
+      size_t process(uint8_t msg[], size_t msg_len) {
+         return this->process_msg(msg, msg_len);
+      }
 
       /**
       * Process some data. Input must be in size update_granularity() uint8_t
@@ -176,7 +186,9 @@ class BOTAN_PUBLIC_API(2, 0) Cipher_Mode : public SymmetricAlgorithm {
       *        minimum_final_size() bytes, and will be set to any final output
       * @param offset an offset into final_block to begin processing
       */
-      void finish(secure_vector<uint8_t>& final_block, size_t offset = 0) { finish_msg(final_block, offset); }
+      void finish(secure_vector<uint8_t>& final_block, size_t offset = 0) {
+         finish_msg(final_block, offset);
+      }
 
       /**
       * Complete procession of a message.
@@ -230,7 +242,9 @@ class BOTAN_PUBLIC_API(2, 0) Cipher_Mode : public SymmetricAlgorithm {
       * This function returns true if this mode has this style of
       * operation.
       */
-      virtual bool requires_entire_message() const { return false; }
+      virtual bool requires_entire_message() const {
+         return false;
+      }
 
       /**
       * @return required minimum size to finalize() - may be any
@@ -260,18 +274,24 @@ class BOTAN_PUBLIC_API(2, 0) Cipher_Mode : public SymmetricAlgorithm {
       * @return true iff this mode provides authentication as well as
       *         confidentiality.
       */
-      bool authenticated() const { return this->tag_size() > 0; }
+      bool authenticated() const {
+         return this->tag_size() > 0;
+      }
 
       /**
       * @return the size of the authentication tag used (in bytes)
       */
-      virtual size_t tag_size() const { return 0; }
+      virtual size_t tag_size() const {
+         return 0;
+      }
 
       /**
       * @return provider information about this implementation. Default is "base",
       * might also return "sse2", "avx2", "openssl", or some other arbitrary string.
       */
-      virtual std::string provider() const { return "base"; }
+      virtual std::string provider() const {
+         return "base";
+      }
 };
 
 /**

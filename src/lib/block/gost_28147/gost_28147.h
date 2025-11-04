@@ -31,7 +31,9 @@ class GOST_28147_89_Params final {
       /**
       * @return name of this parameter set
       */
-      std::string param_name() const { return m_name; }
+      std::string param_name() const {
+         return m_name;
+      }
 
       /**
       * Return a representation used for building larger tables

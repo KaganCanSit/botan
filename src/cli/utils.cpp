@@ -94,9 +94,13 @@ class Print_Help final : public Command {
          return oss.str();
       }
 
-      std::string group() const override { return ""; }
+      std::string group() const override {
+         return "";
+      }
 
-      std::string description() const override { return "Prints a help string"; }
+      std::string description() const override {
+         return "Prints a help string";
+      }
 
       void go() override {
          this->set_return_code(1);
@@ -110,9 +114,13 @@ class Has_Command final : public Command {
    public:
       Has_Command() : Command("has_command cmd") {}
 
-      std::string group() const override { return "info"; }
+      std::string group() const override {
+         return "info";
+      }
 
-      std::string description() const override { return "Test if a command is available"; }
+      std::string description() const override {
+         return "Test if a command is available";
+      }
 
       void go() override {
          const std::string cmd = get_arg("cmd");
@@ -149,9 +157,13 @@ class Config_Info final : public Command {
                 "   libs: Print libraries\n";
       }
 
-      std::string group() const override { return "info"; }
+      std::string group() const override {
+         return "info";
+      }
 
-      std::string description() const override { return "Print the used prefix, cflags, ldflags or libs"; }
+      std::string description() const override {
+         return "Print the used prefix, cflags, ldflags or libs";
+      }
 
       void go() override {
          const std::string arg = get_arg("info_type");
@@ -179,9 +191,13 @@ class Version_Info final : public Command {
    public:
       Version_Info() : Command("version --full") {}
 
-      std::string group() const override { return "info"; }
+      std::string group() const override {
+         return "info";
+      }
 
-      std::string description() const override { return "Print version info"; }
+      std::string description() const override {
+         return "Print version info";
+      }
 
       void go() override {
          if(flag_set("full")) {
@@ -200,13 +216,17 @@ class Print_Cpuid final : public Command {
    public:
       Print_Cpuid() : Command("cpuid") {}
 
-      std::string group() const override { return "info"; }
+      std::string group() const override {
+         return "info";
+      }
 
       std::string description() const override {
          return "List available processor flags (aes_ni, SIMD extensions, ...)";
       }
 
-      void go() override { output() << "CPUID flags: " << Botan::CPUID::to_string() << "\n"; }
+      void go() override {
+         output() << "CPUID flags: " << Botan::CPUID::to_string() << "\n";
+      }
 };
 
 BOTAN_REGISTER_COMMAND("cpuid", Print_Cpuid);
@@ -219,9 +239,13 @@ class Cycle_Counter final : public Command {
    public:
       Cycle_Counter() : Command("cpu_clock --test-duration=500") {}
 
-      std::string group() const override { return "info"; }
+      std::string group() const override {
+         return "info";
+      }
 
-      std::string description() const override { return "Estimate the speed of the CPU cycle counter"; }
+      std::string description() const override {
+         return "Estimate the speed of the CPU cycle counter";
+      }
 
       void go() override {
          if(Botan::OS::get_cpu_cycle_counter() == 0) {
@@ -282,9 +306,13 @@ class Print_UUID final : public Command {
    public:
       Print_UUID() : Command("uuid") {}
 
-      std::string group() const override { return "misc"; }
+      std::string group() const override {
+         return "misc";
+      }
 
-      std::string description() const override { return "Print a random UUID"; }
+      std::string description() const override {
+         return "Print a random UUID";
+      }
 
       void go() override {
          Botan::UUID uuid(rng());
@@ -302,9 +330,13 @@ class HTTP_Get final : public Command {
    public:
       HTTP_Get() : Command("http_get --redirects=1 --timeout=3000 url") {}
 
-      std::string group() const override { return "misc"; }
+      std::string group() const override {
+         return "misc";
+      }
 
-      std::string description() const override { return "Retrieve resource from the passed http/https url"; }
+      std::string description() const override {
+         return "Retrieve resource from the passed http/https url";
+      }
 
       void go() override {
          const std::string url = get_arg("url");

@@ -131,7 +131,9 @@ class RAII_LowLevel {
          m_is_logged_in = false;
       }
 
-      LowLevel* get() const { return m_low_level.get(); }
+      LowLevel* get() const {
+         return m_low_level.get();
+      }
 
    private:
       Dynamically_Loaded_Library m_module;

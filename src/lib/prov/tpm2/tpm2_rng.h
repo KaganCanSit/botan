@@ -23,11 +23,17 @@ class BOTAN_PUBLIC_API(3, 6) RandomNumberGenerator final : public Hardware_RNG {
    public:
       BOTAN_FUTURE_EXPLICIT RandomNumberGenerator(std::shared_ptr<Context> ctx, SessionBundle sessions = {});
 
-      bool accepts_input() const override { return true; }
+      bool accepts_input() const override {
+         return true;
+      }
 
-      std::string name() const override { return "TPM2_RNG"; }
+      std::string name() const override {
+         return "TPM2_RNG";
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
    private:
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> input) override;

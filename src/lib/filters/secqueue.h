@@ -20,7 +20,9 @@ namespace Botan {
 class BOTAN_TEST_API SecureQueue final : public Fanout_Filter,
                                          public DataSource {
    public:
-      std::string name() const override { return "Queue"; }
+      std::string name() const override {
+         return "Queue";
+      }
 
       void write(const uint8_t input[], size_t length) override;
 
@@ -32,14 +34,18 @@ class BOTAN_TEST_API SecureQueue final : public Fanout_Filter,
 
       bool empty() const;
 
-      bool check_available(size_t n) override { return n <= size(); }
+      bool check_available(size_t n) override {
+         return n <= size();
+      }
 
       /**
       * @return number of bytes available in the queue
       */
       size_t size() const;
 
-      bool attachable() override { return false; }
+      bool attachable() override {
+         return false;
+      }
 
       /**
       * SecureQueue assignment
@@ -61,7 +67,9 @@ class BOTAN_TEST_API SecureQueue final : public Fanout_Filter,
       */
       SecureQueue(const SecureQueue& other);
 
-      ~SecureQueue() override { destroy(); }
+      ~SecureQueue() override {
+         destroy();
+      }
 
    private:
       void destroy();

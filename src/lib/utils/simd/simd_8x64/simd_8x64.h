@@ -54,7 +54,9 @@ class SIMD_8x64 final {
          return SIMD_8x64(_mm512_loadu_si512(reinterpret_cast<const __m512i*>(in)));
       }
 
-      static BOTAN_FN_ISA_SIMD_8X64 SIMD_8x64 load_be(const void* in) { return SIMD_8x64::load_le(in).bswap(); }
+      static BOTAN_FN_ISA_SIMD_8X64 SIMD_8x64 load_be(const void* in) {
+         return SIMD_8x64::load_le(in).bswap();
+      }
 
       SIMD_8x64 BOTAN_FN_ISA_SIMD_8X64 bswap() const {
          // clang-format off
@@ -66,7 +68,9 @@ class SIMD_8x64 final {
          return SIMD_8x64(_mm512_shuffle_epi8(m_simd, idx));
       }
 
-      void store_le(uint64_t out[8]) const { this->store_le(reinterpret_cast<uint8_t*>(out)); }
+      void store_le(uint64_t out[8]) const {
+         this->store_le(reinterpret_cast<uint8_t*>(out));
+      }
 
       BOTAN_FN_ISA_SIMD_8X64 void store_le(uint8_t out[]) const {
          _mm512_storeu_si512(reinterpret_cast<__m512i*>(out), m_simd);

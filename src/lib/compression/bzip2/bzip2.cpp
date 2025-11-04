@@ -27,11 +27,17 @@ class Bzip2_Stream : public Zlib_Style_Stream<bz_stream, char, unsigned int> {
          streamp()->bzfree = Compression_Alloc_Info::free;
       }
 
-      uint32_t run_flag() const override { return BZ_RUN; }
+      uint32_t run_flag() const override {
+         return BZ_RUN;
+      }
 
-      uint32_t flush_flag() const override { return BZ_FLUSH; }
+      uint32_t flush_flag() const override {
+         return BZ_FLUSH;
+      }
 
-      uint32_t finish_flag() const override { return BZ_FINISH; }
+      uint32_t finish_flag() const override {
+         return BZ_FINISH;
+      }
 };
 
 class Bzip2_Compression_Stream final : public Bzip2_Stream {
@@ -58,7 +64,9 @@ class Bzip2_Compression_Stream final : public Bzip2_Stream {
       Bzip2_Compression_Stream& operator=(const Bzip2_Compression_Stream& other) = delete;
       Bzip2_Compression_Stream& operator=(Bzip2_Compression_Stream&& other) = delete;
 
-      ~Bzip2_Compression_Stream() override { BZ2_bzCompressEnd(streamp()); }
+      ~Bzip2_Compression_Stream() override {
+         BZ2_bzCompressEnd(streamp());
+      }
 
       bool run(uint32_t flags) override {
          int rc = BZ2_bzCompress(streamp(), flags);
@@ -86,7 +94,9 @@ class Bzip2_Decompression_Stream final : public Bzip2_Stream {
       Bzip2_Decompression_Stream& operator=(const Bzip2_Decompression_Stream& other) = delete;
       Bzip2_Decompression_Stream& operator=(Bzip2_Decompression_Stream&& other) = delete;
 
-      ~Bzip2_Decompression_Stream() override { BZ2_bzDecompressEnd(streamp()); }
+      ~Bzip2_Decompression_Stream() override {
+         BZ2_bzDecompressEnd(streamp());
+      }
 
       bool run(uint32_t /*flags*/) override {
          int rc = BZ2_bzDecompress(streamp());

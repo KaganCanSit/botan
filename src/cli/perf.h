@@ -39,17 +39,29 @@ class PerfConfig final {
             m_error_output(error_output),
             m_rng(rng) {}
 
-      const std::vector<size_t>& buffer_sizes() const { return m_buffer_sizes; }
+      const std::vector<size_t>& buffer_sizes() const {
+         return m_buffer_sizes;
+      }
 
-      const std::vector<std::string>& ecc_groups() const { return m_ecc_groups; }
+      const std::vector<std::string>& ecc_groups() const {
+         return m_ecc_groups;
+      }
 
-      std::chrono::milliseconds runtime() const { return m_runtime; }
+      std::chrono::milliseconds runtime() const {
+         return m_runtime;
+      }
 
-      std::ostream& error_output() const { return m_error_output; }
+      std::ostream& error_output() const {
+         return m_error_output;
+      }
 
-      Botan::RandomNumberGenerator& rng() const { return m_rng; }
+      Botan::RandomNumberGenerator& rng() const {
+         return m_rng;
+      }
 
-      void record_result(const Timer& timer) const { m_record_result(timer); }
+      void record_result(const Timer& timer) const {
+         m_record_result(timer);
+      }
 
       std::unique_ptr<Timer> make_timer(const std::string& alg,
                                         uint64_t event_mult = 1,

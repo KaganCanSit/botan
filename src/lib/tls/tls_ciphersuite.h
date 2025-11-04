@@ -54,12 +54,16 @@ class BOTAN_PUBLIC_API(2, 0) Ciphersuite final {
       * e.g "RSA_WITH_RC4_128_SHA" or "ECDHE_RSA_WITH_AES_128_GCM_SHA256"
       * @return RFC ciphersuite string identifier
       */
-      std::string to_string() const { return (m_iana_id == nullptr) ? "unknown cipher suite" : m_iana_id; }
+      std::string to_string() const {
+         return (m_iana_id == nullptr) ? "unknown cipher suite" : m_iana_id;
+      }
 
       /**
       * @return ciphersuite number
       */
-      uint16_t ciphersuite_code() const { return m_ciphersuite_code; }
+      uint16_t ciphersuite_code() const {
+         return m_ciphersuite_code;
+      }
 
       /**
       * @return true if this is a PSK ciphersuite
@@ -91,52 +95,78 @@ class BOTAN_PUBLIC_API(2, 0) Ciphersuite final {
       /**
       * @return key exchange algorithm used by this ciphersuite
       */
-      std::string kex_algo() const { return kex_method_to_string(kex_method()); }
+      std::string kex_algo() const {
+         return kex_method_to_string(kex_method());
+      }
 
-      Kex_Algo kex_method() const { return m_kex_algo; }
+      Kex_Algo kex_method() const {
+         return m_kex_algo;
+      }
 
       /**
       * @return signature algorithm used by this ciphersuite
       */
-      std::string sig_algo() const { return auth_method_to_string(auth_method()); }
+      std::string sig_algo() const {
+         return auth_method_to_string(auth_method());
+      }
 
-      Auth_Method auth_method() const { return m_auth_method; }
+      Auth_Method auth_method() const {
+         return m_auth_method;
+      }
 
       /**
       * @return symmetric cipher algorithm used by this ciphersuite
       */
-      std::string cipher_algo() const { return m_cipher_algo; }
+      std::string cipher_algo() const {
+         return m_cipher_algo;
+      }
 
       /**
       * @return message authentication algorithm used by this ciphersuite
       */
-      std::string mac_algo() const { return m_mac_algo; }
+      std::string mac_algo() const {
+         return m_mac_algo;
+      }
 
-      std::string prf_algo() const { return kdf_algo_to_string(m_prf_algo); }
+      std::string prf_algo() const {
+         return kdf_algo_to_string(m_prf_algo);
+      }
 
       /**
       * @return cipher key length used by this ciphersuite
       */
-      size_t cipher_keylen() const { return m_cipher_keylen; }
+      size_t cipher_keylen() const {
+         return m_cipher_keylen;
+      }
 
       size_t nonce_bytes_from_handshake() const;
 
       size_t nonce_bytes_from_record(Protocol_Version version) const;
 
-      Nonce_Format nonce_format() const { return m_nonce_format; }
+      Nonce_Format nonce_format() const {
+         return m_nonce_format;
+      }
 
-      size_t mac_keylen() const { return m_mac_keylen; }
+      size_t mac_keylen() const {
+         return m_mac_keylen;
+      }
 
       /**
       * @return true if this is a valid/known ciphersuite
       */
-      bool valid() const { return m_usable; }
+      bool valid() const {
+         return m_usable;
+      }
 
       bool usable_in_version(Protocol_Version version) const;
 
-      bool operator<(const Ciphersuite& o) const { return ciphersuite_code() < o.ciphersuite_code(); }
+      bool operator<(const Ciphersuite& o) const {
+         return ciphersuite_code() < o.ciphersuite_code();
+      }
 
-      bool operator<(const uint16_t c) const { return ciphersuite_code() < c; }
+      bool operator<(const uint16_t c) const {
+         return ciphersuite_code() < c;
+      }
 
    private:
       bool is_usable() const;

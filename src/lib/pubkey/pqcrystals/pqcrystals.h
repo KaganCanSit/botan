@@ -93,7 +93,9 @@ class Trait_Base {
          return std::span<U, N>{polyspan.data(), polyspan.size()};
       }
 
-      static constexpr T fqmul(T a, T b) { return DerivedT::montgomery_reduce_coefficient(static_cast<T2>(a) * b); }
+      static constexpr T fqmul(T a, T b) {
+         return DerivedT::montgomery_reduce_coefficient(static_cast<T2>(a) * b);
+      }
 
    public:
       static constexpr void poly_add(std::span<T, N> result, std::span<const T, N> lhs, std::span<const T, N> rhs) {
@@ -117,7 +119,9 @@ class Trait_Base {
          }
       }
 
-      static constexpr T to_montgomery(T a) { return fqmul(a, MONTY_SQUARED); }
+      static constexpr T to_montgomery(T a) {
+         return fqmul(a, MONTY_SQUARED);
+      }
 
       constexpr static void barrett_reduce(std::span<T, N> poly) {
          for(auto& coeff : poly) {
@@ -251,9 +255,13 @@ class Polynomial {
       }
 
    public:
-      Polynomial() : m_coeffs_storage(Trait::N), m_coeffs(m_coeffs_storage) { BOTAN_DEBUG_ASSERT(owns_storage()); }
+      Polynomial() : m_coeffs_storage(Trait::N), m_coeffs(m_coeffs_storage) {
+         BOTAN_DEBUG_ASSERT(owns_storage());
+      }
 
-      explicit Polynomial(std::span<T, Trait::N> coeffs) : m_coeffs(coeffs) { BOTAN_DEBUG_ASSERT(!owns_storage()); }
+      explicit Polynomial(std::span<T, Trait::N> coeffs) : m_coeffs(coeffs) {
+         BOTAN_DEBUG_ASSERT(!owns_storage());
+      }
 
       Polynomial(const ThisPolynomial& other) = delete;
 
@@ -273,9 +281,13 @@ class Polynomial {
 
       ~Polynomial() = default;
 
-      constexpr size_t size() const { return m_coeffs.size(); }
+      constexpr size_t size() const {
+         return m_coeffs.size();
+      }
 
-      constexpr Domain domain() const noexcept { return D; }
+      constexpr Domain domain() const noexcept {
+         return D;
+      }
 
       ThisPolynomial clone() const {
          ThisPolynomial res;
@@ -299,23 +311,41 @@ class Polynomial {
          return weight;
       }
 
-      std::span<T, Trait::N> coefficients() { return m_coeffs; }
+      std::span<T, Trait::N> coefficients() {
+         return m_coeffs;
+      }
 
-      std::span<const T, Trait::N> coefficients() const { return m_coeffs; }
+      std::span<const T, Trait::N> coefficients() const {
+         return m_coeffs;
+      }
 
-      T& operator[](size_t i) { return m_coeffs[i]; }
+      T& operator[](size_t i) {
+         return m_coeffs[i];
+      }
 
-      T operator[](size_t i) const { return m_coeffs[i]; }
+      T operator[](size_t i) const {
+         return m_coeffs[i];
+      }
 
-      decltype(auto) begin() { return m_coeffs.begin(); }
+      decltype(auto) begin() {
+         return m_coeffs.begin();
+      }
 
-      decltype(auto) begin() const { return m_coeffs.begin(); }
+      decltype(auto) begin() const {
+         return m_coeffs.begin();
+      }
 
-      decltype(auto) end() { return m_coeffs.end(); }
+      decltype(auto) end() {
+         return m_coeffs.end();
+      }
 
-      decltype(auto) end() const { return m_coeffs.end(); }
+      decltype(auto) end() const {
+         return m_coeffs.end();
+      }
 
-      constexpr bool owns_storage() const { return !m_coeffs_storage.empty(); }
+      constexpr bool owns_storage() const {
+         return !m_coeffs_storage.empty();
+      }
 
       ThisPolynomial& reduce() {
          Trait::barrett_reduce(m_coeffs);
@@ -327,9 +357,13 @@ class Polynomial {
          return *this;
       }
 
-      void _const_time_poison() const { CT::poison(m_coeffs); }
+      void _const_time_poison() const {
+         CT::poison(m_coeffs);
+      }
 
-      void _const_time_unpoison() const { CT::unpoison(m_coeffs); }
+      void _const_time_unpoison() const {
+         CT::unpoison(m_coeffs);
+      }
 
       /**
        * Adds two polynomials element-wise. Does not perform a reduction after the addition.
@@ -411,9 +445,13 @@ class PolynomialVector {
       ThisPolynomialVector& operator=(ThisPolynomialVector&& other) noexcept = default;
       ~PolynomialVector() = default;
 
-      size_t size() const { return m_vec.size(); }
+      size_t size() const {
+         return m_vec.size();
+      }
 
-      constexpr Domain domain() const noexcept { return D; }
+      constexpr Domain domain() const noexcept {
+         return D;
+      }
 
       ThisPolynomialVector clone() const {
          ThisPolynomialVector res(size());
@@ -440,9 +478,13 @@ class PolynomialVector {
          return detail::ct_all_within_range(coefficients(), min, max);
       }
 
-      std::span<T> coefficients() { return m_polys_storage; }
+      std::span<T> coefficients() {
+         return m_polys_storage;
+      }
 
-      std::span<const T> coefficients() const { return m_polys_storage; }
+      std::span<const T> coefficients() const {
+         return m_polys_storage;
+      }
 
       ThisPolynomialVector& operator+=(const ThisPolynomialVector& other) {
          BOTAN_ASSERT(m_vec.size() == other.m_vec.size(), "cannot add polynomial vectors of differing lengths");
@@ -474,21 +516,37 @@ class PolynomialVector {
          return *this;
       }
 
-      Polynomial<Trait, D>& operator[](size_t i) { return m_vec[i]; }
+      Polynomial<Trait, D>& operator[](size_t i) {
+         return m_vec[i];
+      }
 
-      const Polynomial<Trait, D>& operator[](size_t i) const { return m_vec[i]; }
+      const Polynomial<Trait, D>& operator[](size_t i) const {
+         return m_vec[i];
+      }
 
-      decltype(auto) begin() { return m_vec.begin(); }
+      decltype(auto) begin() {
+         return m_vec.begin();
+      }
 
-      decltype(auto) begin() const { return m_vec.begin(); }
+      decltype(auto) begin() const {
+         return m_vec.begin();
+      }
 
-      decltype(auto) end() { return m_vec.end(); }
+      decltype(auto) end() {
+         return m_vec.end();
+      }
 
-      decltype(auto) end() const { return m_vec.end(); }
+      decltype(auto) end() const {
+         return m_vec.end();
+      }
 
-      void _const_time_poison() const { CT::poison_range(m_vec); }
+      void _const_time_poison() const {
+         CT::poison_range(m_vec);
+      }
 
-      void _const_time_unpoison() const { CT::unpoison_range(m_vec); }
+      void _const_time_unpoison() const {
+         CT::unpoison_range(m_vec);
+      }
 };
 
 template <crystals_trait Trait>
@@ -508,7 +566,9 @@ class PolynomialMatrix {
       ThisPolynomialMatrix& operator=(ThisPolynomialMatrix&& other) noexcept = default;
       ~PolynomialMatrix() = default;
 
-      size_t size() const { return m_mat.size(); }
+      size_t size() const {
+         return m_mat.size();
+      }
 
       PolynomialMatrix(size_t rows, size_t cols) {
          m_mat.reserve(rows);
@@ -517,21 +577,37 @@ class PolynomialMatrix {
          }
       }
 
-      PolynomialVector<Trait, Domain::NTT>& operator[](size_t i) { return m_mat[i]; }
+      PolynomialVector<Trait, Domain::NTT>& operator[](size_t i) {
+         return m_mat[i];
+      }
 
-      const PolynomialVector<Trait, Domain::NTT>& operator[](size_t i) const { return m_mat[i]; }
+      const PolynomialVector<Trait, Domain::NTT>& operator[](size_t i) const {
+         return m_mat[i];
+      }
 
-      decltype(auto) begin() { return m_mat.begin(); }
+      decltype(auto) begin() {
+         return m_mat.begin();
+      }
 
-      decltype(auto) begin() const { return m_mat.begin(); }
+      decltype(auto) begin() const {
+         return m_mat.begin();
+      }
 
-      decltype(auto) end() { return m_mat.end(); }
+      decltype(auto) end() {
+         return m_mat.end();
+      }
 
-      decltype(auto) end() const { return m_mat.end(); }
+      decltype(auto) end() const {
+         return m_mat.end();
+      }
 
-      void _const_time_poison() const { CT::poison_range(m_mat); }
+      void _const_time_poison() const {
+         CT::poison_range(m_mat);
+      }
 
-      void _const_time_unpoison() const { CT::unpoison_range(m_mat); }
+      void _const_time_unpoison() const {
+         CT::unpoison_range(m_mat);
+      }
 };
 
 namespace detail {

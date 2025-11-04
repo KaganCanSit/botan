@@ -32,12 +32,18 @@ class BOTAN_PUBLIC_API(3, 0) Session_Manager_Noop final : public Session_Manager
 
       void store(const Session& /*session*/, const Session_Handle& /*handle*/) override {}
 
-      size_t remove(const Session_Handle& /*session*/) override { return 0; }
+      size_t remove(const Session_Handle& /*session*/) override {
+         return 0;
+      }
 
-      size_t remove_all() override { return 0; }
+      size_t remove_all() override {
+         return 0;
+      }
 
    protected:
-      std::optional<Session> retrieve_one(const Session_Handle& /*handle*/) override { return {}; }
+      std::optional<Session> retrieve_one(const Session_Handle& /*handle*/) override {
+         return {};
+      }
 
       std::vector<Session_with_Handle> find_some(const Server_Information& /*info*/,
                                                  size_t /*max_sessions_hint*/) override {

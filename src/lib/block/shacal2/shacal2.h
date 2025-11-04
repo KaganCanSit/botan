@@ -24,9 +24,13 @@ class SHACAL2 final : public Block_Cipher_Fixed_Params<32, 16, 64, 4> {
       std::string provider() const override;
       void clear() override;
 
-      std::string name() const override { return "SHACAL2"; }
+      std::string name() const override {
+         return "SHACAL2";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<SHACAL2>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<SHACAL2>();
+      }
 
       size_t parallelism() const override;
       bool has_keying_material() const override;

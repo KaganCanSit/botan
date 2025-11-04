@@ -68,12 +68,16 @@ class BOTAN_PUBLIC_API(3, 1) Sphincs_Parameters final {
       /**
        * @returns the hash type used by those parameters
        */
-      Sphincs_Hash_Type hash_type() const { return m_hash_type; }
+      Sphincs_Hash_Type hash_type() const {
+         return m_hash_type;
+      }
 
       /**
        * @returns the generic algorithm parameterization set to be used by those parameters
        */
-      Sphincs_Parameter_Set parameter_set() const { return m_set; }
+      Sphincs_Parameter_Set parameter_set() const {
+         return m_set;
+      }
 
       /**
        * @returns true for SLH-DSA parameter sets. False for SPHINCS+ Round 3.1 parameter sets.
@@ -93,17 +97,23 @@ class BOTAN_PUBLIC_API(3, 1) Sphincs_Parameters final {
       /**
        * @returns SLH-DSA security parameter in bytes
        */
-      size_t n() const { return m_n; }
+      size_t n() const {
+         return m_n;
+      }
 
       /**
        * @returns Height of the SLH-DSA hypertree
        */
-      uint32_t h() const { return m_h; }
+      uint32_t h() const {
+         return m_h;
+      }
 
       /**
        * @returns Number of XMSS layers in the SLH-DSA hypertree
        */
-      uint32_t d() const { return m_d; }
+      uint32_t d() const {
+         return m_d;
+      }
 
       /**
        * This is the desired height of the FORS trees, aka `log(t)` with t being
@@ -111,109 +121,151 @@ class BOTAN_PUBLIC_API(3, 1) Sphincs_Parameters final {
        *
        * @returns Height of the FORS trees
        */
-      uint32_t a() const { return m_a; }
+      uint32_t a() const {
+         return m_a;
+      }
 
       /**
        * @returns Number of FORS trees to use
        */
-      uint32_t k() const { return m_k; }
+      uint32_t k() const {
+         return m_k;
+      }
 
       /**
        * @returns the Winternitz parameter for WOTS+ signatures
        */
-      uint32_t w() const { return m_w; }
+      uint32_t w() const {
+         return m_w;
+      }
 
       /**
        * @returns the bit security given by Table 3 (NIST R3.1 submission, page 39) for the
        *          selected parameter set
        */
-      uint32_t bitsec() const { return m_bitsec; }
+      uint32_t bitsec() const {
+         return m_bitsec;
+      }
 
       /**
        * @returns the tree height of an XMSS tree
        */
-      uint32_t xmss_tree_height() const { return m_xmss_tree_height; }
+      uint32_t xmss_tree_height() const {
+         return m_xmss_tree_height;
+      }
 
       /**
        * @returns the byte length of a single xmss signature
        */
-      uint32_t xmss_signature_bytes() const { return m_xmss_sig_bytes; }
+      uint32_t xmss_signature_bytes() const {
+         return m_xmss_sig_bytes;
+      }
 
       /**
        * @returns the byte length of a the xmss hypertree signature
        */
-      uint32_t ht_signature_bytes() const { return m_ht_sig_bytes; }
+      uint32_t ht_signature_bytes() const {
+         return m_ht_sig_bytes;
+      }
 
       /**
        * @returns the base 2 logarithm of the Winternitz parameter for WOTS+ signatures
        */
-      uint32_t log_w() const { return m_lg_w; }
+      uint32_t log_w() const {
+         return m_lg_w;
+      }
 
       /**
        * @returns the len1 parameter for WOTS+ signatures
        */
-      uint32_t wots_len_1() const { return m_wots_len1; }
+      uint32_t wots_len_1() const {
+         return m_wots_len1;
+      }
 
       /**
        * @returns the len2 parameter for WOTS+ signatures
        */
-      uint32_t wots_len_2() const { return m_wots_len2; }
+      uint32_t wots_len_2() const {
+         return m_wots_len2;
+      }
 
       /**
        * @returns the len parameter for WOTS+ signatures
        */
-      uint32_t wots_len() const { return m_wots_len; }
+      uint32_t wots_len() const {
+         return m_wots_len;
+      }
 
       /**
        * @returns the byte length of a WOTS+ signature
        */
-      uint32_t wots_bytes() const { return m_wots_bytes; }
+      uint32_t wots_bytes() const {
+         return m_wots_bytes;
+      }
 
       /**
        * @returns the number of bytes a WOTS+ signature consists of
        */
-      uint32_t wots_checksum_bytes() const { return m_wots_checksum_bytes; }
+      uint32_t wots_checksum_bytes() const {
+         return m_wots_checksum_bytes;
+      }
 
       /**
        * @returns the byte length of a FORS signature
        */
-      uint32_t fors_signature_bytes() const { return m_fors_sig_bytes; }
+      uint32_t fors_signature_bytes() const {
+         return m_fors_sig_bytes;
+      }
 
       /**
        * @returns the byte length of the FORS input message
        */
-      uint32_t fors_message_bytes() const { return m_fors_message_bytes; }
+      uint32_t fors_message_bytes() const {
+         return m_fors_message_bytes;
+      }
 
       /**
        * @returns the byte length of a SLH-DSA signature
        */
-      uint32_t sphincs_signature_bytes() const { return m_sp_sig_bytes; }
+      uint32_t sphincs_signature_bytes() const {
+         return m_sp_sig_bytes;
+      }
 
       /**
        * @returns the byte length of an encoded public key for this parameter set
        */
-      uint32_t public_key_bytes() const { return m_n * 2; }
+      uint32_t public_key_bytes() const {
+         return m_n * 2;
+      }
 
       /**
        * @returns the byte length of an encoded private key for this parameter set
        */
-      uint32_t private_key_bytes() const { return m_n * 2 + public_key_bytes(); }
+      uint32_t private_key_bytes() const {
+         return m_n * 2 + public_key_bytes();
+      }
 
       /**
        * @returns the byte length of the tree index output of H_msg
        */
-      uint32_t tree_digest_bytes() const { return m_tree_digest_bytes; }
+      uint32_t tree_digest_bytes() const {
+         return m_tree_digest_bytes;
+      }
 
       /**
        * @returns the byte length of the leaf index output of H_msg
        */
-      uint32_t leaf_digest_bytes() const { return m_leaf_digest_bytes; }
+      uint32_t leaf_digest_bytes() const {
+         return m_leaf_digest_bytes;
+      }
 
       /**
        * @returns the byte length of the output of H_msg. Corresponds to
        *          'm' of FIPS 205, Table 2.
        */
-      uint32_t h_msg_digest_bytes() const { return m_h_msg_digest_bytes; }
+      uint32_t h_msg_digest_bytes() const {
+         return m_h_msg_digest_bytes;
+      }
 
    private:
       Sphincs_Parameters(Sphincs_Parameter_Set set,

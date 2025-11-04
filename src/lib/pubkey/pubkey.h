@@ -93,7 +93,9 @@ class BOTAN_PUBLIC_API(2, 0) PK_Decryptor {
       * @param in the ciphertext
       * @return decrypted message
       */
-      secure_vector<uint8_t> decrypt(std::span<const uint8_t> in) const { return decrypt(in.data(), in.size()); }
+      secure_vector<uint8_t> decrypt(std::span<const uint8_t> in) const {
+         return decrypt(in.data(), in.size());
+      }
 
       /**
       * Decrypt a ciphertext. If the ciphertext is invalid (eg due to
@@ -202,7 +204,9 @@ class BOTAN_PUBLIC_API(2, 0) PK_Signer final {
       * Add a message part (single byte).
       * @param in the byte to add
       */
-      void update(uint8_t in) { update(&in, 1); }
+      void update(uint8_t in) {
+         update(&in, 1);
+      }
 
       /**
       * Add a message part.
@@ -215,7 +219,9 @@ class BOTAN_PUBLIC_API(2, 0) PK_Signer final {
       * Add a message part.
       * @param in the message part to add
       */
-      void update(std::span<const uint8_t> in) { update(in.data(), in.size()); }
+      void update(std::span<const uint8_t> in) {
+         update(in.data(), in.size());
+      }
 
       /**
       * Add a message part.
@@ -235,7 +241,9 @@ class BOTAN_PUBLIC_API(2, 0) PK_Signer final {
       * Set the output format of the signature.
       * @param format the signature format to use
       */
-      void set_output_format(Signature_Format format) { m_sig_format = format; }
+      void set_output_format(Signature_Format format) {
+         m_sig_format = format;
+      }
 
       /**
       * Return an upper bound on the length of the signatures this
@@ -331,7 +339,9 @@ class BOTAN_PUBLIC_API(2, 0) PK_Verifier final {
       * signature to be verified.
       * @param in the byte to add
       */
-      void update(uint8_t in) { update(&in, 1); }
+      void update(uint8_t in) {
+         update(&in, 1);
+      }
 
       /**
       * Add a message part of the message corresponding to the
@@ -346,7 +356,9 @@ class BOTAN_PUBLIC_API(2, 0) PK_Verifier final {
       * signature to be verified.
       * @param in the new message part
       */
-      void update(std::span<const uint8_t> in) { update(in.data(), in.size()); }
+      void update(std::span<const uint8_t> in) {
+         update(in.data(), in.size());
+      }
 
       /**
       * Add a message part of the message corresponding to the
@@ -369,7 +381,9 @@ class BOTAN_PUBLIC_API(2, 0) PK_Verifier final {
       * @param sig the signature to be verified
       * @return true if the signature is valid, false otherwise
       */
-      bool check_signature(std::span<const uint8_t> sig) { return check_signature(sig.data(), sig.size()); }
+      bool check_signature(std::span<const uint8_t> sig) {
+         return check_signature(sig.data(), sig.size());
+      }
 
       /**
       * Set the format of the signatures fed to this verifier.
@@ -568,12 +582,16 @@ class KEM_Encapsulation final {
       /**
       * @returns the encapsulated shared secret (encrypted with the public key)
       */
-      const std::vector<uint8_t>& encapsulated_shared_key() const { return m_encapsulated_shared_key; }
+      const std::vector<uint8_t>& encapsulated_shared_key() const {
+         return m_encapsulated_shared_key;
+      }
 
       /**
       * @returns the plaintext shared secret
       */
-      const secure_vector<uint8_t>& shared_key() const { return m_shared_key; }
+      const secure_vector<uint8_t>& shared_key() const {
+         return m_shared_key;
+      }
 
       /**
        * @returns the pair (encapsulated key, key) extracted from @p kem

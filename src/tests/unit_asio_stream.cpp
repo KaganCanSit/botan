@@ -54,15 +54,25 @@ class MockChannel {
          return m_bytes_till_complete_record;
       }
 
-      void send(std::span<const uint8_t> buf) { m_callbacks->tls_emit_data(buf); }
+      void send(std::span<const uint8_t> buf) {
+         m_callbacks->tls_emit_data(buf);
+      }
 
-      bool is_active() const { return m_active; }
+      bool is_active() const {
+         return m_active;
+      }
 
-      bool is_handshake_complete() const { return m_active; }
+      bool is_handshake_complete() const {
+         return m_active;
+      }
 
-      bool is_closed_for_reading() const { return m_close_notify_received; }
+      bool is_closed_for_reading() const {
+         return m_close_notify_received;
+      }
 
-      bool is_closed_for_writing() const { return m_close_notify_received; }
+      bool is_closed_for_writing() const {
+         return m_close_notify_received;
+      }
 
       void received_close_notify() {
          m_close_notify_received = true;
@@ -80,7 +90,9 @@ class MockChannel {
 
 class ThrowingMockChannel : public MockChannel {
    public:
-      static boost::system::error_code expected_ec() { return Botan::TLS::Alert::UnexpectedMessage; }
+      static boost::system::error_code expected_ec() {
+         return Botan::TLS::Alert::UnexpectedMessage;
+      }
 
       explicit ThrowingMockChannel(std::shared_ptr<Botan::TLS::Callbacks> core) : MockChannel(std::move(core)) {}
 
@@ -88,7 +100,9 @@ class ThrowingMockChannel : public MockChannel {
          throw Botan::TLS::Unexpected_Message("test_error");
       }
 
-      void send(std::span<const uint8_t> /*data*/) { throw Botan::TLS::Unexpected_Message("test_error"); }
+      void send(std::span<const uint8_t> /*data*/) {
+         throw Botan::TLS::Unexpected_Message("test_error");
+      }
 };
 
 class CancellingMockChannel : public MockChannel {
@@ -156,7 +170,9 @@ class Asio_Stream_Tests final : public Test {
       }
 
       // use memcmp to check if the data in a is a prefix of the data in b
-      bool contains(const void* a, const void* b, const std::size_t size) { return memcmp(a, b, size) == 0; }
+      bool contains(const void* a, const void* b, const std::size_t size) {
+         return memcmp(a, b, size) == 0;
+      }
 
       boost::string_view test_data() const {
          return boost::string_view(reinterpret_cast<const char*>(TEST_DATA), TEST_DATA_SIZE);

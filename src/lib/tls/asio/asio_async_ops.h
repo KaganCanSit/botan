@@ -67,7 +67,9 @@ class AsyncBase : public boost::asio::coroutine {
       using allocator_type = boost::asio::associated_allocator_t<Handler, Allocator>;
       using executor_type = boost::asio::associated_executor_t<Handler, Executor1>;
 
-      allocator_type get_allocator() const noexcept { return boost::asio::get_associated_allocator(m_handler); }
+      allocator_type get_allocator() const noexcept {
+         return boost::asio::get_associated_allocator(m_handler);
+      }
 
       executor_type get_executor() const noexcept {
          return boost::asio::get_associated_executor(m_handler, m_work_guard_1.get_executor());

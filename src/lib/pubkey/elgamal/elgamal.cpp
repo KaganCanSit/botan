@@ -113,9 +113,13 @@ class ElGamal_Encryption_Operation final : public PK_Ops::Encryption_with_Paddin
          m_monty_y_p = monty_precompute(m_key->group()._monty_params_p(), m_key->public_key(), powm_window);
       }
 
-      size_t ciphertext_length(size_t /*ptext_len*/) const override { return 2 * m_key->group().p_bytes(); }
+      size_t ciphertext_length(size_t /*ptext_len*/) const override {
+         return 2 * m_key->group().p_bytes();
+      }
 
-      size_t max_ptext_input_bits() const override { return m_key->group().p_bits() - 1; }
+      size_t max_ptext_input_bits() const override {
+         return m_key->group().p_bits() - 1;
+      }
 
       std::vector<uint8_t> raw_encrypt(std::span<const uint8_t> ptext, RandomNumberGenerator& rng) override;
 
@@ -167,12 +171,16 @@ class ElGamal_Decryption_Operation final : public PK_Ops::Decryption_with_Paddin
                [](const BigInt& k) { return k; },
                [this](const BigInt& k) { return powermod_x_p(k); }) {}
 
-      size_t plaintext_length(size_t /*ctext_len*/) const override { return m_key->group().p_bytes(); }
+      size_t plaintext_length(size_t /*ctext_len*/) const override {
+         return m_key->group().p_bytes();
+      }
 
       secure_vector<uint8_t> raw_decrypt(std::span<const uint8_t> ctext) override;
 
    private:
-      BigInt powermod_x_p(const BigInt& v) const { return m_key->group().power_b_p(v, m_key->private_key()); }
+      BigInt powermod_x_p(const BigInt& v) const {
+         return m_key->group().power_b_p(v, m_key->private_key());
+      }
 
       std::shared_ptr<const DL_PrivateKey> m_key;
       Blinder m_blinder;

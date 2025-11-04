@@ -31,7 +31,9 @@ class XMSS_Hash final {
       XMSS_Hash& operator=(const XMSS_Hash&) = delete;
       XMSS_Hash& operator=(XMSS_Hash&&) = default;
 
-      std::string hash_function() const { return m_hash->name(); }
+      std::string hash_function() const {
+         return m_hash->name();
+      }
 
    private:
       inline void calculate_hash(const uint8_t hash_id,
@@ -144,7 +146,9 @@ class XMSS_Hash final {
        **/
       secure_vector<uint8_t> h_msg_final();
 
-      size_t output_length() const { return m_hash->output_length(); }
+      size_t output_length() const {
+         return m_hash->output_length();
+      }
 
    private:
       std::unique_ptr<HashFunction> m_hash;

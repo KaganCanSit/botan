@@ -20,14 +20,20 @@ namespace Botan {
 */
 class Streebog final : public HashFunction {
    public:
-      size_t output_length() const override { return m_output_bits / 8; }
+      size_t output_length() const override {
+         return m_output_bits / 8;
+      }
 
-      std::unique_ptr<HashFunction> new_object() const override { return std::make_unique<Streebog>(m_output_bits); }
+      std::unique_ptr<HashFunction> new_object() const override {
+         return std::make_unique<Streebog>(m_output_bits);
+      }
 
       void clear() override;
       std::string name() const override;
 
-      size_t hash_block_size() const override { return 64; }
+      size_t hash_block_size() const override {
+         return 64;
+      }
 
       std::unique_ptr<HashFunction> copy_state() const override;
 

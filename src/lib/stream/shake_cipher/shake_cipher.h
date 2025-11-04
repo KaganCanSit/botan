@@ -31,9 +31,13 @@ class SHAKE_Cipher : public StreamCipher {
 
       Key_Length_Specification key_spec() const final;
 
-      bool has_keying_material() const final { return m_has_keying_material; }
+      bool has_keying_material() const final {
+         return m_has_keying_material;
+      }
 
-      size_t buffer_size() const final { return m_keccak.byte_rate(); }
+      size_t buffer_size() const final {
+         return m_keccak.byte_rate();
+      }
 
    private:
       void key_schedule(std::span<const uint8_t> key) final;
@@ -61,18 +65,26 @@ class SHAKE_128_Cipher final : public SHAKE_Cipher {
    public:
       SHAKE_128_Cipher();
 
-      std::string name() const override { return "SHAKE-128"; }
+      std::string name() const override {
+         return "SHAKE-128";
+      }
 
-      std::unique_ptr<StreamCipher> new_object() const override { return std::make_unique<SHAKE_128_Cipher>(); }
+      std::unique_ptr<StreamCipher> new_object() const override {
+         return std::make_unique<SHAKE_128_Cipher>();
+      }
 };
 
 class SHAKE_256_Cipher final : public SHAKE_Cipher {
    public:
       SHAKE_256_Cipher();
 
-      std::string name() const override { return "SHAKE-256"; }
+      std::string name() const override {
+         return "SHAKE-256";
+      }
 
-      std::unique_ptr<StreamCipher> new_object() const override { return std::make_unique<SHAKE_256_Cipher>(); }
+      std::unique_ptr<StreamCipher> new_object() const override {
+         return std::make_unique<SHAKE_256_Cipher>();
+      }
 };
 
 }  // namespace Botan

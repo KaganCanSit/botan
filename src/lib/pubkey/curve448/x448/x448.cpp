@@ -103,7 +103,9 @@ class X448_KA_Operation final : public PK_Ops::Key_Agreement_with_KDF {
          BOTAN_ARG_CHECK(sk.size() == X448_LEN, "Invalid size for X448 private key");
       }
 
-      size_t agreed_value_size() const override { return X448_LEN; }
+      size_t agreed_value_size() const override {
+         return X448_LEN;
+      }
 
       secure_vector<uint8_t> raw_agree(const uint8_t w_data[], size_t w_len) override {
          auto scope = CT::scoped_poison(m_sk);

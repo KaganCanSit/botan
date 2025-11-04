@@ -187,13 +187,19 @@ class CMCE_Utility_Tests final : public Test {
                   std::fill(output.begin(), output.end(), static_cast<uint8_t>(0));
                }
 
-               std::string name() const override { return "All_Zero_RNG"; }
+               std::string name() const override {
+                  return "All_Zero_RNG";
+               }
 
-               bool accepts_input() const override { return false; }
+               bool accepts_input() const override {
+                  return false;
+               }
 
                void clear() override {}
 
-               bool is_seeded() const override { return true; }
+               bool is_seeded() const override {
+                  return true;
+               }
          } rigged_rng;
 
          Test::Result result("No endless loop with rigged RNG");
@@ -279,7 +285,9 @@ class CMCE_Generic_Keygen_Tests final : public PK_Key_Generation_Test {
             raw_key_bits, Botan::Classic_McEliece_Parameter_Set::from_string(keygen_params));
       }
 
-      std::string algo_name() const override { return "ClassicMcEliece"; }
+      std::string algo_name() const override {
+         return "ClassicMcEliece";
+      }
 };
 
 class Classic_McEliece_KAT_Tests final : public Botan_Tests::PK_PQC_KEM_KAT_Test {
@@ -291,7 +299,9 @@ class Classic_McEliece_KAT_Tests final : public Botan_Tests::PK_PQC_KEM_KAT_Test
          return Botan::Classic_McEliece_Parameters::create(Botan::Classic_McEliece_Parameter_Set::from_string(header));
       }
 
-      bool is_available(const std::string& alg_name) const final { return !skip_cmce_test(alg_name); }
+      bool is_available(const std::string& alg_name) const final {
+         return !skip_cmce_test(alg_name);
+      }
 
       std::vector<uint8_t> map_value(const std::string& /*params*/,
                                      std::span<const uint8_t> value,

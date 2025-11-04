@@ -21,24 +21,36 @@ namespace Botan {
 class BOTAN_TEST_API calendar_point {
    public:
       /** The year */
-      uint32_t year() const { return m_year; }
+      uint32_t year() const {
+         return m_year;
+      }
 
       /** The month, 1 through 12 for Jan to Dec */
-      uint32_t month() const { return m_month; }
+      uint32_t month() const {
+         return m_month;
+      }
 
       /** The day of the month, 1 through 31 (or 28 or 30 based on month */
-      uint32_t day() const { return m_day; }
+      uint32_t day() const {
+         return m_day;
+      }
 
       /** Hour in 24-hour form, 0 to 23 */
-      uint32_t hour() const { return m_hour; }
+      uint32_t hour() const {
+         return m_hour;
+      }
 
       /** Minutes in the hour, 0 to 60 */
-      uint32_t minutes() const { return m_minutes; }
+      uint32_t minutes() const {
+         return m_minutes;
+      }
 
       /** Seconds in the minute, 0 to 60, but might be slightly
       larger to deal with leap seconds on some systems
       */
-      uint32_t seconds() const { return m_seconds; }
+      uint32_t seconds() const {
+         return m_seconds;
+      }
 
       /**
       * Initialize a calendar_point

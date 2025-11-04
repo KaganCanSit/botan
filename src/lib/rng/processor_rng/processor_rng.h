@@ -28,9 +28,13 @@ class BOTAN_PUBLIC_API(2, 15) Processor_RNG final : public Hardware_RNG {
       */
       static bool available();
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
       /*
       * No way to reseed processor provided generator, so reseed is ignored

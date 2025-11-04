@@ -109,9 +109,13 @@ class Ed448_Message {
 
 class Prehashed_Ed448_Message final : public Ed448_Message {
    public:
-      void update(std::span<const uint8_t> msg) override { m_hash->update(msg); }
+      void update(std::span<const uint8_t> msg) override {
+         m_hash->update(msg);
+      }
 
-      std::vector<uint8_t> get_and_clear() override { return m_hash->final_stdvec(); }
+      std::vector<uint8_t> get_and_clear() override {
+         return m_hash->final_stdvec();
+      }
 
       explicit Prehashed_Ed448_Message(std::string_view hash) : m_hash(HashFunction::create_or_throw(hash)) {}
 
@@ -121,9 +125,13 @@ class Prehashed_Ed448_Message final : public Ed448_Message {
 
 class Pure_Ed448_Message final : public Ed448_Message {
    public:
-      void update(std::span<const uint8_t> msg) override { m_msg.insert(m_msg.end(), msg.begin(), msg.end()); }
+      void update(std::span<const uint8_t> msg) override {
+         m_msg.insert(m_msg.end(), msg.begin(), msg.end());
+      }
 
-      std::vector<uint8_t> get_and_clear() override { return std::exchange(m_msg, {}); }
+      std::vector<uint8_t> get_and_clear() override {
+         return std::exchange(m_msg, {});
+      }
 
    private:
       std::vector<uint8_t> m_msg;
@@ -144,7 +152,9 @@ class Ed448_Verify_Operation final : public PK_Ops::Verification {
          }
       }
 
-      void update(std::span<const uint8_t> input) override { m_message->update(input); }
+      void update(std::span<const uint8_t> input) override {
+         m_message->update(input);
+      }
 
       bool is_valid_signature(std::span<const uint8_t> sig) override {
          const auto msg = m_message->get_and_clear();
@@ -155,7 +165,9 @@ class Ed448_Verify_Operation final : public PK_Ops::Verification {
          }
       }
 
-      std::string hash_function() const override { return m_prehash_function.value_or("SHAKE-256(912)"); }
+      std::string hash_function() const override {
+         return m_prehash_function.value_or("SHAKE-256(912)");
+      }
 
    private:
       std::vector<uint8_t> m_pk;
@@ -180,7 +192,9 @@ class Ed448_Sign_Operation final : public PK_Ops::Signature {
          }
       }
 
-      void update(std::span<const uint8_t> input) override { m_message->update(input); }
+      void update(std::span<const uint8_t> input) override {
+         m_message->update(input);
+      }
 
       std::vector<uint8_t> sign(RandomNumberGenerator& /*rng*/) override {
          BOTAN_ASSERT_NOMSG(m_sk.size() == ED448_LEN);
@@ -194,11 +208,15 @@ class Ed448_Sign_Operation final : public PK_Ops::Signature {
          return {sig.begin(), sig.end()};
       }
 
-      size_t signature_length() const override { return 2 * ED448_LEN; }
+      size_t signature_length() const override {
+         return 2 * ED448_LEN;
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override;
 
-      std::string hash_function() const override { return m_prehash_function.value_or("SHAKE-256(912)"); }
+      std::string hash_function() const override {
+         return m_prehash_function.value_or("SHAKE-256(912)");
+      }
 
    private:
       std::vector<uint8_t> m_pk;

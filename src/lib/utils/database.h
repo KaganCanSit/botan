@@ -25,9 +25,13 @@ class BOTAN_PUBLIC_API(2, 0) SQL_Database /* NOLINT(*-special-member-functions) 
 
             SQL_DB_Error(std::string_view what, int rc) : Exception("SQL database", what), m_rc(rc) {}
 
-            ErrorType error_type() const noexcept override { return ErrorType::DatabaseError; }
+            ErrorType error_type() const noexcept override {
+               return ErrorType::DatabaseError;
+            }
 
-            int error_code() const noexcept override { return m_rc; }
+            int error_code() const noexcept override {
+               return m_rc;
+            }
 
          private:
             int m_rc;
@@ -74,9 +78,13 @@ class BOTAN_PUBLIC_API(2, 0) SQL_Database /* NOLINT(*-special-member-functions) 
 
       virtual size_t rows_changed_by_last_statement() = 0;
 
-      virtual size_t exec(std::string_view sql) { return new_statement(sql)->spin(); }
+      virtual size_t exec(std::string_view sql) {
+         return new_statement(sql)->spin();
+      }
 
-      virtual bool is_threadsafe() const { return false; }
+      virtual bool is_threadsafe() const {
+         return false;
+      }
 
       virtual ~SQL_Database() = default;
 };

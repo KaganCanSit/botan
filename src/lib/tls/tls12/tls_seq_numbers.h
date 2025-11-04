@@ -54,17 +54,29 @@ class Stream_Sequence_Numbers final : public Connection_Sequence_Numbers {
          m_write_epoch++;
       }
 
-      uint16_t current_read_epoch() const override { return m_read_epoch; }
+      uint16_t current_read_epoch() const override {
+         return m_read_epoch;
+      }
 
-      uint16_t current_write_epoch() const override { return m_write_epoch; }
+      uint16_t current_write_epoch() const override {
+         return m_write_epoch;
+      }
 
-      uint64_t next_write_sequence(uint16_t /*epoch*/) override { return m_write_seq_no++; }
+      uint64_t next_write_sequence(uint16_t /*epoch*/) override {
+         return m_write_seq_no++;
+      }
 
-      uint64_t next_read_sequence() override { return m_read_seq_no; }
+      uint64_t next_read_sequence() override {
+         return m_read_seq_no;
+      }
 
-      bool already_seen(uint64_t /*seq*/) const override { return false; }
+      bool already_seen(uint64_t /*seq*/) const override {
+         return false;
+      }
 
-      void read_accept(uint64_t /*seq*/) override { m_read_seq_no++; }
+      void read_accept(uint64_t /*seq*/) override {
+         m_read_seq_no++;
+      }
 
    private:
       uint64_t m_write_seq_no;
@@ -75,7 +87,9 @@ class Stream_Sequence_Numbers final : public Connection_Sequence_Numbers {
 
 class Datagram_Sequence_Numbers final : public Connection_Sequence_Numbers {
    public:
-      Datagram_Sequence_Numbers() { Datagram_Sequence_Numbers::reset(); }
+      Datagram_Sequence_Numbers() {
+         Datagram_Sequence_Numbers::reset();
+      }
 
       void reset() override {
          m_write_seqs.clear();
@@ -86,16 +100,22 @@ class Datagram_Sequence_Numbers final : public Connection_Sequence_Numbers {
          m_window_bits = 0;
       }
 
-      void new_read_cipher_state() override { m_read_epoch++; }
+      void new_read_cipher_state() override {
+         m_read_epoch++;
+      }
 
       void new_write_cipher_state() override {
          m_write_epoch++;
          m_write_seqs[m_write_epoch] = 0;
       }
 
-      uint16_t current_read_epoch() const override { return m_read_epoch; }
+      uint16_t current_read_epoch() const override {
+         return m_read_epoch;
+      }
 
-      uint16_t current_write_epoch() const override { return m_write_epoch; }
+      uint16_t current_write_epoch() const override {
+         return m_write_epoch;
+      }
 
       uint64_t next_write_sequence(uint16_t epoch) override {
          auto i = m_write_seqs.find(epoch);
@@ -103,7 +123,9 @@ class Datagram_Sequence_Numbers final : public Connection_Sequence_Numbers {
          return (static_cast<uint64_t>(epoch) << 48) | i->second++;
       }
 
-      uint64_t next_read_sequence() override { throw Invalid_State("DTLS uses explicit sequence numbers"); }
+      uint64_t next_read_sequence() override {
+         throw Invalid_State("DTLS uses explicit sequence numbers");
+      }
 
       bool already_seen(uint64_t sequence) const override {
          const size_t window_size = sizeof(m_window_bits) * 8;

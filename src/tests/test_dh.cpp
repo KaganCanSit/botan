@@ -24,7 +24,9 @@ class Diffie_Hellman_KAT_Tests final : public PK_Key_Agreement_Test {
       Diffie_Hellman_KAT_Tests() :
             PK_Key_Agreement_Test("Diffie-Hellman", "pubkey/dh.vec", "P,G,X,Y,K", "Q,KDF,OutLen") {}
 
-      std::string default_kdf(const VarMap& /*unused*/) const override { return "Raw"; }
+      std::string default_kdf(const VarMap& /*unused*/) const override {
+         return "Raw";
+      }
 
       std::unique_ptr<Botan::Private_Key> load_our_key(const std::string& /*header*/, const VarMap& vars) override {
          const Botan::BigInt p = vars.get_req_bn("P");
@@ -91,7 +93,9 @@ class DH_Invalid_Key_Tests final : public Text_Based_Test {
    public:
       DH_Invalid_Key_Tests() : Text_Based_Test("pubkey/dh_invalid.vec", "P,Q,G,InvalidKey") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       Test::Result run_one_test(const std::string& /*header*/, const VarMap& vars) override {
          Test::Result result("DH invalid keys");
@@ -111,9 +115,13 @@ class DH_Invalid_Key_Tests final : public Text_Based_Test {
 
 class Diffie_Hellman_Keygen_Tests final : public PK_Key_Generation_Test {
    public:
-      std::vector<std::string> keygen_params() const override { return {"modp/ietf/1024"}; }
+      std::vector<std::string> keygen_params() const override {
+         return {"modp/ietf/1024"};
+      }
 
-      std::string algo_name() const override { return "DH"; }
+      std::string algo_name() const override {
+         return "DH";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /*provider*/,

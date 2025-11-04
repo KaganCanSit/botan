@@ -61,7 +61,9 @@ class HSS_LMS_Signature_Generation_Test final : public PK_Signature_Generation_T
       HSS_LMS_Signature_Generation_Test() :
             PK_Signature_Generation_Test("HSS-LMS", "pubkey/hss_lms_sig.vec", "Msg,PrivateKey,Signature") {}
 
-      std::string default_padding(const VarMap& /*vars*/) const final { return ""; }
+      std::string default_padding(const VarMap& /*vars*/) const final {
+         return "";
+      }
 
       std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) final {
          const auto sk_bytes = Botan::lock(vars.get_req_bin("PrivateKey"));
@@ -77,7 +79,9 @@ class HSS_LMS_Signature_Verify_Tests final : public PK_Signature_Verification_Te
       HSS_LMS_Signature_Verify_Tests() :
             PK_Signature_Verification_Test("HSS-LMS", "pubkey/hss_lms_verify.vec", "Msg,PublicKey,Signature") {}
 
-      std::string default_padding(const VarMap& /*vars*/) const final { return ""; }
+      std::string default_padding(const VarMap& /*vars*/) const final {
+         return "";
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          const std::vector<uint8_t> pk_bytes = vars.get_req_bin("PublicKey");
@@ -94,7 +98,9 @@ class HSS_LMS_Signature_Verify_Invalid_Tests final : public PK_Signature_NonVeri
             PK_Signature_NonVerification_Test(
                "HSS_LMS", "pubkey/hss_lms_invalid.vec", "Msg,PublicKey,InvalidSignature") {}
 
-      std::string default_padding(const VarMap& /*vars*/) const override { return ""; }
+      std::string default_padding(const VarMap& /*vars*/) const override {
+         return "";
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          const std::vector<uint8_t> raw_key = vars.get_req_bin("PublicKey");
@@ -107,9 +113,13 @@ class HSS_LMS_Signature_Verify_Invalid_Tests final : public PK_Signature_NonVeri
  */
 class HSS_LMS_Key_Generation_Test final : public PK_Key_Generation_Test {
    public:
-      std::vector<std::string> keygen_params() const final { return {"SHA-256,HW(10,4),HW(5,8)"}; }
+      std::vector<std::string> keygen_params() const final {
+         return {"SHA-256,HW(10,4),HW(5,8)"};
+      }
 
-      std::string algo_name() const final { return "HSS-LMS"; }
+      std::string algo_name() const final {
+         return "HSS-LMS";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view /* keygen_params */,
                                                              std::string_view /* provider */,
@@ -288,7 +298,9 @@ class HSS_LMS_Statefulness_Test final : public Test {
          return result;
       }
 
-      std::vector<Test::Result> run() final { return {test_sig_changes_state(), test_max_sig_count()}; }
+      std::vector<Test::Result> run() final {
+         return {test_sig_changes_state(), test_max_sig_count()};
+      }
 };
 
 /**

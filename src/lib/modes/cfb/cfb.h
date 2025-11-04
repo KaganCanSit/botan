@@ -46,11 +46,17 @@ class CFB_Mode : public Cipher_Mode {
 
       void shift_register();
 
-      size_t feedback() const { return m_feedback_bytes; }
+      size_t feedback() const {
+         return m_feedback_bytes;
+      }
 
-      const BlockCipher& cipher() const { return *m_cipher; }
+      const BlockCipher& cipher() const {
+         return *m_cipher;
+      }
 
-      size_t block_size() const { return m_block_size; }
+      size_t block_size() const {
+         return m_block_size;
+      }
 
       secure_vector<uint8_t> m_state;      // NOLINT(*non-private-member-variable*)
       secure_vector<uint8_t> m_keystream;  // NOLINT(*non-private-member-variable*)

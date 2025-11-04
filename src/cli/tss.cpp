@@ -23,9 +23,13 @@ class TSS_Split final : public Command {
    public:
       TSS_Split() : Command("tss_split M N input --id= --share-prefix=share --share-suffix=tss --hash=SHA-256") {}
 
-      std::string group() const override { return "tss"; }
+      std::string group() const override {
+         return "tss";
+      }
 
-      std::string description() const override { return "Split a secret into parts"; }
+      std::string description() const override {
+         return "Split a secret into parts";
+      }
 
       void go() override {
          const std::string hash_algo = get_arg("hash");
@@ -87,9 +91,13 @@ class TSS_Recover final : public Command {
    public:
       TSS_Recover() : Command("tss_recover *shares") {}
 
-      std::string group() const override { return "tss"; }
+      std::string group() const override {
+         return "tss";
+      }
 
-      std::string description() const override { return "Recover a split secret"; }
+      std::string description() const override {
+         return "Recover a split secret";
+      }
 
       void go() override {
          const std::vector<std::string> share_names = get_arg_list("shares");

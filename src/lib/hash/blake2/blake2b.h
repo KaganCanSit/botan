@@ -31,11 +31,17 @@ class BLAKE2b final : public HashFunction,
       */
       explicit BLAKE2b(size_t output_bits = 512);
 
-      size_t hash_block_size() const override { return 128; }
+      size_t hash_block_size() const override {
+         return 128;
+      }
 
-      size_t output_length() const override { return m_output_bits / 8; }
+      size_t output_length() const override {
+         return m_output_bits / 8;
+      }
 
-      size_t key_size() const { return m_key_size; }
+      size_t key_size() const {
+         return m_key_size;
+      }
 
       Key_Length_Specification key_spec() const override;
 

@@ -38,7 +38,9 @@ size_t call_hardware_specific_rng(uint8_t buf[], size_t len) {
 */
 class Hardware_RNG_Entropy_Source final : public Botan::Entropy_Source {
    public:
-      std::string name() const override { return "hw_rng"; }
+      std::string name() const override {
+         return "hw_rng";
+      }
 
       size_t poll(Botan::RandomNumberGenerator& rng) override {
          // the amount of entropy we desire (in bits)
@@ -65,7 +67,9 @@ class Hardware_RNG_Entropy_Source final : public Botan::Entropy_Source {
 */
 class Timer_Entropy_Source final : public Botan::Entropy_Source {
    public:
-      std::string name() const override { return "timer_hack"; }
+      std::string name() const override {
+         return "timer_hack";
+      }
 
       size_t poll(Botan::RandomNumberGenerator& rng) override {
          // the amount of entropy we desire (in bits)

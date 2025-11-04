@@ -139,17 +139,29 @@ class XMSS_PrivateKey_Internal {
             raw_public_key, unused_index, m_prf, m_private_seed, wots_derivation_method);
       }
 
-      XMSS_Hash& hash() { return m_hash; }
+      XMSS_Hash& hash() {
+         return m_hash;
+      }
 
-      const secure_vector<uint8_t>& prf_value() const { return m_prf; }
+      const secure_vector<uint8_t>& prf_value() const {
+         return m_prf;
+      }
 
-      const secure_vector<uint8_t>& private_seed() { return m_private_seed; }
+      const secure_vector<uint8_t>& private_seed() {
+         return m_private_seed;
+      }
 
-      const XMSS_WOTS_Parameters& wots_parameters() { return m_wots_params; }
+      const XMSS_WOTS_Parameters& wots_parameters() {
+         return m_wots_params;
+      }
 
-      WOTS_Derivation_Method wots_derivation_method() const { return m_wots_derivation_method; }
+      WOTS_Derivation_Method wots_derivation_method() const {
+         return m_wots_derivation_method;
+      }
 
-      XMSS_Index_Registry& index_registry() { return m_index_reg; }
+      XMSS_Index_Registry& index_registry() {
+         return m_index_reg;
+      }
 
       std::shared_ptr<Atomic<size_t>> recover_global_leaf_index() const {
          BOTAN_ASSERT(
@@ -183,7 +195,9 @@ class XMSS_PrivateKey_Internal {
          return idx;
       }
 
-      size_t unused_leaf_index() const { return *recover_global_leaf_index(); }
+      size_t unused_leaf_index() const {
+         return *recover_global_leaf_index();
+      }
 
       size_t remaining_signatures() const {
          return m_xmss_params.total_number_of_signatures() - *recover_global_leaf_index();

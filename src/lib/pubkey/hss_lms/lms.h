@@ -106,27 +106,37 @@ class LMS_Params final {
       /**
        * @brief Returns the LMS algorithm type.
        */
-      LMS_Algorithm_Type algorithm_type() const { return m_algorithm_type; }
+      LMS_Algorithm_Type algorithm_type() const {
+         return m_algorithm_type;
+      }
 
       /**
        * @brief Returns the height of the LMS tree.
        */
-      uint8_t h() const { return m_h; }
+      uint8_t h() const {
+         return m_h;
+      }
 
       /**
        * @brief Returns the number of bytes associated with each node.
        */
-      size_t m() const { return m_m; }
+      size_t m() const {
+         return m_m;
+      }
 
       /**
        * @brief Returns the name of the hash function to use.
        */
-      const std::string& hash_name() const { return m_hash_name; }
+      const std::string& hash_name() const {
+         return m_hash_name;
+      }
 
       /**
        * @brief Construct a new hash instance for the LMS instance.
        */
-      std::unique_ptr<HashFunction> hash() const { return HashFunction::create_or_throw(hash_name()); }
+      std::unique_ptr<HashFunction> hash() const {
+         return HashFunction::create_or_throw(hash_name());
+      }
 
    private:
       /**
@@ -161,17 +171,23 @@ class BOTAN_TEST_API LMS_Instance {
       /**
        * @brief The LMS parameters for this LMS instance.
        */
-      const LMS_Params& lms_params() const { return m_lms_params; }
+      const LMS_Params& lms_params() const {
+         return m_lms_params;
+      }
 
       /**
        * @brief The LMOTS parameters used for OTS instances of this LMS instance.
        */
-      const LMOTS_Params& lmots_params() const { return m_lmots_params; }
+      const LMOTS_Params& lmots_params() const {
+         return m_lmots_params;
+      }
 
       /**
        * @brief The identifier of this LMS tree ('I' in RFC 8554)
        */
-      const LMS_Identifier& identifier() const { return m_identifier; }
+      const LMS_Identifier& identifier() const {
+         return m_identifier;
+      }
 
    private:
       LMS_Params m_lms_params;
@@ -198,7 +214,9 @@ class BOTAN_TEST_API LMS_PrivateKey final : public LMS_Instance {
       /**
        * @brief The secret seed used for LMOTS' WOTS chain input creation (RFC 8554 Appendix A)
        */
-      const LMS_Seed& seed() const { return m_seed; }
+      const LMS_Seed& seed() const {
+         return m_seed;
+      }
 
       /**
        * @brief Sign a message using an LMS_PrivateKey and the used leaf index (RFC 8554 5.4.1).
@@ -266,7 +284,9 @@ class BOTAN_TEST_API LMS_PublicKey final : public LMS_Instance {
        */
       bool verify_signature(const LMS_Message& msg, const LMS_Signature& sig) const;
 
-      void _const_time_unpoison() const { CT::unpoison(m_lms_root); }
+      void _const_time_unpoison() const {
+         CT::unpoison(m_lms_root);
+      }
 
    private:
       /**
@@ -280,7 +300,9 @@ class BOTAN_TEST_API LMS_PublicKey final : public LMS_Instance {
       /**
        * @brief Root node of the LMS tree ('T[1]' in RFC 8554 5.3)
        */
-      const LMS_Tree_Node& lms_root() const { return m_lms_root; }
+      const LMS_Tree_Node& lms_root() const {
+         return m_lms_root;
+      }
 
       LMS_Tree_Node m_lms_root;
 };
@@ -304,25 +326,33 @@ class BOTAN_TEST_API LMS_Signature final {
       /**
        * @brief The index of the signing leaf given by the signature
        */
-      LMS_Tree_Node_Idx q() const { return m_q; }
+      LMS_Tree_Node_Idx q() const {
+         return m_q;
+      }
 
       /**
        * @brief The LMOTS signature object containing the parsed LMOTS signature bytes
        *        contained in the LMS signature
        */
-      const LMOTS_Signature& lmots_sig() const { return m_lmots_sig; }
+      const LMOTS_Signature& lmots_sig() const {
+         return m_lmots_sig;
+      }
 
       /**
        * @brief The LMS algorithm type given by the signature
        */
-      LMS_Algorithm_Type lms_type() const { return m_lms_type; }
+      LMS_Algorithm_Type lms_type() const {
+         return m_lms_type;
+      }
 
       /**
        * @brief The authentication path bytes given by the signature
        *
        * ('path[0] || ... || path[h-1]' in RFC 8554 5.4)
        */
-      StrongSpan<const LMS_AuthenticationPath> auth_path() const { return m_auth_path; }
+      StrongSpan<const LMS_AuthenticationPath> auth_path() const {
+         return m_auth_path;
+      }
 
       /**
        * @return size_t The expected size of the signature.

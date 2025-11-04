@@ -45,13 +45,21 @@ class BOTAN_UNSTABLE_API UUID final {
       */
       std::string to_string() const;
 
-      const std::vector<uint8_t>& binary_value() const { return m_uuid; }
+      const std::vector<uint8_t>& binary_value() const {
+         return m_uuid;
+      }
 
-      bool operator==(const UUID& other) const { return m_uuid == other.m_uuid; }
+      bool operator==(const UUID& other) const {
+         return m_uuid == other.m_uuid;
+      }
 
-      bool operator!=(const UUID& other) const { return !(*this == other); }
+      bool operator!=(const UUID& other) const {
+         return !(*this == other);
+      }
 
-      bool is_valid() const { return m_uuid.size() == 16; }
+      bool is_valid() const {
+         return m_uuid.size() == 16;
+      }
 
    private:
       std::vector<uint8_t> m_uuid;

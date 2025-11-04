@@ -73,17 +73,23 @@ class Channel_Impl {
       /**
       * Send a warning alert
       */
-      void send_warning_alert(Alert::Type type) { send_alert(Alert(type, false)); }
+      void send_warning_alert(Alert::Type type) {
+         send_alert(Alert(type, false));
+      }
 
       /**
       * Send a fatal alert
       */
-      void send_fatal_alert(Alert::Type type) { send_alert(Alert(type, true)); }
+      void send_fatal_alert(Alert::Type type) {
+         send_alert(Alert(type, true));
+      }
 
       /**
       * Send a close notification alert
       */
-      void close() { send_warning_alert(Alert::CloseNotify); }
+      void close() {
+         send_warning_alert(Alert::CloseNotify);
+      }
 
       /**
       * @return true iff the TLS handshake has finished successfully
@@ -147,7 +153,9 @@ class Channel_Impl {
       /**
       * @return true if this channel can issue TLS 1.3 style session tickets.
       */
-      virtual bool new_session_ticket_supported() const { return false; }
+      virtual bool new_session_ticket_supported() const {
+         return false;
+      }
 
       /**
       * Send @p tickets new session tickets to the peer. This is only supported
@@ -160,7 +168,9 @@ class Channel_Impl {
       *
       * @returns the number of session tickets successfully sent to the client
       */
-      virtual size_t send_new_session_tickets(const size_t /* tickets */) { return 0; }
+      virtual size_t send_new_session_tickets(const size_t /* tickets */) {
+         return 0;
+      }
 
       /**
       * Attempt to update the session's traffic key material
@@ -276,14 +286,20 @@ class Channel_Impl {
        *
        * @sa Downgrade_Information
        */
-      bool is_downgrading() const { return m_downgrade_info && m_downgrade_info->will_downgrade; }
+      bool is_downgrading() const {
+         return m_downgrade_info && m_downgrade_info->will_downgrade;
+      }
 
       /**
        * @sa Downgrade_Information
        */
-      std::unique_ptr<Downgrade_Information> extract_downgrade_info() { return std::exchange(m_downgrade_info, {}); }
+      std::unique_ptr<Downgrade_Information> extract_downgrade_info() {
+         return std::exchange(m_downgrade_info, {});
+      }
 
-      bool expects_downgrade() const { return m_downgrade_info != nullptr; }
+      bool expects_downgrade() const {
+         return m_downgrade_info != nullptr;
+      }
 };
 
 }  // namespace TLS

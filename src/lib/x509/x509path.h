@@ -97,36 +97,48 @@ class BOTAN_PUBLIC_API(2, 0) Path_Validation_Restrictions final {
       /**
       * @return whether revocation information is required
       */
-      bool require_revocation_information() const { return m_require_revocation_information; }
+      bool require_revocation_information() const {
+         return m_require_revocation_information;
+      }
 
       /**
       * @return whether all intermediate CAs should also be OCSPed. If false
       * then only end entity OCSP is required/requested.
       */
-      bool ocsp_all_intermediates() const { return m_ocsp_all_intermediates; }
+      bool ocsp_all_intermediates() const {
+         return m_ocsp_all_intermediates;
+      }
 
       /**
       * @return trusted signature hash functions
       */
-      const std::set<std::string>& trusted_hashes() const { return m_trusted_hashes; }
+      const std::set<std::string>& trusted_hashes() const {
+         return m_trusted_hashes;
+      }
 
       /**
       * @return minimum required key strength
       */
-      size_t minimum_key_strength() const { return m_minimum_key_strength; }
+      size_t minimum_key_strength() const {
+         return m_minimum_key_strength;
+      }
 
       /**
       * @return maximum age of OCSP responses w/o next_update.
       * If zero, there is no maximum age
       */
-      std::chrono::seconds max_ocsp_age() const { return m_max_ocsp_age; }
+      std::chrono::seconds max_ocsp_age() const {
+         return m_max_ocsp_age;
+      }
 
       /**
        * Certificates in this store are trusted to sign OCSP responses
        * additionally to the CA's responder certificates.
        * @return certificate store containing trusted OCSP responder certs
        */
-      const Certificate_Store* trusted_ocsp_responders() const { return m_trusted_ocsp_responders.get(); }
+      const Certificate_Store* trusted_ocsp_responders() const {
+         return m_trusted_ocsp_responders.get();
+      }
 
       /**
        * RFC 5280 does not disallow trusted anchors signing certificates with wider validity
@@ -139,7 +151,9 @@ class BOTAN_PUBLIC_API(2, 0) Path_Validation_Restrictions final {
        * code CERT_HAS_EXPIRED. The same holds for not yet valid certificates with the
        * error code CERT_NOT_YET_VALID (or warning TRUSTED_CERT_NOT_YET_VALID).
        */
-      bool ignore_trusted_root_time_range() const { return m_ignore_trusted_root_time_range; }
+      bool ignore_trusted_root_time_range() const {
+         return m_ignore_trusted_root_time_range;
+      }
 
    private:
       bool m_require_revocation_information;
@@ -168,7 +182,9 @@ class BOTAN_PUBLIC_API(2, 0) Path_Validation_Result final {
       * @return the full path from subject to trust root
       * This path may be empty
       */
-      const std::vector<X509_Certificate>& cert_path() const { return m_cert_path; }
+      const std::vector<X509_Certificate>& cert_path() const {
+         return m_cert_path;
+      }
 
       /**
       * @return true iff the validation was successful
@@ -183,12 +199,16 @@ class BOTAN_PUBLIC_API(2, 0) Path_Validation_Result final {
       /**
       * @return overall validation result code
       */
-      Certificate_Status_Code result() const { return m_overall; }
+      Certificate_Status_Code result() const {
+         return m_overall;
+      }
 
       /**
       * @return a set of status codes for each certificate in the chain
       */
-      const CertificatePathStatusCodes& all_statuses() const { return m_all_status; }
+      const CertificatePathStatusCodes& all_statuses() const {
+         return m_all_status;
+      }
 
       /**
       * @return the subset of status codes that are warnings

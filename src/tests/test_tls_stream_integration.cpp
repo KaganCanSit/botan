@@ -112,13 +112,21 @@ class Peer {
       Peer& operator=(Peer&& other) = delete;
 
       // NOLINTNEXTLINE(*-exception-escape)
-      virtual ~Peer() { cancel_timeout(); }
+      virtual ~Peer() {
+         cancel_timeout();
+      }
 
-      net::mutable_buffer buffer() { return net::buffer(m_data, MAX_MSG_LENGTH); }
+      net::mutable_buffer buffer() {
+         return net::buffer(m_data, MAX_MSG_LENGTH);
+      }
 
-      net::mutable_buffer buffer(size_t size) { return net::buffer(m_data, size); }
+      net::mutable_buffer buffer(size_t size) {
+         return net::buffer(m_data, size);
+      }
 
-      std::string message() const { return std::string(m_data); }
+      std::string message() const {
+         return std::string(m_data);
+      }
 
       // This is a CompletionCondition for net::async_read().
       // Our toy protocol always expects a single \0-terminated string.
@@ -134,7 +142,9 @@ class Peer {
          return MAX_MSG_LENGTH - bytes_transferred;
       }
 
-      void on_timeout(std::function<void(const std::string&)> cb) { m_on_timeout = std::move(cb); }
+      void on_timeout(std::function<void(const std::string&)> cb) {
+         m_on_timeout = std::move(cb);
+      }
 
       void reset_timeout(const std::string& message) {
          m_timeout_timer.expires_after(k_timeout);
@@ -157,19 +167,27 @@ class Peer {
          });
       }
 
-      void cancel_timeout() { m_timeout_timer.cancel(); }
+      void cancel_timeout() {
+         m_timeout_timer.cancel();
+      }
 
-      ssl_stream& stream() { return *m_stream; }
+      ssl_stream& stream() {
+         return *m_stream;
+      }
 
       void create_stream(std::unique_ptr<ssl_stream> stream) {
          BOTAN_ASSERT(!m_stream, "Stream is only assigned once");
          m_stream = std::move(stream);
       }
 
-      std::shared_ptr<Botan::TLS::Context> ctx() { return m_ctx; }
+      std::shared_ptr<Botan::TLS::Context> ctx() {
+         return m_ctx;
+      }
 
    protected:
-      std::shared_ptr<PeerCallbacks> callbacks() { return m_callbacks; }
+      std::shared_ptr<PeerCallbacks> callbacks() {
+         return m_callbacks;
+      }
 
    private:
       std::shared_ptr<Botan::AutoSeeded_RNG> m_rng;
@@ -188,7 +206,9 @@ class Result_Wrapper {
    public:
       explicit Result_Wrapper(std::string name) : m_result(std::move(name)) {}
 
-      Test::Result& result() { return m_result; }
+      Test::Result& result() {
+         return m_result;
+      }
 
       void expect_success(const std::string& msg, const error_code& ec) {
          error_code success;
@@ -203,9 +223,13 @@ class Result_Wrapper {
          }
       }
 
-      void confirm(const std::string& msg, bool condition) { m_result.confirm(msg, condition); }
+      void confirm(const std::string& msg, bool condition) {
+         m_result.confirm(msg, condition);
+      }
 
-      void test_failure(const std::string& msg) { m_result.test_failure(msg); }
+      void test_failure(const std::string& msg) {
+         m_result.test_failure(msg);
+      }
 
    private:
       Test::Result m_result;
@@ -260,16 +284,22 @@ class Server : public Peer,
          m_acceptor.async_accept(std::bind(&Server::start_session, shared_from_this(), _1, _2));
       }
 
-      void expect_short_read() { m_short_read_expected = true; }
+      void expect_short_read() {
+         m_short_read_expected = true;
+      }
 
-      void move_before_accept() { m_move_before_accept = true; }
+      void move_before_accept() {
+         m_move_before_accept = true;
+      }
 
       void fail_on_handshake_message(const Botan::TLS::Handshake_Type msg_type, Botan::TLS::AlertType alert) {
          callbacks()->fail_on_handshake_message(msg_type, alert);
          m_expected_handshake_failure = alert;
       }
 
-      Result_Wrapper result() { return m_result; }
+      Result_Wrapper result() {
+         return m_result;
+      }
 
    private:
       void start_session(const error_code& ec, tcp::socket socket) {
@@ -422,7 +452,9 @@ class TestBase {
 
       virtual void finishAsynchronousWork() {}
 
-      void fail(const std::string& msg) { m_result.test_failure(msg); }
+      void fail(const std::string& msg) {
+         m_result.test_failure(msg);
+      }
 
       void extend_results(std::vector<Test::Result>& results) {
          results.push_back(m_result.result());
@@ -431,13 +463,21 @@ class TestBase {
 
    protected:
       //! retire client and server instances after a job well done
-      void teardown() { m_client->cancel_timeout(); }
+      void teardown() {
+         m_client->cancel_timeout();
+      }
 
-      std::shared_ptr<Client>& client() { return m_client; }
+      std::shared_ptr<Client>& client() {
+         return m_client;
+      }
 
-      std::shared_ptr<Server>& server() { return m_server; }
+      std::shared_ptr<Server>& server() {
+         return m_server;
+      }
 
-      Result_Wrapper& result() { return m_result; }
+      Result_Wrapper& result() {
+         return m_result;
+      }
 
    private:
       std::string m_name;
@@ -452,7 +492,9 @@ class Synchronous_Test : public TestBase {
    public:
       using TestBase::TestBase;
 
-      void finishAsynchronousWork() override { m_client_thread.join(); }
+      void finishAsynchronousWork() override {
+         m_client_thread.join();
+      }
 
       void run(const error_code& /*err*/) {
          m_client_thread = std::thread([this] {

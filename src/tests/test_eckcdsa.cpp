@@ -36,7 +36,9 @@ class ECKCDSA_Signature_KAT_Tests final : public PK_Signature_Generation_Test {
          return std::make_unique<Botan::ECKCDSA_PrivateKey>(this->rng(), group, x);
       }
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Hash"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Hash");
+      }
 
       std::unique_ptr<Botan::RandomNumberGenerator> test_rng(const std::vector<uint8_t>& nonce) const override {
          // eckcdsa signature generation extracts more random than just the nonce,
@@ -47,9 +49,13 @@ class ECKCDSA_Signature_KAT_Tests final : public PK_Signature_Generation_Test {
 
 class ECKCDSA_Keygen_Tests final : public PK_Key_Generation_Test {
    public:
-      std::vector<std::string> keygen_params() const override { return {"secp256r1", "secp384r1", "secp521r1"}; }
+      std::vector<std::string> keygen_params() const override {
+         return {"secp256r1", "secp384r1", "secp521r1"};
+      }
 
-      std::string algo_name() const override { return "ECKCDSA"; }
+      std::string algo_name() const override {
+         return "ECKCDSA";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /* provider */,

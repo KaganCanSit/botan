@@ -26,9 +26,13 @@ class DL_PublicKey final {
 
       bool check_key(RandomNumberGenerator& rng, bool strong) const;
 
-      const DL_Group& group() const { return m_group; }
+      const DL_Group& group() const {
+         return m_group;
+      }
 
-      const BigInt& public_key() const { return m_public_key; }
+      const BigInt& public_key() const {
+         return m_public_key;
+      }
 
       // Return the binary representation of the integer public key
       std::vector<uint8_t> public_key_as_bytes() const;
@@ -64,12 +68,16 @@ class DL_PrivateKey final {
       /**
       * Return the group this key operates in
       */
-      const DL_Group& group() const { return m_group; }
+      const DL_Group& group() const {
+         return m_group;
+      }
 
       /**
       * Return the integer value of the private key
       */
-      const BigInt& private_key() const { return m_private_key; }
+      const BigInt& private_key() const {
+         return m_private_key;
+      }
 
       /**
       * DER encode the private key

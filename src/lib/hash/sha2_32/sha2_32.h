@@ -30,17 +30,25 @@ class SHA_224 final : public HashFunction {
       static void init(digest_type& digest);
 
    public:
-      std::string name() const override { return "SHA-224"; }
+      std::string name() const override {
+         return "SHA-224";
+      }
 
-      size_t output_length() const override { return output_bytes; }
+      size_t output_length() const override {
+         return output_bytes;
+      }
 
-      size_t hash_block_size() const override { return block_bytes; }
+      size_t hash_block_size() const override {
+         return block_bytes;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
 
       std::unique_ptr<HashFunction> copy_state() const override;
 
-      void clear() override { m_md.clear(); }
+      void clear() override {
+         m_md.clear();
+      }
 
       std::string provider() const override;
 
@@ -70,17 +78,25 @@ class SHA_256 final : public HashFunction {
       static void init(digest_type& digest);
 
    public:
-      std::string name() const override { return "SHA-256"; }
+      std::string name() const override {
+         return "SHA-256";
+      }
 
-      size_t output_length() const override { return output_bytes; }
+      size_t output_length() const override {
+         return output_bytes;
+      }
 
-      size_t hash_block_size() const override { return block_bytes; }
+      size_t hash_block_size() const override {
+         return block_bytes;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
 
       std::unique_ptr<HashFunction> copy_state() const override;
 
-      void clear() override { m_md.clear(); }
+      void clear() override {
+         m_md.clear();
+      }
 
       std::string provider() const override;
 

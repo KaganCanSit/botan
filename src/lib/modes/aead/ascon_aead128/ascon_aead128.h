@@ -22,27 +22,45 @@ class Ascon_AEAD128_Mode : public AEAD_Mode {
    public:
       void set_associated_data_n(size_t idx, std::span<const uint8_t> ad) final;
 
-      bool associated_data_requires_key() const final { return false; }
+      bool associated_data_requires_key() const final {
+         return false;
+      }
 
-      std::string name() const final { return "Ascon-AEAD128"; }
+      std::string name() const final {
+         return "Ascon-AEAD128";
+      }
 
-      size_t update_granularity() const final { return 1; }
+      size_t update_granularity() const final {
+         return 1;
+      }
 
-      size_t ideal_granularity() const final { return 32; }
+      size_t ideal_granularity() const final {
+         return 32;
+      }
 
-      Key_Length_Specification key_spec() const final { return Key_Length_Specification(16); }
+      Key_Length_Specification key_spec() const final {
+         return Key_Length_Specification(16);
+      }
 
-      bool valid_nonce_length(size_t n) const final { return n == 16; }
+      bool valid_nonce_length(size_t n) const final {
+         return n == 16;
+      }
 
-      size_t default_nonce_length() const final { return 16; }
+      size_t default_nonce_length() const final {
+         return 16;
+      }
 
-      size_t tag_size() const final { return 16; }
+      size_t tag_size() const final {
+         return 16;
+      }
 
       void clear() final;
 
       void reset() final;
 
-      bool has_keying_material() const final { return m_key.has_value(); }
+      bool has_keying_material() const final {
+         return m_key.has_value();
+      }
 
    protected:
       Ascon_AEAD128_Mode();
@@ -68,9 +86,13 @@ class Ascon_AEAD128_Mode : public AEAD_Mode {
 */
 class Ascon_AEAD128_Encryption final : public Ascon_AEAD128_Mode {
    public:
-      size_t output_length(size_t input_length) const override { return input_length + tag_size(); }
+      size_t output_length(size_t input_length) const override {
+         return input_length + tag_size();
+      }
 
-      size_t minimum_final_size() const override { return 0; }
+      size_t minimum_final_size() const override {
+         return 0;
+      }
 
    private:
       size_t process_msg(uint8_t buf[], size_t size) final;
@@ -87,7 +109,9 @@ class Ascon_AEAD128_Decryption final : public Ascon_AEAD128_Mode {
          return input_length - tag_size();
       }
 
-      size_t minimum_final_size() const override { return tag_size(); }
+      size_t minimum_final_size() const override {
+         return tag_size();
+      }
 
    private:
       size_t process_msg(uint8_t buf[], size_t size) final;

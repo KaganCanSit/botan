@@ -97,7 +97,9 @@ class Padding final : public Botan::TLS::Extension {
          return Botan::TLS::Extension_Code(21);
       }
 
-      Botan::TLS::Extension_Code type() const override { return static_type(); }
+      Botan::TLS::Extension_Code type() const override {
+         return static_type();
+      }
 
       explicit Padding(const size_t padding_bytes) : m_padding_bytes(padding_bytes) {}
 
@@ -105,7 +107,9 @@ class Padding final : public Botan::TLS::Extension {
          return std::vector<uint8_t>(m_padding_bytes, 0x00);
       }
 
-      bool empty() const override { return m_padding_bytes == 0; }
+      bool empty() const override {
+         return m_padding_bytes == 0;
+      }
 
    private:
       size_t m_padding_bytes;
@@ -331,15 +335,25 @@ class Test_TLS_13_Callbacks : public Botan::TLS::Callbacks {
          return m_timestamp;
       }
 
-      std::vector<uint8_t> pull_send_buffer() { return std::exchange(send_buffer, std::vector<uint8_t>()); }
+      std::vector<uint8_t> pull_send_buffer() {
+         return std::exchange(send_buffer, std::vector<uint8_t>());
+      }
 
-      std::vector<uint8_t> pull_receive_buffer() { return std::exchange(receive_buffer, std::vector<uint8_t>()); }
+      std::vector<uint8_t> pull_receive_buffer() {
+         return std::exchange(receive_buffer, std::vector<uint8_t>());
+      }
 
-      uint64_t last_received_seq_no() const { return received_seq_no; }
+      uint64_t last_received_seq_no() const {
+         return received_seq_no;
+      }
 
-      const std::map<std::string, unsigned int>& callback_invocations() const { return m_callback_invocations; }
+      const std::map<std::string, unsigned int>& callback_invocations() const {
+         return m_callback_invocations;
+      }
 
-      void reset_callback_invocation_counters() { m_callback_invocations.clear(); }
+      void reset_callback_invocation_counters() {
+         m_callback_invocations.clear();
+      }
 
    private:
       void count_callback_invocation(const std::string& callback_name) const {
@@ -564,7 +578,9 @@ class RFC8448_Session_Manager : public Botan::TLS::Session_Manager {
    public:
       RFC8448_Session_Manager() : Session_Manager(std::make_shared<Botan::Null_RNG>()) {}
 
-      const std::vector<Session_with_Handle>& all_sessions() const { return m_sessions; }
+      const std::vector<Session_with_Handle>& all_sessions() const {
+         return m_sessions;
+      }
 
       void store(const Session& session, const Session_Handle& handle) override {
          m_sessions.push_back({session, handle});
@@ -607,7 +623,9 @@ class RFC8448_Session_Manager : public Botan::TLS::Session_Manager {
          return found_sessions;
       }
 
-      size_t remove(const Session_Handle& handle) override { return std::erase_if(m_sessions, find_by_handle(handle)); }
+      size_t remove(const Session_Handle& handle) override {
+         return std::erase_if(m_sessions, find_by_handle(handle));
+      }
 
       size_t remove_all() override {
          const auto sessions = m_sessions.size();
@@ -656,11 +674,17 @@ class TLS_Context {
       TLS_Context(TLS_Context&&) = delete;
       TLS_Context& operator=(TLS_Context&&) = delete;
 
-      std::vector<uint8_t> pull_send_buffer() { return m_callbacks->pull_send_buffer(); }
+      std::vector<uint8_t> pull_send_buffer() {
+         return m_callbacks->pull_send_buffer();
+      }
 
-      std::vector<uint8_t> pull_receive_buffer() { return m_callbacks->pull_receive_buffer(); }
+      std::vector<uint8_t> pull_receive_buffer() {
+         return m_callbacks->pull_receive_buffer();
+      }
 
-      uint64_t last_received_seq_no() const { return m_callbacks->last_received_seq_no(); }
+      uint64_t last_received_seq_no() const {
+         return m_callbacks->last_received_seq_no();
+      }
 
       /**
        * Checks that all of the listed callbacks were called at least once, no other
@@ -688,13 +712,21 @@ class TLS_Context {
          m_callbacks->reset_callback_invocation_counters();
       }
 
-      const std::vector<Session_with_Handle>& stored_sessions() const { return m_session_mgr->all_sessions(); }
+      const std::vector<Session_with_Handle>& stored_sessions() const {
+         return m_session_mgr->all_sessions();
+      }
 
-      const std::vector<Botan::X509_Certificate>& certs_verified() const { return m_callbacks->certificate_chain; }
+      const std::vector<Botan::X509_Certificate>& certs_verified() const {
+         return m_callbacks->certificate_chain;
+      }
 
-      const std::string& psk_identity_negotiated() const { return m_callbacks->negotiated_psk_identity; }
+      const std::string& psk_identity_negotiated() const {
+         return m_callbacks->negotiated_psk_identity;
+      }
 
-      decltype(auto) observed_handshake_messages() const { return m_callbacks->serialized_messages; }
+      decltype(auto) observed_handshake_messages() const {
+         return m_callbacks->serialized_messages;
+      }
 
       /**
        * Send application data through the secure channel
@@ -735,7 +767,9 @@ class Client_Context : public TLS_Context {
                    Botan::TLS::Server_Information("server"),
                    Botan::TLS::Protocol_Version::TLS_V13) {}
 
-      void send(const std::vector<uint8_t>& data) override { client.send(data.data(), data.size()); }
+      void send(const std::vector<uint8_t>& data) override {
+         client.send(data.data(), data.size());
+      }
 
       Botan::TLS::Client client;  // NOLINT(*-non-private-member-variable*)
 };
@@ -760,7 +794,9 @@ class Server_Context : public TLS_Context {
                         use_alternative_server_certificate),
             server(m_callbacks, m_session_mgr, m_creds, m_policy, m_rng, false /* DTLS NYI */) {}
 
-      void send(const std::vector<uint8_t>& data) override { server.send(data.data(), data.size()); }
+      void send(const std::vector<uint8_t>& data) override {
+         server.send(data.data(), data.size());
+      }
 
       Botan::TLS::Server server;  // NOLINT(*-non-private-member-variable*)
 };
@@ -962,7 +998,9 @@ class Test_TLS_RFC8448 : public Text_Based_Test {
 
 class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
    private:
-      std::string side() const override { return "Client"; }
+      std::string side() const override {
+         return "Client";
+      }
 
       std::vector<Test::Result> simple_1_rtt(const VarMap& vars) override {
          auto rng = std::make_shared<Fixed_Output_RNG>("");
@@ -1785,7 +1823,9 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
 
 class Test_TLS_RFC8448_Server : public Test_TLS_RFC8448 {
    private:
-      std::string side() const override { return "Server"; }
+      std::string side() const override {
+         return "Server";
+      }
 
       std::vector<Test::Result> simple_1_rtt(const VarMap& vars) override {
          auto rng = std::make_unique<Fixed_Output_RNG>("");

@@ -49,7 +49,9 @@ class Test_Error : public Botan::Exception {
    public:
       explicit Test_Error(const std::string& what) : Exception("Test error", what) {}
 
-      Botan::ErrorType error_type() const noexcept override { return Botan::ErrorType::Unknown; }
+      Botan::ErrorType error_type() const noexcept override {
+         return Botan::ErrorType::Unknown;
+      }
 };
 
 class Test_Aborted final : public Test_Error {
@@ -106,49 +108,91 @@ class Test_Options {
             m_abort_on_first_fail(abort_on_first_fail),
             m_no_stdout(no_stdout) {}
 
-      const std::vector<std::string>& requested_tests() const { return m_requested_tests; }
+      const std::vector<std::string>& requested_tests() const {
+         return m_requested_tests;
+      }
 
-      const std::set<std::string>& skip_tests() const { return m_skip_tests; }
+      const std::set<std::string>& skip_tests() const {
+         return m_skip_tests;
+      }
 
-      const std::string& data_dir() const { return m_data_dir; }
+      const std::string& data_dir() const {
+         return m_data_dir;
+      }
 
-      const std::string& pkcs11_lib() const { return m_pkcs11_lib; }
+      const std::string& pkcs11_lib() const {
+         return m_pkcs11_lib;
+      }
 
-      const std::string& provider() const { return m_provider; }
+      const std::string& provider() const {
+         return m_provider;
+      }
 
-      const std::optional<std::string>& tpm2_tcti_name() const { return m_tpm2_tcti_name; }
+      const std::optional<std::string>& tpm2_tcti_name() const {
+         return m_tpm2_tcti_name;
+      }
 
-      const std::optional<std::string>& tpm2_tcti_conf() const { return m_tpm2_tcti_conf; }
+      const std::optional<std::string>& tpm2_tcti_conf() const {
+         return m_tpm2_tcti_conf;
+      }
 
-      uint32_t tpm2_persistent_rsa_handle() const { return static_cast<uint32_t>(m_tpm2_persistent_rsa_handle); }
+      uint32_t tpm2_persistent_rsa_handle() const {
+         return static_cast<uint32_t>(m_tpm2_persistent_rsa_handle);
+      }
 
-      uint32_t tpm2_persistent_ecc_handle() const { return static_cast<uint32_t>(m_tpm2_persistent_ecc_handle); }
+      uint32_t tpm2_persistent_ecc_handle() const {
+         return static_cast<uint32_t>(m_tpm2_persistent_ecc_handle);
+      }
 
-      const std::string& tpm2_persistent_auth_value() const { return m_tpm2_persistent_auth_value; }
+      const std::string& tpm2_persistent_auth_value() const {
+         return m_tpm2_persistent_auth_value;
+      }
 
-      const std::string& drbg_seed() const { return m_drbg_seed; }
+      const std::string& drbg_seed() const {
+         return m_drbg_seed;
+      }
 
-      const std::string& xml_results_dir() const { return m_xml_results_dir; }
+      const std::string& xml_results_dir() const {
+         return m_xml_results_dir;
+      }
 
       std::map<std::string, std::string> report_properties() const;
 
-      size_t test_runs() const { return m_test_runs; }
+      size_t test_runs() const {
+         return m_test_runs;
+      }
 
-      size_t test_threads() const { return m_test_threads; }
+      size_t test_threads() const {
+         return m_test_threads;
+      }
 
-      bool log_success() const { return m_log_success; }
+      bool log_success() const {
+         return m_log_success;
+      }
 
-      bool run_online_tests() const { return m_run_online_tests; }
+      bool run_online_tests() const {
+         return m_run_online_tests;
+      }
 
-      bool run_long_tests() const { return m_run_long_tests; }
+      bool run_long_tests() const {
+         return m_run_long_tests;
+      }
 
-      bool run_memory_intensive_tests() const { return m_run_memory_intensive_tests; }
+      bool run_memory_intensive_tests() const {
+         return m_run_memory_intensive_tests;
+      }
 
-      bool abort_on_first_fail() const { return m_abort_on_first_fail; }
+      bool abort_on_first_fail() const {
+         return m_abort_on_first_fail;
+      }
 
-      bool no_stdout() const { return m_no_stdout; }
+      bool no_stdout() const {
+         return m_no_stdout;
+      }
 
-      bool verbose() const { return m_verbose; }
+      bool verbose() const {
+         return m_verbose;
+      }
 
    private:
       std::vector<std::string> m_requested_tests;
@@ -235,19 +279,33 @@ class Test {
              */
             Result(std::string who, const std::vector<Result>& downstream_results);
 
-            size_t tests_passed() const { return m_tests_passed; }
+            size_t tests_passed() const {
+               return m_tests_passed;
+            }
 
-            size_t tests_failed() const { return m_fail_log.size(); }
+            size_t tests_failed() const {
+               return m_fail_log.size();
+            }
 
-            size_t tests_run() const { return tests_passed() + tests_failed(); }
+            size_t tests_run() const {
+               return tests_passed() + tests_failed();
+            }
 
-            bool any_results() const { return tests_run() > 0; }
+            bool any_results() const {
+               return tests_run() > 0;
+            }
 
-            const std::string& who() const { return m_who; }
+            const std::string& who() const {
+               return m_who;
+            }
 
-            const std::vector<std::string>& failures() const { return m_fail_log; }
+            const std::vector<std::string>& failures() const {
+               return m_fail_log;
+            }
 
-            const std::vector<std::string>& notes() const { return m_log; }
+            const std::vector<std::string>& notes() const {
+               return m_log;
+            }
 
             std::optional<std::chrono::nanoseconds> elapsed_time() const {
                if(m_ns_taken == 0) {
@@ -257,7 +315,9 @@ class Test {
                }
             }
 
-            const std::chrono::system_clock::time_point& timestamp() const { return m_timestamp; }
+            const std::chrono::system_clock::time_point& timestamp() const {
+               return m_timestamp;
+            }
 
             std::string result_string() const;
 
@@ -512,7 +572,9 @@ class Test {
                   ThrowExpectations(ThrowExpectations&&) = default;
                   ThrowExpectations& operator=(ThrowExpectations&&) = default;
 
-                  ~ThrowExpectations() { BOTAN_ASSERT_NOMSG(m_consumed); }
+                  ~ThrowExpectations() {
+                     BOTAN_ASSERT_NOMSG(m_consumed);
+                  }
 
                   ThrowExpectations& expect_success() {
                      BOTAN_ASSERT_NOMSG(!m_expected_message && !m_expected_exception_check_fn);
@@ -572,14 +634,20 @@ class Test {
                                                                                                                *this);
             }
 
-            void set_ns_consumed(uint64_t ns) { m_ns_taken = ns; }
+            void set_ns_consumed(uint64_t ns) {
+               m_ns_taken = ns;
+            }
 
             void start_timer();
             void end_timer();
 
-            void set_code_location(CodeLocation where) { m_where = where; }
+            void set_code_location(CodeLocation where) {
+               m_where = where;
+            }
 
-            const std::optional<CodeLocation>& code_location() const { return m_where; }
+            const std::optional<CodeLocation>& code_location() const {
+               return m_where;
+            }
 
          private:
             template <typename T>
@@ -624,11 +692,15 @@ class Test {
 
       void initialize(std::string test_name, CodeLocation location);
 
-      const std::string& test_name() const { return m_test_name; }
+      const std::string& test_name() const {
+         return m_test_name;
+      }
 
       Botan::RandomNumberGenerator& rng() const;
 
-      const std::optional<CodeLocation>& registration_location() const { return m_registration_location; }
+      const std::optional<CodeLocation>& registration_location() const {
+         return m_registration_location;
+      }
 
       /// @p smoke_test are run first in an unfiltered test run
       static void register_test(const std::string& category,
@@ -683,13 +755,21 @@ class Test {
 
       static void set_test_rng_seed(std::span<const uint8_t> seed, size_t epoch = 0);
 
-      static const Test_Options& options() { return m_opts; }
+      static const Test_Options& options() {
+         return m_opts;
+      }
 
-      static bool run_long_tests() { return options().run_long_tests(); }
+      static bool run_long_tests() {
+         return options().run_long_tests();
+      }
 
-      static bool run_memory_intensive_tests() { return options().run_memory_intensive_tests(); }
+      static bool run_memory_intensive_tests() {
+         return options().run_memory_intensive_tests();
+      }
 
-      static const std::string& pkcs11_lib() { return options().pkcs11_lib(); }
+      static const std::string& pkcs11_lib() {
+         return options().pkcs11_lib();
+      }
 
       static std::string temp_file_name(const std::string& basename);
       static bool copy_file(const std::string& from, const std::string& to);
@@ -846,11 +926,17 @@ class TestFnRegistration {
 
 class VarMap {
    public:
-      void clear() { m_vars.clear(); }
+      void clear() {
+         m_vars.clear();
+      }
 
-      void add(const std::string& key, const std::string& value) { m_vars[key] = value; }
+      void add(const std::string& key, const std::string& value) {
+         m_vars[key] = value;
+      }
 
-      bool has_key(const std::string& key) const { return m_vars.count(key) == 1; }
+      bool has_key(const std::string& key) const {
+         return m_vars.count(key) == 1;
+      }
 
       bool get_req_bool(const std::string& key) const;
 
@@ -902,7 +988,9 @@ class Text_Based_Test : public Test {
                       const std::string& required_keys_str,
                       const std::string& optional_keys_str = "");
 
-      virtual bool clear_between_callbacks() const { return true; }
+      virtual bool clear_between_callbacks() const {
+         return true;
+      }
 
       std::vector<Test::Result> run() override;
 
@@ -913,7 +1001,9 @@ class Text_Based_Test : public Test {
       // Called before run_one_test
       virtual bool skip_this_test(const std::string& header, const VarMap& vars);
 
-      virtual std::vector<Test::Result> run_final_tests() { return std::vector<Test::Result>(); }
+      virtual std::vector<Test::Result> run_final_tests() {
+         return std::vector<Test::Result>();
+      }
 
    private:
       std::string m_data_src;

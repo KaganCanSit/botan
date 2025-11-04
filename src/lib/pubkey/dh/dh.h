@@ -52,11 +52,15 @@ class BOTAN_PUBLIC_API(2, 0) DH_PublicKey : public virtual Public_Key {
          return raw_public_key_bits();
       }
 
-      std::string algo_name() const override { return "DH"; }
+      std::string algo_name() const override {
+         return "DH";
+      }
 
       const BigInt& get_int_field(std::string_view field) const override;
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::KeyAgreement); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::KeyAgreement);
+      }
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator& rng) const final;
 

@@ -40,10 +40,14 @@ class BOTAN_PUBLIC_API(2, 0) RSA_PublicKeyImportProperties final : public Public
       RSA_PublicKeyImportProperties(const BigInt& modulus, const BigInt& pub_exponent);
 
       /// @return the modulus
-      inline const BigInt& modulus() const { return m_modulus; }
+      inline const BigInt& modulus() const {
+         return m_modulus;
+      }
 
       /// @return the public exponent
-      inline const BigInt& pub_exponent() const { return m_pub_exponent; }
+      inline const BigInt& pub_exponent() const {
+         return m_pub_exponent;
+      }
 
    private:
       const BigInt m_modulus;
@@ -100,25 +104,39 @@ class BOTAN_PUBLIC_API(2, 0) RSA_PrivateKeyImportProperties final : public Priva
       }
 
       /// @param prime1 prime p
-      inline void set_prime_1(const BigInt& prime1) { add_binary(AttributeType::Prime1, prime1.serialize()); }
+      inline void set_prime_1(const BigInt& prime1) {
+         add_binary(AttributeType::Prime1, prime1.serialize());
+      }
 
       /// @param prime2 prime q
-      inline void set_prime_2(const BigInt& prime2) { add_binary(AttributeType::Prime2, prime2.serialize()); }
+      inline void set_prime_2(const BigInt& prime2) {
+         add_binary(AttributeType::Prime2, prime2.serialize());
+      }
 
       /// @param exp1 private exponent d modulo p-1
-      inline void set_exponent_1(const BigInt& exp1) { add_binary(AttributeType::Exponent1, exp1.serialize()); }
+      inline void set_exponent_1(const BigInt& exp1) {
+         add_binary(AttributeType::Exponent1, exp1.serialize());
+      }
 
       /// @param exp2 private exponent d modulo q-1
-      inline void set_exponent_2(const BigInt& exp2) { add_binary(AttributeType::Exponent2, exp2.serialize()); }
+      inline void set_exponent_2(const BigInt& exp2) {
+         add_binary(AttributeType::Exponent2, exp2.serialize());
+      }
 
       /// @param coeff CRT coefficient q^-1 mod p
-      inline void set_coefficient(const BigInt& coeff) { add_binary(AttributeType::Coefficient, coeff.serialize()); }
+      inline void set_coefficient(const BigInt& coeff) {
+         add_binary(AttributeType::Coefficient, coeff.serialize());
+      }
 
       /// @return the modulus
-      inline const BigInt& modulus() const { return m_modulus; }
+      inline const BigInt& modulus() const {
+         return m_modulus;
+      }
 
       /// @return the private exponent
-      inline const BigInt& priv_exponent() const { return m_priv_exponent; }
+      inline const BigInt& priv_exponent() const {
+         return m_priv_exponent;
+      }
 
    private:
       const BigInt m_modulus;
@@ -171,9 +189,13 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_RSA_PrivateKey final : public Object,
        *
        * @param software_padding  if true, perform the unpadding in software
        */
-      void set_use_software_padding(bool software_padding) { m_use_software_padding = software_padding; }
+      void set_use_software_padding(bool software_padding) {
+         m_use_software_padding = software_padding;
+      }
 
-      bool uses_software_padding() const { return m_use_software_padding; }
+      bool uses_software_padding() const {
+         return m_use_software_padding;
+      }
 
       secure_vector<uint8_t> private_key_bits() const override;
 

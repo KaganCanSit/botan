@@ -49,7 +49,9 @@ enum StreamError : uint8_t { StreamTruncated = 1 };
 //! @brief An error category for errors from the TLS::Stream
 class StreamCategory final : public BoostErrorCategory {
    public:
-      const char* name() const noexcept override { return "Botan TLS Stream"; }
+      const char* name() const noexcept override {
+         return "Botan TLS Stream";
+      }
 
       std::string message(int value) const override {
          if(value == StreamTruncated) {
@@ -72,7 +74,9 @@ inline boost::system::error_code make_error_code(Botan::TLS::StreamError e) {
 //! @brief An error category for TLS alerts
 class BotanAlertCategory final : public BoostErrorCategory {
    public:
-      const char* name() const noexcept override { return "Botan TLS Alert"; }
+      const char* name() const noexcept override {
+         return "Botan TLS Alert";
+      }
 
       std::string message(int ev) const override {
          Botan::TLS::Alert alert(static_cast<Botan::TLS::Alert::Type>(ev));
@@ -94,9 +98,13 @@ inline boost::system::error_code make_error_code(Botan::TLS::Alert::Type c) {
 //! @brief An error category for errors from Botan (other than TLS alerts)
 class BotanErrorCategory : public BoostErrorCategory {
    public:
-      const char* name() const noexcept override { return "Botan"; }
+      const char* name() const noexcept override {
+         return "Botan";
+      }
 
-      std::string message(int ev) const override { return Botan::to_string(static_cast<Botan::ErrorType>(ev)); }
+      std::string message(int ev) const override {
+         return Botan::to_string(static_cast<Botan::ErrorType>(ev));
+      }
 };
 
 inline const BotanErrorCategory& botan_category() noexcept {

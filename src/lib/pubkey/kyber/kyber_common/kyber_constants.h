@@ -71,25 +71,41 @@ class KyberConstants final {
       KyberConstants& operator=(const KyberConstants& other) = delete;
       KyberConstants& operator=(KyberConstants&& other) = default;
 
-      KyberMode mode() const { return m_mode; }
+      KyberMode mode() const {
+         return m_mode;
+      }
 
       /// @returns one of {512, 768, 1024}
-      size_t canonical_parameter_set_identifier() const { return k() * N; }
+      size_t canonical_parameter_set_identifier() const {
+         return k() * N;
+      }
 
       /// \name Foundational constants
       /// @{
 
-      uint8_t k() const { return m_k; }
+      uint8_t k() const {
+         return m_k;
+      }
 
-      KyberEta eta1() const { return m_eta1; }
+      KyberEta eta1() const {
+         return m_eta1;
+      }
 
-      constexpr KyberEta eta2() const { return KyberEta::_2; }
+      constexpr KyberEta eta2() const {
+         return KyberEta::_2;
+      }
 
-      KyberDu d_u() const { return m_du; }
+      KyberDu d_u() const {
+         return m_du;
+      }
 
-      KyberDv d_v() const { return m_dv; }
+      KyberDv d_v() const {
+         return m_dv;
+      }
 
-      KyberStrength estimated_strength() const { return m_nist_strength; }
+      KyberStrength estimated_strength() const {
+         return m_nist_strength;
+      }
 
       /// @}
 
@@ -97,33 +113,51 @@ class KyberConstants final {
       /// @{
 
       /// byte length of an encoded polynomial vector
-      size_t polynomial_vector_bytes() const { return m_polynomial_vector_bytes; }
+      size_t polynomial_vector_bytes() const {
+         return m_polynomial_vector_bytes;
+      }
 
       /// byte length of an encoded compressed polynomial vector
-      size_t polynomial_vector_compressed_bytes() const { return m_polynomial_vector_compressed_bytes; }
+      size_t polynomial_vector_compressed_bytes() const {
+         return m_polynomial_vector_compressed_bytes;
+      }
 
       /// byte length of an encoded compressed polynomial
-      size_t polynomial_compressed_bytes() const { return m_polynomial_compressed_bytes; }
+      size_t polynomial_compressed_bytes() const {
+         return m_polynomial_compressed_bytes;
+      }
 
       /// byte length of an encoded ciphertext
-      size_t ciphertext_bytes() const { return polynomial_vector_compressed_bytes() + polynomial_compressed_bytes(); }
+      size_t ciphertext_bytes() const {
+         return polynomial_vector_compressed_bytes() + polynomial_compressed_bytes();
+      }
 
       /// byte length of the shared key
-      constexpr size_t shared_key_bytes() const { return SHARED_KEY_BYTES; }
+      constexpr size_t shared_key_bytes() const {
+         return SHARED_KEY_BYTES;
+      }
 
       /// byte length of an encoded public key
-      size_t public_key_bytes() const { return polynomial_vector_bytes() + SEED_BYTES; }
+      size_t public_key_bytes() const {
+         return polynomial_vector_bytes() + SEED_BYTES;
+      }
 
       /// byte length of a private key with expanded encoding as defined
       //  in FIPS 203
-      size_t expanded_private_key_bytes() const { return m_expanded_private_key_bytes; }
+      size_t expanded_private_key_bytes() const {
+         return m_expanded_private_key_bytes;
+      }
 
       /// byte length of an private key encoded as the seed: d || z
-      size_t seed_private_key_bytes() const { return m_seed_private_key_bytes; }
+      size_t seed_private_key_bytes() const {
+         return m_seed_private_key_bytes;
+      }
 
       /// @}
 
-      Kyber_Symmetric_Primitives& symmetric_primitives() const { return *m_symmetric_primitives; }
+      Kyber_Symmetric_Primitives& symmetric_primitives() const {
+         return *m_symmetric_primitives;
+      }
 
    private:
       KyberMode m_mode;

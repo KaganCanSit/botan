@@ -139,61 +139,117 @@ class GenericCurveParams final {
          m_base_y = bn_to_fixed(m_monty_field.mul(base_y, m_monty_field.R2(), ws));
       }
 
-      size_t words() const { return m_words; }
+      size_t words() const {
+         return m_words;
+      }
 
-      size_t order_bits() const { return m_order_bits; }
+      size_t order_bits() const {
+         return m_order_bits;
+      }
 
-      size_t order_bytes() const { return m_order_bytes; }
+      size_t order_bytes() const {
+         return m_order_bytes;
+      }
 
-      size_t field_bits() const { return m_field_bits; }
+      size_t field_bits() const {
+         return m_field_bits;
+      }
 
-      size_t field_bytes() const { return m_field_bytes; }
+      size_t field_bytes() const {
+         return m_field_bytes;
+      }
 
-      const Montgomery_Params& monty_order() const { return m_monty_order; }
+      const Montgomery_Params& monty_order() const {
+         return m_monty_order;
+      }
 
-      const Montgomery_Params& monty_field() const { return m_monty_field; }
+      const Montgomery_Params& monty_field() const {
+         return m_monty_field;
+      }
 
-      const StorageUnit& field() const { return m_field; }
+      const StorageUnit& field() const {
+         return m_field;
+      }
 
-      const StorageUnit& field_minus_2() const { return m_field_minus_2; }
+      const StorageUnit& field_minus_2() const {
+         return m_field_minus_2;
+      }
 
-      const StorageUnit& field_monty_r1() const { return m_field_monty_r1; }
+      const StorageUnit& field_monty_r1() const {
+         return m_field_monty_r1;
+      }
 
-      const StorageUnit& field_monty_r2() const { return m_field_monty_r2; }
+      const StorageUnit& field_monty_r2() const {
+         return m_field_monty_r2;
+      }
 
-      const StorageUnit& field_p_plus_1_over_4() const { return m_field_p_plus_1_over_4; }
+      const StorageUnit& field_p_plus_1_over_4() const {
+         return m_field_p_plus_1_over_4;
+      }
 
-      const StorageUnit& field_inv_2() const { return m_field_inv_2; }
+      const StorageUnit& field_inv_2() const {
+         return m_field_inv_2;
+      }
 
-      word field_p_dash() const { return m_field_p_dash; }
+      word field_p_dash() const {
+         return m_field_p_dash;
+      }
 
-      const StorageUnit& order() const { return m_order; }
+      const StorageUnit& order() const {
+         return m_order;
+      }
 
-      const StorageUnit& order_minus_2() const { return m_order_minus_2; }
+      const StorageUnit& order_minus_2() const {
+         return m_order_minus_2;
+      }
 
-      const StorageUnit& order_monty_r1() const { return m_order_monty_r1; }
+      const StorageUnit& order_monty_r1() const {
+         return m_order_monty_r1;
+      }
 
-      const StorageUnit& order_monty_r2() const { return m_order_monty_r2; }
+      const StorageUnit& order_monty_r2() const {
+         return m_order_monty_r2;
+      }
 
-      const StorageUnit& order_monty_r3() const { return m_order_monty_r3; }
+      const StorageUnit& order_monty_r3() const {
+         return m_order_monty_r3;
+      }
 
-      const StorageUnit& order_inv_2() const { return m_order_inv_2; }
+      const StorageUnit& order_inv_2() const {
+         return m_order_inv_2;
+      }
 
-      word order_p_dash() const { return m_order_p_dash; }
+      word order_p_dash() const {
+         return m_order_p_dash;
+      }
 
-      const StorageUnit& monty_curve_a() const { return m_monty_curve_a; }
+      const StorageUnit& monty_curve_a() const {
+         return m_monty_curve_a;
+      }
 
-      const StorageUnit& monty_curve_b() const { return m_monty_curve_b; }
+      const StorageUnit& monty_curve_b() const {
+         return m_monty_curve_b;
+      }
 
-      const StorageUnit& base_x() const { return m_base_x; }
+      const StorageUnit& base_x() const {
+         return m_base_x;
+      }
 
-      const StorageUnit& base_y() const { return m_base_y; }
+      const StorageUnit& base_y() const {
+         return m_base_y;
+      }
 
-      bool a_is_minus_3() const { return m_a_is_minus_3; }
+      bool a_is_minus_3() const {
+         return m_a_is_minus_3;
+      }
 
-      bool a_is_zero() const { return m_a_is_zero; }
+      bool a_is_zero() const {
+         return m_a_is_zero;
+      }
 
-      bool order_is_less_than_field() const { return m_order_is_lt_field; }
+      bool order_is_less_than_field() const {
+         return m_order_is_lt_field;
+      }
 
       void mul(std::array<word, 2 * N>& z, const std::array<word, N>& x, const std::array<word, N>& y) const {
          clear_mem(z);
@@ -376,7 +432,9 @@ class GenericScalar final {
          return GenericScalar(curve, r);
       }
 
-      friend GenericScalar operator-(const GenericScalar& a, const GenericScalar& b) { return a + b.negate(); }
+      friend GenericScalar operator-(const GenericScalar& a, const GenericScalar& b) {
+         return a + b.negate();
+      }
 
       friend GenericScalar operator*(const GenericScalar& a, const GenericScalar& b) {
          const auto* curve = check_curve(a, b);
@@ -419,7 +477,9 @@ class GenericScalar final {
          return GenericScalar(m_curve, r);
       }
 
-      GenericScalar invert() const { return pow_vartime(m_curve->_params().order_minus_2()); }
+      GenericScalar invert() const {
+         return pow_vartime(m_curve->_params().order_minus_2());
+      }
 
       /**
       * Helper for variable time BEEA
@@ -525,9 +585,13 @@ class GenericScalar final {
          copy_mem(bytes, std::span{padded_bytes}.subspan(extra, flen));
       }
 
-      CT::Choice is_zero() const { return CT::all_zeros(m_val.data(), m_curve->_params().words()).as_choice(); }
+      CT::Choice is_zero() const {
+         return CT::all_zeros(m_val.data(), m_curve->_params().words()).as_choice();
+      }
 
-      CT::Choice is_nonzero() const { return !is_zero(); }
+      CT::Choice is_nonzero() const {
+         return !is_zero();
+      }
 
       CT::Choice operator==(const GenericScalar& other) const {
          if(this->m_curve != other.m_curve) {
@@ -540,18 +604,28 @@ class GenericScalar final {
       /**
       * Convert the integer to standard representation and return the sequence of words
       */
-      StorageUnit to_words() const { return from_rep(m_curve, m_val); }
+      StorageUnit to_words() const {
+         return from_rep(m_curve, m_val);
+      }
 
-      const StorageUnit& stash_value() const { return m_val; }
+      const StorageUnit& stash_value() const {
+         return m_val;
+      }
 
-      const GenericPrimeOrderCurve* curve() const { return m_curve; }
+      const GenericPrimeOrderCurve* curve() const {
+         return m_curve;
+      }
 
       GenericScalar(const GenericPrimeOrderCurve* curve, StorageUnit val) : m_curve(curve), m_val(val) {}
 
    private:
-      const StorageUnit& value() const { return m_val; }
+      const StorageUnit& value() const {
+         return m_val;
+      }
 
-      const W* data() const { return m_val.data(); }
+      const W* data() const {
+         return m_val.data();
+      }
 
       static const GenericPrimeOrderCurve* check_curve(const GenericScalar& a, const GenericScalar& b) {
          BOTAN_STATE_CHECK(a.m_curve == b.m_curve);
@@ -691,13 +765,19 @@ class GenericField final {
       }
 
       /// Return (*this) multiplied by 3
-      GenericField mul3() const { return mul2() + (*this); }
+      GenericField mul3() const {
+         return mul2() + (*this);
+      }
 
       /// Return (*this) multiplied by 4
-      GenericField mul4() const { return mul2().mul2(); }
+      GenericField mul4() const {
+         return mul2().mul2();
+      }
 
       /// Return (*this) multiplied by 8
-      GenericField mul8() const { return mul2().mul2().mul2(); }
+      GenericField mul8() const {
+         return mul2().mul2().mul2();
+      }
 
       friend GenericField operator+(const GenericField& a, const GenericField& b) {
          const auto* curve = check_curve(a, b);
@@ -711,7 +791,9 @@ class GenericField final {
          return GenericField(curve, r);
       }
 
-      friend GenericField operator-(const GenericField& a, const GenericField& b) { return a + b.negate(); }
+      friend GenericField operator-(const GenericField& a, const GenericField& b) {
+         return a + b.negate();
+      }
 
       friend GenericField operator*(const GenericField& a, const GenericField& b) {
          const auto* curve = check_curve(a, b);
@@ -752,7 +834,9 @@ class GenericField final {
          return GenericField(m_curve, r);
       }
 
-      GenericField invert() const { return pow_vartime(m_curve->_params().field_minus_2()); }
+      GenericField invert() const {
+         return pow_vartime(m_curve->_params().field_minus_2());
+      }
 
       template <concepts::resizable_byte_buffer T>
       T serialize() const {
@@ -774,9 +858,13 @@ class GenericField final {
          copy_mem(bytes, std::span{padded_bytes}.subspan(extra, flen));
       }
 
-      CT::Choice is_zero() const { return CT::all_zeros(m_val.data(), m_curve->_params().words()).as_choice(); }
+      CT::Choice is_zero() const {
+         return CT::all_zeros(m_val.data(), m_curve->_params().words()).as_choice();
+      }
 
-      CT::Choice is_nonzero() const { return !is_zero(); }
+      CT::Choice is_nonzero() const {
+         return !is_zero();
+      }
 
       CT::Choice operator==(const GenericField& other) const {
          if(this->m_curve != other.m_curve) {
@@ -786,9 +874,13 @@ class GenericField final {
          return CT::is_equal(m_val.data(), other.m_val.data(), m_curve->_params().words()).as_choice();
       }
 
-      const StorageUnit& stash_value() const { return m_val; }
+      const StorageUnit& stash_value() const {
+         return m_val;
+      }
 
-      const GenericPrimeOrderCurve* curve() const { return m_curve; }
+      const GenericPrimeOrderCurve* curve() const {
+         return m_curve;
+      }
 
       CT::Choice is_even() const {
          auto v = from_rep(m_curve, m_val);
@@ -798,11 +890,17 @@ class GenericField final {
       /**
       * Convert the integer to standard representation and return the sequence of words
       */
-      StorageUnit to_words() const { return from_rep(m_curve, m_val); }
+      StorageUnit to_words() const {
+         return from_rep(m_curve, m_val);
+      }
 
-      void _const_time_poison() const { CT::poison(m_val); }
+      void _const_time_poison() const {
+         CT::poison(m_val);
+      }
 
-      void _const_time_unpoison() const { CT::unpoison(m_val); }
+      void _const_time_unpoison() const {
+         CT::unpoison(m_val);
+      }
 
       static void conditional_swap(CT::Choice cond, GenericField& x, GenericField& y) {
          const W mask = CT::Mask<W>::from_choice(cond).value();
@@ -872,9 +970,13 @@ class GenericField final {
       GenericField(const GenericPrimeOrderCurve* curve, StorageUnit val) : m_curve(curve), m_val(val) {}
 
    private:
-      const StorageUnit& value() const { return m_val; }
+      const StorageUnit& value() const {
+         return m_val;
+      }
 
-      const W* data() const { return m_val.data(); }
+      const W* data() const {
+         return m_val.data();
+      }
 
       static const GenericPrimeOrderCurve* check_curve(const GenericField& a, const GenericField& b) {
          BOTAN_STATE_CHECK(a.m_curve == b.m_curve);
@@ -923,11 +1025,17 @@ class GenericAffinePoint final {
          return GenericAffinePoint(GenericField::zero(curve), GenericField::zero(curve));
       }
 
-      static GenericAffinePoint identity(const GenericAffinePoint& pt) { return identity(pt.curve()); }
+      static GenericAffinePoint identity(const GenericAffinePoint& pt) {
+         return identity(pt.curve());
+      }
 
-      CT::Choice is_identity() const { return x().is_zero() && y().is_zero(); }
+      CT::Choice is_identity() const {
+         return x().is_zero() && y().is_zero();
+      }
 
-      GenericAffinePoint negate() const { return GenericAffinePoint(x(), y().negate()); }
+      GenericAffinePoint negate() const {
+         return GenericAffinePoint(x(), y().negate());
+      }
 
       /**
       * Serialize the point in uncompressed format
@@ -1012,12 +1120,16 @@ class GenericAffinePoint final {
       /**
       * Return the affine x coordinate
       */
-      const GenericField& x() const { return m_x; }
+      const GenericField& x() const {
+         return m_x;
+      }
 
       /**
       * Return the affine y coordinate
       */
-      const GenericField& y() const { return m_y; }
+      const GenericField& y() const {
+         return m_y;
+      }
 
       /**
       * Conditional assignment of an affine point
@@ -1026,11 +1138,17 @@ class GenericAffinePoint final {
          GenericField::conditional_assign(m_x, m_y, cond, pt.x(), pt.y());
       }
 
-      const GenericPrimeOrderCurve* curve() const { return m_x.curve(); }
+      const GenericPrimeOrderCurve* curve() const {
+         return m_x.curve();
+      }
 
-      void _const_time_poison() const { CT::poison_all(m_x, m_y); }
+      void _const_time_poison() const {
+         CT::poison_all(m_x, m_y);
+      }
 
-      void _const_time_unpoison() const { CT::unpoison_all(m_x, m_y); }
+      void _const_time_unpoison() const {
+         CT::unpoison_all(m_x, m_y);
+      }
 
    private:
       GenericField m_x;
@@ -1081,11 +1199,17 @@ class GenericProjectivePoint final {
       GenericProjectivePoint(const GenericField& x, const GenericField& y, const GenericField& z) :
             m_x(x), m_y(y), m_z(z) {}
 
-      friend Self operator+(const Self& a, const Self& b) { return Self::add(a, b); }
+      friend Self operator+(const Self& a, const Self& b) {
+         return Self::add(a, b);
+      }
 
-      friend Self operator+(const Self& a, const GenericAffinePoint& b) { return Self::add_mixed(a, b); }
+      friend Self operator+(const Self& a, const GenericAffinePoint& b) {
+         return Self::add_mixed(a, b);
+      }
 
-      friend Self operator+(const GenericAffinePoint& a, const Self& b) { return Self::add_mixed(b, a); }
+      friend Self operator+(const GenericAffinePoint& a, const Self& b) {
+         return Self::add_mixed(b, a);
+      }
 
       Self& operator+=(const Self& other) {
          (*this) = (*this) + other;
@@ -1097,7 +1221,9 @@ class GenericProjectivePoint final {
          return (*this);
       }
 
-      CT::Choice is_identity() const { return z().is_zero(); }
+      CT::Choice is_identity() const {
+         return z().is_zero();
+      }
 
       /**
       * Mixed (projective + affine) point addition
@@ -1109,7 +1235,9 @@ class GenericProjectivePoint final {
       /**
       * Projective point addition
       */
-      static Self add(const Self& a, const Self& b) { return point_add<Self, GenericField>(a, b); }
+      static Self add(const Self& a, const Self& b) {
+         return point_add<Self, GenericField>(a, b);
+      }
 
       /**
       * Iterated point doubling
@@ -1142,7 +1270,9 @@ class GenericProjectivePoint final {
       /**
       * Point negation
       */
-      Self negate() const { return Self(x(), y().negate(), z()); }
+      Self negate() const {
+         return Self(x(), y().negate(), z());
+      }
 
       /**
       * Randomize the point representation
@@ -1169,23 +1299,35 @@ class GenericProjectivePoint final {
       /**
       * Return the projective x coordinate
       */
-      const GenericField& x() const { return m_x; }
+      const GenericField& x() const {
+         return m_x;
+      }
 
       /**
       * Return the projective y coordinate
       */
-      const GenericField& y() const { return m_y; }
+      const GenericField& y() const {
+         return m_y;
+      }
 
       /**
       * Return the projective z coordinate
       */
-      const GenericField& z() const { return m_z; }
+      const GenericField& z() const {
+         return m_z;
+      }
 
-      const GenericPrimeOrderCurve* curve() const { return m_x.curve(); }
+      const GenericPrimeOrderCurve* curve() const {
+         return m_x.curve();
+      }
 
-      void _const_time_poison() const { CT::poison_all(m_x, m_y, m_z); }
+      void _const_time_poison() const {
+         CT::poison_all(m_x, m_y, m_z);
+      }
 
-      void _const_time_unpoison() const { CT::unpoison_all(m_x, m_y, m_z); }
+      void _const_time_unpoison() const {
+         CT::unpoison_all(m_x, m_y, m_z);
+      }
 
    private:
       GenericField m_x;
@@ -1250,9 +1392,13 @@ class GenericBlindedScalarBits final {
          m_windows = (order_bits + blinder_bits + wb - 1) / wb;
       }
 
-      size_t windows() const { return m_windows; }
+      size_t windows() const {
+         return m_windows;
+      }
 
-      size_t bits() const { return m_bits; }
+      size_t bits() const {
+         return m_bits;
+      }
 
       size_t get_window(size_t offset) const {
          if(m_window_bits == 3) {

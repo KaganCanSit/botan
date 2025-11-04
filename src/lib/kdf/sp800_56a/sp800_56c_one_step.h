@@ -119,14 +119,20 @@ class SP800_56A_One_Step_KMAC_Abstract : public KDF {
  */
 class SP800_56C_One_Step_KMAC128 final : public SP800_56A_One_Step_KMAC_Abstract {
    public:
-      std::string name() const override { return "SP800-56A(KMAC-128)"; }
+      std::string name() const override {
+         return "SP800-56A(KMAC-128)";
+      }
 
-      std::unique_ptr<KDF> new_object() const override { return std::make_unique<SP800_56C_One_Step_KMAC128>(); }
+      std::unique_ptr<KDF> new_object() const override {
+         return std::make_unique<SP800_56C_One_Step_KMAC128>();
+      }
 
    private:
       std::unique_ptr<MessageAuthenticationCode> create_kmac_instance(size_t output_byte_len) const override;
 
-      size_t default_salt_length() const override { return 164; }
+      size_t default_salt_length() const override {
+         return 164;
+      }
 };
 
 /**
@@ -134,14 +140,20 @@ class SP800_56C_One_Step_KMAC128 final : public SP800_56A_One_Step_KMAC_Abstract
  */
 class SP800_56C_One_Step_KMAC256 final : public SP800_56A_One_Step_KMAC_Abstract {
    public:
-      std::string name() const override { return "SP800-56A(KMAC-256)"; }
+      std::string name() const override {
+         return "SP800-56A(KMAC-256)";
+      }
 
-      std::unique_ptr<KDF> new_object() const override { return std::make_unique<SP800_56C_One_Step_KMAC256>(); }
+      std::unique_ptr<KDF> new_object() const override {
+         return std::make_unique<SP800_56C_One_Step_KMAC256>();
+      }
 
    private:
       std::unique_ptr<MessageAuthenticationCode> create_kmac_instance(size_t output_byte_len) const override;
 
-      size_t default_salt_length() const override { return 132; }
+      size_t default_salt_length() const override {
+         return 132;
+      }
 };
 
 }  // namespace Botan

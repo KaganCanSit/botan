@@ -30,9 +30,13 @@ class Skein_512 final : public HashFunction {
       */
       explicit Skein_512(size_t output_bits = 512, std::string_view personalization = "");
 
-      size_t hash_block_size() const override { return 64; }
+      size_t hash_block_size() const override {
+         return 64;
+      }
 
-      size_t output_length() const override { return m_output_bits / 8; }
+      size_t output_length() const override {
+         return m_output_bits / 8;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
       std::unique_ptr<HashFunction> copy_state() const override;
@@ -56,7 +60,9 @@ class Skein_512 final : public HashFunction {
 
       void ubi_512(std::span<const uint8_t> msg);
 
-      void ubi_512(const uint8_t msg[], size_t length) { ubi_512({msg, length}); }
+      void ubi_512(const uint8_t msg[], size_t length) {
+         ubi_512({msg, length});
+      }
 
       void initial_block();
       void reset_tweak(type_code type, bool is_final);

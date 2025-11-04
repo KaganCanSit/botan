@@ -45,9 +45,13 @@ class BOTAN_PUBLIC_API(3, 0) Session_Manager_Stateless : public Session_Manager 
 
       void store(const Session& session, const Session_Handle& handle) override;
 
-      size_t remove(const Session_Handle& /*handle*/) override { return 0; }
+      size_t remove(const Session_Handle& /*handle*/) override {
+         return 0;
+      }
 
-      size_t remove_all() override { return 0; }
+      size_t remove_all() override {
+         return 0;
+      }
 
       bool emits_session_tickets() override;
 

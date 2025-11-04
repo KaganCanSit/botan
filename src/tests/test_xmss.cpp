@@ -43,7 +43,9 @@ class XMSS_Signature_Tests final : public PK_Signature_Generation_Test {
          return false;
       }
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Params"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Params");
+      }
 
       std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) override {
          const std::vector<uint8_t> raw_key = vars.get_req_bin("PrivateKey");
@@ -58,7 +60,9 @@ class XMSS_Signature_Verify_Tests final : public PK_Signature_Verification_Test 
       XMSS_Signature_Verify_Tests() :
             PK_Signature_Verification_Test("XMSS", "pubkey/xmss_verify.vec", "Params,Msg,PublicKey,Signature") {}
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Params"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Params");
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          const std::vector<uint8_t> raw_key = vars.get_req_bin("PublicKey");
@@ -72,7 +76,9 @@ class XMSS_Signature_Verify_Invalid_Tests final : public PK_Signature_NonVerific
             PK_Signature_NonVerification_Test(
                "XMSS", "pubkey/xmss_invalid.vec", "Params,Msg,PublicKey,InvalidSignature") {}
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_req_str("Params"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_req_str("Params");
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          const std::vector<uint8_t> raw_key = vars.get_req_bin("PublicKey");
@@ -82,9 +88,13 @@ class XMSS_Signature_Verify_Invalid_Tests final : public PK_Signature_NonVerific
 
 class XMSS_Keygen_Tests final : public PK_Key_Generation_Test {
    public:
-      std::vector<std::string> keygen_params() const override { return {"XMSS-SHA2_10_256", "XMSS-SHA2_10_192"}; }
+      std::vector<std::string> keygen_params() const override {
+         return {"XMSS-SHA2_10_256", "XMSS-SHA2_10_192"};
+      }
 
-      std::string algo_name() const override { return "XMSS"; }
+      std::string algo_name() const override {
+         return "XMSS";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view /* keygen_params */,
                                                              std::string_view /* provider */,

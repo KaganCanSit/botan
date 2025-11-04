@@ -102,7 +102,9 @@ class ECIES_ISO_Tests final : public Text_Based_Test {
    public:
       ECIES_ISO_Tests() : Text_Based_Test("pubkey/ecies-18033.vec", "format,p,a,b,Order,Gx,Gy,Oid,hx,hy,x,r,C0,K") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       bool skip_this_test(const std::string& /*header*/, const VarMap& /*vars*/) override {
          return !Botan::EC_Group::supports_application_specific_group();

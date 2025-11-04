@@ -24,7 +24,9 @@ class Test_Buf_Comp final : public Botan::Buffered_Computation {
    public:
       explicit Test_Buf_Comp(Test::Result& res) : m_result(res), m_counter(0) {}
 
-      size_t output_length() const override { return sizeof(m_counter); }
+      size_t output_length() const override {
+         return sizeof(m_counter);
+      }
 
       void add_data(std::span<const uint8_t> input) override {
          if(m_result.test_eq("input length as expected", input.size(), size_t(5))) {
@@ -43,7 +45,9 @@ class Test_Buf_Comp final : public Botan::Buffered_Computation {
          std::copy(counter, counter + sizeof(m_counter), out.begin());
       }
 
-      size_t counter() const { return m_counter; }
+      size_t counter() const {
+         return m_counter;
+      }
 
    private:
       Test::Result& m_result;

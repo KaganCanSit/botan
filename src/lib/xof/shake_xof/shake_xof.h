@@ -30,11 +30,17 @@ class SHAKE_XOF : public XOF {
       explicit SHAKE_XOF(size_t capacity);
 
    public:
-      std::string provider() const final { return m_keccak.provider(); }
+      std::string provider() const final {
+         return m_keccak.provider();
+      }
 
-      size_t block_size() const final { return m_keccak.byte_rate(); }
+      size_t block_size() const final {
+         return m_keccak.byte_rate();
+      }
 
-      bool accepts_input() const final { return !m_output_generated; }
+      bool accepts_input() const final {
+         return !m_output_generated;
+      }
 
    private:
       void add_data(std::span<const uint8_t> input) final;
@@ -53,11 +59,17 @@ class SHAKE_128_XOF final : public SHAKE_XOF {
    public:
       SHAKE_128_XOF() : SHAKE_XOF(256) {}
 
-      std::string name() const final { return "SHAKE-128"; }
+      std::string name() const final {
+         return "SHAKE-128";
+      }
 
-      std::unique_ptr<XOF> copy_state() const final { return std::make_unique<SHAKE_128_XOF>(*this); }
+      std::unique_ptr<XOF> copy_state() const final {
+         return std::make_unique<SHAKE_128_XOF>(*this);
+      }
 
-      std::unique_ptr<XOF> new_object() const final { return std::make_unique<SHAKE_128_XOF>(); }
+      std::unique_ptr<XOF> new_object() const final {
+         return std::make_unique<SHAKE_128_XOF>();
+      }
 };
 
 /**
@@ -67,11 +79,17 @@ class SHAKE_256_XOF final : public SHAKE_XOF {
    public:
       SHAKE_256_XOF() : SHAKE_XOF(512) {}
 
-      std::string name() const final { return "SHAKE-256"; }
+      std::string name() const final {
+         return "SHAKE-256";
+      }
 
-      std::unique_ptr<XOF> copy_state() const final { return std::make_unique<SHAKE_256_XOF>(*this); }
+      std::unique_ptr<XOF> copy_state() const final {
+         return std::make_unique<SHAKE_256_XOF>(*this);
+      }
 
-      std::unique_ptr<XOF> new_object() const final { return std::make_unique<SHAKE_256_XOF>(); }
+      std::unique_ptr<XOF> new_object() const final {
+         return std::make_unique<SHAKE_256_XOF>();
+      }
 };
 
 }  // namespace Botan

@@ -741,13 +741,21 @@ namespace {
 */
 class Testsuite_RNG final : public Botan::RandomNumberGenerator {
    public:
-      std::string name() const override { return "Testsuite_RNG"; }
+      std::string name() const override {
+         return "Testsuite_RNG";
+      }
 
-      void clear() override { m_x = 0; }
+      void clear() override {
+         m_x = 0;
+      }
 
-      bool accepts_input() const override { return true; }
+      bool accepts_input() const override {
+         return true;
+      }
 
-      bool is_seeded() const override { return true; }
+      bool is_seeded() const override {
+         return true;
+      }
 
       void fill_bytes_with_input(std::span<uint8_t> output, std::span<const uint8_t> input) override {
          for(const auto byte : input) {

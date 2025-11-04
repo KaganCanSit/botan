@@ -81,7 +81,9 @@ class BOTAN_TEST_API Record_Layer {
        * Clears any data currently stored in the read buffer. This is typically
        * used for memory cleanup when the peer sent a CloseNotify alert.
        */
-      void clear_read_buffer() { zap(m_read_buffer); }
+      void clear_read_buffer() {
+         zap(m_read_buffer);
+      }
 
       /**
        * Set the record size limits as negotiated by the "record_size_limit"
@@ -98,9 +100,13 @@ class BOTAN_TEST_API Record_Layer {
        */
       void set_record_size_limits(uint16_t outgoing_limit, uint16_t incoming_limit);
 
-      void disable_sending_compat_mode() { m_sending_compat_mode = false; }
+      void disable_sending_compat_mode() {
+         m_sending_compat_mode = false;
+      }
 
-      void disable_receiving_compat_mode() { m_receiving_compat_mode = false; }
+      void disable_receiving_compat_mode() {
+         m_receiving_compat_mode = false;
+      }
 
    private:
       std::vector<uint8_t> m_read_buffer;

@@ -25,9 +25,13 @@ class Threefish_512 final : public Block_Cipher_Fixed_Params<64, 64, 0, 1, Tweak
 
       void clear() override;
 
-      std::string name() const override { return "Threefish-512"; }
+      std::string name() const override {
+         return "Threefish-512";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<Threefish_512>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<Threefish_512>();
+      }
 
       bool has_keying_material() const override;
 

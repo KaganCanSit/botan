@@ -38,20 +38,34 @@ class Signature_Operation_Base : public PKOpT {
       }
 
    public:
-      void update(std::span<const uint8_t> msg) override { m_hash->update(msg); }
+      void update(std::span<const uint8_t> msg) override {
+         m_hash->update(msg);
+      }
 
-      std::string hash_function() const override { return m_hash->name(); }
+      std::string hash_function() const override {
+         return m_hash->name();
+      }
 
    protected:
-      Botan::HashFunction* hash() { return m_hash.get(); }
+      Botan::HashFunction* hash() {
+         return m_hash.get();
+      }
 
-      const Object& key_handle() const { return m_key_handle; }
+      const Object& key_handle() const {
+         return m_key_handle;
+      }
 
-      const SessionBundle& sessions() const { return m_sessions; }
+      const SessionBundle& sessions() const {
+         return m_sessions;
+      }
 
-      const TPMT_SIG_SCHEME& scheme() const { return m_scheme; }
+      const TPMT_SIG_SCHEME& scheme() const {
+         return m_scheme;
+      }
 
-      std::optional<std::string> padding() const { return m_padding; }
+      std::optional<std::string> padding() const {
+         return m_padding;
+      }
 
    private:
       const Object& m_key_handle;

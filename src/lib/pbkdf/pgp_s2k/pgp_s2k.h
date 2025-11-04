@@ -43,9 +43,13 @@ class BOTAN_PUBLIC_API(2, 2) OpenPGP_S2K final : public PBKDF {
       */
       explicit OpenPGP_S2K(std::unique_ptr<HashFunction> hash) : m_hash(std::move(hash)) {}
 
-      std::string name() const override { return "OpenPGP-S2K(" + m_hash->name() + ")"; }
+      std::string name() const override {
+         return "OpenPGP-S2K(" + m_hash->name() + ")";
+      }
 
-      std::unique_ptr<PBKDF> new_object() const override { return std::make_unique<OpenPGP_S2K>(m_hash->new_object()); }
+      std::unique_ptr<PBKDF> new_object() const override {
+         return std::make_unique<OpenPGP_S2K>(m_hash->new_object());
+      }
 
       size_t pbkdf(uint8_t output_buf[],
                    size_t output_len,
@@ -58,9 +62,13 @@ class BOTAN_PUBLIC_API(2, 2) OpenPGP_S2K final : public PBKDF {
       /**
       * RFC 4880 encodes the iteration count to a single-byte value
       */
-      static uint8_t encode_count(size_t iterations) { return RFC4880_encode_count(iterations); }
+      static uint8_t encode_count(size_t iterations) {
+         return RFC4880_encode_count(iterations);
+      }
 
-      static size_t decode_count(uint8_t encoded_iter) { return RFC4880_decode_count(encoded_iter); }
+      static size_t decode_count(uint8_t encoded_iter) {
+         return RFC4880_decode_count(encoded_iter);
+      }
 
    private:
       std::unique_ptr<HashFunction> m_hash;
@@ -87,7 +95,9 @@ class BOTAN_PUBLIC_API(2, 8) RFC4880_S2K final : public PasswordHash {
 
       std::string to_string() const override;
 
-      size_t iterations() const override { return m_iterations; }
+      size_t iterations() const override {
+         return m_iterations;
+      }
 
       void derive_key(uint8_t out[],
                       size_t out_len,

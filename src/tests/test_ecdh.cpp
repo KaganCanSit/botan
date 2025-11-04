@@ -21,7 +21,9 @@ class ECDH_KAT_Tests final : public PK_Key_Agreement_Test {
    public:
       ECDH_KAT_Tests() : PK_Key_Agreement_Test("ECDH", "pubkey/ecdh.vec", "Secret,CounterKey,K", "KDF") {}
 
-      std::string default_kdf(const VarMap& /*unused*/) const override { return "Raw"; }
+      std::string default_kdf(const VarMap& /*unused*/) const override {
+         return "Raw";
+      }
 
       bool skip_this_test(const std::string& group_id, const VarMap& /*vars*/) override {
          return !Botan::EC_Group::supports_named_group(group_id);
@@ -45,7 +47,9 @@ class ECDH_Keygen_Tests final : public PK_Key_Generation_Test {
             "secp256r1", "secp384r1", "secp521r1", "brainpool256r1", "brainpool384r1", "brainpool512r1", "frp256v1"};
       }
 
-      std::string algo_name() const override { return "ECDH"; }
+      std::string algo_name() const override {
+         return "ECDH";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /* provider */,

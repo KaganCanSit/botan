@@ -48,7 +48,9 @@ class Callbacks : public Botan::TLS::Callbacks {
       std::string get_arg(const std::string& arg_name) const;
       void send(std::span<const uint8_t> buffer);
 
-      bool peer_closed() const { return m_peer_closed; }
+      bool peer_closed() const {
+         return m_peer_closed;
+      }
 
       void tls_verify_cert_chain(const std::vector<Botan::X509_Certificate>& cert_chain,
                                  const std::vector<std::optional<Botan::OCSP::Response>>& ocsp,
@@ -97,7 +99,9 @@ class Callbacks : public Botan::TLS::Callbacks {
                   << ") validation status: " << (trusted ? "trusted" : "NOT trusted") << "\n";
       }
 
-      void tls_session_activated() override { output() << "Handshake complete\n"; }
+      void tls_session_activated() override {
+         output() << "Handshake complete\n";
+      }
 
       void tls_session_established(const Botan::TLS::Session_Summary& session) override {
          output() << "Handshake complete, " << session.version().to_string() << "\n";
@@ -140,7 +144,9 @@ class Callbacks : public Botan::TLS::Callbacks {
          send(buf);
       }
 
-      void tls_alert(Botan::TLS::Alert alert) override { output() << "Alert: " << alert.type_string() << "\n"; }
+      void tls_alert(Botan::TLS::Alert alert) override {
+         output() << "Alert: " << alert.type_string() << "\n";
+      }
 
       void tls_record_received(uint64_t /*seq_no*/, std::span<const uint8_t> buf) override {
          for(const auto c : buf) {
@@ -183,16 +189,22 @@ class TLS_Client final : public Command {
          init_sockets();
       }
 
-      ~TLS_Client() override { stop_sockets(); }
+      ~TLS_Client() override {
+         stop_sockets();
+      }
 
       TLS_Client(const TLS_Client& other) = delete;
       TLS_Client(TLS_Client&& other) = delete;
       TLS_Client& operator=(const TLS_Client& other) = delete;
       TLS_Client& operator=(TLS_Client&& other) = delete;
 
-      std::string group() const override { return "tls"; }
+      std::string group() const override {
+         return "tls";
+      }
 
-      std::string description() const override { return "Connect to a host using TLS/DTLS"; }
+      std::string description() const override {
+         return "Connect to a host using TLS/DTLS";
+      }
 
       void go() override {
          std::shared_ptr<Botan::TLS::Session_Manager> session_mgr;

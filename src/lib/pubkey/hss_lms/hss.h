@@ -48,12 +48,16 @@ class BOTAN_TEST_API HSS_LMS_Params final {
             /**
              * @brief The LMS parameters.
              */
-            const LMS_Params& lms_params() const { return m_lms_params; }
+            const LMS_Params& lms_params() const {
+               return m_lms_params;
+            }
 
             /**
              * @brief The LMOTS parameters.
              */
-            const LMOTS_Params& lmots_params() const { return m_lmots_params; }
+            const LMOTS_Params& lmots_params() const {
+               return m_lmots_params;
+            }
 
             /**
              * @brief Construct a new params pair
@@ -95,17 +99,23 @@ class BOTAN_TEST_API HSS_LMS_Params final {
       /**
        * @brief Returns the LMS an LM-OTS parameters at the specified @p level of the HSS tree.
        */
-      const LMS_LMOTS_Params_Pair& params_at_level(HSS_Level level) const { return m_lms_lmots_params.at(level.get()); }
+      const LMS_LMOTS_Params_Pair& params_at_level(HSS_Level level) const {
+         return m_lms_lmots_params.at(level.get());
+      }
 
       /**
        * @brief Returns the number of layers the HSS tree has.
        */
-      HSS_Level L() const { return checked_cast_to<HSS_Level>(m_lms_lmots_params.size()); }
+      HSS_Level L() const {
+         return checked_cast_to<HSS_Level>(m_lms_lmots_params.size());
+      }
 
       /**
        * @brief The maximal number of signatures allowed for these HSS parameters
        */
-      HSS_Sig_Idx max_sig_count() const { return m_max_sig_count; }
+      HSS_Sig_Idx max_sig_count() const {
+         return m_max_sig_count;
+      }
 
    private:
       /**
@@ -145,7 +155,9 @@ class HSS_LMS_PrivateKeyInternal final {
       /**
        * @brief Returns the used HSS-LMS parameters.
        */
-      const HSS_LMS_Params& hss_params() const { return m_hss_params; }
+      const HSS_LMS_Params& hss_params() const {
+         return m_hss_params;
+      }
 
       /**
        * @brief Returns the key in its encoded format.
@@ -155,7 +167,9 @@ class HSS_LMS_PrivateKeyInternal final {
       /**
        * @brief Get the idx of the next signature to generate.
        */
-      HSS_Sig_Idx get_idx() const { return m_current_idx; }
+      HSS_Sig_Idx get_idx() const {
+         return m_current_idx;
+      }
 
       /**
        * @brief Set the idx of the next signature to generate.
@@ -192,11 +206,17 @@ class HSS_LMS_PrivateKeyInternal final {
       /**
        * @brief Returns the size in bytes of a signature created by this key.
        */
-      size_t signature_size() const { return m_sig_size; }
+      size_t signature_size() const {
+         return m_sig_size;
+      }
 
-      void _const_time_poison() const { CT::poison(m_hss_seed); }
+      void _const_time_poison() const {
+         CT::poison(m_hss_seed);
+      }
 
-      void _const_time_unpoison() const { CT::unpoison(m_hss_seed); }
+      void _const_time_unpoison() const {
+         CT::unpoison(m_hss_seed);
+      }
 
    private:
       HSS_LMS_PrivateKeyInternal(HSS_LMS_Params hss_params, LMS_Seed hss_seed, LMS_Identifier identifier);
@@ -272,7 +292,9 @@ class HSS_LMS_PublicKeyInternal final {
       /**
        * @brief Returns the public LMS key of the top LMS tree.
        */
-      const LMS_PublicKey& lms_pub_key() const { return m_top_lms_pub_key; }
+      const LMS_PublicKey& lms_pub_key() const {
+         return m_top_lms_pub_key;
+      }
 
       /**
        * @brief Returns the size in bytes the key would have in its encoded format.
@@ -292,7 +314,9 @@ class HSS_LMS_PublicKeyInternal final {
       /**
        * @brief The algorithm name for HSS-LMS
        */
-      std::string algo_name() const { return "HSS-LMS"; }
+      std::string algo_name() const {
+         return "HSS-LMS";
+      }
 
       /**
        * @brief Verify a HSS-LMS signature.
@@ -305,7 +329,9 @@ class HSS_LMS_PublicKeyInternal final {
        */
       bool verify_signature(std::span<const uint8_t> msg, const HSS_Signature& sig) const;
 
-      void _const_time_unpoison() const { CT::unpoison(m_top_lms_pub_key); }
+      void _const_time_unpoison() const {
+         CT::unpoison(m_top_lms_pub_key);
+      }
 
    private:
       HSS_Level m_L;
@@ -336,12 +362,16 @@ class BOTAN_TEST_API HSS_Signature final {
             /**
              * @brief The signature of the public key
              */
-            const LMS_Signature& signature() const { return m_sig; }
+            const LMS_Signature& signature() const {
+               return m_sig;
+            }
 
             /**
              * @brief The signed public key
              */
-            const LMS_PublicKey& public_key() const { return m_pub; }
+            const LMS_PublicKey& public_key() const {
+               return m_pub;
+            }
 
          private:
             LMS_Signature m_sig;
@@ -368,7 +398,9 @@ class BOTAN_TEST_API HSS_Signature final {
       /**
        * @brief Returns the number of signed public keys (Nspk = L-1).
        */
-      HSS_Level Nspk() const { return HSS_Level(static_cast<uint32_t>(m_signed_pub_keys.size())); }
+      HSS_Level Nspk() const {
+         return HSS_Level(static_cast<uint32_t>(m_signed_pub_keys.size()));
+      }
 
       /**
        * @brief Returns the signed LMS key signed by a specific layer.
@@ -376,12 +408,16 @@ class BOTAN_TEST_API HSS_Signature final {
        * @param layer The layer by which the LMS key is signed.
        * @return The LMS key and the signature by its parent layer.
        */
-      const Signed_Pub_Key& signed_pub_key(HSS_Level layer) const { return m_signed_pub_keys.at(layer.get()); }
+      const Signed_Pub_Key& signed_pub_key(HSS_Level layer) const {
+         return m_signed_pub_keys.at(layer.get());
+      }
 
       /**
        * @brief Returns the LMS signature by the bottom layer of the signed message.
        */
-      const LMS_Signature& bottom_sig() const { return m_sig; }
+      const LMS_Signature& bottom_sig() const {
+         return m_sig;
+      }
 
    private:
       /**

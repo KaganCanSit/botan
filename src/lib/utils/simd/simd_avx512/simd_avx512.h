@@ -57,7 +57,9 @@ class SIMD_16x32 final {
       }
 
       BOTAN_FN_ISA_AVX512
-      static SIMD_16x32 splat(uint32_t B) { return SIMD_16x32(_mm512_set1_epi32(B)); }
+      static SIMD_16x32 splat(uint32_t B) {
+         return SIMD_16x32(_mm512_set1_epi32(B));
+      }
 
       BOTAN_FN_ISA_AVX512
       static SIMD_16x32 load_le(const uint8_t* in) {
@@ -65,13 +67,19 @@ class SIMD_16x32 final {
       }
 
       BOTAN_FN_ISA_AVX512
-      static SIMD_16x32 load_be(const uint8_t* in) { return load_le(in).bswap(); }
+      static SIMD_16x32 load_be(const uint8_t* in) {
+         return load_le(in).bswap();
+      }
 
       BOTAN_FN_ISA_AVX512
-      void store_le(uint8_t out[]) const { _mm512_storeu_si512(reinterpret_cast<__m512i*>(out), m_avx512); }
+      void store_le(uint8_t out[]) const {
+         _mm512_storeu_si512(reinterpret_cast<__m512i*>(out), m_avx512);
+      }
 
       BOTAN_FN_ISA_AVX512
-      void store_be(uint8_t out[]) const { bswap().store_le(out); }
+      void store_be(uint8_t out[]) const {
+         bswap().store_le(out);
+      }
 
       template <size_t ROT>
       BOTAN_FN_ISA_AVX512 SIMD_16x32 rotl() const
@@ -135,22 +143,34 @@ class SIMD_16x32 final {
       }
 
       BOTAN_FN_ISA_AVX512
-      void operator+=(const SIMD_16x32& other) { m_avx512 = _mm512_add_epi32(m_avx512, other.m_avx512); }
+      void operator+=(const SIMD_16x32& other) {
+         m_avx512 = _mm512_add_epi32(m_avx512, other.m_avx512);
+      }
 
       BOTAN_FN_ISA_AVX512
-      void operator-=(const SIMD_16x32& other) { m_avx512 = _mm512_sub_epi32(m_avx512, other.m_avx512); }
+      void operator-=(const SIMD_16x32& other) {
+         m_avx512 = _mm512_sub_epi32(m_avx512, other.m_avx512);
+      }
 
       BOTAN_FN_ISA_AVX512
-      void operator^=(const SIMD_16x32& other) { m_avx512 = _mm512_xor_si512(m_avx512, other.m_avx512); }
+      void operator^=(const SIMD_16x32& other) {
+         m_avx512 = _mm512_xor_si512(m_avx512, other.m_avx512);
+      }
 
       BOTAN_FN_ISA_AVX512
-      void operator^=(uint32_t other) { *this ^= SIMD_16x32::splat(other); }
+      void operator^=(uint32_t other) {
+         *this ^= SIMD_16x32::splat(other);
+      }
 
       BOTAN_FN_ISA_AVX512
-      void operator|=(const SIMD_16x32& other) { m_avx512 = _mm512_or_si512(m_avx512, other.m_avx512); }
+      void operator|=(const SIMD_16x32& other) {
+         m_avx512 = _mm512_or_si512(m_avx512, other.m_avx512);
+      }
 
       BOTAN_FN_ISA_AVX512
-      void operator&=(const SIMD_16x32& other) { m_avx512 = _mm512_and_si512(m_avx512, other.m_avx512); }
+      void operator&=(const SIMD_16x32& other) {
+         m_avx512 = _mm512_and_si512(m_avx512, other.m_avx512);
+      }
 
       template <int SHIFT>
       BOTAN_FN_ISA_AVX512 SIMD_16x32 shl() const {
@@ -163,7 +183,9 @@ class SIMD_16x32 final {
       }
 
       BOTAN_FN_ISA_AVX512
-      SIMD_16x32 operator~() const { return SIMD_16x32(_mm512_xor_si512(m_avx512, _mm512_set1_epi32(0xFFFFFFFF))); }
+      SIMD_16x32 operator~() const {
+         return SIMD_16x32(_mm512_xor_si512(m_avx512, _mm512_set1_epi32(0xFFFFFFFF)));
+      }
 
       // (~reg) & other
       BOTAN_FN_ISA_AVX512
@@ -305,7 +327,9 @@ class SIMD_16x32 final {
          _mm256_zeroall();
       }
 
-      __m512i BOTAN_FN_ISA_AVX512 raw() const { return m_avx512; }
+      __m512i BOTAN_FN_ISA_AVX512 raw() const {
+         return m_avx512;
+      }
 
       BOTAN_FN_ISA_AVX512
       explicit SIMD_16x32(__m512i x) noexcept : m_avx512(x) {}

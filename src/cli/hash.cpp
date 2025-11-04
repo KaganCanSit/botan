@@ -18,9 +18,13 @@ class Hash final : public Command {
    public:
       Hash() : Command("hash --algo=SHA-256 --buf-size=4096 --no-fsname --format=hex *files") {}
 
-      std::string group() const override { return "hash"; }
+      std::string group() const override {
+         return "hash";
+      }
 
-      std::string description() const override { return "Compute the message digest of given file(s)"; }
+      std::string description() const override {
+         return "Compute the message digest of given file(s)";
+      }
 
       void go() override {
          const std::string hash_algo = get_arg("algo");

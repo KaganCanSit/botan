@@ -50,7 +50,9 @@ class PerfTest_BlockCipher final : public PerfTest {
          }
       }
 
-      static bool has_impl_for(std::string_view alg) { return !Botan::BlockCipher::providers(alg).empty(); }
+      static bool has_impl_for(std::string_view alg) {
+         return !Botan::BlockCipher::providers(alg).empty();
+      }
 
    private:
       static void bench_stream_cipher(const PerfConfig& config, Botan::BlockCipher& cipher) {
@@ -115,7 +117,9 @@ class PerfTest_CipherMode final : public PerfTest {
          }
       }
 
-      static bool has_impl_for(std::string_view alg) { return !Botan::Cipher_Mode::providers(alg).empty(); }
+      static bool has_impl_for(std::string_view alg) {
+         return !Botan::Cipher_Mode::providers(alg).empty();
+      }
 
    private:
       static void bench_cipher_mode(const PerfConfig& config, Botan::Cipher_Mode& enc, Botan::Cipher_Mode& dec) {
@@ -194,7 +198,9 @@ class PerfTest_StreamCipher final : public PerfTest {
          }
       }
 
-      static bool has_impl_for(std::string_view alg) { return !Botan::StreamCipher::providers(alg).empty(); }
+      static bool has_impl_for(std::string_view alg) {
+         return !Botan::StreamCipher::providers(alg).empty();
+      }
 
    private:
       static void bench_stream_cipher(const PerfConfig& config, Botan::StreamCipher& cipher) {
@@ -257,7 +263,9 @@ class PerfTest_HashFunction final : public PerfTest {
          }
       }
 
-      static bool has_impl_for(std::string_view alg) { return !Botan::HashFunction::providers(alg).empty(); }
+      static bool has_impl_for(std::string_view alg) {
+         return !Botan::HashFunction::providers(alg).empty();
+      }
 
    private:
       static void bench_hash_fn(const PerfConfig& config, Botan::HashFunction& hash) {
@@ -349,7 +357,9 @@ class PerfTest_XOF final : public PerfTest {
          }
       }
 
-      static bool has_impl_for(std::string_view alg) { return !Botan::XOF::providers(alg).empty(); }
+      static bool has_impl_for(std::string_view alg) {
+         return !Botan::XOF::providers(alg).empty();
+      }
 
    private:
       static void bench_xof_fn(const PerfConfig& config, Botan::XOF& xof) {

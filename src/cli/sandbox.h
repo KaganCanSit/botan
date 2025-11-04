@@ -23,7 +23,9 @@ class Sandbox {
 
       static bool init();
 
-      const std::string& name() const { return m_name; }
+      const std::string& name() const {
+         return m_name;
+      }
 
    private:
       std::string m_name;

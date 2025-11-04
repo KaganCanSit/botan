@@ -23,9 +23,13 @@ class ASN1_Printer final : public Command {
             Command("asn1print --skip-context-specific --print-limit=4096 --bin-limit=2048 --max-depth=64 --pem file") {
       }
 
-      std::string group() const override { return "asn1"; }
+      std::string group() const override {
+         return "asn1";
+      }
 
-      std::string description() const override { return "Decode and print file with ASN.1 Basic Encoding Rules (BER)"; }
+      std::string description() const override {
+         return "Decode and print file with ASN.1 Basic Encoding Rules (BER)";
+      }
 
       static bool first_n(const std::vector<uint8_t>& data, size_t n, uint8_t b) {
          if(data.size() < n) {
@@ -80,9 +84,13 @@ class OID_Info final : public Command {
    public:
       OID_Info() : Command("oid_info oid") {}
 
-      std::string group() const override { return "asn1"; }
+      std::string group() const override {
+         return "asn1";
+      }
 
-      std::string description() const override { return "Provide information about an object identifier"; }
+      std::string description() const override {
+         return "Provide information about an object identifier";
+      }
 
       void go() override {
          const std::string oid_str = get_arg("oid");

@@ -25,7 +25,9 @@ class HTTP_Error final : public Exception {
    public:
       explicit HTTP_Error(const std::string& msg) : Exception("HTTP error " + msg) {}
 
-      ErrorType error_type() const noexcept override { return ErrorType::HttpError; }
+      ErrorType error_type() const noexcept override {
+         return ErrorType::HttpError;
+      }
 };
 
 class Response final {
@@ -38,13 +40,21 @@ class Response final {
                const std::map<std::string, std::string>& headers) :
             m_status_code(status_code), m_status_message(status_message), m_body(body), m_headers(headers) {}
 
-      unsigned int status_code() const { return m_status_code; }
+      unsigned int status_code() const {
+         return m_status_code;
+      }
 
-      const std::vector<uint8_t>& body() const { return m_body; }
+      const std::vector<uint8_t>& body() const {
+         return m_body;
+      }
 
-      const std::map<std::string, std::string>& headers() const { return m_headers; }
+      const std::map<std::string, std::string>& headers() const {
+         return m_headers;
+      }
 
-      std::string status_message() const { return m_status_message; }
+      std::string status_message() const {
+         return m_status_message;
+      }
 
       void throw_unless_ok() const {
          if(status_code() != 200) {

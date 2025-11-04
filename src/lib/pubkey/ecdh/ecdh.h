@@ -47,19 +47,25 @@ class BOTAN_PUBLIC_API(2, 0) ECDH_PublicKey : public virtual EC_PublicKey {
       * Get this keys algorithm name.
       * @return this keys algorithm name
       */
-      std::string algo_name() const override { return "ECDH"; }
+      std::string algo_name() const override {
+         return "ECDH";
+      }
 
       /**
       * @return public point value
       */
-      std::vector<uint8_t> public_value() const { return this->public_value(EC_Point_Format::Uncompressed); }
+      std::vector<uint8_t> public_value() const {
+         return this->public_value(EC_Point_Format::Uncompressed);
+      }
 
       /**
       * @return public point value
       */
       std::vector<uint8_t> public_value(EC_Point_Format format) const;
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::KeyAgreement); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::KeyAgreement);
+      }
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator& rng) const final;
 
@@ -116,7 +122,9 @@ class BOTAN_PUBLIC_API(2, 0) ECDH_PrivateKey final : public ECDH_PublicKey,
          return ECDH_PublicKey::public_value(EC_Point_Format::Uncompressed);
       }
 
-      std::vector<uint8_t> public_value(EC_Point_Format type) const { return ECDH_PublicKey::public_value(type); }
+      std::vector<uint8_t> public_value(EC_Point_Format type) const {
+         return ECDH_PublicKey::public_value(type);
+      }
 
       std::unique_ptr<PK_Ops::Key_Agreement> create_key_agreement_op(RandomNumberGenerator& rng,
                                                                      std::string_view params,

@@ -29,17 +29,25 @@ class Whirlpool final : public HashFunction {
       static void init(digest_type& digest);
 
    public:
-      std::string name() const override { return "Whirlpool"; }
+      std::string name() const override {
+         return "Whirlpool";
+      }
 
-      size_t output_length() const override { return output_bytes; }
+      size_t output_length() const override {
+         return output_bytes;
+      }
 
-      size_t hash_block_size() const override { return block_bytes; }
+      size_t hash_block_size() const override {
+         return block_bytes;
+      }
 
       std::unique_ptr<HashFunction> new_object() const override;
 
       std::unique_ptr<HashFunction> copy_state() const override;
 
-      void clear() override { m_md.clear(); }
+      void clear() override {
+         m_md.clear();
+      }
 
    private:
       void add_data(std::span<const uint8_t> input) override;

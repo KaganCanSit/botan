@@ -59,18 +59,24 @@ class BOTAN_PUBLIC_API(2, 0) BlockCipher : public SymmetricAlgorithm {
       /**
       * @return native parallelism of this cipher in blocks
       */
-      virtual size_t parallelism() const { return 1; }
+      virtual size_t parallelism() const {
+         return 1;
+      }
 
       /**
       * @return preferred parallelism of this cipher in bytes
       */
-      size_t parallel_bytes() const { return parallelism() * block_size() * BlockCipher::ParallelismMult; }
+      size_t parallel_bytes() const {
+         return parallelism() * block_size() * BlockCipher::ParallelismMult;
+      }
 
       /**
       * @return provider information about this implementation. Default is "base",
       * might also return "sse2", "avx2", "openssl", or some other arbitrary string.
       */
-      virtual std::string provider() const { return "base"; }
+      virtual std::string provider() const {
+         return "base";
+      }
 
       /**
       * Encrypt a block.
@@ -79,7 +85,9 @@ class BOTAN_PUBLIC_API(2, 0) BlockCipher : public SymmetricAlgorithm {
       * @param out The byte array designated to hold the encrypted block.
       * Must be of length block_size().
       */
-      void encrypt(const uint8_t in[], uint8_t out[]) const { encrypt_n(in, out, 1); }
+      void encrypt(const uint8_t in[], uint8_t out[]) const {
+         encrypt_n(in, out, 1);
+      }
 
       /**
       * Decrypt a block.
@@ -88,7 +96,9 @@ class BOTAN_PUBLIC_API(2, 0) BlockCipher : public SymmetricAlgorithm {
       * @param out The byte array designated to hold the decrypted block.
       * Must be of length block_size().
       */
-      void decrypt(const uint8_t in[], uint8_t out[]) const { decrypt_n(in, out, 1); }
+      void decrypt(const uint8_t in[], uint8_t out[]) const {
+         decrypt_n(in, out, 1);
+      }
 
       /**
       * Encrypt a block.
@@ -96,7 +106,9 @@ class BOTAN_PUBLIC_API(2, 0) BlockCipher : public SymmetricAlgorithm {
       * Must be of length block_size(). Will hold the result when the function
       * has finished.
       */
-      void encrypt(uint8_t block[]) const { encrypt_n(block, block, 1); }
+      void encrypt(uint8_t block[]) const {
+         encrypt_n(block, block, 1);
+      }
 
       /**
       * Decrypt a block.
@@ -104,7 +116,9 @@ class BOTAN_PUBLIC_API(2, 0) BlockCipher : public SymmetricAlgorithm {
       * Must be of length block_size(). Will hold the result when the function
       * has finished.
       */
-      void decrypt(uint8_t block[]) const { decrypt_n(block, block, 1); }
+      void decrypt(uint8_t block[]) const {
+         decrypt_n(block, block, 1);
+      }
 
       /**
       * Encrypt one or more blocks
@@ -185,7 +199,9 @@ class BOTAN_PUBLIC_API(2, 0) BlockCipher : public SymmetricAlgorithm {
       */
       virtual std::unique_ptr<BlockCipher> new_object() const = 0;
 
-      BlockCipher* clone() const { return this->new_object().release(); }
+      BlockCipher* clone() const {
+         return this->new_object().release();
+      }
 };
 
 /**
@@ -211,9 +227,13 @@ class Block_Cipher_Fixed_Params : public BaseClass {
    public:
       enum { BLOCK_SIZE = BS }; /* NOLINT(*-enum-size,*-use-enum-class) */
 
-      size_t block_size() const final { return BS; }
+      size_t block_size() const final {
+         return BS;
+      }
 
-      Key_Length_Specification key_spec() const final { return Key_Length_Specification(KMIN, KMAX, KMOD); }
+      Key_Length_Specification key_spec() const final {
+         return Key_Length_Specification(KMIN, KMAX, KMOD);
+      }
 };
 
 }  // namespace Botan

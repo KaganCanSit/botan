@@ -169,7 +169,9 @@ class RSA_Signature_Operation final : public Signature_Operation {
       RSA_Signature_Operation(const Object& object, const SessionBundle& sessions, std::string_view padding) :
             Signature_Operation(object, sessions, select_signature_algorithms(padding)) {}
 
-      size_t signature_length() const override { return signature_length_for_rsa_key_handle(sessions(), key_handle()); }
+      size_t signature_length() const override {
+         return signature_length_for_rsa_key_handle(sessions(), key_handle());
+      }
 
       AlgorithmIdentifier algorithm_identifier() const override {
          // TODO: This is essentially a copy of the ::algorithm_identifier()

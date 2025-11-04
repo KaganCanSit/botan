@@ -31,7 +31,9 @@ class ECDH_KA_Operation final : public PK_Ops::Key_Agreement_with_KDF {
             m_l_times_priv(mul_cofactor_inv(m_group, key._private_key())),
             m_rng(rng) {}
 
-      size_t agreed_value_size() const override { return m_group.get_p_bytes(); }
+      size_t agreed_value_size() const override {
+         return m_group.get_p_bytes();
+      }
 
       secure_vector<uint8_t> raw_agree(const uint8_t w[], size_t w_len) override {
          const auto input_point = [&] {

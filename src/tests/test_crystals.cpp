@@ -101,7 +101,9 @@ class Mock_Trait final : public Botan::CRYSTALS::Trait_Base<ConstsT, Mock_Trait<
          throw Botan_Tests::Test_Error("barrett reduction not implemented");
       }
 
-      static void ntt(std::span<T, N> /*unused*/) { throw Botan_Tests::Test_Error("NTT not implemented"); }
+      static void ntt(std::span<T, N> /*unused*/) {
+         throw Botan_Tests::Test_Error("NTT not implemented");
+      }
 
       static void inverse_ntt(std::span<T, N> /*unused*/) {
          throw Botan_Tests::Test_Error("inverse NTT not implemented");
@@ -291,15 +293,25 @@ class DeterministicXOF : public Botan::XOF {
    public:
       explicit DeterministicXOF(std::span<const uint8_t> data) : m_data(data) {}
 
-      std::string name() const override { return "DeterministicXOF"; }
+      std::string name() const override {
+         return "DeterministicXOF";
+      }
 
-      bool accepts_input() const override { return false; }
+      bool accepts_input() const override {
+         return false;
+      }
 
-      std::unique_ptr<XOF> copy_state() const override { throw Botan_Tests::Test_Error("copy_state not implemented"); }
+      std::unique_ptr<XOF> copy_state() const override {
+         throw Botan_Tests::Test_Error("copy_state not implemented");
+      }
 
-      std::unique_ptr<XOF> new_object() const override { throw Botan_Tests::Test_Error("new_object not implemented"); }
+      std::unique_ptr<XOF> new_object() const override {
+         throw Botan_Tests::Test_Error("new_object not implemented");
+      }
 
-      size_t block_size() const override { return 1; }
+      size_t block_size() const override {
+         return 1;
+      }
 
       void start_msg(std::span<const uint8_t> /*unused*/, std::span<const uint8_t> /*unused*/) override {
          throw Botan_Tests::Test_Error("start_msg not implemented");
@@ -309,7 +321,9 @@ class DeterministicXOF : public Botan::XOF {
          throw Botan_Tests::Test_Error("add_data not implemented");
       }
 
-      void generate_bytes(std::span<uint8_t> output) override { m_data.copy_into(output); }
+      void generate_bytes(std::span<uint8_t> output) override {
+         m_data.copy_into(output);
+      }
 
       void reset() override {}
 

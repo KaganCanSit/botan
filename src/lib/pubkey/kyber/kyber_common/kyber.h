@@ -59,7 +59,9 @@ class BOTAN_PUBLIC_API(3, 0) KyberMode {
       OID object_identifier() const;
       std::string to_string() const;
 
-      Mode mode() const { return m_mode; }
+      Mode mode() const {
+         return m_mode;
+      }
 
       BOTAN_DEPRECATED("Kyber 90s mode is deprecated") bool is_90s() const;
 
@@ -71,9 +73,13 @@ class BOTAN_PUBLIC_API(3, 0) KyberMode {
 
       bool is_available() const;
 
-      bool operator==(const KyberMode& other) const { return m_mode == other.m_mode; }
+      bool operator==(const KyberMode& other) const {
+         return m_mode == other.m_mode;
+      }
 
-      bool operator!=(const KyberMode& other) const { return !(*this == other); }
+      bool operator!=(const KyberMode& other) const {
+         return !(*this == other);
+      }
 
    private:
       Mode m_mode;

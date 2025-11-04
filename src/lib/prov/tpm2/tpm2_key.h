@@ -96,9 +96,13 @@ class BOTAN_PUBLIC_API(3, 6) PublicKey : public virtual Botan::Public_Key {
        */
       std::vector<uint8_t> raw_public_key_bits() const override;
 
-      const Object& handles() const { return m_handle; }
+      const Object& handles() const {
+         return m_handle;
+      }
 
-      const SessionBundle& sessions() const { return m_sessions; }
+      const SessionBundle& sessions() const {
+         return m_sessions;
+      }
 
    protected:
       PublicKey(Object object, SessionBundle sessions) : m_handle(std::move(object)), m_sessions(std::move(sessions)) {}
@@ -217,11 +221,17 @@ class BOTAN_PUBLIC_API(3, 6) PrivateKey : public virtual Private_Key {
        */
       std::vector<uint8_t> raw_public_key_bits() const override;
 
-      Object& handles() { return m_handle; }
+      Object& handles() {
+         return m_handle;
+      }
 
-      const Object& handles() const { return m_handle; }
+      const Object& handles() const {
+         return m_handle;
+      }
 
-      const SessionBundle& sessions() const { return m_sessions; }
+      const SessionBundle& sessions() const {
+         return m_sessions;
+      }
 
       bool is_parent() const;
 

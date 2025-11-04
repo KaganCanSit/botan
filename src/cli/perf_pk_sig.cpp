@@ -19,9 +19,13 @@ class PerfTest_PKSig : public PerfTest {
    public:
       virtual std::string algo() const = 0;
 
-      virtual std::string hash() const { return "SHA-256"; }
+      virtual std::string hash() const {
+         return "SHA-256";
+      }
 
-      virtual std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const { return {""}; }
+      virtual std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const {
+         return {""};
+      }
 
       void go(const PerfConfig& config) override {
          const std::string alg = this->algo();
@@ -114,7 +118,9 @@ class PerfTest_PKSig : public PerfTest {
 
 class PerfTest_DSA final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "DSA"; }
+      std::string algo() const override {
+         return "DSA";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          return {"dsa/jce/1024", "dsa/botan/2048", "dsa/botan/3072"};
@@ -133,9 +139,13 @@ BOTAN_REGISTER_PERF_TEST("DSA", PerfTest_DSA);
 
 class PerfTest_RSA final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "RSA"; }
+      std::string algo() const override {
+         return "RSA";
+      }
 
-      std::string hash() const override { return "PKCS1v15(SHA-256)"; }
+      std::string hash() const override {
+         return "PKCS1v15(SHA-256)";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          return {"1024", "2048", "3072", "4096"};
@@ -150,9 +160,13 @@ BOTAN_REGISTER_PERF_TEST("RSA", PerfTest_RSA);
 
 class PerfTest_ECDSA final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "ECDSA"; }
+      std::string algo() const override {
+         return "ECDSA";
+      }
 
-      std::vector<std::string> keygen_params(const PerfConfig& config) const override { return config.ecc_groups(); }
+      std::vector<std::string> keygen_params(const PerfConfig& config) const override {
+         return config.ecc_groups();
+      }
 };
 
 BOTAN_REGISTER_PERF_TEST("ECDSA", PerfTest_ECDSA);
@@ -163,9 +177,13 @@ BOTAN_REGISTER_PERF_TEST("ECDSA", PerfTest_ECDSA);
 
 class PerfTest_ECKCDSA final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "ECKCDSA"; }
+      std::string algo() const override {
+         return "ECKCDSA";
+      }
 
-      std::vector<std::string> keygen_params(const PerfConfig& config) const override { return config.ecc_groups(); }
+      std::vector<std::string> keygen_params(const PerfConfig& config) const override {
+         return config.ecc_groups();
+      }
 };
 
 BOTAN_REGISTER_PERF_TEST("ECKCDSA", PerfTest_ECKCDSA);
@@ -176,9 +194,13 @@ BOTAN_REGISTER_PERF_TEST("ECKCDSA", PerfTest_ECKCDSA);
 
 class PerfTest_ECGDSA final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "ECGDSA"; }
+      std::string algo() const override {
+         return "ECGDSA";
+      }
 
-      std::vector<std::string> keygen_params(const PerfConfig& config) const override { return config.ecc_groups(); }
+      std::vector<std::string> keygen_params(const PerfConfig& config) const override {
+         return config.ecc_groups();
+      }
 };
 
 BOTAN_REGISTER_PERF_TEST("ECGDSA", PerfTest_ECGDSA);
@@ -189,11 +211,17 @@ BOTAN_REGISTER_PERF_TEST("ECGDSA", PerfTest_ECGDSA);
 
 class PerfTest_Gost3410 final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "GOST-34.10"; }
+      std::string algo() const override {
+         return "GOST-34.10";
+      }
 
-      std::string hash() const override { return "GOST-34.11"; }
+      std::string hash() const override {
+         return "GOST-34.11";
+      }
 
-      std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override { return {"gost_256A"}; }
+      std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
+         return {"gost_256A"};
+      }
 };
 
 BOTAN_REGISTER_PERF_TEST("GOST-34.10", PerfTest_Gost3410);
@@ -204,11 +232,17 @@ BOTAN_REGISTER_PERF_TEST("GOST-34.10", PerfTest_Gost3410);
 
 class PerfTest_SM2 final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "SM2"; }
+      std::string algo() const override {
+         return "SM2";
+      }
 
-      std::string hash() const override { return "SM3"; }
+      std::string hash() const override {
+         return "SM3";
+      }
 
-      std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override { return {"sm2p256v1"}; }
+      std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
+         return {"sm2p256v1"};
+      }
 };
 
 BOTAN_REGISTER_PERF_TEST("SM2", PerfTest_SM2);
@@ -219,9 +253,13 @@ BOTAN_REGISTER_PERF_TEST("SM2", PerfTest_SM2);
 
 class PerfTest_Ed25519 final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "Ed25519"; }
+      std::string algo() const override {
+         return "Ed25519";
+      }
 
-      std::string hash() const override { return "Pure"; }
+      std::string hash() const override {
+         return "Pure";
+      }
 };
 
 BOTAN_REGISTER_PERF_TEST("Ed25519", PerfTest_Ed25519);
@@ -232,9 +270,13 @@ BOTAN_REGISTER_PERF_TEST("Ed25519", PerfTest_Ed25519);
 
 class PerfTest_Ed448 final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "Ed448"; }
+      std::string algo() const override {
+         return "Ed448";
+      }
 
-      std::string hash() const override { return "Pure"; }
+      std::string hash() const override {
+         return "Pure";
+      }
 };
 
 BOTAN_REGISTER_PERF_TEST("Ed448", PerfTest_Ed448);
@@ -245,9 +287,13 @@ BOTAN_REGISTER_PERF_TEST("Ed448", PerfTest_Ed448);
 
 class PerfTest_XMSS final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "XMSS"; }
+      std::string algo() const override {
+         return "XMSS";
+      }
 
-      std::string hash() const override { return ""; }
+      std::string hash() const override {
+         return "";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          /*
@@ -272,9 +318,13 @@ BOTAN_REGISTER_PERF_TEST("XMSS", PerfTest_XMSS);
 
 class PerfTest_HSS_LMS final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "HSS-LMS"; }
+      std::string algo() const override {
+         return "HSS-LMS";
+      }
 
-      std::string hash() const override { return ""; }
+      std::string hash() const override {
+         return "";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          // At first we compare instances with multiple hash functions. LMS trees with
@@ -298,9 +348,13 @@ BOTAN_REGISTER_PERF_TEST("HSS-LMS", PerfTest_HSS_LMS);
 
 class PerfTest_SPHINCSp final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "SPHINCS+"; }
+      std::string algo() const override {
+         return "SPHINCS+";
+      }
 
-      std::string hash() const override { return ""; }
+      std::string hash() const override {
+         return "";
+      }
 
       std::string format_name(const std::string& alg, const std::string& param) const override {
          return alg + param.substr(11);
@@ -330,9 +384,13 @@ BOTAN_REGISTER_PERF_TEST("SPHINCS+", PerfTest_SPHINCSp);
 
 class PerfTest_SLH_DSA final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "SLH-DSA"; }
+      std::string algo() const override {
+         return "SLH-DSA";
+      }
 
-      std::string hash() const override { return ""; }
+      std::string hash() const override {
+         return "";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          return {"SLH-DSA-SHA2-128s",
@@ -358,9 +416,13 @@ BOTAN_REGISTER_PERF_TEST("SLH-DSA", PerfTest_SLH_DSA);
 
 class PerfTest_Dilithium final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "Dilithium"; }
+      std::string algo() const override {
+         return "Dilithium";
+      }
 
-      std::string hash() const override { return ""; }
+      std::string hash() const override {
+         return "";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          return {
@@ -382,9 +444,13 @@ BOTAN_REGISTER_PERF_TEST("Dilithium", PerfTest_Dilithium);
 
 class PerfTest_ML_DSA final : public PerfTest_PKSig {
    public:
-      std::string algo() const override { return "ML-DSA"; }
+      std::string algo() const override {
+         return "ML-DSA";
+      }
 
-      std::string hash() const override { return ""; }
+      std::string hash() const override {
+         return "";
+      }
 
       std::vector<std::string> keygen_params(const PerfConfig& /*config*/) const override {
          return {

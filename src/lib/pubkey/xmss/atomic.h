@@ -46,10 +46,14 @@ class Atomic final {
          return *this;
       }
 
-      explicit operator std::atomic<T>&() { return m_data; }
+      explicit operator std::atomic<T>&() {
+         return m_data;
+      }
 
       // NOLINTNEXTLINE(*-explicit-conversions) FIXME
-      operator T() { return m_data.load(); }
+      operator T() {
+         return m_data.load();
+      }
 
    private:
       std::atomic<T> m_data;

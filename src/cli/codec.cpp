@@ -30,9 +30,13 @@ class Hex_Encode final : public Command {
    public:
       Hex_Encode() : Command("hex_enc file") {}
 
-      std::string group() const override { return "codec"; }
+      std::string group() const override {
+         return "codec";
+      }
 
-      std::string description() const override { return "Hex encode a given file"; }
+      std::string description() const override {
+         return "Hex encode a given file";
+      }
 
       void go() override {
          auto hex_enc_f = [&](const uint8_t b[], size_t l) { output() << Botan::hex_encode(b, l); };
@@ -46,9 +50,13 @@ class Hex_Decode final : public Command {
    public:
       Hex_Decode() : Command("hex_dec file") {}
 
-      std::string group() const override { return "codec"; }
+      std::string group() const override {
+         return "codec";
+      }
 
-      std::string description() const override { return "Hex decode a given file"; }
+      std::string description() const override {
+         return "Hex decode a given file";
+      }
 
       void go() override {
          auto hex_dec_f = [&](const uint8_t b[], size_t l) {
@@ -70,9 +78,13 @@ class Base58_Encode final : public Command {
    public:
       Base58_Encode() : Command("base58_enc --check file") {}
 
-      std::string group() const override { return "codec"; }
+      std::string group() const override {
+         return "codec";
+      }
 
-      std::string description() const override { return "Encode given file to Base58"; }
+      std::string description() const override {
+         return "Encode given file to Base58";
+      }
 
       void go() override {
          auto data = slurp_file(get_arg("file"));
@@ -91,9 +103,13 @@ class Base58_Decode final : public Command {
    public:
       Base58_Decode() : Command("base58_dec --check file") {}
 
-      std::string group() const override { return "codec"; }
+      std::string group() const override {
+         return "codec";
+      }
 
-      std::string description() const override { return "Decode Base58 encoded file"; }
+      std::string description() const override {
+         return "Decode Base58 encoded file";
+      }
 
       void go() override {
          auto data = slurp_file_as_str(get_arg("file"));
@@ -120,9 +136,13 @@ class Base32_Encode final : public Command {
    public:
       Base32_Encode() : Command("base32_enc file") {}
 
-      std::string group() const override { return "codec"; }
+      std::string group() const override {
+         return "codec";
+      }
 
-      std::string description() const override { return "Encode given file to Base32"; }
+      std::string description() const override {
+         return "Encode given file to Base32";
+      }
 
       void go() override {
          auto onData = [&](const uint8_t b[], size_t l) { output() << Botan::base32_encode(b, l); };
@@ -136,9 +156,13 @@ class Base32_Decode final : public Command {
    public:
       Base32_Decode() : Command("base32_dec file") {}
 
-      std::string group() const override { return "codec"; }
+      std::string group() const override {
+         return "codec";
+      }
 
-      std::string description() const override { return "Decode Base32 encoded file"; }
+      std::string description() const override {
+         return "Decode Base32 encoded file";
+      }
 
       void go() override {
          auto write_bin = [&](const uint8_t b[], size_t l) {
@@ -160,9 +184,13 @@ class Base64_Encode final : public Command {
    public:
       Base64_Encode() : Command("base64_enc file") {}
 
-      std::string group() const override { return "codec"; }
+      std::string group() const override {
+         return "codec";
+      }
 
-      std::string description() const override { return "Encode given file to Base64"; }
+      std::string description() const override {
+         return "Encode given file to Base64";
+      }
 
       void go() override {
          auto onData = [&](const uint8_t b[], size_t l) { output() << Botan::base64_encode(b, l); };
@@ -176,9 +204,13 @@ class Base64_Decode final : public Command {
    public:
       Base64_Decode() : Command("base64_dec file") {}
 
-      std::string group() const override { return "codec"; }
+      std::string group() const override {
+         return "codec";
+      }
 
-      std::string description() const override { return "Decode Base64 encoded file"; }
+      std::string description() const override {
+         return "Decode Base64 encoded file";
+      }
 
       void go() override {
          auto write_bin = [&](const uint8_t b[], size_t l) {

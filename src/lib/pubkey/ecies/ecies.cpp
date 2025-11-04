@@ -37,13 +37,21 @@ class ECIES_PrivateKey final : public virtual EC_PrivateKey,
             // NOLINTNEXTLINE(*-slicing)
             EC_PublicKey(private_key), EC_PrivateKey(private_key), PK_Key_Agreement_Key(), m_key(private_key) {}
 
-      std::vector<uint8_t> public_value() const override { return m_key.public_value(); }
+      std::vector<uint8_t> public_value() const override {
+         return m_key.public_value();
+      }
 
-      std::string algo_name() const override { return "ECIES"; }
+      std::string algo_name() const override {
+         return "ECIES";
+      }
 
-      std::unique_ptr<Public_Key> public_key() const override { return m_key.public_key(); }
+      std::unique_ptr<Public_Key> public_key() const override {
+         return m_key.public_key();
+      }
 
-      bool supports_operation(PublicKeyOperation op) const override { return (op == PublicKeyOperation::KeyAgreement); }
+      bool supports_operation(PublicKeyOperation op) const override {
+         return (op == PublicKeyOperation::KeyAgreement);
+      }
 
       std::unique_ptr<Private_Key> generate_another(RandomNumberGenerator& rng) const override {
          return m_key.generate_another(rng);
@@ -69,7 +77,9 @@ class ECIES_ECDH_KA_Operation final : public PK_Ops::Key_Agreement_with_KDF {
       ECIES_ECDH_KA_Operation(const ECIES_PrivateKey& private_key, RandomNumberGenerator& rng) :
             PK_Ops::Key_Agreement_with_KDF("Raw"), m_key(private_key), m_rng(rng) {}
 
-      size_t agreed_value_size() const override { return m_key.domain().get_p_bytes(); }
+      size_t agreed_value_size() const override {
+         return m_key.domain().get_p_bytes();
+      }
 
       secure_vector<uint8_t> raw_agree(const uint8_t w[], size_t w_len) override {
          const EC_Group& group = m_key.domain();

@@ -23,9 +23,13 @@ class Twofish final : public Block_Cipher_Fixed_Params<16, 16, 32, 8> {
 
       void clear() override;
 
-      std::string name() const override { return "Twofish"; }
+      std::string name() const override {
+         return "Twofish";
+      }
 
-      std::unique_ptr<BlockCipher> new_object() const override { return std::make_unique<Twofish>(); }
+      std::unique_ptr<BlockCipher> new_object() const override {
+         return std::make_unique<Twofish>();
+      }
 
       bool has_keying_material() const override;
 

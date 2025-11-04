@@ -108,7 +108,9 @@ class SM2_Signature_Operation final : public PK_Ops::Signature {
          }
       }
 
-      size_t signature_length() const override { return 2 * m_group.get_order_bytes(); }
+      size_t signature_length() const override {
+         return 2 * m_group.get_order_bytes();
+      }
 
       void update(std::span<const uint8_t> input) override {
          if(m_hash) {
@@ -120,7 +122,9 @@ class SM2_Signature_Operation final : public PK_Ops::Signature {
 
       std::vector<uint8_t> sign(RandomNumberGenerator& rng) override;
 
-      std::string hash_function() const override { return m_hash ? m_hash->name() : "Raw"; }
+      std::string hash_function() const override {
+         return m_hash ? m_hash->name() : "Raw";
+      }
 
    private:
       const EC_Group m_group;
@@ -181,7 +185,9 @@ class SM2_Verification_Operation final : public PK_Ops::Verification {
 
       bool is_valid_signature(std::span<const uint8_t> sig) override;
 
-      std::string hash_function() const override { return m_hash ? m_hash->name() : "Raw"; }
+      std::string hash_function() const override {
+         return m_hash ? m_hash->name() : "Raw";
+      }
 
    private:
       const EC_Group m_group;

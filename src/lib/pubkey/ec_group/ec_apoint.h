@@ -218,7 +218,9 @@ class BOTAN_PUBLIC_API(3, 6) EC_AffinePoint final {
 
       bool operator==(const EC_AffinePoint& other) const;
 
-      bool operator!=(const EC_AffinePoint& other) const { return !(*this == other); }
+      bool operator!=(const EC_AffinePoint& other) const {
+         return !(*this == other);
+      }
 
       /// Return an encoding depending on the requested format
       std::vector<uint8_t> serialize(EC_Point_Format format) const;
@@ -260,7 +262,9 @@ class BOTAN_PUBLIC_API(3, 6) EC_AffinePoint final {
 
       ~EC_AffinePoint();
 
-      const EC_AffinePoint_Data& _inner() const { return inner(); }
+      const EC_AffinePoint_Data& _inner() const {
+         return inner();
+      }
 
       static EC_AffinePoint _from_inner(std::unique_ptr<EC_AffinePoint_Data> inner);
 
@@ -271,7 +275,9 @@ class BOTAN_PUBLIC_API(3, 6) EC_AffinePoint final {
 
       explicit EC_AffinePoint(std::unique_ptr<EC_AffinePoint_Data> point);
 
-      const EC_AffinePoint_Data& inner() const { return *m_point; }
+      const EC_AffinePoint_Data& inner() const {
+         return *m_point;
+      }
 
       std::unique_ptr<EC_AffinePoint_Data> m_point;
 };

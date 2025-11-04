@@ -38,9 +38,13 @@ class BOTAN_PUBLIC_API(3, 0) ZFEC final {
       */
       ZFEC(size_t K, size_t N);
 
-      size_t recovery_threshold() const { return m_K; }
+      size_t recovery_threshold() const {
+         return m_K;
+      }
 
-      size_t generated_shares() const { return m_N; }
+      size_t generated_shares() const {
+         return m_N;
+      }
 
       std::string provider() const;
 

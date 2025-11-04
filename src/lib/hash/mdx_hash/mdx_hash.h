@@ -39,7 +39,9 @@ concept md_hash_implementation =
 template <md_hash_implementation MD>
 class MerkleDamgard_Hash final {
    public:
-      MerkleDamgard_Hash() { clear(); }
+      MerkleDamgard_Hash() {
+         clear();
+      }
 
       void update(std::span<const uint8_t> input) {
          BufferSlicer in(input);

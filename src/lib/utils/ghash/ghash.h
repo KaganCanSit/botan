@@ -36,7 +36,9 @@ class GHASH final : public SymmetricAlgorithm {
 
       void final(std::span<uint8_t> out);
 
-      Key_Length_Specification key_spec() const override { return Key_Length_Specification(16); }
+      Key_Length_Specification key_spec() const override {
+         return Key_Length_Specification(16);
+      }
 
       bool has_keying_material() const override;
 
@@ -44,7 +46,9 @@ class GHASH final : public SymmetricAlgorithm {
 
       void reset_state();
 
-      std::string name() const override { return "GHASH"; }
+      std::string name() const override {
+         return "GHASH";
+      }
 
       std::string provider() const;
 

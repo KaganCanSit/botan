@@ -30,22 +30,30 @@ class BOTAN_PUBLIC_API(2, 0) X509_CA final {
       * Return the algorithm identifier used to identify signatures that
       * this CA will create.
       */
-      const AlgorithmIdentifier& algorithm_identifier() const { return m_ca_sig_algo; }
+      const AlgorithmIdentifier& algorithm_identifier() const {
+         return m_ca_sig_algo;
+      }
 
       /**
       * Return the CA's certificate
       */
-      const X509_Certificate& ca_certificate() const { return m_ca_cert; }
+      const X509_Certificate& ca_certificate() const {
+         return m_ca_cert;
+      }
 
       /**
       * Return the hash function the CA is using to sign with
       */
-      const std::string& hash_function() const { return m_hash_fn; }
+      const std::string& hash_function() const {
+         return m_hash_fn;
+      }
 
       /**
       * Return the signature object this CA uses to sign with
       */
-      PK_Signer& signature_op() { return *m_signer; }
+      PK_Signer& signature_op() {
+         return *m_signer;
+      }
 
       /**
       * Sign a PKCS#10 Request.

@@ -24,7 +24,9 @@ class SignRawBytes final : public SignaturePaddingScheme {
    public:
       explicit SignRawBytes(size_t expected_hash_size = 0) : m_expected_size(expected_hash_size) {}
 
-      std::string hash_function() const override { return "Raw"; }
+      std::string hash_function() const override {
+         return "Raw";
+      }
 
       std::string name() const override;
 

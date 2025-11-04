@@ -45,7 +45,9 @@ class SM2_Signature_KAT_Tests final : public PK_Signature_Generation_Test {
          return !Botan::EC_Group::supports_application_specific_group();
       }
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::string default_padding(const VarMap& vars) const override {
          return vars.get_req_str("Ident") + "," + vars.get_opt_str("Hash", "SM3");
@@ -72,9 +74,13 @@ class SM2_Encryption_KAT_Tests final : public PK_Encryption_Decryption_Test {
          return !Botan::EC_Group::supports_application_specific_group();
       }
 
-      std::string default_padding(const VarMap& vars) const override { return vars.get_opt_str("Hash", "SM3"); }
+      std::string default_padding(const VarMap& vars) const override {
+         return vars.get_opt_str("Hash", "SM3");
+      }
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::RandomNumberGenerator> test_rng(const std::vector<uint8_t>& nonce) const override {
          return std::make_unique<Fixed_Output_Position_RNG>(nonce, 1, this->rng());
@@ -91,9 +97,13 @@ BOTAN_REGISTER_TEST("pubkey", "sm2_enc", SM2_Encryption_KAT_Tests);
 
 class SM2_Keygen_Tests final : public PK_Key_Generation_Test {
    public:
-      std::vector<std::string> keygen_params() const override { return {"secp256r1", "sm2p256v1"}; }
+      std::vector<std::string> keygen_params() const override {
+         return {"secp256r1", "sm2p256v1"};
+      }
 
-      std::string algo_name() const override { return "SM2"; }
+      std::string algo_name() const override {
+         return "SM2";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /* provider */,

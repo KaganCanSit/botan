@@ -56,9 +56,13 @@ class BOTAN_PUBLIC_API(2, 0) AEAD_Mode : public Cipher_Mode {
       *
       * @param ad the associated data
       */
-      void set_associated_data(std::span<const uint8_t> ad) { set_associated_data_n(0, ad); }
+      void set_associated_data(std::span<const uint8_t> ad) {
+         set_associated_data_n(0, ad);
+      }
 
-      void set_associated_data(const uint8_t ad[], size_t ad_len) { set_associated_data(std::span(ad, ad_len)); }
+      void set_associated_data(const uint8_t ad[], size_t ad_len) {
+         set_associated_data(std::span(ad, ad_len));
+      }
 
       /**
       * Set associated data that is not included in the ciphertext but
@@ -88,14 +92,18 @@ class BOTAN_PUBLIC_API(2, 0) AEAD_Mode : public Cipher_Mode {
       *
       * If returns 0, then no associated data is supported.
       */
-      virtual size_t maximum_associated_data_inputs() const { return 1; }
+      virtual size_t maximum_associated_data_inputs() const {
+         return 1;
+      }
 
       /**
       * Most AEADs require the key to be set prior to setting the AD
       * A few allow the AD to be set even before the cipher is keyed.
       * Such ciphers would return false from this function.
       */
-      virtual bool associated_data_requires_key() const { return true; }
+      virtual bool associated_data_requires_key() const {
+         return true;
+      }
 
       /**
       * Set associated data that is not included in the ciphertext but
@@ -121,13 +129,17 @@ class BOTAN_PUBLIC_API(2, 0) AEAD_Mode : public Cipher_Mode {
       *
       * @param ad the associated data
       */
-      BOTAN_DEPRECATED("Use set_associated_data") void set_ad(std::span<const uint8_t> ad) { set_associated_data(ad); }
+      BOTAN_DEPRECATED("Use set_associated_data") void set_ad(std::span<const uint8_t> ad) {
+         set_associated_data(ad);
+      }
 
       /**
       * @return default AEAD nonce size (a commonly supported value among AEAD
       * modes, and large enough that random collisions are unlikely)
       */
-      size_t default_nonce_length() const override { return 12; }
+      size_t default_nonce_length() const override {
+         return 12;
+      }
 };
 
 /**

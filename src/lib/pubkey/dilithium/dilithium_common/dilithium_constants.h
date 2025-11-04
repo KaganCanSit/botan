@@ -97,48 +97,76 @@ class DilithiumConstants final {
       DilithiumConstants& operator=(const DilithiumConstants& other) = delete;
       DilithiumConstants& operator=(DilithiumConstants&& other) = default;
 
-      bool is_modern() const { return m_mode.is_modern(); }
+      bool is_modern() const {
+         return m_mode.is_modern();
+      }
 
-      bool is_aes() const { return m_mode.is_aes(); }
+      bool is_aes() const {
+         return m_mode.is_aes();
+      }
 
-      bool is_ml_dsa() const { return m_mode.is_ml_dsa(); }
+      bool is_ml_dsa() const {
+         return m_mode.is_ml_dsa();
+      }
 
    public:
       /// \name Foundational constants
       /// @{
 
       /// hamming weight of the polynomial 'c' sampled from the commitment's hash
-      DilithiumTau tau() const { return m_tau; }
+      DilithiumTau tau() const {
+         return m_tau;
+      }
 
       /// collision strength of the commitment hash function
-      DilithiumLambda lambda() const { return m_lambda; }
+      DilithiumLambda lambda() const {
+         return m_lambda;
+      }
 
       /// coefficient range of the randomly sampled mask 'y'
-      DilithiumGamma1 gamma1() const { return m_gamma1; }
+      DilithiumGamma1 gamma1() const {
+         return m_gamma1;
+      }
 
       /// low-order rounding range for decomposing the commitment from polynomial vector 'w'
-      DilithiumGamma2 gamma2() const { return m_gamma2; }
+      DilithiumGamma2 gamma2() const {
+         return m_gamma2;
+      }
 
       /// dimensions of the expanded matrix A
-      uint8_t k() const { return m_k; }
+      uint8_t k() const {
+         return m_k;
+      }
 
       /// dimensions of the expanded matrix A
-      uint8_t l() const { return m_l; }
+      uint8_t l() const {
+         return m_l;
+      }
 
       /// coefficient range of the private key's polynomial vectors 's1' and 's2'
-      DilithiumEta eta() const { return m_eta; }
+      DilithiumEta eta() const {
+         return m_eta;
+      }
 
       /// tau * eta
-      DilithiumBeta beta() const { return m_beta; }
+      DilithiumBeta beta() const {
+         return m_beta;
+      }
 
       /// maximal hamming weight of the hint polynomial vector 'h'
-      DilithiumOmega omega() const { return m_omega; }
+      DilithiumOmega omega() const {
+         return m_omega;
+      }
 
       /// length of the public key hash 'tr' in bytes (differs between R3 and ML-DSA)
-      size_t public_key_hash_bytes() const { return m_public_key_hash_bytes; }
+      size_t public_key_hash_bytes() const {
+         return m_public_key_hash_bytes;
+      }
 
       /// length of the entire commitment hash 'c~' in bytes (differs between R3 and ML-DSA)
-      size_t commitment_hash_full_bytes() const { return m_commitment_hash_full_bytes; }
+      size_t commitment_hash_full_bytes() const {
+         return m_commitment_hash_full_bytes;
+      }
 
       /// @}
 
@@ -146,27 +174,43 @@ class DilithiumConstants final {
       /// @{
 
       /// byte length of the encoded signature
-      size_t signature_bytes() const { return m_signature_bytes; }
+      size_t signature_bytes() const {
+         return m_signature_bytes;
+      }
 
       /// byte length of the encoded public key
-      size_t public_key_bytes() const { return m_public_key_bytes; }
+      size_t public_key_bytes() const {
+         return m_public_key_bytes;
+      }
 
       /// byte length of the encoded private key
-      size_t private_key_bytes() const { return m_private_key_bytes; }
+      size_t private_key_bytes() const {
+         return m_private_key_bytes;
+      }
 
       /// byte length of the packed commitment polynomial vector 'w1'
-      size_t serialized_commitment_bytes() const { return m_serialized_commitment_bytes; }
+      size_t serialized_commitment_bytes() const {
+         return m_serialized_commitment_bytes;
+      }
 
       /// @}
 
-      DilithiumMode mode() const { return m_mode; }
+      DilithiumMode mode() const {
+         return m_mode;
+      }
 
       /// @returns one of {44, 65, 87}
-      size_t canonical_parameter_set_identifier() const { return k() * 10 + l(); }
+      size_t canonical_parameter_set_identifier() const {
+         return k() * 10 + l();
+      }
 
-      Dilithium_Symmetric_Primitives_Base& symmetric_primitives() const { return *m_symmetric_primitives; }
+      Dilithium_Symmetric_Primitives_Base& symmetric_primitives() const {
+         return *m_symmetric_primitives;
+      }
 
-      Dilithium_Keypair_Codec& keypair_codec() const { return *m_keypair_codec; }
+      Dilithium_Keypair_Codec& keypair_codec() const {
+         return *m_keypair_codec;
+      }
 
    private:
       DilithiumMode m_mode;

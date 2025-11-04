@@ -44,7 +44,9 @@ class BOTAN_TEST_API OCB_Mode : public AEAD_Mode /* NOLINT(*-special-member-func
 
       bool valid_nonce_length(size_t length) const final;
 
-      size_t tag_size() const final { return m_tag_size; }
+      size_t tag_size() const final {
+         return m_tag_size;
+      }
 
       void clear() final;
 
@@ -61,11 +63,17 @@ class BOTAN_TEST_API OCB_Mode : public AEAD_Mode /* NOLINT(*-special-member-func
       */
       OCB_Mode(std::unique_ptr<BlockCipher> cipher, size_t tag_size);
 
-      size_t block_size() const { return m_block_size; }
+      size_t block_size() const {
+         return m_block_size;
+      }
 
-      size_t par_blocks() const { return m_par_blocks; }
+      size_t par_blocks() const {
+         return m_par_blocks;
+      }
 
-      size_t par_bytes() const { return m_checksum.size(); }
+      size_t par_bytes() const {
+         return m_checksum.size();
+      }
 
       // fixme make these private
       std::unique_ptr<BlockCipher> m_cipher;  // NOLINT(*non-private-member-variables*)
@@ -101,9 +109,13 @@ class BOTAN_TEST_API OCB_Encryption final : public OCB_Mode {
       explicit OCB_Encryption(std::unique_ptr<BlockCipher> cipher, size_t tag_size = 16) :
             OCB_Mode(std::move(cipher), tag_size) {}
 
-      size_t output_length(size_t input_length) const override { return input_length + tag_size(); }
+      size_t output_length(size_t input_length) const override {
+         return input_length + tag_size();
+      }
 
-      size_t minimum_final_size() const override { return 0; }
+      size_t minimum_final_size() const override {
+         return 0;
+      }
 
    private:
       void encrypt(uint8_t input[], size_t blocks);
@@ -125,7 +137,9 @@ class BOTAN_TEST_API OCB_Decryption final : public OCB_Mode {
          return input_length - tag_size();
       }
 
-      size_t minimum_final_size() const override { return tag_size(); }
+      size_t minimum_final_size() const override {
+         return tag_size();
+      }
 
    private:
       void decrypt(uint8_t input[], size_t blocks);

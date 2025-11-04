@@ -39,7 +39,9 @@ class RawHashFunction final : public HashFunction {
 
       size_t output_length() const override;
 
-      std::string name() const override { return m_name; }
+      std::string name() const override {
+         return m_name;
+      }
 
    private:
       const std::string m_name;

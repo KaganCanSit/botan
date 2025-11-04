@@ -239,7 +239,9 @@ class BOTAN_PUBLIC_API(2, 0) KDF /* NOLINT(*-special-member-functions*) */ {
       /**
       * @return new object representing the same algorithm as *this
       */
-      KDF* clone() const { return this->new_object().release(); }
+      KDF* clone() const {
+         return this->new_object().release();
+      }
 
    protected:
       /**

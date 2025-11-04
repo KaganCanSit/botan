@@ -94,7 +94,9 @@ class PolynomialSampler {
       }
 
    private:
-      KyberSamplingRandomness prf(size_t bytes) { return m_mode.symmetric_primitives().PRF(m_seed, m_nonce++, bytes); }
+      KyberSamplingRandomness prf(size_t bytes) {
+         return m_mode.symmetric_primitives().PRF(m_seed, m_nonce++, bytes);
+      }
 
       void sample_poly_cbd(KyberPoly& poly, KyberConstants::KyberEta eta) {
          const auto randomness = [&] {

@@ -17,7 +17,9 @@ namespace Botan_Tests {
 
 class TPM_Tests final : public Test {
    public:
-      static std::string pin_cb(const std::string&) { return "123456"; }
+      static std::string pin_cb(const std::string&) {
+         return "123456";
+      }
 
       std::vector<Test::Result> run() override {
          Test::Result result("TPM");

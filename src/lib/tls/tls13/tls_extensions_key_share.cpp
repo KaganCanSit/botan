@@ -68,7 +68,9 @@ class Key_Share_Entry {
          }
       }
 
-      bool empty() const { return (m_group == Group_Params::NONE) && m_key_exchange.empty(); }
+      bool empty() const {
+         return (m_group == Group_Params::NONE) && m_key_exchange.empty();
+      }
 
       std::vector<uint8_t> serialize() const {
          std::vector<uint8_t> result;
@@ -82,7 +84,9 @@ class Key_Share_Entry {
          return result;
       }
 
-      Named_Group group() const { return m_group; }
+      Named_Group group() const {
+         return m_group;
+      }
 
       secure_vector<uint8_t> encapsulate(const Key_Share_Entry& client_share,
                                          const Policy& policy,
@@ -136,17 +140,29 @@ class Key_Share_ServerHello {
       Key_Share_ServerHello(Key_Share_ServerHello&&) = default;
       Key_Share_ServerHello& operator=(Key_Share_ServerHello&&) = default;
 
-      std::vector<uint8_t> serialize() const { return m_server_share.serialize(); }
+      std::vector<uint8_t> serialize() const {
+         return m_server_share.serialize();
+      }
 
-      bool empty() const { return m_server_share.empty(); }
+      bool empty() const {
+         return m_server_share.empty();
+      }
 
-      Key_Share_Entry& get_singleton_entry() { return m_server_share; }
+      Key_Share_Entry& get_singleton_entry() {
+         return m_server_share;
+      }
 
-      const Key_Share_Entry& get_singleton_entry() const { return m_server_share; }
+      const Key_Share_Entry& get_singleton_entry() const {
+         return m_server_share;
+      }
 
-      std::vector<Named_Group> offered_groups() const { return {selected_group()}; }
+      std::vector<Named_Group> offered_groups() const {
+         return {selected_group()};
+      }
 
-      Named_Group selected_group() const { return m_server_share.group(); }
+      Named_Group selected_group() const {
+         return m_server_share.group();
+      }
 
       secure_vector<uint8_t> take_shared_secret() {
          BOTAN_STATE_CHECK(!m_shared_secret.empty());
@@ -258,7 +274,9 @@ class Key_Share_ClientHello {
          return offered_groups;
       }
 
-      Named_Group selected_group() const { throw Invalid_Argument("Client Hello Key Share does not select a group"); }
+      Named_Group selected_group() const {
+         throw Invalid_Argument("Client Hello Key Share does not select a group");
+      }
 
       std::vector<uint8_t> serialize() const {
          std::vector<uint8_t> shares;
@@ -362,13 +380,17 @@ class Key_Share_HelloRetryRequest {
          return {get_byte<0>(code), get_byte<1>(code)};
       }
 
-      Named_Group selected_group() const { return m_selected_group; }
+      Named_Group selected_group() const {
+         return m_selected_group;
+      }
 
       std::vector<Named_Group> offered_groups() const {
          throw Invalid_Argument("Hello Retry Request never offers any key exchange groups");
       }
 
-      bool empty() const { return m_selected_group == Group_Params::NONE; }
+      bool empty() const {
+         return m_selected_group == Group_Params::NONE;
+      }
 
    private:
       Named_Group m_selected_group;

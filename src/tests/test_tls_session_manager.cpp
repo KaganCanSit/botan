@@ -57,13 +57,17 @@ class Empty_Credentials_Manager : public Botan::Credentials_Manager {};
 
 class Session_Manager_Callbacks : public Botan::TLS::Callbacks {
    public:
-      void tls_emit_data(std::span<const uint8_t> /*data*/) override { BOTAN_ASSERT_NOMSG(false); }
+      void tls_emit_data(std::span<const uint8_t> /*data*/) override {
+         BOTAN_ASSERT_NOMSG(false);
+      }
 
       void tls_record_received(uint64_t /*record*/, std::span<const uint8_t> /*data*/) override {
          BOTAN_ASSERT_NOMSG(false);
       }
 
-      void tls_alert(Botan::TLS::Alert /*alert*/) override { BOTAN_ASSERT_NOMSG(false); }
+      void tls_alert(Botan::TLS::Alert /*alert*/) override {
+         BOTAN_ASSERT_NOMSG(false);
+      }
 
       void tls_session_established(const Botan::TLS::Session_Summary& /*summary*/) override {
          BOTAN_ASSERT_NOMSG(false);
@@ -73,7 +77,9 @@ class Session_Manager_Callbacks : public Botan::TLS::Callbacks {
          return std::chrono::system_clock::now() + std::chrono::hours(m_ticks);
       }
 
-      void tick() { ++m_ticks; }
+      void tick() {
+         ++m_ticks;
+      }
 
    private:
       uint64_t m_ticks = 0;
@@ -81,15 +87,25 @@ class Session_Manager_Callbacks : public Botan::TLS::Callbacks {
 
 class Session_Manager_Policy : public Botan::TLS::Policy {
    public:
-      std::chrono::seconds session_ticket_lifetime() const override { return std::chrono::minutes(30); }
+      std::chrono::seconds session_ticket_lifetime() const override {
+         return std::chrono::minutes(30);
+      }
 
-      bool reuse_session_tickets() const override { return m_allow_session_reuse; }
+      bool reuse_session_tickets() const override {
+         return m_allow_session_reuse;
+      }
 
-      size_t maximum_session_tickets_per_client_hello() const override { return m_session_limit; }
+      size_t maximum_session_tickets_per_client_hello() const override {
+         return m_session_limit;
+      }
 
-      void set_session_limit(size_t l) { m_session_limit = l; }
+      void set_session_limit(size_t l) {
+         m_session_limit = l;
+      }
 
-      void set_allow_session_reuse(bool b) { m_allow_session_reuse = b; }
+      void set_allow_session_reuse(bool b) {
+         m_allow_session_reuse = b;
+      }
 
    private:
       size_t m_session_limit = 1000;  // basically 'no limit'
@@ -795,7 +811,9 @@ class Temporary_Database_File {
    #endif
       }
 
-      const std::string& get() const { return m_temp_file; }
+      const std::string& get() const {
+         return m_temp_file;
+      }
 
       Temporary_Database_File(const Temporary_Database_File&) = delete;
       Temporary_Database_File& operator=(const Temporary_Database_File&) = delete;

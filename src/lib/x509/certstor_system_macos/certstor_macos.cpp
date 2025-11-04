@@ -36,7 +36,9 @@ class scoped_CFType {
 
       scoped_CFType(const scoped_CFType<T>& rhs) = delete;
 
-      scoped_CFType(scoped_CFType<T>&& rhs) : m_value(std::move(rhs.m_value)) { rhs.m_value = nullptr; }
+      scoped_CFType(scoped_CFType<T>&& rhs) : m_value(std::move(rhs.m_value)) {
+         rhs.m_value = nullptr;
+      }
 
       ~scoped_CFType() {
          if(m_value) {
@@ -44,16 +46,22 @@ class scoped_CFType {
          }
       }
 
-      operator bool() const { return m_value != nullptr; }
+      operator bool() const {
+         return m_value != nullptr;
+      }
 
       void assign(T value) {
          BOTAN_ASSERT(m_value == nullptr, "scoped_CFType was not set yet");
          m_value = value;
       }
 
-      T& get() { return m_value; }
+      T& get() {
+         return m_value;
+      }
 
-      const T& get() const { return m_value; }
+      const T& get() const {
+         return m_value;
+      }
 
    private:
       T m_value;
@@ -312,9 +320,13 @@ class Certificate_Store_MacOS_Impl {
          return X509_Certificate(ds);
       }
 
-      CFArrayRef keychains() const { return m_keychains.get(); }
+      CFArrayRef keychains() const {
+         return m_keychains.get();
+      }
 
-      SecPolicyRef policy() const { return m_policy.get(); }
+      SecPolicyRef policy() const {
+         return m_policy.get();
+      }
 
    private:
       scoped_CFType<SecPolicyRef> m_policy;

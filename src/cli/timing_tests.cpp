@@ -88,7 +88,9 @@ class TimingTestTimer {
    public:
       TimingTestTimer() : m_start(get_high_resolution_clock()) {}
 
-      uint64_t complete() const { return get_high_resolution_clock() - m_start; }
+      uint64_t complete() const {
+         return get_high_resolution_clock() - m_start;
+      }
 
    private:
       static uint64_t get_high_resolution_clock() {
@@ -124,12 +126,16 @@ class Timing_Test {
                                                             size_t warmup_runs,
                                                             size_t measurement_runs);
 
-      virtual std::vector<uint8_t> prepare_input(const std::string& input) { return Botan::hex_decode(input); }
+      virtual std::vector<uint8_t> prepare_input(const std::string& input) {
+         return Botan::hex_decode(input);
+      }
 
       virtual uint64_t measure_critical_function(const std::vector<uint8_t>& input) = 0;
 
    protected:
-      Botan::RandomNumberGenerator& timing_test_rng() { return (*m_rng); }
+      Botan::RandomNumberGenerator& timing_test_rng() {
+         return (*m_rng);
+      }
 
    private:
       std::shared_ptr<Botan::RandomNumberGenerator> m_rng;
@@ -363,7 +369,9 @@ uint64_t Powmod_Timing_Test::measure_critical_function(const std::vector<uint8_t
 
 class Invmod_Timing_Test final : public Timing_Test {
    public:
-      explicit Invmod_Timing_Test(size_t p_bits) { m_p = Botan::random_prime(timing_test_rng(), p_bits); }
+      explicit Invmod_Timing_Test(size_t p_bits) {
+         m_p = Botan::random_prime(timing_test_rng(), p_bits);
+      }
 
       uint64_t measure_critical_function(const std::vector<uint8_t>& input) override;
 
@@ -427,9 +435,13 @@ class Timing_Test_Command final : public Command {
                "timing_test test_type --test-data-file= --test-data-dir=src/tests/data/timing "
                "--warmup-runs=5000 --measurement-runs=50000") {}
 
-      std::string group() const override { return "testing"; }
+      std::string group() const override {
+         return "testing";
+      }
 
-      std::string description() const override { return "Run various timing side channel tests"; }
+      std::string description() const override {
+         return "Run various timing side channel tests";
+      }
 
       void go() override {
          const std::string test_type = get_arg("test_type");
@@ -563,14 +575,20 @@ class MARVIN_Test_Command final : public Command {
       MARVIN_Test_Command() :
             Command("marvin_test key_file ctext_dir --runs=1K --report-every=0 --output-nsec --expect-pt-len=0") {}
 
-      std::string group() const override { return "testing"; }
+      std::string group() const override {
+         return "testing";
+      }
 
-      std::string description() const override { return "Run a test for MARVIN attack"; }
+      std::string description() const override {
+         return "Run a test for MARVIN attack";
+      }
 
    #if defined(BOTAN_TARGET_OS_HAS_POSIX1)
       static inline volatile sig_atomic_t g_sigint_recv = 0;
 
-      static void marvin_sigint_handler(int /*signal*/) { g_sigint_recv = 1; }
+      static void marvin_sigint_handler(int /*signal*/) {
+         g_sigint_recv = 1;
+      }
    #endif
 
       void go() override {

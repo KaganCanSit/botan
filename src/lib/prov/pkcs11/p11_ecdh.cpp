@@ -42,7 +42,9 @@ class PKCS11_ECDH_KA_Operation final : public PK_Ops::Key_Agreement {
       PKCS11_ECDH_KA_Operation(const PKCS11_EC_PrivateKey& key, std::string_view params) :
             PK_Ops::Key_Agreement(), m_key(key), m_mechanism(MechanismWrapper::create_ecdh_mechanism(params)) {}
 
-      size_t agreed_value_size() const override { return m_key.domain().get_p_bytes(); }
+      size_t agreed_value_size() const override {
+         return m_key.domain().get_p_bytes();
+      }
 
       /// The encoding in V2.20 was not specified and resulted in different implementations choosing different encodings.
       /// Applications relying only on a V2.20 encoding (e.g. the DER variant) other than the one specified now (raw) may not work with all V2.30 compliant tokens.

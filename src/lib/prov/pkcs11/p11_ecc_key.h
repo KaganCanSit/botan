@@ -29,7 +29,9 @@ class BOTAN_PUBLIC_API(2, 0) EC_PublicKeyGenerationProperties final : public Pub
       BOTAN_FUTURE_EXPLICIT EC_PublicKeyGenerationProperties(const std::vector<uint8_t>& ec_params);
 
       /// @return the DER-encoding of the ec parameters according to ANSI X9.62
-      inline const std::vector<uint8_t>& ec_params() const { return m_ec_params; }
+      inline const std::vector<uint8_t>& ec_params() const {
+         return m_ec_params;
+      }
 
    private:
       const std::vector<uint8_t> m_ec_params;
@@ -45,10 +47,14 @@ class BOTAN_PUBLIC_API(2, 0) EC_PublicKeyImportProperties final : public PublicK
       EC_PublicKeyImportProperties(const std::vector<uint8_t>& ec_params, const std::vector<uint8_t>& ec_point);
 
       /// @return the DER-encoding of the ec parameters according to ANSI X9.62
-      inline const std::vector<uint8_t>& ec_params() const { return m_ec_params; }
+      inline const std::vector<uint8_t>& ec_params() const {
+         return m_ec_params;
+      }
 
       /// @return the DER-encoding of the ec public point according to ANSI X9.62
-      inline const std::vector<uint8_t>& ec_point() const { return m_ec_point; }
+      inline const std::vector<uint8_t>& ec_point() const {
+         return m_ec_point;
+      }
 
    private:
       const std::vector<uint8_t> m_ec_params;
@@ -92,10 +98,14 @@ class BOTAN_PUBLIC_API(2, 0) EC_PrivateKeyImportProperties final : public Privat
       EC_PrivateKeyImportProperties(const std::vector<uint8_t>& ec_params, const BigInt& value);
 
       /// @return the DER-encoding of the ec parameters according to ANSI X9.62
-      inline const std::vector<uint8_t>& ec_params() const { return m_ec_params; }
+      inline const std::vector<uint8_t>& ec_params() const {
+         return m_ec_params;
+      }
 
       /// @return the value of the ec private key
-      inline const BigInt& value() const { return m_value; }
+      inline const BigInt& value() const {
+         return m_value;
+      }
 
    private:
       const std::vector<uint8_t> m_ec_params;
@@ -136,7 +146,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_EC_PrivateKey : public virtual Private_Key,
                            const EC_PrivateKeyGenerationProperties& props);
 
       /// @returns the domain of the EC private key
-      inline const EC_Group& domain() const { return m_domain_params; }
+      inline const EC_Group& domain() const {
+         return m_domain_params;
+      }
 
    #if defined(BOTAN_HAS_LEGACY_EC_POINT)
       /**
@@ -165,7 +177,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_EC_PrivateKey : public virtual Private_Key,
        * This could be either `PublicPointEncoding::Raw` or `PublicPointEncoding::Der`. By default this is set to `Der`,
        * but some tokens might expect `Raw`-encoded public keys, e.g. when using this private key for key agreement.
        */
-      void set_point_encoding(PublicPointEncoding point_encoding) { m_point_encoding = point_encoding; }
+      void set_point_encoding(PublicPointEncoding point_encoding) {
+         m_point_encoding = point_encoding;
+      }
 
    #if defined(BOTAN_HAS_LEGACY_EC_POINT)
       /**
@@ -175,7 +189,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_EC_PrivateKey : public virtual Private_Key,
       * @return the public point of the private key
       * @throws Exception if the public point was not set using set_public_point()
       */
-      EC_Point public_point() const { return this->public_ec_point().to_legacy_point(); }
+      EC_Point public_point() const {
+         return this->public_ec_point().to_legacy_point();
+      }
    #endif
 
       /**
@@ -197,7 +213,9 @@ class BOTAN_PUBLIC_API(2, 0) PKCS11_EC_PrivateKey : public virtual Private_Key,
       }
 
       /// @return the encoding format for the public point when it is passed to cryptoki functions as an argument
-      PublicPointEncoding point_encoding() const { return m_point_encoding; }
+      PublicPointEncoding point_encoding() const {
+         return m_point_encoding;
+      }
 
       // Private_Key methods
 

@@ -25,7 +25,9 @@ class PK_Test : public Text_Based_Test {
               const std::string& optional_keys = {}) :
             Text_Based_Test(test_src, required_keys, optional_keys), m_algo(algo) {}
 
-      std::string algo_name() const { return m_algo; }
+      std::string algo_name() const {
+         return m_algo;
+      }
 
    protected:
       std::vector<std::string> possible_providers(const std::string& algo_name) override;
@@ -68,7 +70,9 @@ class PK_Signature_Verification_Test : public PK_Test {
 
       virtual Botan::Signature_Format sig_format() const;
 
-      virtual bool test_random_invalid_sigs() const { return true; }
+      virtual bool test_random_invalid_sigs() const {
+         return true;
+      }
 
       virtual std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) = 0;
 
@@ -84,7 +88,9 @@ class PK_Signature_NonVerification_Test : public PK_Test {
                                         const std::string& optional_keys = "") :
             PK_Test(algo, test_src, required_keys, optional_keys) {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       virtual std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) = 0;
 
@@ -96,14 +102,18 @@ class PK_Sign_Verify_DER_Test : public Test {
    public:
       PK_Sign_Verify_DER_Test(const std::string& algo, const std::string& padding) : m_algo(algo), m_padding(padding) {}
 
-      std::string algo_name() const { return m_algo; }
+      std::string algo_name() const {
+         return m_algo;
+      }
 
    protected:
       std::vector<Test::Result> run() final;
 
       virtual std::unique_ptr<Botan::Private_Key> key() = 0;
 
-      virtual bool test_random_invalid_sigs() const { return true; }
+      virtual bool test_random_invalid_sigs() const {
+         return true;
+      }
 
       std::vector<std::string> possible_providers(const std::string& algo_name) override;
 
@@ -122,7 +132,9 @@ class PK_Encryption_Decryption_Test : public PK_Test {
 
       virtual std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) = 0;
 
-      std::string default_padding(const VarMap& /*vars*/) const override { return "Raw"; }
+      std::string default_padding(const VarMap& /*vars*/) const override {
+         return "Raw";
+      }
 
       virtual std::unique_ptr<Botan::RandomNumberGenerator> test_rng(const std::vector<uint8_t>& nonce) const {
          return std::make_unique<Fixed_Output_RNG>(nonce);
@@ -142,7 +154,9 @@ class PK_Decryption_Test : public PK_Test {
 
       virtual std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) = 0;
 
-      std::string default_padding(const VarMap& /*vars*/) const override { return "Raw"; }
+      std::string default_padding(const VarMap& /*vars*/) const override {
+         return "Raw";
+      }
 
    private:
       Test::Result run_one_test(const std::string& pad_hdr, const VarMap& vars) final;
@@ -165,7 +179,9 @@ class PK_Key_Agreement_Test : public PK_Test {
 
       virtual std::vector<uint8_t> load_their_key(const std::string& header, const VarMap& vars) = 0;
 
-      virtual std::string default_kdf(const VarMap& /*vars*/) const { return "Raw"; }
+      virtual std::string default_kdf(const VarMap& /*vars*/) const {
+         return "Raw";
+      }
 
    private:
       Test::Result run_one_test(const std::string& header, const VarMap& vars) final;
@@ -216,7 +232,9 @@ class PK_Key_Generation_Stability_Test : public PK_Test {
 
       Test::Result run_one_test(const std::string& header, const VarMap& vars) final;
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 };
 
 class PK_Key_Validity_Test : public PK_Test {

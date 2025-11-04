@@ -20,7 +20,9 @@ class Cascade_Cipher final : public BlockCipher {
       void encrypt_n(const uint8_t in[], uint8_t out[], size_t blocks) const override;
       void decrypt_n(const uint8_t in[], uint8_t out[], size_t blocks) const override;
 
-      size_t block_size() const override { return m_block_size; }
+      size_t block_size() const override {
+         return m_block_size;
+      }
 
       Key_Length_Specification key_spec() const override {
          return Key_Length_Specification(m_cipher1->maximum_keylength() + m_cipher2->maximum_keylength());

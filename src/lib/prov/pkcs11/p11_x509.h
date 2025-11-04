@@ -33,13 +33,19 @@ class BOTAN_PUBLIC_API(2, 0) X509_CertificateProperties final : public Certifica
             X509_CertificateProperties(cert.raw_subject_dn(), cert.BER_encode()) {}
 
       /// @param id key identifier for public/private key pair
-      inline void set_id(const std::vector<uint8_t>& id) { add_binary(AttributeType::Id, id); }
+      inline void set_id(const std::vector<uint8_t>& id) {
+         add_binary(AttributeType::Id, id);
+      }
 
       /// @param issuer DER-encoding of the certificate issuer name
-      inline void set_issuer(const std::vector<uint8_t>& issuer) { add_binary(AttributeType::Issuer, issuer); }
+      inline void set_issuer(const std::vector<uint8_t>& issuer) {
+         add_binary(AttributeType::Issuer, issuer);
+      }
 
       /// @param serial DER-encoding of the certificate serial number
-      inline void set_serial(const std::vector<uint8_t>& serial) { add_binary(AttributeType::SerialNumber, serial); }
+      inline void set_serial(const std::vector<uint8_t>& serial) {
+         add_binary(AttributeType::SerialNumber, serial);
+      }
 
       /// @param hash hash value of the subject public key
       inline void set_subject_pubkey_hash(const std::vector<uint8_t>& hash) {
@@ -57,10 +63,14 @@ class BOTAN_PUBLIC_API(2, 0) X509_CertificateProperties final : public Certifica
       }
 
       /// @return the subject
-      inline const std::vector<uint8_t>& subject() const { return m_subject; }
+      inline const std::vector<uint8_t>& subject() const {
+         return m_subject;
+      }
 
       /// @return the BER-encoding of the certificate
-      inline const std::vector<uint8_t>& value() const { return m_value; }
+      inline const std::vector<uint8_t>& value() const {
+         return m_value;
+      }
 
    private:
       const std::vector<uint8_t> m_subject;

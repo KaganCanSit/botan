@@ -151,7 +151,9 @@ class Stateful_RNG_Tests : public Test {
    #if defined(BOTAN_HAS_ENTROPY_SOURCE)
          class Broken_Entropy_Source final : public Botan::Entropy_Source {
             public:
-               std::string name() const override { return "Broken Entropy Source"; }
+               std::string name() const override {
+                  return "Broken Entropy Source";
+               }
 
                size_t poll(Botan::RandomNumberGenerator& /*rng*/) override {
                   throw Botan::Not_Implemented("polling not available");
@@ -160,9 +162,13 @@ class Stateful_RNG_Tests : public Test {
 
          class Insufficient_Entropy_Source final : public Botan::Entropy_Source {
             public:
-               std::string name() const override { return "Insufficient Entropy Source"; }
+               std::string name() const override {
+                  return "Insufficient Entropy Source";
+               }
 
-               size_t poll(Botan::RandomNumberGenerator& /*rng*/) override { return 0; }
+               size_t poll(Botan::RandomNumberGenerator& /*rng*/) override {
+                  return 0;
+               }
          };
    #endif
 
@@ -406,7 +412,9 @@ class Stateful_RNG_Tests : public Test {
 
 class HMAC_DRBG_Unit_Tests final : public Stateful_RNG_Tests {
    public:
-      std::string rng_name() const override { return "HMAC_DRBG"; }
+      std::string rng_name() const override {
+         return "HMAC_DRBG";
+      }
 
       std::unique_ptr<Botan::Stateful_RNG> create_rng(Botan::RandomNumberGenerator* underlying_rng,
                                                       Botan::Entropy_Sources* underlying_es,
@@ -613,7 +621,9 @@ BOTAN_REGISTER_TEST_FN("rng", "hmac_drbg_multi_request", hmac_drbg_multiple_requ
 
 class ChaCha_RNG_Unit_Tests final : public Stateful_RNG_Tests {
    public:
-      std::string rng_name() const override { return "ChaCha_RNG"; }
+      std::string rng_name() const override {
+         return "ChaCha_RNG";
+      }
 
       std::unique_ptr<Botan::Stateful_RNG> create_rng(Botan::RandomNumberGenerator* underlying_rng,
                                                       Botan::Entropy_Sources* underlying_es,

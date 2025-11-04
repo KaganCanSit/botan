@@ -22,13 +22,21 @@ class Ascon_XOF128 final : public XOF {
    public:
       Ascon_XOF128();
 
-      std::string name() const override { return "Ascon-XOF128"; }
+      std::string name() const override {
+         return "Ascon-XOF128";
+      }
 
-      std::string provider() const override { return m_ascon_p.provider(); }
+      std::string provider() const override {
+         return m_ascon_p.provider();
+      }
 
-      size_t block_size() const override { return m_ascon_p.byte_rate(); }
+      size_t block_size() const override {
+         return m_ascon_p.byte_rate();
+      }
 
-      bool accepts_input() const override { return !m_output_generated; }
+      bool accepts_input() const override {
+         return !m_output_generated;
+      }
 
       std::unique_ptr<XOF> copy_state() const override;
       std::unique_ptr<XOF> new_object() const override;

@@ -224,7 +224,9 @@ class SPHINCS_Plus_Keygen_Tests final : public PK_Key_Generation_Test {
          return available_params;
       }
 
-      std::string algo_name() const override { return "SLH-DSA"; }
+      std::string algo_name() const override {
+         return "SLH-DSA";
+      }
 
       std::unique_ptr<Botan::Public_Key> public_key_from_raw(std::string_view keygen_params,
                                                              std::string_view /* provider */,
@@ -240,7 +242,9 @@ class Generic_SlhDsa_Signature_Tests final : public PK_Signature_Generation_Test
             PK_Signature_Generation_Test(
                "SLH-DSA", "pubkey/slh_dsa_generic.vec", "Instance,Msg,PrivateKey,PublicKey,Valid,Signature", "Nonce") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Private_Key> load_private_key(const VarMap& vars) override {
          const std::string instance = vars.get_req_str("Instance");
@@ -271,7 +275,9 @@ class Generic_SlhDsa_Verification_Tests final : public PK_Signature_Verification
             PK_Signature_Verification_Test(
                "SLH-DSA", "pubkey/slh_dsa_generic.vec", "Instance,Msg,PrivateKey,PublicKey,Valid,Signature", "Nonce") {}
 
-      bool clear_between_callbacks() const override { return false; }
+      bool clear_between_callbacks() const override {
+         return false;
+      }
 
       std::unique_ptr<Botan::Public_Key> load_public_key(const VarMap& vars) override {
          const std::string instance = vars.get_req_str("Instance");
@@ -280,7 +286,9 @@ class Generic_SlhDsa_Verification_Tests final : public PK_Signature_Verification
          return std::make_unique<Botan::SphincsPlus_PublicKey>(pubkey, Botan::Sphincs_Parameters::create(instance));
       }
 
-      std::string default_padding(const VarMap& /*vars*/) const override { return ""; }
+      std::string default_padding(const VarMap& /*vars*/) const override {
+         return "";
+      }
 
       bool skip_this_test(const std::string& /*header*/, const VarMap& vars) override {
          return !Botan::Sphincs_Parameters::create(vars.get_req_str("Instance")).is_available();

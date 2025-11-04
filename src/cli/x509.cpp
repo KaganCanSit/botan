@@ -67,9 +67,13 @@ class Trust_Root_Info final : public Command {
    public:
       Trust_Root_Info() : Command("trust_roots --dn --dn-only --display") {}
 
-      std::string group() const override { return "x509"; }
+      std::string group() const override {
+         return "x509";
+      }
 
-      std::string description() const override { return "List certs in the system trust store"; }
+      std::string description() const override {
+         return "List certs in the system trust store";
+      }
 
       void go() override {
          Botan::System_Certificate_Store trust_roots;
@@ -108,9 +112,13 @@ class Sign_Cert final : public Command {
       Sign_Cert() :
             Command("sign_cert --ca-key-pass= --hash= --padding= --emsa= --duration=365 ca_cert ca_key pkcs10_req") {}
 
-      std::string group() const override { return "x509"; }
+      std::string group() const override {
+         return "x509";
+      }
 
-      std::string description() const override { return "Create a CA-signed X.509 certificate from a PKCS #10 CSR"; }
+      std::string description() const override {
+         return "Create a CA-signed X.509 certificate from a PKCS #10 CSR";
+      }
 
       void go() override {
          Botan::X509_Certificate ca_cert(get_arg("ca_cert"));
@@ -160,9 +168,13 @@ class Cert_Info final : public Command {
    public:
       Cert_Info() : Command("cert_info --fingerprint file") {}
 
-      std::string group() const override { return "x509"; }
+      std::string group() const override {
+         return "x509";
+      }
 
-      std::string description() const override { return "Parse X.509 certificate and display data fields"; }
+      std::string description() const override {
+         return "Parse X.509 certificate and display data fields";
+      }
 
       void go() override {
          std::vector<uint8_t> data = slurp_file(get_arg("file"));
@@ -200,7 +212,9 @@ class OCSP_Check final : public Command {
    public:
       OCSP_Check() : Command("ocsp_check --timeout=3000 subject issuer") {}
 
-      std::string group() const override { return "x509"; }
+      std::string group() const override {
+         return "x509";
+      }
 
       std::string description() const override {
          return "Verify an X.509 certificate against the issuers OCSP responder";
@@ -233,7 +247,9 @@ class Cert_Verify final : public Command {
    public:
       Cert_Verify() : Command("cert_verify subject *ca_certs") {}
 
-      std::string group() const override { return "x509"; }
+      std::string group() const override {
+         return "x509";
+      }
 
       std::string description() const override {
          return "Verify if the passed X.509 certificate passes path validation";
@@ -269,9 +285,13 @@ class Gen_Self_Signed final : public Command {
                "--organization= --email= --path-limit=1 --days=365 --key-pass= --ca --hash= --padding= --emsa= --der") {
       }
 
-      std::string group() const override { return "x509"; }
+      std::string group() const override {
+         return "x509";
+      }
 
-      std::string description() const override { return "Generate a self signed X.509 certificate"; }
+      std::string description() const override {
+         return "Generate a self signed X.509 certificate";
+      }
 
       void go() override {
          const std::string key_file = get_arg("key");
@@ -331,9 +351,13 @@ class Generate_PKCS10 final : public Command {
                "gen_pkcs10 key CN --country= --organization= "
                "--ca --path-limit=1 --email= --dns= --ext-ku= --key-pass= --hash= --padding= --emsa=") {}
 
-      std::string group() const override { return "x509"; }
+      std::string group() const override {
+         return "x509";
+      }
 
-      std::string description() const override { return "Generate a PKCS #10 certificate signing request (CSR)"; }
+      std::string description() const override {
+         return "Generate a PKCS #10 certificate signing request (CSR)";
+      }
 
       void go() override {
          const std::string key_file = get_arg("key");

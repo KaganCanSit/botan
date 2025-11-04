@@ -134,13 +134,19 @@ int botan_rng_init_custom(botan_rng_t* rng_out,
             }
 
          public:
-            bool accepts_input() const override { return m_add_entropy_cb != nullptr; }
+            bool accepts_input() const override {
+               return m_add_entropy_cb != nullptr;
+            }
 
-            std::string name() const override { return m_name; }
+            std::string name() const override {
+               return m_name;
+            }
 
             void clear() override {}
 
-            bool is_seeded() const override { return true; }
+            bool is_seeded() const override {
+               return true;
+            }
 
          private:
             std::string m_name;

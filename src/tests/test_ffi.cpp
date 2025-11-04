@@ -73,15 +73,25 @@ namespace {
  */
 class ViewBytesSink final {
    public:
-      void* delegate() { return this; }
+      void* delegate() {
+         return this;
+      }
 
-      botan_view_bin_fn callback() { return &write_fn; }
+      botan_view_bin_fn callback() {
+         return &write_fn;
+      }
 
-      std::span<const uint8_t> get() const { return m_buf; }
+      std::span<const uint8_t> get() const {
+         return m_buf;
+      }
 
-      const uint8_t* data() const { return m_buf.data(); }
+      const uint8_t* data() const {
+         return m_buf.data();
+      }
 
-      size_t size() const { return m_buf.size(); }
+      size_t size() const {
+         return m_buf.size();
+      }
 
    private:
       static int write_fn(void* ctx, const uint8_t buf[], size_t len) {
@@ -104,11 +114,17 @@ class ViewBytesSink final {
 */
 class ViewStringSink final {
    public:
-      void* delegate() { return this; }
+      void* delegate() {
+         return this;
+      }
 
-      botan_view_str_fn callback() { return &write_fn; }
+      botan_view_str_fn callback() {
+         return &write_fn;
+      }
 
-      const std::string& get() { return m_str; }
+      const std::string& get() {
+         return m_str;
+      }
 
    private:
       static int write_fn(void* ctx, const char* str, size_t len) {
@@ -157,7 +173,9 @@ class FFI_Test : public Test {
       virtual std::string name() const = 0;
       virtual void ffi_test(Test::Result& result, botan_rng_t rng) = 0;
 
-      virtual bool skip_this_test() const { return false; }
+      virtual bool skip_this_test() const {
+         return false;
+      }
 };
 
 void ffi_test_pubkey_export(Test::Result& result, botan_pubkey_t pub, botan_privkey_t priv, botan_rng_t rng) {
@@ -307,7 +325,9 @@ void ffi_test_pubkey_export(Test::Result& result, botan_pubkey_t pub, botan_priv
 
 class FFI_Utils_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI Utils"; }
+      std::string name() const override {
+         return "FFI Utils";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          result.test_is_eq("FFI API version macro", uint32_t(BOTAN_FFI_API_VERSION), uint32_t(BOTAN_HAS_FFI));
@@ -354,7 +374,9 @@ class FFI_Utils_Test final : public FFI_Test {
 
 class FFI_RNG_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI RNG"; }
+      std::string name() const override {
+         return "FFI RNG";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          // RNG test and initialization
@@ -558,7 +580,9 @@ class FFI_RNG_Test final : public FFI_Test {
 
 class FFI_RSA_Cert_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI RSA cert"; }
+      std::string name() const override {
+         return "FFI RSA cert";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          botan_x509_cert_t cert;
@@ -581,7 +605,9 @@ class FFI_RSA_Cert_Test final : public FFI_Test {
 
 class FFI_ZFEC_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI ZFEC"; }
+      std::string name() const override {
+         return "FFI ZFEC";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          /* exercise a simple success case
@@ -669,7 +695,9 @@ class FFI_ZFEC_Test final : public FFI_Test {
 
 class FFI_CRL_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI CRL"; }
+      std::string name() const override {
+         return "FFI CRL";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const char* crl_string =
@@ -717,7 +745,9 @@ class FFI_CRL_Test final : public FFI_Test {
 
 class FFI_Cert_Validation_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI Cert Validation"; }
+      std::string name() const override {
+         return "FFI Cert Validation";
+      }
 
       bool skip_this_test() const override {
    #if !defined(BOTAN_HAS_PKCSV15_SIGNATURE_PADDING)
@@ -807,7 +837,9 @@ class FFI_Cert_Validation_Test final : public FFI_Test {
 
 class FFI_ECDSA_Certificate_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI ECDSA cert"; }
+      std::string name() const override {
+         return "FFI ECDSA cert";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          botan_x509_cert_t cert;
@@ -932,7 +964,9 @@ class FFI_ECDSA_Certificate_Test final : public FFI_Test {
 
 class FFI_PKCS_Hashid_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI PKCS hash id"; }
+      std::string name() const override {
+         return "FFI PKCS hash id";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          std::vector<uint8_t> hash_id(64);
@@ -954,7 +988,9 @@ class FFI_PKCS_Hashid_Test final : public FFI_Test {
 
 class FFI_CBC_Cipher_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI CBC cipher"; }
+      std::string name() const override {
+         return "FFI CBC cipher";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          botan_cipher_t cipher_encrypt;
@@ -1068,7 +1104,9 @@ class FFI_CBC_Cipher_Test final : public FFI_Test {
 
 class FFI_GCM_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI GCM"; }
+      std::string name() const override {
+         return "FFI GCM";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          botan_cipher_t cipher_encrypt;
@@ -1206,7 +1244,9 @@ class FFI_GCM_Test final : public FFI_Test {
 
 class FFI_ChaCha20Poly1305_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI ChaCha20Poly1305"; }
+      std::string name() const override {
+         return "FFI ChaCha20Poly1305";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          botan_cipher_t cipher_encrypt;
@@ -1339,7 +1379,9 @@ class FFI_ChaCha20Poly1305_Test final : public FFI_Test {
 
 class FFI_EAX_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI EAX"; }
+      std::string name() const override {
+         return "FFI EAX";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          botan_cipher_t cipher_encrypt;
@@ -1460,7 +1502,9 @@ class FFI_EAX_Test final : public FFI_Test {
 
 class FFI_AEAD_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI AEAD"; }
+      std::string name() const override {
+         return "FFI AEAD";
+      }
 
       void ffi_test(Test::Result& merged_result, botan_rng_t rng) override {
          botan_cipher_t cipher_encrypt;
@@ -1687,7 +1731,9 @@ class FFI_AEAD_Test final : public FFI_Test {
 
 class FFI_StreamCipher_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI stream ciphers"; }
+      std::string name() const override {
+         return "FFI stream ciphers";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          botan_cipher_t ctr;
@@ -1740,7 +1786,9 @@ class FFI_StreamCipher_Test final : public FFI_Test {
 
 class FFI_HashFunction_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI hash"; }
+      std::string name() const override {
+         return "FFI hash";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const char* input_str = "ABC";
@@ -1816,7 +1864,9 @@ class FFI_HashFunction_Test final : public FFI_Test {
 
 class FFI_MAC_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI MAC"; }
+      std::string name() const override {
+         return "FFI MAC";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const char* input_str = "ABC";
@@ -1881,7 +1931,9 @@ class FFI_MAC_Test final : public FFI_Test {
 
 class FFI_Scrypt_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI Scrypt"; }
+      std::string name() const override {
+         return "FFI Scrypt";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          std::vector<uint8_t> output(24);
@@ -1907,7 +1959,9 @@ class FFI_Scrypt_Test final : public FFI_Test {
 
 class FFI_KDF_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI KDF"; }
+      std::string name() const override {
+         return "FFI KDF";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          std::vector<uint8_t> outbuf;
@@ -1992,7 +2046,9 @@ class FFI_KDF_Test final : public FFI_Test {
 
 class FFI_Blockcipher_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI block ciphers"; }
+      std::string name() const override {
+         return "FFI block ciphers";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          botan_block_cipher_t cipher;
@@ -2058,7 +2114,9 @@ class FFI_Blockcipher_Test final : public FFI_Test {
 
 class FFI_ErrorHandling_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI error handling"; }
+      std::string name() const override {
+         return "FFI error handling";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          // delete of null is ok/ignored
@@ -2091,7 +2149,9 @@ class FFI_ErrorHandling_Test final : public FFI_Test {
 
 class FFI_Base64_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI base64"; }
+      std::string name() const override {
+         return "FFI base64";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const uint8_t bin[9] = {0x16, 0x8a, 0x1f, 0x06, 0xe9, 0xe7, 0xcb, 0xdd, 0x34};
@@ -2126,7 +2186,9 @@ class FFI_Base64_Test final : public FFI_Test {
 
 class FFI_Hex_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI hex"; }
+      std::string name() const override {
+         return "FFI hex";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const uint8_t bin[4] = {0xDE, 0xAD, 0xBE, 0xEF};
@@ -2153,7 +2215,9 @@ class FFI_Hex_Test final : public FFI_Test {
 
 class FFI_MP_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI MP"; }
+      std::string name() const override {
+         return "FFI MP";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          char str_buf[1024] = {0};
@@ -2395,7 +2459,9 @@ class FFI_MP_Test final : public FFI_Test {
 
 class FFI_FPE_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI FPE"; }
+      std::string name() const override {
+         return "FFI FPE";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const uint8_t key[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -2435,7 +2501,9 @@ class FFI_FPE_Test final : public FFI_Test {
 
 class FFI_TOTP_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI TOTP"; }
+      std::string name() const override {
+         return "FFI TOTP";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const std::vector<uint8_t> key = Botan::hex_decode("3132333435363738393031323334353637383930");
@@ -2464,7 +2532,9 @@ class FFI_TOTP_Test final : public FFI_Test {
 
 class FFI_HOTP_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI HOTP"; }
+      std::string name() const override {
+         return "FFI HOTP";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const std::vector<uint8_t> key = Botan::hex_decode("3132333435363738393031323334353637383930");
@@ -2501,7 +2571,9 @@ class FFI_HOTP_Test final : public FFI_Test {
 
 class FFI_Keywrap_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI Keywrap"; }
+      std::string name() const override {
+         return "FFI Keywrap";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const uint8_t key[16] = {0};
@@ -2531,7 +2603,9 @@ class FFI_Keywrap_Test final : public FFI_Test {
 
 class FFI_XMSS_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI XMSS"; }
+      std::string name() const override {
+         return "FFI XMSS";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          botan_privkey_t priv;
@@ -2556,7 +2630,9 @@ class FFI_XMSS_Test final : public FFI_Test {
 
 class FFI_RSA_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI RSA"; }
+      std::string name() const override {
+         return "FFI RSA";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          botan_privkey_t priv;
@@ -2718,7 +2794,9 @@ class FFI_RSA_Test final : public FFI_Test {
 
 class FFI_DSA_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI DSA"; }
+      std::string name() const override {
+         return "FFI DSA";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          botan_privkey_t priv;
@@ -2846,7 +2924,9 @@ class FFI_DSA_Test final : public FFI_Test {
 
 class FFI_ECDSA_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI ECDSA"; }
+      std::string name() const override {
+         return "FFI ECDSA";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          static const char* kCurve = "secp384r1";
@@ -2961,7 +3041,9 @@ class FFI_ECDSA_Test final : public FFI_Test {
 
 class FFI_SM2_Sig_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI SM2 Sig"; }
+      std::string name() const override {
+         return "FFI SM2 Sig";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          static const char* kCurve = "sm2p256v1";
@@ -3070,7 +3152,9 @@ class FFI_SM2_Sig_Test final : public FFI_Test {
 
 class FFI_SM2_Enc_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI SM2 Enc"; }
+      std::string name() const override {
+         return "FFI SM2 Enc";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          static const char* kCurve = "sm2p256v1";
@@ -3157,7 +3241,9 @@ class FFI_SM2_Enc_Test final : public FFI_Test {
 
 class FFI_ECDH_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI ECDH"; }
+      std::string name() const override {
+         return "FFI ECDH";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          botan_privkey_t priv1;
@@ -3263,7 +3349,9 @@ class FFI_ECDH_Test final : public FFI_Test {
 
 class FFI_McEliece_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI McEliece"; }
+      std::string name() const override {
+         return "FFI McEliece";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          botan_privkey_t priv;
@@ -3289,7 +3377,9 @@ class FFI_McEliece_Test final : public FFI_Test {
 
 class FFI_Ed25519_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI Ed25519"; }
+      std::string name() const override {
+         return "FFI Ed25519";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          botan_pubkey_t pub;
@@ -3358,7 +3448,9 @@ class FFI_Ed25519_Test final : public FFI_Test {
 
 class FFI_Ed448_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI Ed448"; }
+      std::string name() const override {
+         return "FFI Ed448";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          botan_pubkey_t pub;
@@ -3425,7 +3517,9 @@ class FFI_Ed448_Test final : public FFI_Test {
 
 class FFI_X25519_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI X25519"; }
+      std::string name() const override {
+         return "FFI X25519";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          // From RFC 8037
@@ -3479,7 +3573,9 @@ class FFI_X25519_Test final : public FFI_Test {
 
 class FFI_X448_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI X448"; }
+      std::string name() const override {
+         return "FFI X448";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          // From RFC 7748 Section 6.2
@@ -3787,7 +3883,9 @@ class FFI_Signature_Roundtrip_Test : public FFI_Test {
 
 class FFI_Kyber512_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI Kyber512"; }
+      std::string name() const override {
+         return "FFI Kyber512";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const std::vector<uint8_t> a_pub_bits = Botan::hex_decode(
@@ -3832,7 +3930,9 @@ class FFI_Kyber512_Test final : public FFI_Test {
 
 class FFI_Kyber768_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI Kyber768"; }
+      std::string name() const override {
+         return "FFI Kyber768";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const std::vector<uint8_t> a_pub_bits = Botan::hex_decode(
@@ -3877,7 +3977,9 @@ class FFI_Kyber768_Test final : public FFI_Test {
 
 class FFI_Kyber1024_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI Kyber1024"; }
+      std::string name() const override {
+         return "FFI Kyber1024";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t /*unused*/) override {
          const std::vector<uint8_t> a_pub_bits = Botan::hex_decode(
@@ -3922,28 +4024,46 @@ class FFI_Kyber1024_Test final : public FFI_Test {
 
 class FFI_ML_KEM_Test final : public FFI_KEM_Roundtrip_Test {
    public:
-      std::string name() const override { return "FFI ML-KEM"; }
+      std::string name() const override {
+         return "FFI ML-KEM";
+      }
 
    private:
-      const char* algo() const override { return "ML-KEM"; }
+      const char* algo() const override {
+         return "ML-KEM";
+      }
 
-      privkey_loader_fn_t private_key_load_function() const override { return botan_privkey_load_ml_kem; }
+      privkey_loader_fn_t private_key_load_function() const override {
+         return botan_privkey_load_ml_kem;
+      }
 
-      pubkey_loader_fn_t public_key_load_function() const override { return botan_pubkey_load_ml_kem; }
+      pubkey_loader_fn_t public_key_load_function() const override {
+         return botan_pubkey_load_ml_kem;
+      }
 
-      std::vector<const char*> modes() const override { return {"ML-KEM-512", "ML-KEM-768", "ML-KEM-1024"}; }
+      std::vector<const char*> modes() const override {
+         return {"ML-KEM-512", "ML-KEM-768", "ML-KEM-1024"};
+      }
 };
 
 class FFI_FrodoKEM_Test final : public FFI_KEM_Roundtrip_Test {
    public:
-      std::string name() const override { return "FFI FrodoKEM"; }
+      std::string name() const override {
+         return "FFI FrodoKEM";
+      }
 
    protected:
-      const char* algo() const override { return "FrodoKEM"; }
+      const char* algo() const override {
+         return "FrodoKEM";
+      }
 
-      privkey_loader_fn_t private_key_load_function() const override { return botan_privkey_load_frodokem; }
+      privkey_loader_fn_t private_key_load_function() const override {
+         return botan_privkey_load_frodokem;
+      }
 
-      pubkey_loader_fn_t public_key_load_function() const override { return botan_pubkey_load_frodokem; }
+      pubkey_loader_fn_t public_key_load_function() const override {
+         return botan_pubkey_load_frodokem;
+      }
 
       std::vector<const char*> modes() const override {
          return std::vector{
@@ -3965,14 +4085,22 @@ class FFI_FrodoKEM_Test final : public FFI_KEM_Roundtrip_Test {
 
 class FFI_ML_DSA_Test final : public FFI_Signature_Roundtrip_Test {
    public:
-      std::string name() const override { return "FFI ML-DSA"; }
+      std::string name() const override {
+         return "FFI ML-DSA";
+      }
 
    private:
-      const char* algo() const override { return "ML-DSA"; }
+      const char* algo() const override {
+         return "ML-DSA";
+      }
 
-      privkey_loader_fn_t private_key_load_function() const override { return botan_privkey_load_ml_dsa; }
+      privkey_loader_fn_t private_key_load_function() const override {
+         return botan_privkey_load_ml_dsa;
+      }
 
-      pubkey_loader_fn_t public_key_load_function() const override { return botan_pubkey_load_ml_dsa; }
+      pubkey_loader_fn_t public_key_load_function() const override {
+         return botan_pubkey_load_ml_dsa;
+      }
 
       std::vector<const char*> modes() const override {
          return {
@@ -3982,19 +4110,29 @@ class FFI_ML_DSA_Test final : public FFI_Signature_Roundtrip_Test {
          };
       }
 
-      const char* hash_algo_or_padding() const override { return ""; }
+      const char* hash_algo_or_padding() const override {
+         return "";
+      }
 };
 
 class FFI_SLH_DSA_Test final : public FFI_Signature_Roundtrip_Test {
    public:
-      std::string name() const override { return "FFI SLH-DSA"; }
+      std::string name() const override {
+         return "FFI SLH-DSA";
+      }
 
    private:
-      const char* algo() const override { return "SLH-DSA"; }
+      const char* algo() const override {
+         return "SLH-DSA";
+      }
 
-      privkey_loader_fn_t private_key_load_function() const override { return botan_privkey_load_slh_dsa; }
+      privkey_loader_fn_t private_key_load_function() const override {
+         return botan_privkey_load_slh_dsa;
+      }
 
-      pubkey_loader_fn_t public_key_load_function() const override { return botan_pubkey_load_slh_dsa; }
+      pubkey_loader_fn_t public_key_load_function() const override {
+         return botan_pubkey_load_slh_dsa;
+      }
 
       std::vector<const char*> modes() const override {
          auto modes = std::vector{
@@ -4021,19 +4159,29 @@ class FFI_SLH_DSA_Test final : public FFI_Signature_Roundtrip_Test {
          return modes;
       }
 
-      const char* hash_algo_or_padding() const override { return ""; }
+      const char* hash_algo_or_padding() const override {
+         return "";
+      }
 };
 
 class FFI_Classic_McEliece_Test final : public FFI_KEM_Roundtrip_Test {
    public:
-      std::string name() const override { return "FFI Classic McEliece"; }
+      std::string name() const override {
+         return "FFI Classic McEliece";
+      }
 
    protected:
-      const char* algo() const override { return "ClassicMcEliece"; }
+      const char* algo() const override {
+         return "ClassicMcEliece";
+      }
 
-      privkey_loader_fn_t private_key_load_function() const override { return botan_privkey_load_classic_mceliece; }
+      privkey_loader_fn_t private_key_load_function() const override {
+         return botan_privkey_load_classic_mceliece;
+      }
 
-      pubkey_loader_fn_t public_key_load_function() const override { return botan_pubkey_load_classic_mceliece; }
+      pubkey_loader_fn_t public_key_load_function() const override {
+         return botan_pubkey_load_classic_mceliece;
+      }
 
       std::vector<const char*> modes() const override {
          auto modes = std::vector{
@@ -4065,7 +4213,9 @@ class FFI_Classic_McEliece_Test final : public FFI_KEM_Roundtrip_Test {
 
 class FFI_ElGamal_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI ElGamal"; }
+      std::string name() const override {
+         return "FFI ElGamal";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          botan_privkey_t priv;
@@ -4161,7 +4311,9 @@ class FFI_ElGamal_Test final : public FFI_Test {
 
 class FFI_DH_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI DH"; }
+      std::string name() const override {
+         return "FFI DH";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          botan_privkey_t priv1;
@@ -4280,7 +4432,9 @@ class FFI_DH_Test final : public FFI_Test {
 
 class FFI_OID_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI OID"; }
+      std::string name() const override {
+         return "FFI OID";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          botan_asn1_oid_t oid;
@@ -4380,7 +4534,9 @@ class FFI_OID_Test final : public FFI_Test {
 
 class FFI_EC_Group_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI EC Group"; }
+      std::string name() const override {
+         return "FFI EC Group";
+      }
 
       void ffi_test(Test::Result& result, botan_rng_t rng) override {
          int appl_spec_groups;
@@ -4631,7 +4787,9 @@ class FFI_EC_Group_Test final : public FFI_Test {
 
 class FFI_SRP6_Test final : public FFI_Test {
    public:
-      std::string name() const override { return "FFI SRP6"; }
+      std::string name() const override {
+         return "FFI SRP6";
+      }
 
       bool skip_this_test() const override {
    #if !defined(BOTAN_HAS_SRP6)
