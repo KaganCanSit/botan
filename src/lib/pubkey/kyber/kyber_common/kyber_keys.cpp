@@ -105,8 +105,9 @@ Kyber_PublicKeyInternal::Kyber_PublicKeyInternal(KyberConstants mode, KyberSeria
       m_mode(std::move(mode)),
       m_public_key_bits_raw(validate_public_key_length(std::move(public_key), m_mode.public_key_bytes())),
       m_H_public_key_bits_raw(m_mode.symmetric_primitives().H(m_public_key_bits_raw)),
-      m_t(Kyber_Algos::decode_polynomial_vector(
-         std::span{m_public_key_bits_raw}.first(m_mode.polynomial_vector_bytes()), m_mode)),
+      m_t(
+         Kyber_Algos::decode_polynomial_vector(std::span{m_public_key_bits_raw}.first(m_mode.polynomial_vector_bytes()),
+                                               m_mode)),
       m_rho(std::span{m_public_key_bits_raw}.last(Botan::KyberConstants::SEED_BYTES)) {}
 
 Kyber_PublicKeyInternal::Kyber_PublicKeyInternal(KyberConstants mode, KyberPolyVecNTT t, KyberSeedRho rho) :

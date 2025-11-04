@@ -217,8 +217,11 @@ class Channel_Impl_12 : public Channel_Impl {
 
       void send_record_array(uint16_t epoch, Record_Type record_type, const uint8_t input[], size_t length);
 
-      void write_record(
-         Connection_Cipher_State* cipher_state, uint16_t epoch, Record_Type type, const uint8_t input[], size_t length);
+      void write_record(Connection_Cipher_State* cipher_state,
+                        uint16_t epoch,
+                        Record_Type type,
+                        const uint8_t input[],
+                        size_t length);
 
       void reset_state();
 

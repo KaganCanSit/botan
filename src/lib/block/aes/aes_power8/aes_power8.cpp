@@ -59,8 +59,11 @@ BOTAN_FORCE_INLINE void store_blocks(Altivec64x2 B0, Altivec64x2 B1, Altivec64x2
    store_block(B3, out + 16 * 3);
 }
 
-BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void xor_blocks(
-   Altivec64x2& B0, Altivec64x2& B1, Altivec64x2& B2, Altivec64x2& B3, Altivec64x2 K) {
+BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void xor_blocks(Altivec64x2& B0,
+                                                    Altivec64x2& B1,
+                                                    Altivec64x2& B2,
+                                                    Altivec64x2& B3,
+                                                    Altivec64x2 K) {
    B0 = vec_xor(B0, K);
    B1 = vec_xor(B1, K);
    B2 = vec_xor(B2, K);
@@ -103,32 +106,44 @@ BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void aes_vncipherlast(Altivec64x2& B, Altive
 #endif
 }
 
-BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void aes_vcipher(
-   Altivec64x2& B0, Altivec64x2& B1, Altivec64x2& B2, Altivec64x2& B3, Altivec64x2 K) {
+BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void aes_vcipher(Altivec64x2& B0,
+                                                     Altivec64x2& B1,
+                                                     Altivec64x2& B2,
+                                                     Altivec64x2& B3,
+                                                     Altivec64x2 K) {
    aes_vcipher(B0, K);
    aes_vcipher(B1, K);
    aes_vcipher(B2, K);
    aes_vcipher(B3, K);
 }
 
-BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void aes_vcipherlast(
-   Altivec64x2& B0, Altivec64x2& B1, Altivec64x2& B2, Altivec64x2& B3, Altivec64x2 K) {
+BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void aes_vcipherlast(Altivec64x2& B0,
+                                                         Altivec64x2& B1,
+                                                         Altivec64x2& B2,
+                                                         Altivec64x2& B3,
+                                                         Altivec64x2 K) {
    aes_vcipherlast(B0, K);
    aes_vcipherlast(B1, K);
    aes_vcipherlast(B2, K);
    aes_vcipherlast(B3, K);
 }
 
-BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void aes_vncipher(
-   Altivec64x2& B0, Altivec64x2& B1, Altivec64x2& B2, Altivec64x2& B3, Altivec64x2 K) {
+BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void aes_vncipher(Altivec64x2& B0,
+                                                      Altivec64x2& B1,
+                                                      Altivec64x2& B2,
+                                                      Altivec64x2& B3,
+                                                      Altivec64x2 K) {
    aes_vncipher(B0, K);
    aes_vncipher(B1, K);
    aes_vncipher(B2, K);
    aes_vncipher(B3, K);
 }
 
-BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void aes_vncipherlast(
-   Altivec64x2& B0, Altivec64x2& B1, Altivec64x2& B2, Altivec64x2& B3, Altivec64x2 K) {
+BOTAN_FN_ISA_AES BOTAN_FORCE_INLINE void aes_vncipherlast(Altivec64x2& B0,
+                                                          Altivec64x2& B1,
+                                                          Altivec64x2& B2,
+                                                          Altivec64x2& B3,
+                                                          Altivec64x2 K) {
    aes_vncipherlast(B0, K);
    aes_vncipherlast(B1, K);
    aes_vncipherlast(B2, K);

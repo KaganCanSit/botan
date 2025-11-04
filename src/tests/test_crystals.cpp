@@ -608,8 +608,12 @@ std::vector<Test::Result> test_bounded_xof() {
 
 }  // namespace
 
-BOTAN_REGISTER_TEST_FN(
-   "pubkey", "crystals", test_extended_euclidean_algorithm, test_polynomial_basics, test_encoding, test_bounded_xof);
+BOTAN_REGISTER_TEST_FN("pubkey",
+                       "crystals",
+                       test_extended_euclidean_algorithm,
+                       test_polynomial_basics,
+                       test_encoding,
+                       test_bounded_xof);
 
 }  // namespace Botan_Tests
 

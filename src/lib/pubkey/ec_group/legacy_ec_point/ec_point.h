@@ -326,8 +326,11 @@ class BOTAN_PUBLIC_API(2, 0) EC_Point final {
       * @param y_size size of y_words
       * @param workspace temp space, at least WORKSPACE_SIZE elements
       */
-      void add_affine(
-         const word x_words[], size_t x_size, const word y_words[], size_t y_size, std::vector<BigInt>& workspace);
+      void add_affine(const word x_words[],
+                      size_t x_size,
+                      const word y_words[],
+                      size_t y_size,
+                      std::vector<BigInt>& workspace);
 
       /**
       * Point doubling

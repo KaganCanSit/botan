@@ -38,8 +38,10 @@ std::unique_ptr<Botan::Private_Key> load_sm2_private_key(const VarMap& vars) {
 class SM2_Signature_KAT_Tests final : public PK_Signature_Generation_Test {
    public:
       SM2_Signature_KAT_Tests() :
-            PK_Signature_Generation_Test(
-               "SM2", "pubkey/sm2_sig.vec", "P,A,B,xG,yG,Order,Oid,Ident,Msg,x,Nonce,Signature", "Hash") {}
+            PK_Signature_Generation_Test("SM2",
+                                         "pubkey/sm2_sig.vec",
+                                         "P,A,B,xG,yG,Order,Oid,Ident,Msg,x,Nonce,Signature",
+                                         "Hash") {}
 
       bool skip_this_test(const std::string& /*header*/, const VarMap& /*vars*/) override {
          return !Botan::EC_Group::supports_application_specific_group();
@@ -67,8 +69,10 @@ BOTAN_REGISTER_TEST("pubkey", "sm2_sig", SM2_Signature_KAT_Tests);
 class SM2_Encryption_KAT_Tests final : public PK_Encryption_Decryption_Test {
    public:
       SM2_Encryption_KAT_Tests() :
-            PK_Encryption_Decryption_Test(
-               "SM2", "pubkey/sm2_enc.vec", "P,A,B,xG,yG,Order,Oid,Msg,x,Nonce,Ciphertext", "Hash") {}
+            PK_Encryption_Decryption_Test("SM2",
+                                          "pubkey/sm2_enc.vec",
+                                          "P,A,B,xG,yG,Order,Oid,Msg,x,Nonce,Ciphertext",
+                                          "Hash") {}
 
       bool skip_this_test(const std::string& /*header*/, const VarMap& /*vars*/) override {
          return !Botan::EC_Group::supports_application_specific_group();

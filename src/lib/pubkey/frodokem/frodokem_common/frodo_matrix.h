@@ -78,7 +78,8 @@ class FrodoMatrix final {
       // Helper function that calls FrodoMatrix::sample on initially provided consts and shake XOF.
       // The output function calls shake.output at each invocation.
       static std::function<FrodoMatrix(const Dimensions& dimensions)> make_sample_generator(
-         const FrodoKEMConstants& constants, Botan::XOF& shake);
+         const FrodoKEMConstants& constants,
+         Botan::XOF& shake);
 
       // Generate-and-multiply: generate matrix A (N x N) row-wise, multiply by s on the right.
       // Inputs: s^T (N_BAR x N), e (N x N_BAR), seed for matrix A

@@ -55,7 +55,8 @@ class Kyber_Symmetric_Primitives /* NOLINT(*-special-member-functions) */ {
       }
 
       std::pair<KyberSharedSecret, KyberEncryptionRandomness> G(
-         StrongSpan<const KyberMessage> msg, StrongSpan<const KyberHashedPublicKey> pubkey_hash) const {
+         StrongSpan<const KyberMessage> msg,
+         StrongSpan<const KyberHashedPublicKey> pubkey_hash) const {
          return G_split<KyberSharedSecret, KyberEncryptionRandomness>(msg, pubkey_hash);
       }
 

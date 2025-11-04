@@ -45,9 +45,9 @@ BOTAN_REGISTER_TEST("roughtime", "roughtime_request", Roughtime_Request_Tests);
 class Roughtime_Response_Tests final : public Text_Based_Test {
    public:
       Roughtime_Response_Tests() :
-            Text_Based_Test(
-               "roughtime/roughtime_response.vec", "Response", "Nonce,Pubkey,MidpointMicroSeconds,RadiusMicroSeconds") {
-      }
+            Text_Based_Test("roughtime/roughtime_response.vec",
+                            "Response",
+                            "Nonce,Pubkey,MidpointMicroSeconds,RadiusMicroSeconds") {}
 
       Test::Result run_one_test(const std::string& type, const VarMap& vars) override {
          Test::Result result("Roughtime response");

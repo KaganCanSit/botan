@@ -664,8 +664,12 @@ std::vector<Test::Result> test_concat() {
    };
 }
 
-BOTAN_REGISTER_TEST_FN(
-   "utils", "buffer_utilities", test_buffer_slicer, test_buffer_stuffer, test_alignment_buffer, test_concat);
+BOTAN_REGISTER_TEST_FN("utils",
+                       "buffer_utilities",
+                       test_buffer_slicer,
+                       test_buffer_stuffer,
+                       test_alignment_buffer,
+                       test_concat);
 
 }  // namespace
 

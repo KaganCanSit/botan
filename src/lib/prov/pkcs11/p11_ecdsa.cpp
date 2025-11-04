@@ -179,7 +179,8 @@ class PKCS11_ECDSA_Verification_Operation final : public PK_Ops::Verification {
 }  // namespace
 
 std::unique_ptr<PK_Ops::Verification> PKCS11_ECDSA_PublicKey::create_verification_op(
-   std::string_view params, std::string_view /*provider*/) const {
+   std::string_view params,
+   std::string_view /*provider*/) const {
    return std::make_unique<PKCS11_ECDSA_Verification_Operation>(*this, params);
 }
 

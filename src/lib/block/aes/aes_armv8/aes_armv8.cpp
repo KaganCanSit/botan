@@ -24,8 +24,11 @@ BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void enc(uint8x16_t& B, uint8x16_t K) {
    B = vaesmcq_u8(vaeseq_u8(B, K));
 }
 
-BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void enc4(
-   uint8x16_t& B0, uint8x16_t& B1, uint8x16_t& B2, uint8x16_t& B3, uint8x16_t K) {
+BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void enc4(uint8x16_t& B0,
+                                              uint8x16_t& B1,
+                                              uint8x16_t& B2,
+                                              uint8x16_t& B3,
+                                              uint8x16_t K) {
    B0 = vaesmcq_u8(vaeseq_u8(B0, K));
    B1 = vaesmcq_u8(vaeseq_u8(B1, K));
    B2 = vaesmcq_u8(vaeseq_u8(B2, K));
@@ -36,8 +39,12 @@ BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void enc_last(uint8x16_t& B, uint8x16_t K, u
    B = veorq_u8(vaeseq_u8(B, K), K2);
 }
 
-BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void enc4_last(
-   uint8x16_t& B0, uint8x16_t& B1, uint8x16_t& B2, uint8x16_t& B3, uint8x16_t K, uint8x16_t K2) {
+BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void enc4_last(uint8x16_t& B0,
+                                                   uint8x16_t& B1,
+                                                   uint8x16_t& B2,
+                                                   uint8x16_t& B3,
+                                                   uint8x16_t K,
+                                                   uint8x16_t K2) {
    B0 = veorq_u8(vaeseq_u8(B0, K), K2);
    B1 = veorq_u8(vaeseq_u8(B1, K), K2);
    B2 = veorq_u8(vaeseq_u8(B2, K), K2);
@@ -48,8 +55,11 @@ BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void dec(uint8x16_t& B, uint8x16_t K) {
    B = vaesimcq_u8(vaesdq_u8(B, K));
 }
 
-BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void dec4(
-   uint8x16_t& B0, uint8x16_t& B1, uint8x16_t& B2, uint8x16_t& B3, uint8x16_t K) {
+BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void dec4(uint8x16_t& B0,
+                                              uint8x16_t& B1,
+                                              uint8x16_t& B2,
+                                              uint8x16_t& B3,
+                                              uint8x16_t K) {
    B0 = vaesimcq_u8(vaesdq_u8(B0, K));
    B1 = vaesimcq_u8(vaesdq_u8(B1, K));
    B2 = vaesimcq_u8(vaesdq_u8(B2, K));
@@ -60,8 +70,12 @@ BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void dec_last(uint8x16_t& B, uint8x16_t K, u
    B = veorq_u8(vaesdq_u8(B, K), K2);
 }
 
-BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void dec4_last(
-   uint8x16_t& B0, uint8x16_t& B1, uint8x16_t& B2, uint8x16_t& B3, uint8x16_t K, uint8x16_t K2) {
+BOTAN_FORCE_INLINE BOTAN_FN_ISA_AES void dec4_last(uint8x16_t& B0,
+                                                   uint8x16_t& B1,
+                                                   uint8x16_t& B2,
+                                                   uint8x16_t& B3,
+                                                   uint8x16_t K,
+                                                   uint8x16_t K2) {
    B0 = veorq_u8(vaesdq_u8(B0, K), K2);
    B1 = veorq_u8(vaesdq_u8(B1, K), K2);
    B2 = veorq_u8(vaesdq_u8(B2, K), K2);

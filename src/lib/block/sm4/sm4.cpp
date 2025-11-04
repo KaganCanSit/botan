@@ -101,8 +101,12 @@ inline uint32_t SM4_Tp(uint32_t b) {
 }
 
 template <size_t R, typename F>
-BOTAN_FORCE_INLINE void SM4_E(
-   uint32_t& B0, uint32_t& B1, uint32_t& B2, uint32_t& B3, const secure_vector<uint32_t>& RK, F& f) {
+BOTAN_FORCE_INLINE void SM4_E(uint32_t& B0,
+                              uint32_t& B1,
+                              uint32_t& B2,
+                              uint32_t& B3,
+                              const secure_vector<uint32_t>& RK,
+                              F& f) {
    B0 ^= f(B1 ^ B2 ^ B3 ^ RK[4 * R + 0]);
    B1 ^= f(B2 ^ B3 ^ B0 ^ RK[4 * R + 1]);
    B2 ^= f(B3 ^ B0 ^ B1 ^ RK[4 * R + 2]);
@@ -131,8 +135,12 @@ BOTAN_FORCE_INLINE void SM4_E(uint32_t& B0,
 }
 
 template <size_t R, typename F>
-BOTAN_FORCE_INLINE void SM4_D(
-   uint32_t& B0, uint32_t& B1, uint32_t& B2, uint32_t& B3, const secure_vector<uint32_t>& RK, F& f) {
+BOTAN_FORCE_INLINE void SM4_D(uint32_t& B0,
+                              uint32_t& B1,
+                              uint32_t& B2,
+                              uint32_t& B3,
+                              const secure_vector<uint32_t>& RK,
+                              F& f) {
    B0 ^= f(B1 ^ B2 ^ B3 ^ RK[4 * R + 3]);
    B1 ^= f(B2 ^ B3 ^ B0 ^ RK[4 * R + 2]);
    B2 ^= f(B3 ^ B0 ^ B1 ^ RK[4 * R + 1]);

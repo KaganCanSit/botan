@@ -28,8 +28,12 @@ int botan_zfec_encode(size_t K, size_t N, const uint8_t* input, size_t size, uin
 #endif
 }
 
-int botan_zfec_decode(
-   size_t K, size_t N, const size_t* indexes, uint8_t* const* const inputs, size_t shareSize, uint8_t** outputs) {
+int botan_zfec_decode(size_t K,
+                      size_t N,
+                      const size_t* indexes,
+                      uint8_t* const* const inputs,
+                      size_t shareSize,
+                      uint8_t** outputs) {
 #if defined(BOTAN_HAS_ZFEC)
    return Botan_FFI::ffi_guard_thunk(__func__, [=]() -> int {
       std::map<size_t, const uint8_t*> shares;

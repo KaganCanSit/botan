@@ -60,8 +60,11 @@ inline Montgomery_Int monty_exp_vartime(const Montgomery_Params& params_p, const
 /**
 * Return (x^z1 * y^z2) % p
 */
-Montgomery_Int monty_multi_exp(
-   const Montgomery_Params& params_p, const BigInt& x, const BigInt& z1, const BigInt& y, const BigInt& z2);
+Montgomery_Int monty_multi_exp(const Montgomery_Params& params_p,
+                               const BigInt& x,
+                               const BigInt& z1,
+                               const BigInt& y,
+                               const BigInt& z2);
 
 }  // namespace Botan
 

@@ -14,8 +14,11 @@
 
 namespace Botan {
 
-int Sodium::crypto_secretbox_xsalsa20poly1305(
-   uint8_t ctext[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]) {
+int Sodium::crypto_secretbox_xsalsa20poly1305(uint8_t ctext[],
+                                              const uint8_t ptext[],
+                                              size_t ptext_len,
+                                              const uint8_t nonce[],
+                                              const uint8_t key[]) {
    if(ptext_len < 32) {
       return -1;
    }
@@ -38,8 +41,11 @@ int Sodium::crypto_secretbox_xsalsa20poly1305(
    return 0;
 }
 
-int Sodium::crypto_secretbox_xsalsa20poly1305_open(
-   uint8_t ptext[], const uint8_t ctext[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]) {
+int Sodium::crypto_secretbox_xsalsa20poly1305_open(uint8_t ptext[],
+                                                   const uint8_t ctext[],
+                                                   size_t ctext_len,
+                                                   const uint8_t nonce[],
+                                                   const uint8_t key[]) {
    if(ctext_len < crypto_box_curve25519xsalsa20poly1305_ZEROBYTES) {
       return -1;
    }

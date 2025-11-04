@@ -46,7 +46,8 @@ class Server_Credentials : public Botan::Credentials_Manager {
       }
 
       std::vector<Botan::Certificate_Store*> trusted_certificate_authorities(
-         [[maybe_unused]] const std::string& type, [[maybe_unused]] const std::string& context) override {
+         [[maybe_unused]] const std::string& type,
+         [[maybe_unused]] const std::string& context) override {
          // if client authentication is required, this function
          // shall return a list of certificates of CAs we trust
          // for tls client certificates, otherwise return an empty list

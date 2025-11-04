@@ -274,7 +274,8 @@ class Test_TLS_13_Callbacks : public Botan::TLS::Callbacks {
       }
 
       std::unique_ptr<PK_Key_Agreement_Key> tls_generate_ephemeral_key(
-         const std::variant<TLS::Group_Params, DL_Group>& group, RandomNumberGenerator& rng) override {
+         const std::variant<TLS::Group_Params, DL_Group>& group,
+         RandomNumberGenerator& rng) override {
          count_callback_invocation("tls_generate_ephemeral_key");
          return Callbacks::tls_generate_ephemeral_key(group, rng);
       }
@@ -653,8 +654,9 @@ class TLS_Context {
                   std::optional<std::pair<Session, Session_Ticket>> session_and_ticket,
                   std::optional<ExternalPSK> external_psk,
                   bool use_alternative_server_certificate) :
-            m_callbacks(std::make_shared<Test_TLS_13_Callbacks>(
-               std::move(modify_exts_cb), std::move(mock_signatures), timestamp)),
+            m_callbacks(std::make_shared<Test_TLS_13_Callbacks>(std::move(modify_exts_cb),
+                                                                std::move(mock_signatures),
+                                                                timestamp)),
             m_creds(std::make_shared<Test_Credentials>(use_alternative_server_certificate, std::move(external_psk))),
             m_rng(std::move(rng_in)),
             m_session_mgr(std::make_shared<RFC8448_Session_Manager>()),

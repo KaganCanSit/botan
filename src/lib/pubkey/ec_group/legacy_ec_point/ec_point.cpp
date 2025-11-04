@@ -67,8 +67,12 @@ inline void fe_mul(const EC_Group_Data& group, BigInt& z, const BigInt& x, const
    group.monty().mul(z, x, y, ws);
 }
 
-inline void fe_mul(
-   const EC_Group_Data& group, BigInt& z, const word x_w[], size_t x_size, const BigInt& y, secure_vector<word>& ws) {
+inline void fe_mul(const EC_Group_Data& group,
+                   BigInt& z,
+                   const word x_w[],
+                   size_t x_size,
+                   const BigInt& y,
+                   secure_vector<word>& ws) {
    group.monty().mul(z, y, std::span{x_w, x_size}, ws);
 }
 
@@ -183,8 +187,11 @@ void EC_Point::add_affine(const EC_Point& other, std::vector<BigInt>& workspace)
               workspace);
 }
 
-void EC_Point::add_affine(
-   const word x_words[], size_t x_size, const word y_words[], size_t y_size, std::vector<BigInt>& ws_bn) {
+void EC_Point::add_affine(const word x_words[],
+                          size_t x_size,
+                          const word y_words[],
+                          size_t y_size,
+                          std::vector<BigInt>& ws_bn) {
    if((CT::all_zeros(x_words, x_size) & CT::all_zeros(y_words, y_size)).as_bool()) {
       return;
    }

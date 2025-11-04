@@ -90,8 +90,11 @@ void PBKDF::pbkdf_iterations(uint8_t out[],
    BOTAN_ASSERT_EQUAL(iterations, iterations_run, "Expected PBKDF iterations");
 }
 
-secure_vector<uint8_t> PBKDF::pbkdf_iterations(
-   size_t out_len, std::string_view passphrase, const uint8_t salt[], size_t salt_len, size_t iterations) const {
+secure_vector<uint8_t> PBKDF::pbkdf_iterations(size_t out_len,
+                                               std::string_view passphrase,
+                                               const uint8_t salt[],
+                                               size_t salt_len,
+                                               size_t iterations) const {
    secure_vector<uint8_t> out(out_len);
    pbkdf_iterations(out.data(), out_len, passphrase, salt, salt_len, iterations);
    return out;

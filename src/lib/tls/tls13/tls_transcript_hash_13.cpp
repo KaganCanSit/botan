@@ -28,7 +28,8 @@ Transcript_Hash_State::Transcript_Hash_State(const Transcript_Hash_State& other)
       m_truncated(other.m_truncated) {}
 
 Transcript_Hash_State Transcript_Hash_State::recreate_after_hello_retry_request(
-   std::string_view algo_spec, const Transcript_Hash_State& prev_transcript_hash_state) {
+   std::string_view algo_spec,
+   const Transcript_Hash_State& prev_transcript_hash_state) {
    // make sure that we have seen exactly 'client_hello' and 'hello_retry_request'
    // before re-creating the transcript hash state
    BOTAN_STATE_CHECK(prev_transcript_hash_state.m_hash == nullptr);

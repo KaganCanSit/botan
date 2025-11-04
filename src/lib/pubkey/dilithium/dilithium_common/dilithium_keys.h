@@ -33,7 +33,8 @@ class Dilithium_Keypair_Codec /* NOLINT(*-special-member-functions) */ {
 class Dilithium_PublicKeyInternal {
    public:
       static std::shared_ptr<Dilithium_PublicKeyInternal> decode(
-         DilithiumConstants mode, StrongSpan<const DilithiumSerializedPublicKey> raw_pk) {
+         DilithiumConstants mode,
+         StrongSpan<const DilithiumSerializedPublicKey> raw_pk) {
          auto [rho, t1] = Dilithium_Algos::decode_public_key(raw_pk, mode);
          return std::make_shared<Dilithium_PublicKeyInternal>(std::move(mode), std::move(rho), std::move(t1));
       }

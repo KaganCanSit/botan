@@ -64,7 +64,8 @@ class Callbacks : public Botan::TLS::Callbacks {
 class Client_Credentials : public Botan::Credentials_Manager {
    public:
       std::vector<Botan::Certificate_Store*> trusted_certificate_authorities(
-         [[maybe_unused]] const std::string& type, [[maybe_unused]] const std::string& context) override {
+         [[maybe_unused]] const std::string& type,
+         [[maybe_unused]] const std::string& context) override {
          // return a list of certificates of CAs we trust for tls server certificates,
          // e.g., all the certificates in the local directory "cas"
          return {&m_cert_store};

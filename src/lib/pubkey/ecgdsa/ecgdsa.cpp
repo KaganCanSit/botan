@@ -127,7 +127,8 @@ std::unique_ptr<PK_Ops::Verification> ECGDSA_PublicKey::create_verification_op(s
 }
 
 std::unique_ptr<PK_Ops::Verification> ECGDSA_PublicKey::create_x509_verification_op(
-   const AlgorithmIdentifier& signature_algorithm, std::string_view provider) const {
+   const AlgorithmIdentifier& signature_algorithm,
+   std::string_view provider) const {
    if(provider == "base" || provider.empty()) {
       return std::make_unique<ECGDSA_Verification_Operation>(*this, signature_algorithm);
    }

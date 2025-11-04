@@ -83,8 +83,11 @@ int botan_ec_privkey_create(botan_privkey_t* key_obj,
    });
 }
 
-int botan_privkey_load(
-   botan_privkey_t* key, botan_rng_t rng_obj, const uint8_t bits[], size_t len, const char* password) {
+int botan_privkey_load(botan_privkey_t* key,
+                       botan_rng_t rng_obj,
+                       const uint8_t bits[],
+                       size_t len,
+                       const char* password) {
    BOTAN_UNUSED(rng_obj);
 
    *key = nullptr;

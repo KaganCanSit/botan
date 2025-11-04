@@ -93,8 +93,11 @@ bool BOTAN_TEST_API is_miller_rabin_probable_prime(const BigInt& n,
 * @param qbits how long q will be in bits
 * @return random seed used to generate this parameter set
 */
-std::vector<uint8_t> generate_dsa_primes(
-   RandomNumberGenerator& rng, BigInt& p_out, BigInt& q_out, size_t pbits, size_t qbits);
+std::vector<uint8_t> generate_dsa_primes(RandomNumberGenerator& rng,
+                                         BigInt& p_out,
+                                         BigInt& q_out,
+                                         size_t pbits,
+                                         size_t qbits);
 
 /**
 * Generate DSA parameters using the FIPS 186 kosherizer

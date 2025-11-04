@@ -405,7 +405,8 @@ std::optional<X509_Certificate> Certificate_Store_MacOS::find_cert_by_raw_subjec
 }
 
 std::optional<X509_Certificate> Certificate_Store_MacOS::find_cert_by_issuer_dn_and_serial_number(
-   const X509_DN& issuer_dn, std::span<const uint8_t> serial_number) const {
+   const X509_DN& issuer_dn,
+   std::span<const uint8_t> serial_number) const {
    Certificate_Store_MacOS_Impl::Query query;
    /*
    Directly using kSecAttrSerialNumber can't find the certificate

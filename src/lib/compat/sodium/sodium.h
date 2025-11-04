@@ -268,12 +268,18 @@ inline size_t crypto_secretbox_xsalsa20poly1305_messagebytes_max() {
 }
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_secretbox_xsalsa20poly1305(
-   uint8_t ctext[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]);
+int crypto_secretbox_xsalsa20poly1305(uint8_t ctext[],
+                                      const uint8_t ptext[],
+                                      size_t ptext_len,
+                                      const uint8_t nonce[],
+                                      const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_secretbox_xsalsa20poly1305_open(
-   uint8_t ptext[], const uint8_t ctext[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]);
+int crypto_secretbox_xsalsa20poly1305_open(uint8_t ptext[],
+                                           const uint8_t ctext[],
+                                           size_t ctext_len,
+                                           const uint8_t nonce[],
+                                           const uint8_t key[]);
 
 inline void crypto_secretbox_xsalsa20poly1305_keygen(uint8_t k[32]) {
    return randombytes_buf(k, 32);
@@ -310,8 +316,12 @@ inline const char* crypto_secretbox_primitive() {
 }
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_secretbox_detached(
-   uint8_t ctext[], uint8_t mac[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]);
+int crypto_secretbox_detached(uint8_t ctext[],
+                              uint8_t mac[],
+                              const uint8_t ptext[],
+                              size_t ptext_len,
+                              const uint8_t nonce[],
+                              const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
 int crypto_secretbox_open_detached(uint8_t ptext[],
@@ -321,13 +331,19 @@ int crypto_secretbox_open_detached(uint8_t ptext[],
                                    const uint8_t nonce[],
                                    const uint8_t key[]);
 
-inline int crypto_secretbox_easy(
-   uint8_t ctext[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]) {
+inline int crypto_secretbox_easy(uint8_t ctext[],
+                                 const uint8_t ptext[],
+                                 size_t ptext_len,
+                                 const uint8_t nonce[],
+                                 const uint8_t key[]) {
    return crypto_secretbox_detached(ctext + crypto_secretbox_MACBYTES, ctext, ptext, ptext_len, nonce, key);
 }
 
-inline int crypto_secretbox_open_easy(
-   uint8_t out[], const uint8_t ctext[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]) {
+inline int crypto_secretbox_open_easy(uint8_t out[],
+                                      const uint8_t ctext[],
+                                      size_t ctext_len,
+                                      const uint8_t nonce[],
+                                      const uint8_t key[]) {
    if(ctext_len < crypto_secretbox_MACBYTES) {
       return -1;
    }
@@ -352,13 +368,19 @@ inline size_t crypto_secretbox_boxzerobytes() {
    return crypto_secretbox_BOXZEROBYTES;
 }
 
-inline int crypto_secretbox(
-   uint8_t ctext[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]) {
+inline int crypto_secretbox(uint8_t ctext[],
+                            const uint8_t ptext[],
+                            size_t ptext_len,
+                            const uint8_t nonce[],
+                            const uint8_t key[]) {
    return crypto_secretbox_xsalsa20poly1305(ctext, ptext, ptext_len, nonce, key);
 }
 
-inline int crypto_secretbox_open(
-   uint8_t ptext[], const uint8_t ctext[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]) {
+inline int crypto_secretbox_open(uint8_t ptext[],
+                                 const uint8_t ctext[],
+                                 size_t ctext_len,
+                                 const uint8_t nonce[],
+                                 const uint8_t key[]) {
    return crypto_secretbox_xsalsa20poly1305_open(ptext, ctext, ctext_len, nonce, key);
 }
 
@@ -636,13 +658,19 @@ int crypto_box_curve25519xsalsa20poly1305_open(uint8_t ptext[],
                                                const uint8_t pk[32],
                                                const uint8_t sk[32]);
 
-inline int crypto_box_curve25519xsalsa20poly1305_afternm(
-   uint8_t ctext[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]) {
+inline int crypto_box_curve25519xsalsa20poly1305_afternm(uint8_t ctext[],
+                                                         const uint8_t ptext[],
+                                                         size_t ptext_len,
+                                                         const uint8_t nonce[],
+                                                         const uint8_t key[]) {
    return crypto_secretbox_xsalsa20poly1305(ctext, ptext, ptext_len, nonce, key);
 }
 
-inline int crypto_box_curve25519xsalsa20poly1305_open_afternm(
-   uint8_t ptext[], const uint8_t ctext[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]) {
+inline int crypto_box_curve25519xsalsa20poly1305_open_afternm(uint8_t ptext[],
+                                                              const uint8_t ctext[],
+                                                              size_t ctext_len,
+                                                              const uint8_t nonce[],
+                                                              const uint8_t key[]) {
    return crypto_secretbox_xsalsa20poly1305_open(ptext, ctext, ctext_len, nonce, key);
 }
 
@@ -738,13 +766,19 @@ inline int crypto_box_beforenm(uint8_t key[], const uint8_t pk[32], const uint8_
    return crypto_box_curve25519xsalsa20poly1305_beforenm(key, pk, sk);
 }
 
-inline int crypto_box_afternm(
-   uint8_t ctext[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]) {
+inline int crypto_box_afternm(uint8_t ctext[],
+                              const uint8_t ptext[],
+                              size_t ptext_len,
+                              const uint8_t nonce[],
+                              const uint8_t key[]) {
    return crypto_box_curve25519xsalsa20poly1305_afternm(ctext, ptext, ptext_len, nonce, key);
 }
 
-inline int crypto_box_open_afternm(
-   uint8_t ptext[], const uint8_t ctext[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]) {
+inline int crypto_box_open_afternm(uint8_t ptext[],
+                                   const uint8_t ctext[],
+                                   size_t ctext_len,
+                                   const uint8_t nonce[],
+                                   const uint8_t key[]) {
    return crypto_box_curve25519xsalsa20poly1305_open_afternm(ptext, ctext, ctext_len, nonce, key);
 }
 
@@ -757,8 +791,11 @@ inline int crypto_box_open_detached_afternm(uint8_t ptext[],
    return crypto_secretbox_open_detached(ptext, ctext, mac, ctext_len, nonce, key);
 }
 
-inline int crypto_box_open_easy_afternm(
-   uint8_t ptext[], const uint8_t ctext[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]) {
+inline int crypto_box_open_easy_afternm(uint8_t ptext[],
+                                        const uint8_t ctext[],
+                                        size_t ctext_len,
+                                        const uint8_t nonce[],
+                                        const uint8_t key[]) {
    if(ctext_len < crypto_box_MACBYTES) {
       return -1;
    }
@@ -780,8 +817,11 @@ inline int crypto_box_detached_afternm(uint8_t ctext[],
    return crypto_secretbox_detached(ctext, mac, ptext, ptext_len, nonce, key);
 }
 
-inline int crypto_box_easy_afternm(
-   uint8_t ctext[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]) {
+inline int crypto_box_easy_afternm(uint8_t ctext[],
+                                   const uint8_t ptext[],
+                                   size_t ptext_len,
+                                   const uint8_t nonce[],
+                                   const uint8_t key[]) {
    return crypto_box_detached_afternm(ctext + crypto_box_MACBYTES, ctext, ptext, ptext_len, nonce, key);
 }
 
@@ -933,12 +973,19 @@ BOTAN_PUBLIC_API(2, 11)
 int crypto_stream_xsalsa20(uint8_t out[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_stream_xsalsa20_xor(
-   uint8_t out[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]);
+int crypto_stream_xsalsa20_xor(uint8_t out[],
+                               const uint8_t ptext[],
+                               size_t ptext_len,
+                               const uint8_t nonce[],
+                               const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_stream_xsalsa20_xor_ic(
-   uint8_t out[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], uint64_t ic, const uint8_t key[]);
+int crypto_stream_xsalsa20_xor_ic(uint8_t out[],
+                                  const uint8_t ptext[],
+                                  size_t ptext_len,
+                                  const uint8_t nonce[],
+                                  uint64_t ic,
+                                  const uint8_t key[]);
 
 inline void crypto_stream_xsalsa20_keygen(uint8_t k[32]) {
    return randombytes_buf(k, 32);
@@ -1081,12 +1128,19 @@ BOTAN_PUBLIC_API(2, 11)
 int crypto_stream_chacha20(uint8_t out[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_stream_chacha20_xor(
-   uint8_t out[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]);
+int crypto_stream_chacha20_xor(uint8_t out[],
+                               const uint8_t ptext[],
+                               size_t ptext_len,
+                               const uint8_t nonce[],
+                               const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_stream_chacha20_xor_ic(
-   uint8_t out[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], uint64_t ic, const uint8_t key[]);
+int crypto_stream_chacha20_xor_ic(uint8_t out[],
+                                  const uint8_t ptext[],
+                                  size_t ptext_len,
+                                  const uint8_t nonce[],
+                                  uint64_t ic,
+                                  const uint8_t key[]);
 
 inline void crypto_stream_chacha20_keygen(uint8_t k[32]) {
    return randombytes_buf(k, 32);
@@ -1108,12 +1162,19 @@ BOTAN_PUBLIC_API(2, 11)
 int crypto_stream_chacha20_ietf(uint8_t out[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_stream_chacha20_ietf_xor(
-   uint8_t out[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]);
+int crypto_stream_chacha20_ietf_xor(uint8_t out[],
+                                    const uint8_t ptext[],
+                                    size_t ptext_len,
+                                    const uint8_t nonce[],
+                                    const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_stream_chacha20_ietf_xor_ic(
-   uint8_t out[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], uint32_t ic, const uint8_t key[]);
+int crypto_stream_chacha20_ietf_xor_ic(uint8_t out[],
+                                       const uint8_t ptext[],
+                                       size_t ptext_len,
+                                       const uint8_t nonce[],
+                                       uint32_t ic,
+                                       const uint8_t key[]);
 
 inline void crypto_stream_chacha20_ietf_keygen(uint8_t k[32]) {
    return randombytes_buf(k, 32);
@@ -1137,12 +1198,19 @@ BOTAN_PUBLIC_API(2, 11)
 int crypto_stream_xchacha20(uint8_t out[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_stream_xchacha20_xor(
-   uint8_t out[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]);
+int crypto_stream_xchacha20_xor(uint8_t out[],
+                                const uint8_t ptext[],
+                                size_t ptext_len,
+                                const uint8_t nonce[],
+                                const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_stream_xchacha20_xor_ic(
-   uint8_t out[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], uint64_t ic, const uint8_t key[]);
+int crypto_stream_xchacha20_xor_ic(uint8_t out[],
+                                   const uint8_t ptext[],
+                                   size_t ptext_len,
+                                   const uint8_t nonce[],
+                                   uint64_t ic,
+                                   const uint8_t key[]);
 
 inline void crypto_stream_xchacha20_keygen(uint8_t k[32]) {
    return randombytes_buf(k, crypto_stream_xchacha20_KEYBYTES);
@@ -1166,12 +1234,19 @@ BOTAN_PUBLIC_API(2, 11)
 int crypto_stream_salsa20(uint8_t out[], size_t ctext_len, const uint8_t nonce[], const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_stream_salsa20_xor(
-   uint8_t out[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], const uint8_t key[]);
+int crypto_stream_salsa20_xor(uint8_t out[],
+                              const uint8_t ptext[],
+                              size_t ptext_len,
+                              const uint8_t nonce[],
+                              const uint8_t key[]);
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_stream_salsa20_xor_ic(
-   uint8_t out[], const uint8_t ptext[], size_t ptext_len, const uint8_t nonce[], uint64_t ic, const uint8_t key[]);
+int crypto_stream_salsa20_xor_ic(uint8_t out[],
+                                 const uint8_t ptext[],
+                                 size_t ptext_len,
+                                 const uint8_t nonce[],
+                                 uint64_t ic,
+                                 const uint8_t key[]);
 
 inline void crypto_stream_salsa20_keygen(uint8_t k[32]) {
    return randombytes_buf(k, 32);
@@ -1199,8 +1274,11 @@ inline int crypto_stream(uint8_t out[], size_t out_len, const uint8_t nonce[24],
    return crypto_stream_xsalsa20(out, out_len, nonce, key);
 }
 
-inline int crypto_stream_xor(
-   uint8_t out[], const uint8_t in[], size_t in_len, const uint8_t nonce[24], const uint8_t key[32]) {
+inline int crypto_stream_xor(uint8_t out[],
+                             const uint8_t in[],
+                             size_t in_len,
+                             const uint8_t nonce[24],
+                             const uint8_t key[32]) {
    return crypto_stream_xsalsa20_xor(out, in, in_len, nonce, key);
 }
 
@@ -1266,8 +1344,11 @@ inline size_t crypto_sign_ed25519_messagebytes_max() {
 }
 
 BOTAN_PUBLIC_API(2, 11)
-int crypto_sign_ed25519_detached(
-   uint8_t sig[], unsigned long long* sig_len, const uint8_t msg[], size_t msg_len, const uint8_t sk[32]);
+int crypto_sign_ed25519_detached(uint8_t sig[],
+                                 unsigned long long* sig_len,
+                                 const uint8_t msg[],
+                                 size_t msg_len,
+                                 const uint8_t sk[32]);
 
 BOTAN_PUBLIC_API(2, 11)
 int crypto_sign_ed25519_verify_detached(const uint8_t sig[], const uint8_t msg[], size_t msg_len, const uint8_t pk[32]);
@@ -1312,8 +1393,11 @@ inline int crypto_sign_keypair(uint8_t pk[32], uint8_t sk[32]) {
    return crypto_sign_ed25519_keypair(pk, sk);
 }
 
-inline int crypto_sign_detached(
-   uint8_t sig[], unsigned long long* sig_len, const uint8_t msg[], size_t msg_len, const uint8_t sk[32]) {
+inline int crypto_sign_detached(uint8_t sig[],
+                                unsigned long long* sig_len,
+                                const uint8_t msg[],
+                                size_t msg_len,
+                                const uint8_t sk[32]) {
    return crypto_sign_ed25519_detached(sig, sig_len, msg, msg_len, sk);
 }
 

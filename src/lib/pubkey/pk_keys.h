@@ -286,7 +286,8 @@ class BOTAN_PUBLIC_API(2, 0) Public_Key : public virtual Asymmetric_Key {
       * @param provider the provider to use
       */
       virtual std::unique_ptr<PK_Ops::Verification> create_x509_verification_op(
-         const AlgorithmIdentifier& signature_algorithm, std::string_view provider) const;
+         const AlgorithmIdentifier& signature_algorithm,
+         std::string_view provider) const;
 };
 
 /**

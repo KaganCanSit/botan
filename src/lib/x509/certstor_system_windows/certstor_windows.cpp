@@ -232,7 +232,8 @@ std::optional<X509_Certificate> Certificate_Store_Windows::find_cert_by_raw_subj
 }
 
 std::optional<X509_Certificate> Certificate_Store_Windows::find_cert_by_issuer_dn_and_serial_number(
-   const X509_DN& issuer_dn, std::span<const uint8_t> serial_number) const {
+   const X509_DN& issuer_dn,
+   std::span<const uint8_t> serial_number) const {
    std::vector<uint8_t> dn_data = issuer_dn.BER_encode();
 
    _CRYPTOAPI_BLOB blob;

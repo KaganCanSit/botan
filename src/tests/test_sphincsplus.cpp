@@ -245,8 +245,10 @@ class SPHINCS_Plus_Keygen_Tests final : public PK_Key_Generation_Test {
 class Generic_SlhDsa_Signature_Tests final : public PK_Signature_Generation_Test {
    public:
       Generic_SlhDsa_Signature_Tests() :
-            PK_Signature_Generation_Test(
-               "SLH-DSA", "pubkey/slh_dsa_generic.vec", "Instance,Msg,PrivateKey,PublicKey,Valid,Signature", "Nonce") {}
+            PK_Signature_Generation_Test("SLH-DSA",
+                                         "pubkey/slh_dsa_generic.vec",
+                                         "Instance,Msg,PrivateKey,PublicKey,Valid,Signature",
+                                         "Nonce") {}
 
       bool clear_between_callbacks() const override {
          return false;
@@ -278,8 +280,10 @@ class Generic_SlhDsa_Signature_Tests final : public PK_Signature_Generation_Test
 class Generic_SlhDsa_Verification_Tests final : public PK_Signature_Verification_Test {
    public:
       Generic_SlhDsa_Verification_Tests() :
-            PK_Signature_Verification_Test(
-               "SLH-DSA", "pubkey/slh_dsa_generic.vec", "Instance,Msg,PrivateKey,PublicKey,Valid,Signature", "Nonce") {}
+            PK_Signature_Verification_Test("SLH-DSA",
+                                           "pubkey/slh_dsa_generic.vec",
+                                           "Instance,Msg,PrivateKey,PublicKey,Valid,Signature",
+                                           "Nonce") {}
 
       bool clear_between_callbacks() const override {
          return false;

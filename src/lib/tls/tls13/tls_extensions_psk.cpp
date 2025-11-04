@@ -236,7 +236,8 @@ bool PSK::empty() const {
 }
 
 std::pair<std::optional<std::string>, std::unique_ptr<Cipher_State>> PSK::take_selected_psk_info(
-   const PSK& server_psk, const Ciphersuite& cipher) {
+   const PSK& server_psk,
+   const Ciphersuite& cipher) {
    BOTAN_STATE_CHECK(std::holds_alternative<std::vector<Client_PSK>>(m_impl->psk));
    BOTAN_STATE_CHECK(std::holds_alternative<Server_PSK>(server_psk.m_impl->psk));
 

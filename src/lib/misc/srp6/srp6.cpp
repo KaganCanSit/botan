@@ -157,8 +157,11 @@ BigInt SRP6_Server_Session::step1(const BigInt& v,
    return this->step1(v, group, hash_id, b_bits, rng);
 }
 
-BigInt SRP6_Server_Session::step1(
-   const BigInt& v, const DL_Group& group, std::string_view hash_id, size_t b_bits, RandomNumberGenerator& rng) {
+BigInt SRP6_Server_Session::step1(const BigInt& v,
+                                  const DL_Group& group,
+                                  std::string_view hash_id,
+                                  size_t b_bits,
+                                  RandomNumberGenerator& rng) {
    BOTAN_ARG_CHECK(b_bits <= group.p_bits(), "Invalid b_bits");
 
    BOTAN_STATE_CHECK(!m_group);

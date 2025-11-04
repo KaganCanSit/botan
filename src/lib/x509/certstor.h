@@ -64,7 +64,8 @@ class BOTAN_PUBLIC_API(2, 0) Certificate_Store /* NOLINT(*-special-member-functi
       * @return a matching certificate or nullopt otherwise
       */
       virtual std::optional<X509_Certificate> find_cert_by_issuer_dn_and_serial_number(
-         const X509_DN& issuer_dn, std::span<const uint8_t> serial_number) const = 0;
+         const X509_DN& issuer_dn,
+         std::span<const uint8_t> serial_number) const = 0;
 
       /**
       * Finds a CRL for the given certificate
@@ -145,7 +146,8 @@ class BOTAN_PUBLIC_API(2, 0) Certificate_Store_In_Memory final : public Certific
          const std::vector<uint8_t>& subject_hash) const override;
 
       std::optional<X509_Certificate> find_cert_by_issuer_dn_and_serial_number(
-         const X509_DN& issuer_dn, std::span<const uint8_t> serial_number) const override;
+         const X509_DN& issuer_dn,
+         std::span<const uint8_t> serial_number) const override;
 
       /**
       * Finds a CRL for the given certificate

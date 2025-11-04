@@ -94,7 +94,9 @@ class PKCS11_ECDH_KA_Operation final : public PK_Ops::Key_Agreement {
 }  // namespace
 
 std::unique_ptr<PK_Ops::Key_Agreement> PKCS11_ECDH_PrivateKey::create_key_agreement_op(
-   RandomNumberGenerator& /*rng*/, std::string_view params, std::string_view /*provider*/) const {
+   RandomNumberGenerator& /*rng*/,
+   std::string_view params,
+   std::string_view /*provider*/) const {
    return std::make_unique<PKCS11_ECDH_KA_Operation>(*this, params);
 }
 

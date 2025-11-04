@@ -158,8 +158,11 @@ inline void des_encrypt(uint32_t& Lr, uint32_t& Rr, std::span<const uint32_t, 32
    Rr = R;
 }
 
-inline void des_encrypt_x2(
-   uint32_t& L0r, uint32_t& R0r, uint32_t& L1r, uint32_t& R1r, std::span<const uint32_t, 32> round_key) {
+inline void des_encrypt_x2(uint32_t& L0r,
+                           uint32_t& R0r,
+                           uint32_t& L1r,
+                           uint32_t& R1r,
+                           std::span<const uint32_t, 32> round_key) {
    uint32_t L0 = L0r;
    uint32_t R0 = R0r;
    uint32_t L1 = L1r;
@@ -193,8 +196,11 @@ inline void des_decrypt(uint32_t& Lr, uint32_t& Rr, std::span<const uint32_t, 32
    Rr = R;
 }
 
-inline void des_decrypt_x2(
-   uint32_t& L0r, uint32_t& R0r, uint32_t& L1r, uint32_t& R1r, std::span<const uint32_t, 32> round_key) {
+inline void des_decrypt_x2(uint32_t& L0r,
+                           uint32_t& R0r,
+                           uint32_t& L1r,
+                           uint32_t& R1r,
+                           std::span<const uint32_t, 32> round_key) {
    uint32_t L0 = L0r;
    uint32_t R0 = R0r;
    uint32_t L1 = L1r;

@@ -27,8 +27,11 @@ BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesenc(SIMD_8x32 K, SIMD_8x32& B)
    B = SIMD_8x32(_mm256_aesenc_epi128(B.raw(), K.raw()));
 }
 
-BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesenc(
-   SIMD_8x32 K, SIMD_8x32& B0, SIMD_8x32& B1, SIMD_8x32& B2, SIMD_8x32& B3) {
+BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesenc(SIMD_8x32 K,
+                                                      SIMD_8x32& B0,
+                                                      SIMD_8x32& B1,
+                                                      SIMD_8x32& B2,
+                                                      SIMD_8x32& B3) {
    B0 = SIMD_8x32(_mm256_aesenc_epi128(B0.raw(), K.raw()));
    B1 = SIMD_8x32(_mm256_aesenc_epi128(B1.raw(), K.raw()));
    B2 = SIMD_8x32(_mm256_aesenc_epi128(B2.raw(), K.raw()));
@@ -39,8 +42,11 @@ BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesenclast(SIMD_8x32 K, SIMD_8x32
    B = SIMD_8x32(_mm256_aesenclast_epi128(B.raw(), K.raw()));
 }
 
-BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesenclast(
-   SIMD_8x32 K, SIMD_8x32& B0, SIMD_8x32& B1, SIMD_8x32& B2, SIMD_8x32& B3) {
+BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesenclast(SIMD_8x32 K,
+                                                          SIMD_8x32& B0,
+                                                          SIMD_8x32& B1,
+                                                          SIMD_8x32& B2,
+                                                          SIMD_8x32& B3) {
    B0 = SIMD_8x32(_mm256_aesenclast_epi128(B0.raw(), K.raw()));
    B1 = SIMD_8x32(_mm256_aesenclast_epi128(B1.raw(), K.raw()));
    B2 = SIMD_8x32(_mm256_aesenclast_epi128(B2.raw(), K.raw()));
@@ -51,8 +57,11 @@ BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesdec(SIMD_8x32 K, SIMD_8x32& B)
    B = SIMD_8x32(_mm256_aesdec_epi128(B.raw(), K.raw()));
 }
 
-BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesdec(
-   SIMD_8x32 K, SIMD_8x32& B0, SIMD_8x32& B1, SIMD_8x32& B2, SIMD_8x32& B3) {
+BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesdec(SIMD_8x32 K,
+                                                      SIMD_8x32& B0,
+                                                      SIMD_8x32& B1,
+                                                      SIMD_8x32& B2,
+                                                      SIMD_8x32& B3) {
    B0 = SIMD_8x32(_mm256_aesdec_epi128(B0.raw(), K.raw()));
    B1 = SIMD_8x32(_mm256_aesdec_epi128(B1.raw(), K.raw()));
    B2 = SIMD_8x32(_mm256_aesdec_epi128(B2.raw(), K.raw()));
@@ -63,8 +72,11 @@ BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesdeclast(SIMD_8x32 K, SIMD_8x32
    B = SIMD_8x32(_mm256_aesdeclast_epi128(B.raw(), K.raw()));
 }
 
-BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesdeclast(
-   SIMD_8x32 K, SIMD_8x32& B0, SIMD_8x32& B1, SIMD_8x32& B2, SIMD_8x32& B3) {
+BOTAN_FORCE_INLINE BOTAN_FN_ISA_AVX2_VAES void aesdeclast(SIMD_8x32 K,
+                                                          SIMD_8x32& B0,
+                                                          SIMD_8x32& B1,
+                                                          SIMD_8x32& B2,
+                                                          SIMD_8x32& B3) {
    B0 = SIMD_8x32(_mm256_aesdeclast_epi128(B0.raw(), K.raw()));
    B1 = SIMD_8x32(_mm256_aesdeclast_epi128(B1.raw(), K.raw()));
    B2 = SIMD_8x32(_mm256_aesdeclast_epi128(B2.raw(), K.raw()));

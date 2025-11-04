@@ -33,7 +33,8 @@ class BOTAN_TEST_API Classic_McEliece_Field_Ordering {
        * @return The field ordering.
        */
       static std::optional<Classic_McEliece_Field_Ordering> create_field_ordering(
-         const Classic_McEliece_Parameters& params, StrongSpan<const CmceOrderingBits> random_bits);
+         const Classic_McEliece_Parameters& params,
+         StrongSpan<const CmceOrderingBits> random_bits);
 
       /**
        * @brief Create the field ordering from the control bits of a benes network.

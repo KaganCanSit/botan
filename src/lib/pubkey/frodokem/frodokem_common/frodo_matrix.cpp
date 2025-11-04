@@ -93,7 +93,8 @@ FrodoMatrix FrodoMatrix::sample(const FrodoKEMConstants& constants,
 }
 
 std::function<FrodoMatrix(const FrodoMatrix::Dimensions& dimensions)> FrodoMatrix::make_sample_generator(
-   const FrodoKEMConstants& constants, Botan::XOF& shake) {
+   const FrodoKEMConstants& constants,
+   Botan::XOF& shake) {
    return [&constants, &shake](const FrodoMatrix::Dimensions& dimensions) mutable {
       return sample(constants,
                     dimensions,

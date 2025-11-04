@@ -262,7 +262,8 @@ std::unique_ptr<PK_Ops::Verification> DSA_PublicKey::create_verification_op(std:
 }
 
 std::unique_ptr<PK_Ops::Verification> DSA_PublicKey::create_x509_verification_op(
-   const AlgorithmIdentifier& signature_algorithm, std::string_view provider) const {
+   const AlgorithmIdentifier& signature_algorithm,
+   std::string_view provider) const {
    if(provider == "base" || provider.empty()) {
       return std::make_unique<DSA_Verification_Operation>(this->m_public_key, signature_algorithm);
    }

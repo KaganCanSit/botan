@@ -45,8 +45,11 @@ class BOTAN_PUBLIC_API(2, 4) ASN1_Formatter /* NOLINT(*-special-member-functions
       /**
       * This is called for each element
       */
-      virtual std::string format(
-         ASN1_Type type_tag, ASN1_Class class_tag, size_t level, size_t length, std::string_view value) const = 0;
+      virtual std::string format(ASN1_Type type_tag,
+                                 ASN1_Class class_tag,
+                                 size_t level,
+                                 size_t length,
+                                 std::string_view value) const = 0;
 
       /**
       * This is called to format binary elements that we don't know how to
@@ -97,8 +100,11 @@ class BOTAN_PUBLIC_API(2, 4) ASN1_Pretty_Printer final : public ASN1_Formatter {
             m_value_column(value_column) {}
 
    private:
-      std::string format(
-         ASN1_Type type_tag, ASN1_Class class_tag, size_t level, size_t length, std::string_view value) const override;
+      std::string format(ASN1_Type type_tag,
+                         ASN1_Class class_tag,
+                         size_t level,
+                         size_t length,
+                         std::string_view value) const override;
 
       std::string format_bin(ASN1_Type type_tag, ASN1_Class class_tag, const std::vector<uint8_t>& vec) const override;
 

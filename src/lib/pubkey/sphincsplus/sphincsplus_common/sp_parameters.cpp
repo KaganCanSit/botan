@@ -345,7 +345,8 @@ bool Sphincs_Parameters::is_available() const {
 }
 
 Sphincs_Parameters Sphincs_Parameters::create(
-   Sphincs_Parameter_Set set, Sphincs_Hash_Type hash /*, SlhDsaInputMode input_mode [TODO: prehash mode]*/) {
+   Sphincs_Parameter_Set set,
+   Sphincs_Hash_Type hash /*, SlhDsaInputMode input_mode [TODO: prehash mode]*/) {
    // See FIPS 205, Table 2
    switch(set) {
       case Sphincs_Parameter_Set::Sphincs128Small:

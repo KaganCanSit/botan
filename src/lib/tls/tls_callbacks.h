@@ -293,7 +293,8 @@ class BOTAN_PUBLIC_API(2, 0) Callbacks /* NOLINT(*-special-member-functions) */ 
        *         MUST be exactly the same length as the incoming \p chain.
        */
       virtual std::vector<std::vector<uint8_t>> tls_provide_cert_chain_status(
-         const std::vector<X509_Certificate>& chain, const Certificate_Status_Request& csr);
+         const std::vector<X509_Certificate>& chain,
+         const Certificate_Status_Request& csr);
 
       /**
        * Optional callback with default impl: sign a message
@@ -353,7 +354,8 @@ class BOTAN_PUBLIC_API(2, 0) Callbacks /* NOLINT(*-special-member-functions) */ 
        * @return the deserialized and ready-to-use public key
        */
       virtual std::unique_ptr<Public_Key> tls_deserialize_peer_public_key(
-         const std::variant<TLS::Group_Params, DL_Group>& group, std::span<const uint8_t> key_bits);
+         const std::variant<TLS::Group_Params, DL_Group>& group,
+         std::span<const uint8_t> key_bits);
 
       /**
        * Generate an ephemeral KEM key for a TLS 1.3 handshake
@@ -464,7 +466,8 @@ class BOTAN_PUBLIC_API(2, 0) Callbacks /* NOLINT(*-special-member-functions) */ 
        * @return a private key of an algorithm usable for key agreement
        */
       virtual std::unique_ptr<PK_Key_Agreement_Key> tls_generate_ephemeral_key(
-         const std::variant<TLS::Group_Params, DL_Group>& group, RandomNumberGenerator& rng);
+         const std::variant<TLS::Group_Params, DL_Group>& group,
+         RandomNumberGenerator& rng);
 
       /**
        * Generate an ECDH key pair for the TLS 1.2 handshake.
@@ -494,7 +497,9 @@ class BOTAN_PUBLIC_API(2, 0) Callbacks /* NOLINT(*-special-member-functions) */ 
        * @return an ECDH private key of an algorithm usable for key agreement
        */
       virtual std::unique_ptr<PK_Key_Agreement_Key> tls12_generate_ephemeral_ecdh_key(
-         TLS::Group_Params group, RandomNumberGenerator& rng, EC_Point_Format tls12_ecc_pubkey_encoding_format);
+         TLS::Group_Params group,
+         RandomNumberGenerator& rng,
+         EC_Point_Format tls12_ecc_pubkey_encoding_format);
 
       /**
        * Agree on a shared secret with the peer's ephemeral public key for

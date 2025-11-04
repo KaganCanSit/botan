@@ -320,8 +320,11 @@ void hash_abort(ESYS_CRYPTO_CONTEXT_BLOB** context, void* userdata) {
  * @retval TSS2_RC_SUCCESS on success.
  * @retval USER_DEFINED user defined errors on failure.
  */
-TSS2_RC hmac_start(
-   ESYS_CRYPTO_CONTEXT_BLOB** context, TPM2_ALG_ID hash_alg, const uint8_t* key, size_t size, void* userdata) {
+TSS2_RC hmac_start(ESYS_CRYPTO_CONTEXT_BLOB** context,
+                   TPM2_ALG_ID hash_alg,
+                   const uint8_t* key,
+                   size_t size,
+                   void* userdata) {
    BOTAN_UNUSED(userdata);
    return thunk([&] {
       if(Botan::any_null_pointers(context, key)) {

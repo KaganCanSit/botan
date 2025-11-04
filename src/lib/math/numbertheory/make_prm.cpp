@@ -98,8 +98,12 @@ bool no_small_multiples(const BigInt& v, const Prime_Sieve& sieve) {
 /*
 * Generate a random prime
 */
-BigInt random_prime(
-   RandomNumberGenerator& rng, size_t bits, const BigInt& coprime, size_t equiv, size_t modulo, size_t prob) {
+BigInt random_prime(RandomNumberGenerator& rng,
+                    size_t bits,
+                    const BigInt& coprime,
+                    size_t equiv,
+                    size_t modulo,
+                    size_t prob) {
    if(bits <= 1) {
       throw Invalid_Argument("random_prime: Can't make a prime of " + std::to_string(bits) + " bits");
    }

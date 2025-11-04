@@ -24,8 +24,9 @@ namespace {
 class HMAC_DRBG_Tests final : public Text_Based_Test {
    public:
       HMAC_DRBG_Tests() :
-            Text_Based_Test(
-               "rng/hmac_drbg.vec", "EntropyInput,EntropyInputReseed,Out", "AdditionalInput1,AdditionalInput2") {}
+            Text_Based_Test("rng/hmac_drbg.vec",
+                            "EntropyInput,EntropyInputReseed,Out",
+                            "AdditionalInput1,AdditionalInput2") {}
 
       Test::Result run_one_test(const std::string& algo, const VarMap& vars) override {
          const std::vector<uint8_t> seed_input = vars.get_req_bin("EntropyInput");
@@ -69,8 +70,9 @@ BOTAN_REGISTER_SMOKE_TEST("rng", "hmac_drbg", HMAC_DRBG_Tests);
 class ChaCha_RNG_Tests final : public Text_Based_Test {
    public:
       ChaCha_RNG_Tests() :
-            Text_Based_Test(
-               "rng/chacha_rng.vec", "EntropyInput,EntropyInputReseed,Out", "AdditionalInput1,AdditionalInput2") {}
+            Text_Based_Test("rng/chacha_rng.vec",
+                            "EntropyInput,EntropyInputReseed,Out",
+                            "AdditionalInput1,AdditionalInput2") {}
 
       Test::Result run_one_test(const std::string& /*header*/, const VarMap& vars) override {
          const std::vector<uint8_t> seed_input = vars.get_req_bin("EntropyInput");

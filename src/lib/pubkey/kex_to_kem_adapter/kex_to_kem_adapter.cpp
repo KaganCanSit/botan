@@ -266,12 +266,15 @@ bool KEX_to_KEM_Adapter_PrivateKey::check_key(RandomNumberGenerator& rng, bool s
 }
 
 std::unique_ptr<PK_Ops::KEM_Encryption> KEX_to_KEM_Adapter_PublicKey::create_kem_encryption_op(
-   std::string_view kdf, std::string_view provider) const {
+   std::string_view kdf,
+   std::string_view provider) const {
    return std::make_unique<KEX_to_KEM_Adapter_Encryption_Operation>(*m_public_key, kdf, provider);
 }
 
 std::unique_ptr<PK_Ops::KEM_Decryption> KEX_to_KEM_Adapter_PrivateKey::create_kem_decryption_op(
-   RandomNumberGenerator& rng, std::string_view kdf, std::string_view provider) const {
+   RandomNumberGenerator& rng,
+   std::string_view kdf,
+   std::string_view provider) const {
    return std::make_unique<KEX_to_KEM_Decryption_Operation>(*m_private_key, rng, kdf, provider);
 }
 

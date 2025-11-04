@@ -52,8 +52,11 @@ class BOTAN_PUBLIC_API(2, 0) ECDSA_PublicKey : public virtual EC_PublicKey {
       * @param s the s parameter of the signature
       * @param v the recovery ID
       */
-      ECDSA_PublicKey(
-         const EC_Group& group, const std::vector<uint8_t>& msg, const BigInt& r, const BigInt& s, uint8_t v);
+      ECDSA_PublicKey(const EC_Group& group,
+                      const std::vector<uint8_t>& msg,
+                      const BigInt& r,
+                      const BigInt& s,
+                      uint8_t v);
 
       /**
       * Get this keys algorithm name.

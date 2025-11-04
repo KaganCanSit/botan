@@ -46,7 +46,10 @@ Signature_Operation::Signature_Operation(const Object& object,
                                          const SessionBundle& sessions,
                                          const SignatureAlgorithmSelection& algorithms) :
       Botan::TPM2::Signature_Operation_Base<PK_Ops::Signature>(
-         object, sessions, algorithms, create_hash_function(object, sessions, algorithms.hash_name)) {}
+         object,
+         sessions,
+         algorithms,
+         create_hash_function(object, sessions, algorithms.hash_name)) {}
 
 std::vector<uint8_t> Signature_Operation::sign(Botan::RandomNumberGenerator& rng) {
    BOTAN_UNUSED(rng);
@@ -97,8 +100,10 @@ std::vector<uint8_t> Signature_Operation::sign(Botan::RandomNumberGenerator& rng
 Verification_Operation::Verification_Operation(const Object& object,
                                                const SessionBundle& sessions,
                                                const SignatureAlgorithmSelection& algorithms) :
-      Signature_Operation_Base<PK_Ops::Verification>(
-         object, sessions, algorithms, Botan::HashFunction::create_or_throw(algorithms.hash_name)) {}
+      Signature_Operation_Base<PK_Ops::Verification>(object,
+                                                     sessions,
+                                                     algorithms,
+                                                     Botan::HashFunction::create_or_throw(algorithms.hash_name)) {}
 
 bool Verification_Operation::is_valid_signature(std::span<const uint8_t> sig_data) {
    TPM2B_DIGEST digest;

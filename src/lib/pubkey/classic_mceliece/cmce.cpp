@@ -75,7 +75,8 @@ std::unique_ptr<Private_Key> Classic_McEliece_PublicKey::generate_another(Random
 }
 
 std::unique_ptr<PK_Ops::KEM_Encryption> Classic_McEliece_PublicKey::create_kem_encryption_op(
-   std::string_view params, std::string_view provider) const {
+   std::string_view params,
+   std::string_view provider) const {
    if(provider.empty() || provider == "base") {
       return std::make_unique<Classic_McEliece_Encryptor>(this->m_public, params);
    }
@@ -128,7 +129,9 @@ bool Classic_McEliece_PrivateKey::check_key(RandomNumberGenerator& /*rng*/, bool
 }
 
 std::unique_ptr<PK_Ops::KEM_Decryption> Classic_McEliece_PrivateKey::create_kem_decryption_op(
-   RandomNumberGenerator& rng, std::string_view params, std::string_view provider) const {
+   RandomNumberGenerator& rng,
+   std::string_view params,
+   std::string_view provider) const {
    BOTAN_UNUSED(rng);
    if(provider.empty() || provider == "base") {
       return std::make_unique<Classic_McEliece_Decryptor>(this->m_private, params);

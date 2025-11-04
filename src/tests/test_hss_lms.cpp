@@ -95,8 +95,9 @@ class HSS_LMS_Signature_Verify_Tests final : public PK_Signature_Verification_Te
 class HSS_LMS_Signature_Verify_Invalid_Tests final : public PK_Signature_NonVerification_Test {
    public:
       HSS_LMS_Signature_Verify_Invalid_Tests() :
-            PK_Signature_NonVerification_Test(
-               "HSS_LMS", "pubkey/hss_lms_invalid.vec", "Msg,PublicKey,InvalidSignature") {}
+            PK_Signature_NonVerification_Test("HSS_LMS",
+                                              "pubkey/hss_lms_invalid.vec",
+                                              "Msg,PublicKey,InvalidSignature") {}
 
       std::string default_padding(const VarMap& /*vars*/) const override {
          return "";

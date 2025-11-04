@@ -154,8 +154,12 @@ int botan_scrypt(uint8_t out[],
    return botan_pwdhash("Scrypt", N, r, p, out, out_len, password, 0, salt, salt_len);
 }
 
-int botan_bcrypt_generate(
-   uint8_t* out, size_t* out_len, const char* pass, botan_rng_t rng_obj, size_t wf, uint32_t flags) {
+int botan_bcrypt_generate(uint8_t* out,
+                          size_t* out_len,
+                          const char* pass,
+                          botan_rng_t rng_obj,
+                          size_t wf,
+                          uint32_t flags) {
 #if defined(BOTAN_HAS_BCRYPT)
    return ffi_guard_thunk(__func__, [=]() -> int {
       if(out == nullptr || out_len == nullptr || pass == nullptr) {

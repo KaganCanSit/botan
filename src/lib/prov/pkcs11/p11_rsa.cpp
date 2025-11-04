@@ -418,7 +418,8 @@ std::unique_ptr<PK_Ops::Encryption> PKCS11_RSA_PublicKey::create_encryption_op(R
 }
 
 std::unique_ptr<PK_Ops::Verification> PKCS11_RSA_PublicKey::create_verification_op(
-   std::string_view params, std::string_view /*provider*/) const {
+   std::string_view params,
+   std::string_view /*provider*/) const {
    return std::make_unique<PKCS11_RSA_Verification_Operation>(*this, params);
 }
 

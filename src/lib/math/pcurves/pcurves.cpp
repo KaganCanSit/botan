@@ -12,8 +12,12 @@
 namespace Botan::PCurve {
 
 //static
-std::shared_ptr<const PrimeOrderCurve> PrimeOrderCurve::from_params(
-   const BigInt& p, const BigInt& a, const BigInt& b, const BigInt& base_x, const BigInt& base_y, const BigInt& order) {
+std::shared_ptr<const PrimeOrderCurve> PrimeOrderCurve::from_params(const BigInt& p,
+                                                                    const BigInt& a,
+                                                                    const BigInt& b,
+                                                                    const BigInt& base_x,
+                                                                    const BigInt& base_y,
+                                                                    const BigInt& order) {
 #if defined(BOTAN_HAS_PCURVES_GENERIC)
    return PCurveInstance::from_params(p, a, b, base_x, base_y, order);
 #endif

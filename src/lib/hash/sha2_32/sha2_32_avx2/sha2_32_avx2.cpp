@@ -96,8 +96,8 @@ BOTAN_FN_ISA_AVX2_BMI2 BOTAN_FORCE_INLINE SIMD_T next_w(SIMD_T x[4]) {
 
 }  // namespace
 
-BOTAN_FN_ISA_AVX2_BMI2 BOTAN_SCRUB_STACK_AFTER_RETURN void SHA_256::compress_digest_x86_avx2(
-   digest_type& digest, std::span<const uint8_t> input, size_t blocks) {
+BOTAN_FN_ISA_AVX2_BMI2 BOTAN_SCRUB_STACK_AFTER_RETURN void
+SHA_256::compress_digest_x86_avx2(digest_type& digest, std::span<const uint8_t> input, size_t blocks) {
    // clang-format off
 
    alignas(64) const uint32_t K[64] = {

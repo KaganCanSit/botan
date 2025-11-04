@@ -261,8 +261,11 @@ void write_record(secure_vector<uint8_t>& output,
 
 namespace {
 
-size_t fill_buffer_to(
-   secure_vector<uint8_t>& readbuf, const uint8_t*& input, size_t& input_size, size_t& input_consumed, size_t desired) {
+size_t fill_buffer_to(secure_vector<uint8_t>& readbuf,
+                      const uint8_t*& input,
+                      size_t& input_size,
+                      size_t& input_consumed,
+                      size_t desired) {
    if(readbuf.size() >= desired) {
       return 0;  // already have it
    }

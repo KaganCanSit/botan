@@ -336,8 +336,12 @@ void Blowfish::key_expansion(const uint8_t key[], size_t length, const uint8_t s
 /*
 * Modified key schedule used for bcrypt password hashing
 */
-void Blowfish::salted_set_key(
-   const uint8_t key[], size_t length, const uint8_t salt[], size_t salt_length, size_t workfactor, bool salt_first) {
+void Blowfish::salted_set_key(const uint8_t key[],
+                              size_t length,
+                              const uint8_t salt[],
+                              size_t salt_length,
+                              size_t workfactor,
+                              bool salt_first) {
    BOTAN_ARG_CHECK(salt_length > 0 && salt_length % 4 == 0, "Invalid salt length for Blowfish salted key schedule");
 
    // Truncate longer passwords to the 72 char bcrypt limit

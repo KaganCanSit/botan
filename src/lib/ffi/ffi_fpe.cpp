@@ -24,8 +24,12 @@ BOTAN_FFI_DECLARE_STRUCT(botan_fpe_struct, Botan::FPE_FE1, 0xD49FB820);
 
 #endif
 
-int botan_fpe_fe1_init(
-   botan_fpe_t* fpe, botan_mp_t n, const uint8_t key[], size_t key_len, size_t rounds, uint32_t flags) {
+int botan_fpe_fe1_init(botan_fpe_t* fpe,
+                       botan_mp_t n,
+                       const uint8_t key[],
+                       size_t key_len,
+                       size_t rounds,
+                       uint32_t flags) {
 #if defined(BOTAN_HAS_FPE_FE1)
    return ffi_guard_thunk(__func__, [=]() {
       if(fpe == nullptr || key == nullptr) {

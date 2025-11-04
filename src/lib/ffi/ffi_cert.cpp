@@ -97,8 +97,11 @@ int botan_x509_cert_get_public_key(botan_x509_cert_t cert, botan_pubkey_t* key) 
 #endif
 }
 
-int botan_x509_cert_get_issuer_dn(
-   botan_x509_cert_t cert, const char* key, size_t index, uint8_t out[], size_t* out_len) {
+int botan_x509_cert_get_issuer_dn(botan_x509_cert_t cert,
+                                  const char* key,
+                                  size_t index,
+                                  uint8_t out[],
+                                  size_t* out_len) {
 #if defined(BOTAN_HAS_X509_CERTIFICATES)
    return BOTAN_FFI_VISIT(cert, [=](const auto& c) -> int {
       auto issuer_info = c.issuer_info(key);
@@ -115,8 +118,11 @@ int botan_x509_cert_get_issuer_dn(
 #endif
 }
 
-int botan_x509_cert_get_subject_dn(
-   botan_x509_cert_t cert, const char* key, size_t index, uint8_t out[], size_t* out_len) {
+int botan_x509_cert_get_subject_dn(botan_x509_cert_t cert,
+                                   const char* key,
+                                   size_t index,
+                                   uint8_t out[],
+                                   size_t* out_len) {
 #if defined(BOTAN_HAS_X509_CERTIFICATES)
    return BOTAN_FFI_VISIT(cert, [=](const auto& c) -> int {
       auto subject_info = c.subject_info(key);

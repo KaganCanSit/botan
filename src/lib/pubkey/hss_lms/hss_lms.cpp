@@ -96,7 +96,8 @@ std::unique_ptr<PK_Ops::Verification> HSS_LMS_PublicKey::create_verification_op(
 }
 
 std::unique_ptr<PK_Ops::Verification> HSS_LMS_PublicKey::create_x509_verification_op(
-   const AlgorithmIdentifier& signature_algorithm, std::string_view provider) const {
+   const AlgorithmIdentifier& signature_algorithm,
+   std::string_view provider) const {
    if(provider.empty() || provider == "base") {
       if(signature_algorithm != this->algorithm_identifier()) {
          throw Decoding_Error("Unexpected AlgorithmIdentifier for HSS-LMS signature");

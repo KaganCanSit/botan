@@ -375,8 +375,8 @@ class IntMod final {
       *
       * If `cond` is true, sets `x` to `nx`, `y` to `ny`, and `z` to `nz`
       */
-      static constexpr void conditional_assign(
-         Self& x, Self& y, Self& z, CT::Choice cond, const Self& nx, const Self& ny, const Self& nz) {
+      static constexpr void
+      conditional_assign(Self& x, Self& y, Self& z, CT::Choice cond, const Self& nx, const Self& ny, const Self& nz) {
          const W mask = CT::Mask<W>::from_choice(cond).value();
 
          for(size_t i = 0; i != N; ++i) {

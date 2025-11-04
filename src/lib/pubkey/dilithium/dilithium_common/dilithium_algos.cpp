@@ -490,7 +490,8 @@ DilithiumSerializedSignature encode_signature(StrongSpan<const DilithiumCommitme
  * NIST FIPS 204, Algorithm 27 (sigDecode)
  */
 std::optional<std::tuple<DilithiumCommitmentHash, DilithiumPolyVec, DilithiumPolyVec>> decode_signature(
-   StrongSpan<const DilithiumSerializedSignature> sig, const DilithiumConstants& mode) {
+   StrongSpan<const DilithiumSerializedSignature> sig,
+   const DilithiumConstants& mode) {
    BufferSlicer slicer(sig);
    BOTAN_ASSERT_NOMSG(slicer.remaining() == mode.signature_bytes());
 

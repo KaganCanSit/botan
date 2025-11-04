@@ -183,7 +183,8 @@ Certificate_Status_Code Response::verify_signature(const X509_Certificate& issue
 }
 
 std::optional<X509_Certificate> Response::find_signing_certificate(
-   const X509_Certificate& issuer_certificate, const Certificate_Store* trusted_ocsp_responders) const {
+   const X509_Certificate& issuer_certificate,
+   const Certificate_Store* trusted_ocsp_responders) const {
    using namespace std::placeholders;
 
    // Check whether the CA issuing the certificate in question also signed this

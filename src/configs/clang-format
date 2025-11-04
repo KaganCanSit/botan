@@ -40,7 +40,7 @@ AttributeMacros: ['BOTAN_FUNC_ISA',
 BinPackArguments: false
 BreakStringLiterals: false
 AllowAllArgumentsOnNextLine: false
-AllowAllParametersOfDeclarationOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 EmptyLineBeforeAccessModifier: Always
 

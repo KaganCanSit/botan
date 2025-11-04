@@ -38,7 +38,8 @@ DilithiumSerializedCommitment encode_commitment(const DilithiumPolyVec& w1, cons
 DilithiumPoly sample_in_ball(StrongSpan<const DilithiumCommitmentHash> seed, const DilithiumConstants& mode);
 
 std::optional<std::tuple<DilithiumCommitmentHash, DilithiumPolyVec, DilithiumPolyVec>> decode_signature(
-   StrongSpan<const DilithiumSerializedSignature> sig, const DilithiumConstants& mode);
+   StrongSpan<const DilithiumSerializedSignature> sig,
+   const DilithiumConstants& mode);
 
 DilithiumSerializedSignature encode_signature(StrongSpan<const DilithiumCommitmentHash> c,
                                               const DilithiumPolyVec& response,

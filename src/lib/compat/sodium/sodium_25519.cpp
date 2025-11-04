@@ -21,8 +21,11 @@ int Sodium::crypto_scalarmult_curve25519_base(uint8_t out[32], const uint8_t sca
    return 0;
 }
 
-int Sodium::crypto_sign_ed25519_detached(
-   uint8_t sig[], unsigned long long* sig_len, const uint8_t msg[], size_t msg_len, const uint8_t sk[32]) {
+int Sodium::crypto_sign_ed25519_detached(uint8_t sig[],
+                                         unsigned long long* sig_len,
+                                         const uint8_t msg[],
+                                         size_t msg_len,
+                                         const uint8_t sk[32]) {
    ed25519_sign(sig, msg, msg_len, sk, nullptr, 0);
 
    if(sig_len != nullptr) {

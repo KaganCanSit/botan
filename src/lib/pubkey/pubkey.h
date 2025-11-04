@@ -446,8 +446,11 @@ class BOTAN_PUBLIC_API(2, 0) PK_Key_Agreement final {
       * @param salt extra derivation salt
       * @param salt_len the length of salt in bytes
       */
-      SymmetricKey derive_key(
-         size_t key_len, const uint8_t peer_key[], size_t peer_key_len, const uint8_t salt[], size_t salt_len) const {
+      SymmetricKey derive_key(size_t key_len,
+                              const uint8_t peer_key[],
+                              size_t peer_key_len,
+                              const uint8_t salt[],
+                              size_t salt_len) const {
          return this->derive_key(key_len, {peer_key, peer_key_len}, {salt, salt_len});
       }
 

@@ -222,8 +222,11 @@ SymmetricKey ECIES_KA_Operation::derive_secret(std::span<const uint8_t> eph_publ
    return SymmetricKey(kdf->derive_key(m_params.secret_length(), derivation_input));
 }
 
-ECIES_KA_Params::ECIES_KA_Params(
-   const EC_Group& group, std::string_view kdf, size_t length, EC_Point_Format point_format, ECIES_Flags flags) :
+ECIES_KA_Params::ECIES_KA_Params(const EC_Group& group,
+                                 std::string_view kdf,
+                                 size_t length,
+                                 EC_Point_Format point_format,
+                                 ECIES_Flags flags) :
       m_group(group),
       m_kdf(kdf),
       m_length(length),
@@ -233,8 +236,11 @@ ECIES_KA_Params::ECIES_KA_Params(
       m_cofactor_mode((flags & ECIES_Flags::CofactorMode) == ECIES_Flags::CofactorMode),
       m_old_cofactor_mode((flags & ECIES_Flags::OldCofactorMode) == ECIES_Flags::OldCofactorMode) {}
 
-ECIES_KA_Params::ECIES_KA_Params(
-   const EC_Group& group, std::string_view kdf, size_t length, EC_Point_Format point_format, bool single_hash_mode) :
+ECIES_KA_Params::ECIES_KA_Params(const EC_Group& group,
+                                 std::string_view kdf,
+                                 size_t length,
+                                 EC_Point_Format point_format,
+                                 bool single_hash_mode) :
       m_group(group),
       m_kdf(kdf),
       m_length(length),

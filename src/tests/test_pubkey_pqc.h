@@ -177,8 +177,9 @@ class PK_PQC_KEM_ACVP_KAT_KeyGen_Test : public PK_Test {
       PK_PQC_KEM_ACVP_KAT_KeyGen_Test(const std::string& algo_name,
                                       const std::string& input_file,
                                       const std::string& further_optional_keys = "") :
-            PK_Test(
-               algo_name, input_file, further_optional_keys + (further_optional_keys.empty() ? "" : ",") + "EK,DK") {}
+            PK_Test(algo_name,
+                    input_file,
+                    further_optional_keys + (further_optional_keys.empty() ? "" : ",") + "EK,DK") {}
 
       /// Create an RNG that can be used to generate the keypair. Values should be read from the KAT vector's @p vars
       virtual Fixed_Output_RNG rng_for_keygen(const VarMap& vars) const = 0;

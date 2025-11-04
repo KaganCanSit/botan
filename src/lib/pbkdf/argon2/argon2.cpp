@@ -121,8 +121,11 @@ void extract_key(uint8_t output[], size_t output_len, const secure_vector<uint64
    }
 }
 
-void init_blocks(
-   secure_vector<uint64_t>& B, HashFunction& blake2b, const uint8_t H0[64], size_t memory, size_t threads) {
+void init_blocks(secure_vector<uint64_t>& B,
+                 HashFunction& blake2b,
+                 const uint8_t H0[64],
+                 size_t memory,
+                 size_t threads) {
    BOTAN_ASSERT_NOMSG(B.size() >= threads * 256);
 
    for(size_t i = 0; i != threads; ++i) {
@@ -236,8 +239,14 @@ void gen_2i_addresses(uint64_t T[128],
    }
 }
 
-uint32_t index_alpha(
-   uint64_t random, size_t lanes, size_t segments, size_t threads, size_t n, size_t slice, size_t lane, size_t index) {
+uint32_t index_alpha(uint64_t random,
+                     size_t lanes,
+                     size_t segments,
+                     size_t threads,
+                     size_t n,
+                     size_t slice,
+                     size_t lane,
+                     size_t index) {
    size_t ref_lane = static_cast<uint32_t>(random >> 32) % threads;
 
    if(n == 0 && slice == 0) {

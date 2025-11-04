@@ -39,7 +39,8 @@ Classic_McEliece_Polynomial Classic_McEliece_Decryptor::compute_goppa_syndrome(
 }
 
 Classic_McEliece_Polynomial Classic_McEliece_Decryptor::berlekamp_massey(
-   const Classic_McEliece_Parameters& params, const Classic_McEliece_Polynomial& syndrome) const {
+   const Classic_McEliece_Parameters& params,
+   const Classic_McEliece_Polynomial& syndrome) const {
    // Represents coefficients of corresponding polynomials
    std::vector<Classic_McEliece_GF> big_c(params.t() + 1, params.gf(CmceGfElem(0)));
    std::vector<Classic_McEliece_GF> big_b(params.t() + 1, params.gf(CmceGfElem(0)));

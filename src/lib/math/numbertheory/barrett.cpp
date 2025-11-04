@@ -51,8 +51,11 @@ namespace {
 * larger value cannot be reduced using Barrett reduction; callers should have
 * already checked for this.
 */
-BigInt barrett_reduce(
-   size_t mod_words, const BigInt& modulus, const BigInt& mu, std::span<const word> x_words, secure_vector<word>& ws) {
+BigInt barrett_reduce(size_t mod_words,
+                      const BigInt& modulus,
+                      const BigInt& mu,
+                      std::span<const word> x_words,
+                      secure_vector<word>& ws) {
    BOTAN_ASSERT_NOMSG(modulus.sig_words() == mod_words);
 
    // Caller must expand input to be at least this size

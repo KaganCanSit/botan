@@ -21,8 +21,11 @@ namespace Botan {
 
 namespace {
 
-EC_AffinePoint recover_ecdsa_public_key(
-   const EC_Group& group, const std::vector<uint8_t>& msg, const BigInt& r, const BigInt& s, uint8_t v) {
+EC_AffinePoint recover_ecdsa_public_key(const EC_Group& group,
+                                        const std::vector<uint8_t>& msg,
+                                        const BigInt& r,
+                                        const BigInt& s,
+                                        uint8_t v) {
    if(group.has_cofactor()) {
       throw Invalid_Argument("ECDSA public key recovery only supported for prime order groups");
    }
@@ -72,8 +75,11 @@ EC_AffinePoint recover_ecdsa_public_key(
 
 }  // namespace
 
-ECDSA_PublicKey::ECDSA_PublicKey(
-   const EC_Group& group, const std::vector<uint8_t>& msg, const BigInt& r, const BigInt& s, uint8_t v) :
+ECDSA_PublicKey::ECDSA_PublicKey(const EC_Group& group,
+                                 const std::vector<uint8_t>& msg,
+                                 const BigInt& r,
+                                 const BigInt& s,
+                                 uint8_t v) :
       EC_PublicKey(group, recover_ecdsa_public_key(group, msg, r, s, v)) {}
 
 std::unique_ptr<Private_Key> ECDSA_PublicKey::generate_another(RandomNumberGenerator& rng) const {
@@ -241,7 +247,8 @@ std::unique_ptr<PK_Ops::Verification> ECDSA_PublicKey::create_verification_op(st
 }
 
 std::unique_ptr<PK_Ops::Verification> ECDSA_PublicKey::create_x509_verification_op(
-   const AlgorithmIdentifier& signature_algorithm, std::string_view provider) const {
+   const AlgorithmIdentifier& signature_algorithm,
+   std::string_view provider) const {
    if(provider == "base" || provider.empty()) {
       return std::make_unique<ECDSA_Verification_Operation>(*this, signature_algorithm);
    }

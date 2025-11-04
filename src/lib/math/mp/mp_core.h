@@ -821,8 +821,13 @@ BOTAN_FUZZER_API void bigint_monty_redc_24(word r[24], const word z[48], const w
 BOTAN_FUZZER_API void bigint_monty_redc_32(word r[32], const word z[64], const word p[32], word p_dash, word ws[32]);
 
 BOTAN_FUZZER_API
-void bigint_monty_redc_generic(
-   word r[], const word z[], size_t z_size, const word p[], size_t p_size, word p_dash, word ws[]);
+void bigint_monty_redc_generic(word r[],
+                               const word z[],
+                               size_t z_size,
+                               const word p[],
+                               size_t p_size,
+                               word p_dash,
+                               word ws[]);
 
 /**
 * Montgomery Reduction
@@ -839,8 +844,8 @@ void bigint_monty_redc_generic(
 * will still hold the original inputs, these must be cleared after use.
 * See bigint_monty_redc_inplace
 */
-inline void bigint_monty_redc(
-   word r[], const word z[], const word p[], size_t p_size, word p_dash, word ws[], size_t ws_size) {
+inline void
+bigint_monty_redc(word r[], const word z[], const word p[], size_t p_size, word p_dash, word ws[], size_t ws_size) {
    const size_t z_size = 2 * p_size;
 
    BOTAN_ARG_CHECK(ws_size >= p_size, "Montgomery reduction workspace too small");

@@ -169,8 +169,11 @@ bool LowLevel::C_GetMechanismInfo(SlotId slot_id,
       return_value);
 }
 
-bool LowLevel::C_InitToken(
-   SlotId slot_id, Utf8Char* so_pin_ptr, Ulong so_pin_len, Utf8Char* label_ptr, ReturnValue* return_value) const {
+bool LowLevel::C_InitToken(SlotId slot_id,
+                           Utf8Char* so_pin_ptr,
+                           Ulong so_pin_len,
+                           Utf8Char* label_ptr,
+                           ReturnValue* return_value) const {
    return handle_return_value(m_func_list_ptr->C_InitToken(slot_id, so_pin_ptr, so_pin_len, label_ptr), return_value);
 }
 
@@ -235,8 +238,11 @@ bool LowLevel::C_SetOperationState(SessionHandle session,
                               return_value);
 }
 
-bool LowLevel::C_Login(
-   SessionHandle session, UserType user_type, Utf8Char* pin_ptr, Ulong pin_len, ReturnValue* return_value) const {
+bool LowLevel::C_Login(SessionHandle session,
+                       UserType user_type,
+                       Utf8Char* pin_ptr,
+                       Ulong pin_len,
+                       ReturnValue* return_value) const {
    return handle_return_value(m_func_list_ptr->C_Login(session, static_cast<CK_USER_TYPE>(user_type), pin_ptr, pin_len),
                               return_value);
 }

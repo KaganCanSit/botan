@@ -57,13 +57,20 @@ int Sodium::crypto_stream_salsa20(uint8_t out[], size_t out_len, const uint8_t n
    return 0;
 }
 
-int Sodium::crypto_stream_salsa20_xor(
-   uint8_t out[], const uint8_t in[], size_t in_len, const uint8_t nonce[], const uint8_t key[]) {
+int Sodium::crypto_stream_salsa20_xor(uint8_t out[],
+                                      const uint8_t in[],
+                                      size_t in_len,
+                                      const uint8_t nonce[],
+                                      const uint8_t key[]) {
    return crypto_stream_salsa20_xor_ic(out, in, in_len, nonce, 0, key);
 }
 
-int Sodium::crypto_stream_salsa20_xor_ic(
-   uint8_t out[], const uint8_t in[], size_t in_len, const uint8_t nonce[], uint64_t ic, const uint8_t key[]) {
+int Sodium::crypto_stream_salsa20_xor_ic(uint8_t out[],
+                                         const uint8_t in[],
+                                         size_t in_len,
+                                         const uint8_t nonce[],
+                                         uint64_t ic,
+                                         const uint8_t key[]) {
    if((ic >> 6) != 0) {  // otherwise multiply overflows
       return -1;
    }
@@ -84,13 +91,20 @@ int Sodium::crypto_stream_xsalsa20(uint8_t out[], size_t out_len, const uint8_t 
    return 0;
 }
 
-int Sodium::crypto_stream_xsalsa20_xor(
-   uint8_t out[], const uint8_t in[], size_t in_len, const uint8_t nonce[], const uint8_t key[]) {
+int Sodium::crypto_stream_xsalsa20_xor(uint8_t out[],
+                                       const uint8_t in[],
+                                       size_t in_len,
+                                       const uint8_t nonce[],
+                                       const uint8_t key[]) {
    return crypto_stream_xsalsa20_xor_ic(out, in, in_len, nonce, 0, key);
 }
 
-int Sodium::crypto_stream_xsalsa20_xor_ic(
-   uint8_t out[], const uint8_t in[], size_t in_len, const uint8_t nonce[], uint64_t ic, const uint8_t key[]) {
+int Sodium::crypto_stream_xsalsa20_xor_ic(uint8_t out[],
+                                          const uint8_t in[],
+                                          size_t in_len,
+                                          const uint8_t nonce[],
+                                          uint64_t ic,
+                                          const uint8_t key[]) {
    if((ic >> 6) != 0) {  // otherwise multiply overflows
       return -1;
    }

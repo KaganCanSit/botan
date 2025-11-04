@@ -1122,8 +1122,12 @@ BOTAN_FFI_EXPORT(2, 1) int botan_mp_clear_bit(botan_mp_t n, size_t bit);
 * TOD(Botan4) this should use char for the type of `out`
 */
 BOTAN_FFI_EXPORT(2, 0)
-int botan_bcrypt_generate(
-   uint8_t* out, size_t* out_len, const char* password, botan_rng_t rng, size_t work_factor, uint32_t flags);
+int botan_bcrypt_generate(uint8_t* out,
+                          size_t* out_len,
+                          const char* password,
+                          botan_rng_t rng,
+                          size_t work_factor,
+                          uint32_t flags);
 
 /**
 * Check a previously created password hash
@@ -1913,8 +1917,11 @@ BOTAN_FFI_EXPORT(2, 2)
 int botan_privkey_load_sm2_enc(botan_privkey_t* key, botan_mp_t scalar, const char* curve_name);
 
 BOTAN_FFI_EXPORT(2, 3)
-int botan_pubkey_sm2_compute_za(
-   uint8_t out[], size_t* out_len, const char* ident, const char* hash_algo, botan_pubkey_t key);
+int botan_pubkey_sm2_compute_za(uint8_t out[],
+                                size_t* out_len,
+                                const char* ident,
+                                const char* hash_algo,
+                                botan_pubkey_t key);
 
 /**
 * View the uncompressed public point associated with the key
@@ -1963,8 +1970,11 @@ BOTAN_FFI_EXPORT(2, 8)
 int botan_pk_op_decrypt_output_length(botan_pk_op_decrypt_t op, size_t ctext_len, size_t* ptext_len);
 
 BOTAN_FFI_EXPORT(2, 0)
-int botan_pk_op_decrypt(
-   botan_pk_op_decrypt_t op, uint8_t out[], size_t* out_len, const uint8_t ciphertext[], size_t ciphertext_len);
+int botan_pk_op_decrypt(botan_pk_op_decrypt_t op,
+                        uint8_t out[],
+                        size_t* out_len,
+                        const uint8_t ciphertext[],
+                        size_t ciphertext_len);
 
 /*
 * Signature Generation
@@ -2170,13 +2180,19 @@ BOTAN_FFI_EXPORT(2, 0) int botan_x509_cert_get_public_key(botan_x509_cert_t cert
 
 /* TODO(Botan4) this should use char for the out param */
 BOTAN_FFI_EXPORT(2, 0)
-int botan_x509_cert_get_issuer_dn(
-   botan_x509_cert_t cert, const char* key, size_t index, uint8_t out[], size_t* out_len);
+int botan_x509_cert_get_issuer_dn(botan_x509_cert_t cert,
+                                  const char* key,
+                                  size_t index,
+                                  uint8_t out[],
+                                  size_t* out_len);
 
 /* TODO(Botan4) this should use char for the out param */
 BOTAN_FFI_EXPORT(2, 0)
-int botan_x509_cert_get_subject_dn(
-   botan_x509_cert_t cert, const char* key, size_t index, uint8_t out[], size_t* out_len);
+int botan_x509_cert_get_subject_dn(botan_x509_cert_t cert,
+                                   const char* key,
+                                   size_t index,
+                                   uint8_t out[],
+                                   size_t* out_len);
 
 BOTAN_FFI_EXPORT(2, 0) int botan_x509_cert_to_string(botan_x509_cert_t cert, char out[], size_t* out_len);
 
@@ -2337,8 +2353,11 @@ int botan_hotp_generate(botan_hotp_t hotp, uint32_t* hotp_code, uint64_t hotp_co
 * Verify a HOTP code
 */
 BOTAN_FFI_EXPORT(2, 8)
-int botan_hotp_check(
-   botan_hotp_t hotp, uint64_t* next_hotp_counter, uint32_t hotp_code, uint64_t hotp_counter, size_t resync_range);
+int botan_hotp_check(botan_hotp_t hotp,
+                     uint64_t* next_hotp_counter,
+                     uint32_t hotp_code,
+                     uint64_t hotp_counter,
+                     size_t resync_range);
 
 /**
 * TOTP
@@ -2350,8 +2369,12 @@ typedef struct botan_totp_struct* botan_totp_t;
 * Initialize a TOTP instance
 */
 BOTAN_FFI_EXPORT(2, 8)
-int botan_totp_init(
-   botan_totp_t* totp, const uint8_t key[], size_t key_len, const char* hash_algo, size_t digits, size_t time_step);
+int botan_totp_init(botan_totp_t* totp,
+                    const uint8_t key[],
+                    size_t key_len,
+                    const char* hash_algo,
+                    size_t digits,
+                    size_t time_step);
 
 /**
 * Destroy a TOTP instance
@@ -2389,8 +2412,12 @@ typedef struct botan_fpe_struct* botan_fpe_t;
 #define BOTAN_FPE_FLAG_FE1_COMPAT_MODE 1
 
 BOTAN_FFI_EXPORT(2, 8)
-int botan_fpe_fe1_init(
-   botan_fpe_t* fpe, botan_mp_t n, const uint8_t key[], size_t key_len, size_t rounds, uint32_t flags);
+int botan_fpe_fe1_init(botan_fpe_t* fpe,
+                       botan_mp_t n,
+                       const uint8_t key[],
+                       size_t key_len,
+                       size_t rounds,
+                       uint32_t flags);
 
 /**
 * @return 0 if success, error if invalid object handle
@@ -2456,8 +2483,11 @@ int botan_srp6_server_session_step1(botan_srp6_server_session_t srp6,
 * @return 0 on success, negative on failure
 */
 BOTAN_FFI_EXPORT(3, 0)
-int botan_srp6_server_session_step2(
-   botan_srp6_server_session_t srp6, const uint8_t A[], size_t A_len, uint8_t key[], size_t* key_len);
+int botan_srp6_server_session_step2(botan_srp6_server_session_t srp6,
+                                    const uint8_t A[],
+                                    size_t A_len,
+                                    uint8_t key[],
+                                    size_t* key_len);
 
 /**
 * Generate a new SRP-6 verifier
@@ -2559,8 +2589,12 @@ int botan_zfec_encode(size_t K, size_t N, const uint8_t* input, size_t size, uin
  * @return 0 on success, negative on failure
  */
 BOTAN_FFI_EXPORT(3, 0)
-int botan_zfec_decode(
-   size_t K, size_t N, const size_t* indexes, uint8_t* const* inputs, size_t shareSize, uint8_t** outputs);
+int botan_zfec_decode(size_t K,
+                      size_t N,
+                      const size_t* indexes,
+                      uint8_t* const* inputs,
+                      size_t shareSize,
+                      uint8_t** outputs);
 
 /**
 * TPM2 context

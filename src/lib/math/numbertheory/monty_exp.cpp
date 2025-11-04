@@ -158,8 +158,11 @@ Montgomery_Int monty_execute_vartime(const Montgomery_Exponentiation_State& prec
    return precomputed_state.exponentiation_vartime(k);
 }
 
-Montgomery_Int monty_multi_exp(
-   const Montgomery_Params& params_p, const BigInt& x_bn, const BigInt& z1, const BigInt& y_bn, const BigInt& z2) {
+Montgomery_Int monty_multi_exp(const Montgomery_Params& params_p,
+                               const BigInt& x_bn,
+                               const BigInt& z1,
+                               const BigInt& y_bn,
+                               const BigInt& z2) {
    if(z1.is_negative() || z2.is_negative()) {
       throw Invalid_Argument("multi_exponentiate exponents must be positive");
    }

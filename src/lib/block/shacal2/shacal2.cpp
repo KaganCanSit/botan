@@ -19,8 +19,15 @@ namespace Botan {
 
 namespace {
 
-inline void SHACAL2_Fwd(
-   uint32_t A, uint32_t B, uint32_t C, uint32_t& D, uint32_t E, uint32_t F, uint32_t G, uint32_t& H, uint32_t RK) {
+inline void SHACAL2_Fwd(uint32_t A,
+                        uint32_t B,
+                        uint32_t C,
+                        uint32_t& D,
+                        uint32_t E,
+                        uint32_t F,
+                        uint32_t G,
+                        uint32_t& H,
+                        uint32_t RK) {
    const uint32_t A_rho = rho<2, 13, 22>(A);
    const uint32_t E_rho = rho<6, 11, 25>(E);
 
@@ -29,8 +36,15 @@ inline void SHACAL2_Fwd(
    H += A_rho + majority(A, B, C);
 }
 
-inline void SHACAL2_Rev(
-   uint32_t A, uint32_t B, uint32_t C, uint32_t& D, uint32_t E, uint32_t F, uint32_t G, uint32_t& H, uint32_t RK) {
+inline void SHACAL2_Rev(uint32_t A,
+                        uint32_t B,
+                        uint32_t C,
+                        uint32_t& D,
+                        uint32_t E,
+                        uint32_t F,
+                        uint32_t G,
+                        uint32_t& H,
+                        uint32_t RK) {
    const uint32_t A_rho = rho<2, 13, 22>(A);
    const uint32_t E_rho = rho<6, 11, 25>(E);
 

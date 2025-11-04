@@ -129,7 +129,8 @@ std::optional<OCSP::Response> TLS::Callbacks::tls_parse_ocsp_response(const std:
 }
 
 std::vector<std::vector<uint8_t>> TLS::Callbacks::tls_provide_cert_chain_status(
-   const std::vector<X509_Certificate>& chain, const Certificate_Status_Request& csr) {
+   const std::vector<X509_Certificate>& chain,
+   const Certificate_Status_Request& csr) {
    std::vector<std::vector<uint8_t>> result(chain.size());
    if(!chain.empty()) {
       result[0] = tls_provide_cert_status(chain, csr);
@@ -178,7 +179,8 @@ DL_Group get_dl_group(const std::variant<TLS::Group_Params, DL_Group>& group) {
 }  // namespace
 
 std::unique_ptr<Public_Key> TLS::Callbacks::tls_deserialize_peer_public_key(
-   const std::variant<TLS::Group_Params, DL_Group>& group, std::span<const uint8_t> key_bits) {
+   const std::variant<TLS::Group_Params, DL_Group>& group,
+   std::span<const uint8_t> key_bits) {
    if(is_dh_group(group)) {
       // TLS 1.2 allows specifying arbitrary DL_Group parameters in-lieu of
       // a standardized DH group identifier.
@@ -320,7 +322,8 @@ secure_vector<uint8_t> TLS::Callbacks::tls_kem_decapsulate(TLS::Group_Params gro
 }
 
 std::unique_ptr<PK_Key_Agreement_Key> TLS::Callbacks::tls_generate_ephemeral_key(
-   const std::variant<TLS::Group_Params, DL_Group>& group, RandomNumberGenerator& rng) {
+   const std::variant<TLS::Group_Params, DL_Group>& group,
+   RandomNumberGenerator& rng) {
    if(is_dh_group(group)) {
       const DL_Group dl_group = get_dl_group(group);
       return std::make_unique<DH_PrivateKey>(rng, dl_group);
@@ -354,7 +357,9 @@ std::unique_ptr<PK_Key_Agreement_Key> TLS::Callbacks::tls_generate_ephemeral_key
 }
 
 std::unique_ptr<PK_Key_Agreement_Key> TLS::Callbacks::tls12_generate_ephemeral_ecdh_key(
-   TLS::Group_Params group, RandomNumberGenerator& rng, EC_Point_Format tls12_ecc_pubkey_encoding_format) {
+   TLS::Group_Params group,
+   RandomNumberGenerator& rng,
+   EC_Point_Format tls12_ecc_pubkey_encoding_format) {
    // Delegating to the "universal" callback to obtain an ECDH key pair
    auto key = tls_generate_ephemeral_key(group, rng);
 

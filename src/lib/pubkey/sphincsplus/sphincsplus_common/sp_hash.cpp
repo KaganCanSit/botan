@@ -76,7 +76,9 @@ T from_first_n_bits(const uint32_t nbits, std::span<const uint8_t> bytes) {
 }  // namespace
 
 std::tuple<SphincsHashedMessage, XmssTreeIndexInLayer, TreeNodeIndex> Sphincs_Hash_Functions::H_msg(
-   StrongSpan<const SphincsMessageRandomness> r, const SphincsTreeNode& root, const SphincsMessageInternal& message) {
+   StrongSpan<const SphincsMessageRandomness> r,
+   const SphincsTreeNode& root,
+   const SphincsMessageInternal& message) {
    const auto digest = H_msg_digest(r, root, message);
 
    // The following calculates the message digest and indices from the

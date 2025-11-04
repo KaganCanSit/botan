@@ -382,12 +382,15 @@ class Hybrid_Decryption_Operation : public Botan::PK_Ops::KEM_Decryption {
 }  // namespace
 
 std::unique_ptr<Botan::PK_Ops::KEM_Encryption> Hybrid_PublicKey::create_kem_encryption_op(
-   std::string_view params, std::string_view /*provider*/) const {
+   std::string_view params,
+   std::string_view /*provider*/) const {
    return std::make_unique<Hybrid_Encryption_Operation>(*this, params);
 }
 
 std::unique_ptr<Botan::PK_Ops::KEM_Decryption> Hybrid_PrivateKey::create_kem_decryption_op(
-   Botan::RandomNumberGenerator& rng, std::string_view params, std::string_view) const {
+   Botan::RandomNumberGenerator& rng,
+   std::string_view params,
+   std::string_view) const {
    return std::make_unique<Hybrid_Decryption_Operation>(*this, rng, params);
 }
 

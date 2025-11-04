@@ -96,8 +96,11 @@ int botan_srp6_server_session_step1(botan_srp6_server_session_t srp6,
 #endif
 }
 
-int botan_srp6_server_session_step2(
-   botan_srp6_server_session_t srp6, const uint8_t a[], size_t a_len, uint8_t key[], size_t* key_len) {
+int botan_srp6_server_session_step2(botan_srp6_server_session_t srp6,
+                                    const uint8_t a[],
+                                    size_t a_len,
+                                    uint8_t key[],
+                                    size_t* key_len) {
 #if defined(BOTAN_HAS_SRP6)
    return BOTAN_FFI_VISIT(srp6, [=](auto& s) -> int {
       if(!a) {

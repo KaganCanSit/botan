@@ -326,8 +326,11 @@ RSA_PrivateKey::RSA_PrivateKey(const AlgorithmIdentifier& /*unused*/, std::span<
    RSA_PrivateKey::init(std::move(d), std::move(p), std::move(q), std::move(d1), std::move(d2), std::move(c));
 }
 
-RSA_PrivateKey::RSA_PrivateKey(
-   const BigInt& prime1, const BigInt& prime2, const BigInt& exp, const BigInt& d_exp, const BigInt& mod) {
+RSA_PrivateKey::RSA_PrivateKey(const BigInt& prime1,
+                               const BigInt& prime2,
+                               const BigInt& exp,
+                               const BigInt& d_exp,
+                               const BigInt& mod) {
    BigInt p = prime1;
    BigInt q = prime2;
    BigInt n = mod;

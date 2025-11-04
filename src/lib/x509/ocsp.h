@@ -174,7 +174,8 @@ class BOTAN_PUBLIC_API(2, 0) Response final {
       * @return the certificate that signed this response or std::nullopt if not found
       */
       std::optional<X509_Certificate> find_signing_certificate(
-         const X509_Certificate& issuer_certificate, const Certificate_Store* trusted_ocsp_responders = nullptr) const;
+         const X509_Certificate& issuer_certificate,
+         const Certificate_Store* trusted_ocsp_responders = nullptr) const;
 
       /**
       * Check signature of the OCSP response.

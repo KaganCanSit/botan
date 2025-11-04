@@ -279,7 +279,8 @@ std::unique_ptr<PK_Ops::Verification> ECKCDSA_PublicKey::create_verification_op(
 }
 
 std::unique_ptr<PK_Ops::Verification> ECKCDSA_PublicKey::create_x509_verification_op(
-   const AlgorithmIdentifier& signature_algorithm, std::string_view provider) const {
+   const AlgorithmIdentifier& signature_algorithm,
+   std::string_view provider) const {
    if(provider == "base" || provider.empty()) {
       return std::make_unique<ECKCDSA_Verification_Operation>(*this, signature_algorithm);
    }

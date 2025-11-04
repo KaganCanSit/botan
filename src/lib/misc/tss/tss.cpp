@@ -115,8 +115,12 @@ std::string RTSS_Share::to_string() const {
    return hex_encode(m_contents.data(), m_contents.size());
 }
 
-std::vector<RTSS_Share> RTSS_Share::split(
-   uint8_t M, uint8_t N, const uint8_t S[], uint16_t S_len, const uint8_t identifier[16], RandomNumberGenerator& rng) {
+std::vector<RTSS_Share> RTSS_Share::split(uint8_t M,
+                                          uint8_t N,
+                                          const uint8_t S[],
+                                          uint16_t S_len,
+                                          const uint8_t identifier[16],
+                                          RandomNumberGenerator& rng) {
    return RTSS_Share::split(M, N, S, S_len, std::vector<uint8_t>(identifier, identifier + 16), "SHA-256", rng);
 }
 

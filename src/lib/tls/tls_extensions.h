@@ -823,7 +823,8 @@ class BOTAN_UNSTABLE_API PSK final : public Extension /* NOLINT(*-special-member
        *       report the identity of externally provided PSKs only.
        */
       std::pair<std::optional<std::string>, std::unique_ptr<Cipher_State>> take_selected_psk_info(
-         const PSK& server_psk, const Ciphersuite& cipher);
+         const PSK& server_psk,
+         const Ciphersuite& cipher);
 
       /**
        * Selects one of the offered PSKs that is compatible with \p cipher.

@@ -131,8 +131,11 @@ REGISTER_ML_DSA_KAT_TEST(8x7, Randomized);
 
 class DilithiumRoundtripTests final : public Test {
    public:
-      static Test::Result run_roundtrip(
-         const char* test_name, Botan::DilithiumMode mode, bool randomized, size_t strength, size_t psid) {
+      static Test::Result run_roundtrip(const char* test_name,
+                                        Botan::DilithiumMode mode,
+                                        bool randomized,
+                                        size_t strength,
+                                        size_t psid) {
          Test::Result result(test_name);
          if(!mode.is_available()) {
             result.note_missing(mode.to_string());

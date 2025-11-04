@@ -180,8 +180,12 @@ std::string base64_encode(const uint8_t input[], size_t input_length) {
    return base_encode_to_string(Base64(), input, input_length);
 }
 
-size_t base64_decode(
-   uint8_t out[], const char in[], size_t input_length, size_t& input_consumed, bool final_inputs, bool ignore_ws) {
+size_t base64_decode(uint8_t out[],
+                     const char in[],
+                     size_t input_length,
+                     size_t& input_consumed,
+                     bool final_inputs,
+                     bool ignore_ws) {
    return base_decode(Base64(), out, in, input_length, input_consumed, final_inputs, ignore_ws);
 }
 

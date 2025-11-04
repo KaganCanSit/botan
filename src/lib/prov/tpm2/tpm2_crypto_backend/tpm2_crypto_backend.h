@@ -51,7 +51,8 @@ struct CryptoCallbackState {
  * @throws Not_Implemented if the TPM2-TSS does not support crypto callbacks.
  */
 [[nodiscard]] BOTAN_PUBLIC_API(3, 7) std::unique_ptr<CryptoCallbackState> use_botan_crypto_backend(
-   ESYS_CONTEXT* context, const std::shared_ptr<Botan::RandomNumberGenerator>& rng);
+   ESYS_CONTEXT* context,
+   const std::shared_ptr<Botan::RandomNumberGenerator>& rng);
 
 /**
  * Checks if the TSS2 supports registering Botan's crypto backend at runtime.

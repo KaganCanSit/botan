@@ -233,7 +233,8 @@ class Hybrid_TLS_KEM_Decryptor final : public KEM_Decryption_with_Combiner {
 }  // namespace
 
 std::unique_ptr<Hybrid_KEM_PublicKey> Hybrid_KEM_PublicKey::load_for_group(
-   Group_Params group, std::span<const uint8_t> concatenated_public_keys) {
+   Group_Params group,
+   std::span<const uint8_t> concatenated_public_keys) {
    const auto public_key_lengths = public_key_lengths_for_group(group);
    auto alg_ids = algorithm_identifiers_for_group(group);
    BOTAN_ASSERT_NOMSG(public_key_lengths.size() == alg_ids.size());
@@ -299,7 +300,8 @@ std::unique_ptr<Private_Key> Hybrid_KEM_PublicKey::generate_another(RandomNumber
 }
 
 std::unique_ptr<Botan::PK_Ops::KEM_Encryption> Hybrid_KEM_PublicKey::create_kem_encryption_op(
-   std::string_view params, std::string_view provider) const {
+   std::string_view params,
+   std::string_view provider) const {
    if(params != "Raw" && !params.empty()) {
       throw Botan::Invalid_Argument("Hybrid KEM encryption does not support KDFs");
    }
@@ -318,7 +320,9 @@ std::unique_ptr<Hybrid_KEM_PrivateKey> Hybrid_KEM_PrivateKey::generate_from_grou
 }
 
 std::unique_ptr<Botan::PK_Ops::KEM_Decryption> Hybrid_KEM_PrivateKey::create_kem_decryption_op(
-   RandomNumberGenerator& rng, std::string_view params, std::string_view provider) const {
+   RandomNumberGenerator& rng,
+   std::string_view params,
+   std::string_view provider) const {
    if(params != "Raw" && !params.empty()) {
       throw Botan::Invalid_Argument("Hybrid KEM decryption does not support KDFs");
    }

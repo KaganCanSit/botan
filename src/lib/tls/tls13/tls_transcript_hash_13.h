@@ -41,7 +41,8 @@ class BOTAN_TEST_API Transcript_Hash_State {
        * the previously used object in client and server implementations.
        */
       static Transcript_Hash_State recreate_after_hello_retry_request(
-         std::string_view algo_spec, const Transcript_Hash_State& prev_transcript_hash_state);
+         std::string_view algo_spec,
+         const Transcript_Hash_State& prev_transcript_hash_state);
 
       Transcript_Hash_State& operator=(const Transcript_Hash_State&) = delete;
 

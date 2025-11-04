@@ -21,7 +21,8 @@ CmceCodeWord Classic_McEliece_Encryptor::encode(const Classic_McEliece_Parameter
 }
 
 std::optional<CmceErrorVector> Classic_McEliece_Encryptor::fixed_weight_vector_gen(
-   const Classic_McEliece_Parameters& params, RandomNumberGenerator& rng) const {
+   const Classic_McEliece_Parameters& params,
+   RandomNumberGenerator& rng) const {
    const auto rand = rng.random_vec((params.sigma1() / 8) * params.tau());
    CT::poison(rand);
    uint16_t mask_m = (uint32_t(1) << params.m()) - 1;  // Only take m least significant bits

@@ -22,8 +22,12 @@ BOTAN_FFI_DECLARE_STRUCT(botan_totp_struct, Botan::TOTP, 0x3D9D2CD1);
 
 #endif
 
-int botan_totp_init(
-   botan_totp_t* totp, const uint8_t key[], size_t key_len, const char* hash_algo, size_t digits, size_t time_step) {
+int botan_totp_init(botan_totp_t* totp,
+                    const uint8_t key[],
+                    size_t key_len,
+                    const char* hash_algo,
+                    size_t digits,
+                    size_t time_step) {
    if(totp == nullptr || key == nullptr || hash_algo == nullptr) {
       return BOTAN_FFI_ERROR_NULL_POINTER;
    }

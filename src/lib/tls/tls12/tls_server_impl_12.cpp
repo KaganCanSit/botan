@@ -227,7 +227,9 @@ uint16_t choose_ciphersuite(const Policy& policy,
 }
 
 std::map<std::string, std::vector<X509_Certificate>> get_server_certs(
-   std::string_view hostname, const std::vector<Signature_Scheme>& cert_sig_schemes, Credentials_Manager& creds) {
+   std::string_view hostname,
+   const std::vector<Signature_Scheme>& cert_sig_schemes,
+   Credentials_Manager& creds) {
    const char* cert_types[] = {"RSA", "ECDSA", "DSA", nullptr};
 
    std::map<std::string, std::vector<X509_Certificate>> cert_chains;

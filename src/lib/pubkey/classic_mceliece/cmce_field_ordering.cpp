@@ -255,7 +255,8 @@ CT::Choice ct_has_adjacent_duplicates(std::span<const uint32_t> vec) {
 }  // anonymous namespace
 
 std::optional<Classic_McEliece_Field_Ordering> Classic_McEliece_Field_Ordering::create_field_ordering(
-   const Classic_McEliece_Parameters& params, StrongSpan<const CmceOrderingBits> random_bits) {
+   const Classic_McEliece_Parameters& params,
+   StrongSpan<const CmceOrderingBits> random_bits) {
    BOTAN_ARG_CHECK(random_bits.size() == (params.sigma2() * params.q()) / 8, "Wrong random bits size");
 
    auto a = load_le<secure_vector<uint32_t>>(random_bits);  // contains a_0, a_1, ...
@@ -294,7 +295,8 @@ secure_bitvector Classic_McEliece_Field_Ordering::alphas_control_bits() const {
 // Based on the Python code "permutation(c)" from Bernstein
 // "Verified fast formulas for control bits for permutation networks"
 Classic_McEliece_Field_Ordering Classic_McEliece_Field_Ordering::create_from_control_bits(
-   const Classic_McEliece_Parameters& params, const secure_bitvector& control_bits) {
+   const Classic_McEliece_Parameters& params,
+   const secure_bitvector& control_bits) {
    BOTAN_ASSERT_NOMSG(control_bits.size() == (2 * params.m() - 1) << (params.m() - 1));
    const uint16_t n = uint16_t(1) << params.m();
    CmcePermutation pi(n);

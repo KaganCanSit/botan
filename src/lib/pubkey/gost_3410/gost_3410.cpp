@@ -251,7 +251,8 @@ std::unique_ptr<PK_Ops::Verification> GOST_3410_PublicKey::create_verification_o
 }
 
 std::unique_ptr<PK_Ops::Verification> GOST_3410_PublicKey::create_x509_verification_op(
-   const AlgorithmIdentifier& signature_algorithm, std::string_view provider) const {
+   const AlgorithmIdentifier& signature_algorithm,
+   std::string_view provider) const {
    if(provider == "base" || provider.empty()) {
       return std::make_unique<GOST_3410_Verification_Operation>(*this, signature_algorithm);
    }

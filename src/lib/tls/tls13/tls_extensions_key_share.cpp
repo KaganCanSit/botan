@@ -436,8 +436,12 @@ Key_Share::Key_Share(Group_Params selected_group,
                      const Policy& policy,
                      Callbacks& cb,
                      RandomNumberGenerator& rng) :
-      m_impl(std::make_unique<Key_Share_Impl>(Key_Share_ServerHello(
-         selected_group, std::get<Key_Share_ClientHello>(client_keyshare.m_impl->key_share), policy, cb, rng))) {}
+      m_impl(std::make_unique<Key_Share_Impl>(
+         Key_Share_ServerHello(selected_group,
+                               std::get<Key_Share_ClientHello>(client_keyshare.m_impl->key_share),
+                               policy,
+                               cb,
+                               rng))) {}
 
 Key_Share::~Key_Share() = default;
 

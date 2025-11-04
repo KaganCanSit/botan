@@ -238,8 +238,11 @@ XMSS_PrivateKey::XMSS_PrivateKey(XMSS_Parameters::xmss_algorithm_t xmss_algo_id,
                                  secure_vector<uint8_t> public_seed,
                                  WOTS_Derivation_Method wots_derivation_method) :
       XMSS_PublicKey(xmss_algo_id, std::move(root), std::move(public_seed)),
-      m_private(std::make_shared<XMSS_PrivateKey_Internal>(
-         m_xmss_params, m_wots_params, wots_derivation_method, std::move(wots_priv_seed), std::move(prf))) {
+      m_private(std::make_shared<XMSS_PrivateKey_Internal>(m_xmss_params,
+                                                           m_wots_params,
+                                                           wots_derivation_method,
+                                                           std::move(wots_priv_seed),
+                                                           std::move(prf))) {
    m_private->set_unused_leaf_index(idx_leaf);
    BOTAN_ARG_CHECK(m_private->prf_value().size() == m_xmss_params.element_size(),
                    "XMSS: unexpected byte length of PRF value");
@@ -355,8 +358,11 @@ void XMSS_PrivateKey::tree_hash_subtree(secure_vector<uint8_t>& result,
    return tree_hash_subtree(result, start_idx, target_node_height, adrs, m_private->hash());
 }
 
-void XMSS_PrivateKey::tree_hash_subtree(
-   secure_vector<uint8_t>& result, size_t start_idx, size_t target_node_height, XMSS_Address& adrs, XMSS_Hash& hash) {
+void XMSS_PrivateKey::tree_hash_subtree(secure_vector<uint8_t>& result,
+                                        size_t start_idx,
+                                        size_t target_node_height,
+                                        XMSS_Address& adrs,
+                                        XMSS_Hash& hash) {
    const secure_vector<uint8_t>& seed = this->public_seed();
 
    std::vector<secure_vector<uint8_t>> nodes(target_node_height + 1,

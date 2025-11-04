@@ -17,8 +17,14 @@ namespace Threefish_F {
 namespace {
 
 template <size_t R1, size_t R2, size_t R3, size_t R4>
-BOTAN_FORCE_INLINE void e_round(
-   uint64_t& X0, uint64_t& X1, uint64_t& X2, uint64_t& X3, uint64_t& X4, uint64_t& X5, uint64_t& X6, uint64_t& X7) {
+BOTAN_FORCE_INLINE void e_round(uint64_t& X0,
+                                uint64_t& X1,
+                                uint64_t& X2,
+                                uint64_t& X3,
+                                uint64_t& X4,
+                                uint64_t& X5,
+                                uint64_t& X6,
+                                uint64_t& X7) {
    X0 += X4;
    X1 += X5;
    X2 += X6;
@@ -34,8 +40,14 @@ BOTAN_FORCE_INLINE void e_round(
 }
 
 template <size_t R1, size_t R2, size_t R3, size_t R4>
-BOTAN_FORCE_INLINE void d_round(
-   uint64_t& X0, uint64_t& X1, uint64_t& X2, uint64_t& X3, uint64_t& X4, uint64_t& X5, uint64_t& X6, uint64_t& X7) {
+BOTAN_FORCE_INLINE void d_round(uint64_t& X0,
+                                uint64_t& X1,
+                                uint64_t& X2,
+                                uint64_t& X3,
+                                uint64_t& X4,
+                                uint64_t& X5,
+                                uint64_t& X6,
+                                uint64_t& X7) {
    X4 ^= X0;
    X5 ^= X1;
    X6 ^= X2;

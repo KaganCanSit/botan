@@ -54,7 +54,8 @@ class BOTAN_TEST_API Hybrid_KEM_PublicKey : public virtual Hybrid_PublicKey {
 
       // no KDF support
       std::unique_ptr<PK_Ops::KEM_Encryption> create_kem_encryption_op(
-         std::string_view params, std::string_view provider = "base") const override;
+         std::string_view params,
+         std::string_view provider = "base") const override;
 
    protected:
       Hybrid_KEM_PublicKey() = default;
@@ -88,7 +89,9 @@ class BOTAN_TEST_API Hybrid_KEM_PrivateKey final : public virtual Hybrid_KEM_Pub
 
       // no KDF support
       std::unique_ptr<PK_Ops::KEM_Decryption> create_kem_decryption_op(
-         RandomNumberGenerator& rng, std::string_view params, std::string_view provider = "base") const override;
+         RandomNumberGenerator& rng,
+         std::string_view params,
+         std::string_view provider = "base") const override;
 };
 
 }  // namespace Botan::TLS

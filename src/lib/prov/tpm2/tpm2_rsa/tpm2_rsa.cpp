@@ -27,8 +27,9 @@
 namespace Botan::TPM2 {
 
 RSA_PublicKey::RSA_PublicKey(Object handle, SessionBundle session_bundle, const TPM2B_PUBLIC* public_blob) :
-      Botan::TPM2::RSA_PublicKey(
-         std::move(handle), std::move(session_bundle), rsa_pubkey_components_from_tss2_public(public_blob)) {}
+      Botan::TPM2::RSA_PublicKey(std::move(handle),
+                                 std::move(session_bundle),
+                                 rsa_pubkey_components_from_tss2_public(public_blob)) {}
 
 RSA_PublicKey::RSA_PublicKey(Object handle, SessionBundle session_bundle, const std::pair<BigInt, BigInt>& pubkey) :
       Botan::TPM2::PublicKey(std::move(handle), std::move(session_bundle)),

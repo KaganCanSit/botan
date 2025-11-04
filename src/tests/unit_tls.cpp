@@ -241,8 +241,10 @@ std::shared_ptr<Credentials_Manager_Test> create_creds(Botan::RandomNumberGenera
 
 class TLS_Handshake_Test final {
    private:
-      using generate_ephemeral_ecdh_key_clbk = std::function<std::unique_ptr<Botan::PK_Key_Agreement_Key>(
-         Botan::TLS::Group_Params, Botan::RandomNumberGenerator&, Botan::EC_Point_Format)>;
+      using generate_ephemeral_ecdh_key_clbk =
+         std::function<std::unique_ptr<Botan::PK_Key_Agreement_Key>(Botan::TLS::Group_Params,
+                                                                    Botan::RandomNumberGenerator&,
+                                                                    Botan::EC_Point_Format)>;
       using ephemeral_key_agreement_clbk =
          std::function<Botan::secure_vector<uint8_t>(const std::variant<Botan::TLS::Group_Params, Botan::DL_Group>&,
                                                      const Botan::PK_Key_Agreement_Key&,

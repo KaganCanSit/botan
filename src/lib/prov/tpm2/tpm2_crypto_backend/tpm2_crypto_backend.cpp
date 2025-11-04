@@ -14,7 +14,8 @@
 namespace Botan::TPM2 {
 
 std::unique_ptr<CryptoCallbackState> use_botan_crypto_backend(
-   ESYS_CONTEXT* context, const std::shared_ptr<Botan::RandomNumberGenerator>& rng) {
+   ESYS_CONTEXT* context,
+   const std::shared_ptr<Botan::RandomNumberGenerator>& rng) {
    auto crypto_callback_state = std::make_unique<CryptoCallbackState>(CryptoCallbackState{.rng = rng});
    set_crypto_callbacks(context, crypto_callback_state.get());
    return crypto_callback_state;

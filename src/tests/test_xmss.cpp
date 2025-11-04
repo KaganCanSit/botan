@@ -73,8 +73,9 @@ class XMSS_Signature_Verify_Tests final : public PK_Signature_Verification_Test 
 class XMSS_Signature_Verify_Invalid_Tests final : public PK_Signature_NonVerification_Test {
    public:
       XMSS_Signature_Verify_Invalid_Tests() :
-            PK_Signature_NonVerification_Test(
-               "XMSS", "pubkey/xmss_invalid.vec", "Params,Msg,PublicKey,InvalidSignature") {}
+            PK_Signature_NonVerification_Test("XMSS",
+                                              "pubkey/xmss_invalid.vec",
+                                              "Params,Msg,PublicKey,InvalidSignature") {}
 
       std::string default_padding(const VarMap& vars) const override {
          return vars.get_req_str("Params");

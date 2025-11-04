@@ -67,7 +67,8 @@ std::optional<Classic_McEliece_KeyPair_Internal> try_generate_keypair(std::span<
 }  // namespace
 
 Classic_McEliece_PrivateKeyInternal Classic_McEliece_PrivateKeyInternal::from_bytes(
-   const Classic_McEliece_Parameters& params, std::span<const uint8_t> sk_bytes) {
+   const Classic_McEliece_Parameters& params,
+   std::span<const uint8_t> sk_bytes) {
    BOTAN_ASSERT(sk_bytes.size() == params.sk_size_bytes(), "Valid private key size");
    BufferSlicer sk_slicer(sk_bytes);
 

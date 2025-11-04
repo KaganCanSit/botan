@@ -133,8 +133,11 @@ void randomize_support(std::vector<gf2m>& L, RandomNumberGenerator& rng) {
    }
 }
 
-std::unique_ptr<binary_matrix> generate_R(
-   std::vector<gf2m>& L, polyn_gf2m* g, const GF2m_Field& sp_field, size_t code_length, size_t t) {
+std::unique_ptr<binary_matrix> generate_R(std::vector<gf2m>& L,
+                                          polyn_gf2m* g,
+                                          const GF2m_Field& sp_field,
+                                          size_t code_length,
+                                          size_t t) {
    //L- Support
    //t- Number of errors
    //n- Length of the Goppa code

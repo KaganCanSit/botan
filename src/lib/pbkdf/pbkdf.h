@@ -145,8 +145,11 @@ class BOTAN_PUBLIC_API(2, 0) PBKDF /* NOLINT(*-special-member-functions) */ {
       * @param iterations the number of iterations to use (use 10K or more)
       * @return the derived key
       */
-      secure_vector<uint8_t> pbkdf_iterations(
-         size_t out_len, std::string_view passphrase, const uint8_t salt[], size_t salt_len, size_t iterations) const;
+      secure_vector<uint8_t> pbkdf_iterations(size_t out_len,
+                                              std::string_view passphrase,
+                                              const uint8_t salt[],
+                                              size_t salt_len,
+                                              size_t iterations) const;
 
       /**
       * Derive a key from a passphrase, running until msec time has elapsed.
@@ -177,8 +180,11 @@ class BOTAN_PUBLIC_API(2, 0) PBKDF /* NOLINT(*-special-member-functions) */ {
       * @param salt_len length of salt in bytes
       * @param iterations the number of iterations to use (use 10K or more)
       */
-      OctetString derive_key(
-         size_t out_len, std::string_view passphrase, const uint8_t salt[], size_t salt_len, size_t iterations) const {
+      OctetString derive_key(size_t out_len,
+                             std::string_view passphrase,
+                             const uint8_t salt[],
+                             size_t salt_len,
+                             size_t iterations) const {
          return OctetString(pbkdf_iterations(out_len, passphrase, salt, salt_len, iterations));
       }
 

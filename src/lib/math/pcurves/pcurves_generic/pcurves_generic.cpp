@@ -931,8 +931,11 @@ class GenericField final {
       *
       * If `cond` is true, sets `x` to `nx` and `y` to `ny`
       */
-      static void conditional_assign(
-         GenericField& x, GenericField& y, CT::Choice cond, const GenericField& nx, const GenericField& ny) {
+      static void conditional_assign(GenericField& x,
+                                     GenericField& y,
+                                     CT::Choice cond,
+                                     const GenericField& nx,
+                                     const GenericField& ny) {
          const W mask = CT::Mask<W>::from_choice(cond).value();
 
          for(size_t i = 0; i != N; ++i) {
@@ -1550,8 +1553,12 @@ class GenericVartimeWindowedMul2 final : public PrimeOrderCurve::PrecomputedMul2
       std::vector<GenericAffinePoint> m_table;
 };
 
-GenericPrimeOrderCurve::GenericPrimeOrderCurve(
-   const BigInt& p, const BigInt& a, const BigInt& b, const BigInt& base_x, const BigInt& base_y, const BigInt& order) :
+GenericPrimeOrderCurve::GenericPrimeOrderCurve(const BigInt& p,
+                                               const BigInt& a,
+                                               const BigInt& b,
+                                               const BigInt& base_x,
+                                               const BigInt& base_y,
+                                               const BigInt& order) :
       m_params(std::make_unique<GenericCurveParams>(p, a, b, base_x, base_y, order)) {}
 
 void GenericPrimeOrderCurve::_precompute_base_mul() {
@@ -1621,8 +1628,11 @@ std::optional<PrimeOrderCurve::ProjectivePoint> GenericPrimeOrderCurve::mul2_var
    }
 }
 
-std::optional<PrimeOrderCurve::ProjectivePoint> GenericPrimeOrderCurve::mul_px_qy(
-   const AffinePoint& p, const Scalar& x, const AffinePoint& q, const Scalar& y, RandomNumberGenerator& rng) const {
+std::optional<PrimeOrderCurve::ProjectivePoint> GenericPrimeOrderCurve::mul_px_qy(const AffinePoint& p,
+                                                                                  const Scalar& x,
+                                                                                  const AffinePoint& q,
+                                                                                  const Scalar& y,
+                                                                                  RandomNumberGenerator& rng) const {
    GenericWindowedMul2 table(from_stash(p), from_stash(q));
    auto pt = table.mul2(from_stash(x), from_stash(y), rng);
    if(pt.is_identity().as_bool()) {
@@ -1821,8 +1831,12 @@ PrimeOrderCurve::ProjectivePoint GenericPrimeOrderCurve::hash_to_curve_ro(
    throw Not_Implemented("Hash to curve is not implemented for this curve");
 }
 
-std::shared_ptr<const PrimeOrderCurve> PCurveInstance::from_params(
-   const BigInt& p, const BigInt& a, const BigInt& b, const BigInt& base_x, const BigInt& base_y, const BigInt& order) {
+std::shared_ptr<const PrimeOrderCurve> PCurveInstance::from_params(const BigInt& p,
+                                                                   const BigInt& a,
+                                                                   const BigInt& b,
+                                                                   const BigInt& base_x,
+                                                                   const BigInt& base_y,
+                                                                   const BigInt& order) {
    // We don't check that p and order are prime here on the assumption this has
    // been checked already by EC_Group
 

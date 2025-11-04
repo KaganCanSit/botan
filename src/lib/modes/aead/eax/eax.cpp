@@ -21,8 +21,11 @@ namespace {
 /*
 * EAX MAC-based PRF
 */
-secure_vector<uint8_t> eax_prf(
-   uint8_t tag, size_t block_size, MessageAuthenticationCode& mac, const uint8_t in[], size_t length) {
+secure_vector<uint8_t> eax_prf(uint8_t tag,
+                               size_t block_size,
+                               MessageAuthenticationCode& mac,
+                               const uint8_t in[],
+                               size_t length) {
    for(size_t i = 0; i != block_size - 1; ++i) {
       mac.update(0);
    }

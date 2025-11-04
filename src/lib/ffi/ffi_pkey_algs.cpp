@@ -705,8 +705,11 @@ int botan_privkey_load_ecdh(botan_privkey_t* key, const botan_mp_t scalar, const
 
 /* SM2 specific operations */
 
-int botan_pubkey_sm2_compute_za(
-   uint8_t out[], size_t* out_len, const char* ident, const char* hash_algo, const botan_pubkey_t key) {
+int botan_pubkey_sm2_compute_za(uint8_t out[],
+                                size_t* out_len,
+                                const char* ident,
+                                const char* hash_algo,
+                                const botan_pubkey_t key) {
    if(out == nullptr || out_len == nullptr || ident == nullptr || hash_algo == nullptr || key == nullptr) {
       return BOTAN_FFI_ERROR_NULL_POINTER;
    }
