@@ -155,13 +155,15 @@ class Credentials_Manager_Test final : public Botan::Credentials_Manager {
             // PSKs for server and client are equal. For the sake of clarity,
             // we're not simplifying this code further
             if(whoami == Botan::TLS::Connection_Side::Client) {
-               psks.emplace_back(
-                  std::string{}, "SHA-256", Botan::hex_decode_locked("20B602D1475F2DF888FCB60D2AE03AFD"));
+               psks.emplace_back(std::string{},
+                                 "SHA-256",
+                                 Botan::hex_decode_locked("20B602D1475F2DF888FCB60D2AE03AFD"));
             }
 
             if(whoami == Botan::TLS::Connection_Side::Server) {
-               psks.emplace_back(
-                  std::string{}, "SHA-256", Botan::hex_decode_locked("20B602D1475F2DF888FCB60D2AE03AFD"));
+               psks.emplace_back(std::string{},
+                                 "SHA-256",
+                                 Botan::hex_decode_locked("20B602D1475F2DF888FCB60D2AE03AFD"));
             }
          }
 
@@ -345,7 +347,10 @@ class TLS_Handshake_Test final {
                const uint8_t server_extn[6] = {'s', 'e', 'r', 'v', 'e', 'r'};
 
                Botan::TLS::append_tls_length_value(
-                  m_buf, (side == Botan::TLS::Connection_Side::Client) ? client_extn : server_extn, 6, 1);
+                  m_buf,
+                  (side == Botan::TLS::Connection_Side::Client) ? client_extn : server_extn,
+                  6,
+                  1);
             }
 
          private:
@@ -482,8 +487,9 @@ class TLS_Handshake_Test final {
                   return m_generate_ephemeral_ecdh_key_callback(group, rng, tls12_ecc_pubkey_encoding_format);
                }
 
-               return Botan::TLS::Callbacks::tls12_generate_ephemeral_ecdh_key(
-                  group, rng, tls12_ecc_pubkey_encoding_format);
+               return Botan::TLS::Callbacks::tls12_generate_ephemeral_ecdh_key(group,
+                                                                               rng,
+                                                                               tls12_ecc_pubkey_encoding_format);
             }
 
             Botan::secure_vector<uint8_t> tls_ephemeral_key_agreement(
@@ -901,8 +907,15 @@ class TLS_Unit_Tests final : public Test {
          std::vector<Botan::TLS::Protocol_Version> versions = {Botan::TLS::Protocol_Version::TLS_V12,
                                                                Botan::TLS::Protocol_Version::DTLS_V12};
 
-         return test_with_policy(
-            test_descr, results, client_ses, server_ses, creds, versions, policy, rng, client_auth);
+         return test_with_policy(test_descr,
+                                 results,
+                                 client_ses,
+                                 server_ses,
+                                 creds,
+                                 versions,
+                                 policy,
+                                 rng,
+                                 client_auth);
       }
 
       static void test_modern_versions(const std::string& test_descr,
@@ -958,8 +971,15 @@ class TLS_Unit_Tests final : public Test {
          std::vector<Botan::TLS::Protocol_Version> versions = {Botan::TLS::Protocol_Version::TLS_V12,
                                                                Botan::TLS::Protocol_Version::DTLS_V12};
 
-         return test_with_policy(
-            test_descr, results, client_ses, server_ses, creds, versions, policy, rng, client_auth);
+         return test_with_policy(test_descr,
+                                 results,
+                                 client_ses,
+                                 server_ses,
+                                 creds,
+                                 versions,
+                                 policy,
+                                 rng,
+                                 client_auth);
       }
 
       void test_session_established_abort(std::vector<Test::Result>& results,
@@ -1153,10 +1173,26 @@ class TLS_Unit_Tests final : public Test {
                               etm_setting);
 
       #if defined(BOTAN_HAS_DES)
-            test_all_versions(
-               "3DES RSA", results, client_ses, server_ses, creds, rng, "RSA", "3DES", "SHA-1", etm_setting);
-            test_all_versions(
-               "3DES ECDH", results, client_ses, server_ses, creds, rng, "ECDH", "3DES", "SHA-1", etm_setting);
+            test_all_versions("3DES RSA",
+                              results,
+                              client_ses,
+                              server_ses,
+                              creds,
+                              rng,
+                              "RSA",
+                              "3DES",
+                              "SHA-1",
+                              etm_setting);
+            test_all_versions("3DES ECDH",
+                              results,
+                              client_ses,
+                              server_ses,
+                              creds,
+                              rng,
+                              "ECDH",
+                              "3DES",
+                              "SHA-1",
+                              etm_setting);
       #endif
 
             server_ses->remove_all();
@@ -1222,13 +1258,27 @@ class TLS_Unit_Tests final : public Test {
          client_ses->remove_all();
 
    #if defined(BOTAN_HAS_CAMELLIA) && defined(BOTAN_HAS_AEAD_GCM)
-         test_modern_versions(
-            "Camellia-128/GCM ECDH", results, client_ses, server_ses, creds, rng, "ECDH", "Camellia-128/GCM", "AEAD");
+         test_modern_versions("Camellia-128/GCM ECDH",
+                              results,
+                              client_ses,
+                              server_ses,
+                              creds,
+                              rng,
+                              "ECDH",
+                              "Camellia-128/GCM",
+                              "AEAD");
    #endif
 
    #if defined(BOTAN_HAS_ARIA)
-         test_modern_versions(
-            "ARIA/GCM ECDH", results, client_ses, server_ses, creds, rng, "ECDH", "ARIA-128/GCM", "AEAD");
+         test_modern_versions("ARIA/GCM ECDH",
+                              results,
+                              client_ses,
+                              server_ses,
+                              creds,
+                              rng,
+                              "ECDH",
+                              "ARIA-128/GCM",
+                              "AEAD");
    #endif
 
          test_modern_versions("AES-128/GCM point compression",
@@ -1306,27 +1356,51 @@ class TLS_Unit_Tests final : public Test {
    #endif
 
    #if defined(BOTAN_HAS_AEAD_OCB)
-         test_modern_versions(
-            "AES-256/OCB ECDH", results, client_ses, server_ses, creds, rng, "ECDH", "AES-256/OCB(12)");
+         test_modern_versions("AES-256/OCB ECDH",
+                              results,
+                              client_ses,
+                              server_ses,
+                              creds,
+                              rng,
+                              "ECDH",
+                              "AES-256/OCB(12)");
    #endif
 
          server_ses->remove_all();
 
    #if defined(BOTAN_HAS_AEAD_CHACHA20_POLY1305)
-         test_modern_versions(
-            "ChaCha20Poly1305 ECDH", results, client_ses, server_ses, creds, rng, "ECDH", "ChaCha20Poly1305");
+         test_modern_versions("ChaCha20Poly1305 ECDH",
+                              results,
+                              client_ses,
+                              server_ses,
+                              creds,
+                              rng,
+                              "ECDH",
+                              "ChaCha20Poly1305");
    #endif
 
          test_modern_versions("AES-128/GCM PSK", results, client_ses, server_ses, creds, rng, "PSK", "AES-128/GCM");
 
    #if defined(BOTAN_HAS_AEAD_CCM)
          test_modern_versions("AES-128/CCM PSK", results, client_ses, server_ses, creds, rng, "PSK", "AES-128/CCM");
-         test_modern_versions(
-            "AES-128/CCM-8 PSK", results, client_ses, server_ses, creds, rng, "PSK", "AES-128/CCM(8)");
+         test_modern_versions("AES-128/CCM-8 PSK",
+                              results,
+                              client_ses,
+                              server_ses,
+                              creds,
+                              rng,
+                              "PSK",
+                              "AES-128/CCM(8)");
    #endif
 
-         test_modern_versions(
-            "AES-128/GCM ECDHE_PSK", results, client_ses, server_ses, creds, rng, "ECDHE_PSK", "AES-128/GCM");
+         test_modern_versions("AES-128/GCM ECDHE_PSK",
+                              results,
+                              client_ses,
+                              server_ses,
+                              creds,
+                              rng,
+                              "ECDHE_PSK",
+                              "AES-128/GCM");
 
          // Test with a custom curve
 

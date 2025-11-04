@@ -255,8 +255,9 @@ std::vector<Test::Result> read_handshake_messages() {
                Handshake_Layer hl(Connection_Side::Client);
                Transcript_Hash_State th("SHA-256");
                hl.copy_data(data);
-               result.template test_throws<TLS_Exception>(
-                  "message is rejected", "Unknown handshake message received", [&] { hl.next_message(Policy(), th); });
+               result.template test_throws<TLS_Exception>("message is rejected",
+                                                          "Unknown handshake message received",
+                                                          [&] { hl.next_message(Policy(), th); });
             }),
    };
 }
@@ -315,8 +316,9 @@ std::vector<Test::Result> full_client_handshake() {
                const auto expected_after_server_hello = Botan::hex_decode(
                   "86 0c 06 ed c0 78 58 ee 8e 78 f0 e7 42 8c 58 ed d6 b4 3f 2c a3 e6 e9 5f 02 ed 06 3c f0 e1 ca d8");
 
-               result.test_eq(
-                  "correct transcript hash produced after server hello", th.current(), expected_after_server_hello);
+               result.test_eq("correct transcript hash produced after server hello",
+                              th.current(),
+                              expected_after_server_hello);
             }),
 
       CHECK("server handshake messages",

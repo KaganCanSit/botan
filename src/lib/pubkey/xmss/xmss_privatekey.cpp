@@ -135,8 +135,11 @@ class XMSS_PrivateKey_Internal {
          std::vector<uint8_t> wots_derivation_method;
          wots_derivation_method.push_back(static_cast<uint8_t>(m_wots_derivation_method));
 
-         return concat<secure_vector<uint8_t>>(
-            raw_public_key, unused_index, m_prf, m_private_seed, wots_derivation_method);
+         return concat<secure_vector<uint8_t>>(raw_public_key,
+                                               unused_index,
+                                               m_prf,
+                                               m_private_seed,
+                                               wots_derivation_method);
       }
 
       XMSS_Hash& hash() {
@@ -330,8 +333,13 @@ secure_vector<uint8_t> XMSS_PrivateKey::tree_hash(size_t start_idx, size_t targe
    // Avoid creation an extra thread to calculate root node.
    node_addresses[0].set_tree_height(static_cast<uint32_t>(target_node_height - 1));
    node_addresses[0].set_tree_index((node_addresses[1].get_tree_index() - 1) >> 1);
-   XMSS_Common_Ops::randomize_tree_hash(
-      nodes[0], nodes[0], nodes[1], node_addresses[0], this->public_seed(), m_private->hash(), m_xmss_params);
+   XMSS_Common_Ops::randomize_tree_hash(nodes[0],
+                                        nodes[0],
+                                        nodes[1],
+                                        node_addresses[0],
+                                        this->public_seed(),
+                                        m_private->hash(),
+                                        m_xmss_params);
    return nodes[0];
 #else
    secure_vector<uint8_t> result;
@@ -380,8 +388,13 @@ void XMSS_PrivateKey::tree_hash_subtree(
 
       while(level > 0 && node_levels[level] == node_levels[level - 1]) {
          adrs.set_tree_index(((adrs.get_tree_index() - 1) >> 1));
-         XMSS_Common_Ops::randomize_tree_hash(
-            nodes[level - 1], nodes[level - 1], nodes[level], adrs, seed, hash, m_xmss_params);
+         XMSS_Common_Ops::randomize_tree_hash(nodes[level - 1],
+                                              nodes[level - 1],
+                                              nodes[level],
+                                              adrs,
+                                              seed,
+                                              hash,
+                                              m_xmss_params);
          node_levels[level - 1]++;
          level--;  //Pop stack top element
          adrs.set_tree_height(adrs.get_tree_height() + 1);
@@ -399,8 +412,11 @@ XMSS_WOTS_PublicKey XMSS_PrivateKey::wots_public_key_for(XMSS_Address& adrs, XMS
 XMSS_WOTS_PrivateKey XMSS_PrivateKey::wots_private_key_for(XMSS_Address& adrs, XMSS_Hash& hash) const {
    switch(wots_derivation_method()) {
       case WOTS_Derivation_Method::NIST_SP800_208:
-         return XMSS_WOTS_PrivateKey(
-            m_private->wots_parameters(), m_public_seed, m_private->private_seed(), adrs, hash);
+         return XMSS_WOTS_PrivateKey(m_private->wots_parameters(),
+                                     m_public_seed,
+                                     m_private->private_seed(),
+                                     adrs,
+                                     hash);
       case WOTS_Derivation_Method::Botan2x:
          return XMSS_WOTS_PrivateKey(m_private->wots_parameters(), m_private->private_seed(), adrs, hash);
    }

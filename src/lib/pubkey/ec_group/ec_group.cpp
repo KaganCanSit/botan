@@ -438,11 +438,12 @@ EC_Group::EC_Group(const BigInt& p,
                    const BigInt& cofactor,
                    const OID& oid) {
    if(oid.has_value()) {
-      m_data = ec_group_data().lookup_or_create(
-         p, a, b, base_x, base_y, order, cofactor, oid, EC_Group_Source::ExternalSource);
+      m_data = ec_group_data()
+                  .lookup_or_create(p, a, b, base_x, base_y, order, cofactor, oid, EC_Group_Source::ExternalSource);
    } else {
-      m_data = ec_group_data().lookup_or_create_without_oid(
-         p, a, b, base_x, base_y, order, cofactor, EC_Group_Source::ExternalSource);
+      m_data =
+         ec_group_data()
+            .lookup_or_create_without_oid(p, a, b, base_x, base_y, order, cofactor, EC_Group_Source::ExternalSource);
    }
 }
 

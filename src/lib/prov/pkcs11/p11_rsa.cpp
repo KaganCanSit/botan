@@ -217,8 +217,9 @@ class PKCS11_RSA_Encryption_Operation final : public PK_Ops::Encryption {
          m_key.module()->C_EncryptInit(m_key.session().handle(), m_mechanism.data(), m_key.handle());
 
          std::vector<uint8_t> encrypted_data;
-         m_key.module()->C_Encrypt(
-            m_key.session().handle(), secure_vector<uint8_t>(input.begin(), input.end()), encrypted_data);
+         m_key.module()->C_Encrypt(m_key.session().handle(),
+                                   secure_vector<uint8_t>(input.begin(), input.end()),
+                                   encrypted_data);
          return encrypted_data;
       }
 
@@ -383,8 +384,10 @@ class PKCS11_RSA_Verification_Operation final : public PK_Ops::Verification {
             m_first_message.clear();
          } else {
             // multiple calls to update (or none): finish multiple-part operation
-            m_key.module()->C_VerifyFinal(
-               m_key.session().handle(), sig.data(), static_cast<Ulong>(sig.size()), &return_value);
+            m_key.module()->C_VerifyFinal(m_key.session().handle(),
+                                          sig.data(),
+                                          static_cast<Ulong>(sig.size()),
+                                          &return_value);
          }
          m_initialized = false;
          if(return_value != ReturnValue::OK && return_value != ReturnValue::SignatureInvalid) {

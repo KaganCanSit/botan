@@ -46,8 +46,12 @@ void AlternativeName::add_ipv4_address(uint32_t ip) {
 }
 
 size_t AlternativeName::count() const {
-   const auto sum = checked_add(
-      m_dns.size(), m_uri.size(), m_email.size(), m_ipv4_addr.size(), m_dn_names.size(), m_othernames.size());
+   const auto sum = checked_add(m_dns.size(),
+                                m_uri.size(),
+                                m_email.size(),
+                                m_ipv4_addr.size(),
+                                m_dn_names.size(),
+                                m_othernames.size());
 
    return BOTAN_ASSERT_IS_SOME(sum);
 }

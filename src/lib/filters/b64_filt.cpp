@@ -118,8 +118,12 @@ void Base64_Decoder::write(const uint8_t input[], size_t length) {
       m_position += to_copy;
 
       size_t consumed = 0;
-      size_t written = base64_decode(
-         m_out.data(), cast_uint8_ptr_to_char(m_in.data()), m_position, consumed, false, m_checking != FULL_CHECK);
+      size_t written = base64_decode(m_out.data(),
+                                     cast_uint8_ptr_to_char(m_in.data()),
+                                     m_position,
+                                     consumed,
+                                     false,
+                                     m_checking != FULL_CHECK);
 
       send(m_out, written);
 
@@ -140,8 +144,12 @@ void Base64_Decoder::write(const uint8_t input[], size_t length) {
 */
 void Base64_Decoder::end_msg() {
    size_t consumed = 0;
-   size_t written = base64_decode(
-      m_out.data(), cast_uint8_ptr_to_char(m_in.data()), m_position, consumed, true, m_checking != FULL_CHECK);
+   size_t written = base64_decode(m_out.data(),
+                                  cast_uint8_ptr_to_char(m_in.data()),
+                                  m_position,
+                                  consumed,
+                                  true,
+                                  m_checking != FULL_CHECK);
 
    send(m_out, written);
 

@@ -358,8 +358,11 @@ void Client_Impl_12::process_handshake_msg(const Handshake_State* active_state,
 
       std::vector<Extension_Code> diff;
 
-      std::set_difference(
-         server_extn.begin(), server_extn.end(), client_extn.begin(), client_extn.end(), std::back_inserter(diff));
+      std::set_difference(server_extn.begin(),
+                          server_extn.end(),
+                          client_extn.begin(),
+                          client_extn.end(),
+                          std::back_inserter(diff));
 
       if(!diff.empty()) {
          // Server sent us back an extension we did not send!
@@ -378,8 +381,9 @@ void Client_Impl_12::process_handshake_msg(const Handshake_State* active_state,
          }
       }
 
-      callbacks().tls_examine_extensions(
-         state.server_hello()->extensions(), Connection_Side::Server, Handshake_Type::ServerHello);
+      callbacks().tls_examine_extensions(state.server_hello()->extensions(),
+                                         Connection_Side::Server,
+                                         Handshake_Type::ServerHello);
 
       state.set_version(state.server_hello()->legacy_version());
       m_application_protocol = state.server_hello()->next_protocol();
@@ -418,8 +422,9 @@ void Client_Impl_12::process_handshake_msg(const Handshake_State* active_state,
             //    An implementation of TLS 1.2 (and also earlier versions) use
             //    the label "CLIENT_RANDOM" to identify the "master" secret for
             //    the connection.
-            callbacks().tls_ssl_key_log_data(
-               "CLIENT_RANDOM", state.client_hello()->random(), state.session_keys().master_secret());
+            callbacks().tls_ssl_key_log_data("CLIENT_RANDOM",
+                                             state.client_hello()->random(),
+                                             state.session_keys().master_secret());
          }
 
          if(state.server_hello()->supports_session_ticket()) {
@@ -538,8 +543,12 @@ void Client_Impl_12::process_handshake_msg(const Handshake_State* active_state,
          try {
             auto trusted_CAs = m_creds->trusted_certificate_authorities("tls-client", m_info.hostname());
 
-            callbacks().tls_verify_cert_chain(
-               server_certs, {}, trusted_CAs, Usage_Type::TLS_SERVER_AUTH, m_info.hostname(), policy());
+            callbacks().tls_verify_cert_chain(server_certs,
+                                              {},
+                                              trusted_CAs,
+                                              Usage_Type::TLS_SERVER_AUTH,
+                                              m_info.hostname(),
+                                              policy());
          } catch(TLS_Exception&) {
             throw;
          } catch(std::exception& e) {
@@ -561,8 +570,10 @@ void Client_Impl_12::process_handshake_msg(const Handshake_State* active_state,
       }
       state.set_expected_next(Handshake_Type::ServerHelloDone);
 
-      state.server_kex(std::make_unique<Server_Key_Exchange>(
-         contents, state.ciphersuite().kex_method(), state.ciphersuite().auth_method(), state.version()));
+      state.server_kex(std::make_unique<Server_Key_Exchange>(contents,
+                                                             state.ciphersuite().kex_method(),
+                                                             state.ciphersuite().auth_method(),
+                                                             state.version()));
 
       if(state.ciphersuite().signature_used()) {
          const Public_Key& server_key = state.server_public_key();
@@ -612,8 +623,13 @@ void Client_Impl_12::process_handshake_msg(const Handshake_State* active_state,
          state.client_certs(std::make_unique<Certificate_12>(state.handshake_io(), state.hash(), client_certs));
       }
 
-      state.client_kex(std::make_unique<Client_Key_Exchange>(
-         state.handshake_io(), state, policy(), *m_creds, state.maybe_server_public_key(), m_info.hostname(), rng()));
+      state.client_kex(std::make_unique<Client_Key_Exchange>(state.handshake_io(),
+                                                             state,
+                                                             policy(),
+                                                             *m_creds,
+                                                             state.maybe_server_public_key(),
+                                                             m_info.hostname(),
+                                                             rng()));
 
       state.compute_session_keys();
       if(policy().allow_ssl_key_log_file()) {
@@ -621,8 +637,9 @@ void Client_Impl_12::process_handshake_msg(const Handshake_State* active_state,
          //    An implementation of TLS 1.2 (and also earlier versions) use
          //    the label "CLIENT_RANDOM" to identify the "master" secret for
          //    the connection.
-         callbacks().tls_ssl_key_log_data(
-            "CLIENT_RANDOM", state.client_hello()->random(), state.session_keys().master_secret());
+         callbacks().tls_ssl_key_log_data("CLIENT_RANDOM",
+                                          state.client_hello()->random(),
+                                          state.session_keys().master_secret());
       }
 
       if(state.received_handshake_msg(Handshake_Type::CertificateRequest) && !state.client_certs()->empty()) {

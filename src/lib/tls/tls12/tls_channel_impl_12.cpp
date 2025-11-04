@@ -144,8 +144,11 @@ Handshake_State& Channel_Impl_12::create_handshake_state(Protocol_Version versio
       auto send_record_f = [this](uint16_t epoch, Record_Type record_type, const std::vector<uint8_t>& record) {
          send_record_under_epoch(epoch, record_type, record);
       };
-      io = std::make_unique<Datagram_Handshake_IO>(
-         send_record_f, sequence_numbers(), mtu, initial_timeout_ms, max_timeout_ms);
+      io = std::make_unique<Datagram_Handshake_IO>(send_record_f,
+                                                   sequence_numbers(),
+                                                   mtu,
+                                                   initial_timeout_ms,
+                                                   max_timeout_ms);
    } else {
       auto send_record_f = [this](Record_Type rec_type, const std::vector<uint8_t>& record) {
          send_record(rec_type, record);

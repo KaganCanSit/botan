@@ -747,8 +747,11 @@ Server_Hello_13::Server_Hello_13(const Client_Hello_13& ch,
 
    if(key_exchange_group.has_value()) {
       BOTAN_ASSERT_NOMSG(ch.extensions().has<Key_Share>());
-      m_data->extensions().add(Key_Share::create_as_encapsulation(
-         key_exchange_group.value(), *ch.extensions().get<Key_Share>(), policy, cb, rng));
+      m_data->extensions().add(Key_Share::create_as_encapsulation(key_exchange_group.value(),
+                                                                  *ch.extensions().get<Key_Share>(),
+                                                                  policy,
+                                                                  cb,
+                                                                  rng));
    }
 
    const auto& ch_exts = ch.extensions();
@@ -768,8 +771,9 @@ Server_Hello_13::Server_Hello_13(const Client_Hello_13& ch,
       // TODO: also support PSK_Key_Exchange_Mode::PSK_KE
       //       (PSK-based handshake without an additional ephemeral key exchange)
       if(value_exists(psk_modes->modes(), PSK_Key_Exchange_Mode::PSK_DHE_KE)) {
-         if(auto server_psk = ch_exts.get<PSK>()->select_offered_psk(
-               ch.sni_hostname(), cs.value(), session_mgr, credentials_mgr, cb, policy)) {
+         if(auto server_psk =
+               ch_exts.get<PSK>()
+                  ->select_offered_psk(ch.sni_hostname(), cs.value(), session_mgr, credentials_mgr, cb, policy)) {
             // RFC 8446 4.2.11
             //    In order to accept PSK key establishment, the server sends a
             //    "pre_shared_key" extension indicating the selected identity.

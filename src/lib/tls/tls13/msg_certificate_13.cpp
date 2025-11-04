@@ -133,8 +133,9 @@ void Certificate_13::verify_certificate_chain(Callbacks& callbacks,
    }
 
    // Note that m_side represents the sender, so the usages here are swapped
-   const auto trusted_CAs = creds.trusted_certificate_authorities(
-      m_side == Connection_Side::Client ? "tls-server" : "tls-client", std::string(hostname));
+   const auto trusted_CAs =
+      creds.trusted_certificate_authorities(m_side == Connection_Side::Client ? "tls-server" : "tls-client",
+                                            std::string(hostname));
 
    callbacks.tls_verify_cert_chain(certs, ocsp_responses, trusted_CAs, usage_type, hostname, policy);
 }
@@ -232,8 +233,12 @@ Certificate_13::Certificate_13(const Client_Hello_13& client_hello,
    const std::string context = client_hello.sni_hostname();
 
    if(cert_type == Certificate_Type::X509) {
-      auto cert_chain = credentials_manager.find_cert_chain(
-         key_types, to_algorithm_identifiers(client_hello.certificate_signature_schemes()), {}, op_type, context);
+      auto cert_chain =
+         credentials_manager.find_cert_chain(key_types,
+                                             to_algorithm_identifiers(client_hello.certificate_signature_schemes()),
+                                             {},
+                                             op_type,
+                                             context);
 
       // RFC 8446 4.4.2
       //    The server's certificate_list MUST always be non-empty.

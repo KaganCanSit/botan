@@ -719,7 +719,8 @@ class bitvector_base final {
        */
       bool all_vartime() const {
          return full_range_operation(
-            []<std::unsigned_integral BlockT>(BlockT block, BlockT mask) { return block == mask; }, *this);
+            []<std::unsigned_integral BlockT>(BlockT block, BlockT mask) { return block == mask; },
+            *this);
       }
 
       /**
@@ -763,10 +764,12 @@ class bitvector_base final {
                   newvector_unwrapped.m_blocks,
                   std::span{m_blocks}.subspan(block_index(pos), block_index(pos + bitlen - 1) - block_index(pos) + 1));
             } else {
-               BitRangeOperator<const bitvector_base<AllocatorT>, BitRangeAlignment::no_alignment> from_op(
-                  *this, pos, bitlen);
-               BitRangeOperator<strong_type_wrapped_type<OutT>> to_op(
-                  unwrap_strong_type(newvector_unwrapped), 0, bitlen);
+               BitRangeOperator<const bitvector_base<AllocatorT>, BitRangeAlignment::no_alignment> from_op(*this,
+                                                                                                           pos,
+                                                                                                           bitlen);
+               BitRangeOperator<strong_type_wrapped_type<OutT>> to_op(unwrap_strong_type(newvector_unwrapped),
+                                                                      0,
+                                                                      bitlen);
                range_operation([](auto /* to */, auto from) { return from; }, to_op, from_op);
             }
 

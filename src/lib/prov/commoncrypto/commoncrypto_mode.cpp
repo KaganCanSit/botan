@@ -206,8 +206,18 @@ Key_Length_Specification CommonCrypto_Cipher_Mode::key_spec() const {
 void CommonCrypto_Cipher_Mode::key_schedule(std::span<const uint8_t> key) {
    CCCryptorStatus status;
    CCOperation op = m_direction == Cipher_Dir::Encryption ? kCCEncrypt : kCCDecrypt;
-   status = CCCryptorCreateWithMode(
-      op, m_opts.mode, m_opts.algo, m_opts.padding, nullptr, key.data(), key.size(), nullptr, 0, 0, 0, &m_cipher);
+   status = CCCryptorCreateWithMode(op,
+                                    m_opts.mode,
+                                    m_opts.algo,
+                                    m_opts.padding,
+                                    nullptr,
+                                    key.data(),
+                                    key.size(),
+                                    nullptr,
+                                    0,
+                                    0,
+                                    0,
+                                    &m_cipher);
    if(status != kCCSuccess) {
       throw CommonCrypto_Error("CCCryptorCreate", status);
    }

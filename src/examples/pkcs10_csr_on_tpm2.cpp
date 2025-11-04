@@ -63,8 +63,11 @@ int main() {
    auto session = Botan::TPM2::Session::authenticated_session(ctx, *storage_root_key);
 
    // Create a private key and persist it into the TPM
-   auto cert_private_key = Botan::TPM2::RSA_PrivateKey::create_unrestricted_transient(
-      ctx, session, as_byteview(private_key_auth), *storage_root_key, key_length);
+   auto cert_private_key = Botan::TPM2::RSA_PrivateKey::create_unrestricted_transient(ctx,
+                                                                                      session,
+                                                                                      as_byteview(private_key_auth),
+                                                                                      *storage_root_key,
+                                                                                      key_length);
    const auto persistent_handle = ctx->persist(*cert_private_key, session, as_byteview(private_key_auth));
    std::cout << "New private key created\n";
    std::cout << "  Persistent handle: 0x" << std::hex << persistent_handle << '\n';

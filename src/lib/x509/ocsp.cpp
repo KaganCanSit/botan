@@ -117,8 +117,10 @@ Response::Response(const uint8_t response_bits[], size_t response_bits_len) :
 
          .decode_optional(m_signer_name, ASN1_Type(1), ASN1_Class::ContextSpecific | ASN1_Class::Constructed)
 
-         .decode_optional_string(
-            m_key_hash, ASN1_Type::OctetString, 2, ASN1_Class::ContextSpecific | ASN1_Class::Constructed)
+         .decode_optional_string(m_key_hash,
+                                 ASN1_Type::OctetString,
+                                 2,
+                                 ASN1_Class::ContextSpecific | ASN1_Class::Constructed)
 
          .decode(m_produced_at)
 

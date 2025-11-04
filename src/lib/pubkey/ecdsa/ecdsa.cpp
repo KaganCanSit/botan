@@ -128,8 +128,9 @@ class ECDSA_Signature_Operation final : public PK_Ops::Signature_with_Hash {
             m_b(EC_Scalar::random(m_group, rng)),
             m_b_inv(m_b.invert()) {
 #if defined(BOTAN_HAS_RFC6979_GENERATOR)
-         m_rfc6979 = std::make_unique<RFC6979_Nonce_Generator>(
-            this->rfc6979_hash_function(), m_group.get_order_bits(), ecdsa._private_key());
+         m_rfc6979 = std::make_unique<RFC6979_Nonce_Generator>(this->rfc6979_hash_function(),
+                                                               m_group.get_order_bits(),
+                                                               ecdsa._private_key());
 #endif
       }
 

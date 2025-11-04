@@ -71,8 +71,8 @@ class Pwdhash_Tests : public Test {
       std::vector<Test::Result> run() override {
          std::vector<Test::Result> results;
 
-         const std::vector<std::string> all_pwdhash = {
-            "Scrypt", "PBKDF2(SHA-256)", "OpenPGP-S2K(SHA-384)", "Argon2d", "Argon2i", "Argon2id", "Bcrypt-PBKDF"};
+         const std::vector<std::string> all_pwdhash =
+            {"Scrypt", "PBKDF2(SHA-256)", "OpenPGP-S2K(SHA-384)", "Argon2d", "Argon2i", "Argon2id", "Bcrypt-PBKDF"};
 
          const auto run_time = std::chrono::milliseconds(3);
          const auto tune_time = std::chrono::milliseconds(1);
@@ -96,8 +96,9 @@ class Pwdhash_Tests : public Test {
                std::unique_ptr<Botan::PasswordHash> pwhash;
 
                if(pwdhash_fam->name() == "Scrypt" || pwdhash_fam->name().starts_with("Argon2")) {
-                  pwhash = pwdhash_fam->from_params(
-                     tuned_pwhash->memory_param(), tuned_pwhash->iterations(), tuned_pwhash->parallelism());
+                  pwhash = pwdhash_fam->from_params(tuned_pwhash->memory_param(),
+                                                    tuned_pwhash->iterations(),
+                                                    tuned_pwhash->parallelism());
                } else {
                   pwhash = pwdhash_fam->from_params(tuned_pwhash->iterations());
                }

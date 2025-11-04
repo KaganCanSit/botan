@@ -80,8 +80,12 @@ class Fuzzer_TLS_Client_Callbacks : public Botan::TLS::Callbacks {
                                  const Botan::TLS::Policy& policy) override {
          try {
             // try to validate to exercise those code paths
-            Botan::TLS::Callbacks::tls_verify_cert_chain(
-               cert_chain, ocsp_responses, trusted_roots, usage, hostname, policy);
+            Botan::TLS::Callbacks::tls_verify_cert_chain(cert_chain,
+                                                         ocsp_responses,
+                                                         trusted_roots,
+                                                         usage,
+                                                         hostname,
+                                                         policy);
          } catch(...) {
             // ignore validation result
          }

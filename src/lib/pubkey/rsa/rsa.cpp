@@ -290,8 +290,12 @@ const BigInt& RSA_PrivateKey::get_d2() const {
 }
 
 void RSA_PrivateKey::init(BigInt&& d, BigInt&& p, BigInt&& q, BigInt&& d1, BigInt&& d2, BigInt&& c) {
-   m_private = std::make_shared<RSA_Private_Data>(
-      std::move(d), std::move(p), std::move(q), std::move(d1), std::move(d2), std::move(c));
+   m_private = std::make_shared<RSA_Private_Data>(std::move(d),
+                                                  std::move(p),
+                                                  std::move(q),
+                                                  std::move(d1),
+                                                  std::move(d2),
+                                                  std::move(c));
 }
 
 RSA_PrivateKey::RSA_PrivateKey(const AlgorithmIdentifier& /*unused*/, std::span<const uint8_t> key_bits) {

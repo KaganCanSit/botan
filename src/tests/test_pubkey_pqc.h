@@ -137,8 +137,9 @@ class PK_PQC_KEM_KAT_Test : public PK_Test {
          // Encapsulation
          auto enc = Botan::PK_KEM_Encryptor(*pk2, "Raw");
          const auto encaped = enc.encrypt(rng_encaps, 0 /* no KDF */);
-         result.test_is_eq(
-            "Shared Secret", map_value(params, encaped.shared_key(), VarType::SharedSecret), vars.get_req_bin("SS"));
+         result.test_is_eq("Shared Secret",
+                           map_value(params, encaped.shared_key(), VarType::SharedSecret),
+                           vars.get_req_bin("SS"));
          result.test_is_eq("Ciphertext",
                            map_value(params, encaped.encapsulated_shared_key(), VarType::Ciphertext),
                            vars.get_req_bin("CT"));
@@ -158,8 +159,9 @@ class PK_PQC_KEM_KAT_Test : public PK_Test {
          if(vars.has_key("CT_N")) {
             // Shared secret from invalid KEM ciphertext
             const auto shared_key_invalid = dec.decrypt(vars.get_req_bin("CT_N"), 0 /* no KDF */);
-            result.test_is_eq(
-               "Decaps. Shared Secret Invalid", shared_key_invalid, Botan::lock(vars.get_req_bin("SS_N")));
+            result.test_is_eq("Decaps. Shared Secret Invalid",
+                              shared_key_invalid,
+                              Botan::lock(vars.get_req_bin("SS_N")));
          }
 
          return result;

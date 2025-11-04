@@ -102,7 +102,8 @@ std::vector<std::string> Policy::allowed_key_exchange_methods() const {
 
 std::vector<std::string> Policy::allowed_signature_methods() const {
    return {
-      "ECDSA", "RSA",
+      "ECDSA",
+      "RSA",
       //"IMPLICIT",
    };
 }

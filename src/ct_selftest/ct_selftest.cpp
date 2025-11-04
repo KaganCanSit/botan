@@ -283,8 +283,10 @@ void list_tests(const std::map<std::string, Test>& tests) {
    auto str = [](bool value) { return value ? "true" : "false"; };
 
    for(const auto& [name, test_info] : tests) {
-      std::cout << Botan::fmt(
-         "{}\t{}\t{}\n", str(test_info.expect_failure), str(test_info.needs_special_conditions), name);
+      std::cout << Botan::fmt("{}\t{}\t{}\n",
+                              str(test_info.expect_failure),
+                              str(test_info.needs_special_conditions),
+                              name);
    }
 }
 

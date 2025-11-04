@@ -177,8 +177,8 @@ class Ed25519_Point_Cached {
       * Point conversion
       */
       static Ed25519_Point_Cached from(const Ed25519_Point_Extended& p) {
-         static constexpr Ed25519_FieldElement d2 = {
-            -21827239, -5839606, -30745221, 13898782, 229458, 15978800, -12551817, -6495438, 29715968, 9444199};
+         static constexpr Ed25519_FieldElement d2 =
+            {-21827239, -5839606, -30745221, 13898782, 229458, 15978800, -12551817, -6495438, 29715968, 9444199};
          Ed25519_Point_Cached r;
          r.YplusX = p.Y + p.X;
          r.YminusX = p.Y - p.X;
@@ -303,10 +303,10 @@ std::array<int8_t, 256> slide(const uint8_t* a) {
 }
 
 std::optional<Ed25519_Point_Extended> frombytes_negate_vartime(std::span<const uint8_t, 32> s) {
-   static constexpr Ed25519_FieldElement d = {
-      -10913610, 13857413, -15372611, 6949391, 114729, -8787816, -6275908, -3247719, -18696448, -12055116};
-   static constexpr Ed25519_FieldElement sqrtm1 = {
-      -32595792, -7943725, 9377950, 3500415, 12389472, -272473, -25146209, -2005654, 326686, 11406482};
+   static constexpr Ed25519_FieldElement d =
+      {-10913610, 13857413, -15372611, 6949391, 114729, -8787816, -6275908, -3247719, -18696448, -12055116};
+   static constexpr Ed25519_FieldElement sqrtm1 =
+      {-32595792, -7943725, 9377950, 3500415, 12389472, -272473, -25146209, -2005654, 326686, 11406482};
 
    auto h = Ed25519_Point_Extended::identity();
    h.Y = Ed25519_FieldElement::deserialize(s.data());

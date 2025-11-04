@@ -140,8 +140,9 @@ std::vector<Test::Result> test_bitvector_bitwise_accessors(Botan::RandomNumberGe
       CHECK("accessors validate offsets",
             [](auto& result) {
                Botan::bitvector bv(10);
-               result.template test_throws<Botan::Invalid_Argument>(
-                  ".at() const out of range", [&] { const_cast<const decltype(bv)&>(bv).at(10); });
+               result.template test_throws<Botan::Invalid_Argument>(".at() const out of range", [&] {
+                  const_cast<const decltype(bv)&>(bv).at(10);
+               });
                result.template test_throws<Botan::Invalid_Argument>(".at() out of range", [&] { bv.at(10); });
                result.template test_throws<Botan::Invalid_Argument>(".set() out of range", [&] { bv.set(10); });
                result.template test_throws<Botan::Invalid_Argument>(".unset() out of range", [&] { bv.unset(10); });

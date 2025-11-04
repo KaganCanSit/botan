@@ -60,8 +60,13 @@ int botan_ec_group_from_params(botan_ec_group_t* ec_group,
          return BOTAN_FFI_ERROR_NULL_POINTER;
       }
 
-      Botan::EC_Group group(
-         safe_get(oid), safe_get(p), safe_get(a), safe_get(b), safe_get(base_x), safe_get(base_y), safe_get(order));
+      Botan::EC_Group group(safe_get(oid),
+                            safe_get(p),
+                            safe_get(a),
+                            safe_get(b),
+                            safe_get(base_x),
+                            safe_get(base_y),
+                            safe_get(order));
 
       auto group_ptr = std::make_unique<Botan::EC_Group>(std::move(group));
       return ffi_new_object(ec_group, std::move(group_ptr));
@@ -168,18 +173,21 @@ int botan_ec_group_get_b(botan_mp_t* b, botan_ec_group_t ec_group) {
 }
 
 int botan_ec_group_get_g_x(botan_mp_t* g_x, botan_ec_group_t ec_group) {
-   return botan_ec_group_get_component(
-      g_x, ec_group, [](const auto& g) -> const Botan::BigInt& { return g.get_g_x(); });
+   return botan_ec_group_get_component(g_x, ec_group, [](const auto& g) -> const Botan::BigInt& {
+      return g.get_g_x();
+   });
 }
 
 int botan_ec_group_get_g_y(botan_mp_t* g_y, botan_ec_group_t ec_group) {
-   return botan_ec_group_get_component(
-      g_y, ec_group, [](const auto& g) -> const Botan::BigInt& { return g.get_g_y(); });
+   return botan_ec_group_get_component(g_y, ec_group, [](const auto& g) -> const Botan::BigInt& {
+      return g.get_g_y();
+   });
 }
 
 int botan_ec_group_get_order(botan_mp_t* order, botan_ec_group_t ec_group) {
-   return botan_ec_group_get_component(
-      order, ec_group, [](const auto& g) -> const Botan::BigInt& { return g.get_order(); });
+   return botan_ec_group_get_component(order, ec_group, [](const auto& g) -> const Botan::BigInt& {
+      return g.get_order();
+   });
 }
 
 int botan_ec_group_equal(botan_ec_group_t curve1_w, botan_ec_group_t curve2_w) {

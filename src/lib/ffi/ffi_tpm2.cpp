@@ -221,7 +221,8 @@ int botan_tpm2_rng_init(botan_rng_t* rng_out,
       }
 
       return ffi_new_object(
-         rng_out, std::make_unique<Botan::TPM2::RandomNumberGenerator>(ctx_wrapper.ctx, sessions(s1, s2, s3)));
+         rng_out,
+         std::make_unique<Botan::TPM2::RandomNumberGenerator>(ctx_wrapper.ctx, sessions(s1, s2, s3)));
    });
 #else
    BOTAN_UNUSED(rng_out, ctx, s1, s2, s3);

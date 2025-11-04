@@ -129,8 +129,9 @@ class PSK_DB_Tests final : public Test {
          result.test_eq("Have expected name", all_names.count("name"), 1);
          result.test_eq("Have expected name", all_names.count("leroy jeeeeeeeenkins"), 1);
 
-         result.test_throws(
-            "exception if get called on non-existent PSK", "Named PSK not located", [&]() { db.get("name2"); });
+         result.test_throws("exception if get called on non-existent PSK", "Named PSK not located", [&]() {
+            db.get("name2");
+         });
 
          // test that redundant remove calls accepted
          db.remove("name2");
@@ -192,8 +193,11 @@ class PSK_DB_Tests final : public Test {
 
          // Test longer names
          db.set_str("leroy jeeeeeeeenkins", "chicken");
-         test_entry(
-            result, *sqldb, table_name, "KyYo272vlSjClM2F0OZBMlRYjr33ZXv2jN1oY8OfCEs=", "tCl1qShSTsXi9tA5Kpo9vg==");
+         test_entry(result,
+                    *sqldb,
+                    table_name,
+                    "KyYo272vlSjClM2F0OZBMlRYjr33ZXv2jN1oY8OfCEs=",
+                    "tCl1qShSTsXi9tA5Kpo9vg==");
          result.test_eq("DB read", db.get_str("leroy jeeeeeeeenkins"), "chicken");
 
          /*
@@ -220,8 +224,9 @@ class PSK_DB_Tests final : public Test {
          result.test_eq("Have expected name", all_names.count("name"), 1);
          result.test_eq("Have expected name", all_names.count("leroy jeeeeeeeenkins"), 1);
 
-         result.test_throws(
-            "exception if get called on non-existent PSK", "Named PSK not located", [&]() { db.get("name2"); });
+         result.test_throws("exception if get called on non-existent PSK", "Named PSK not located", [&]() {
+            db.get("name2");
+         });
 
          // test that redundant remove calls accepted
          db.remove("name2");

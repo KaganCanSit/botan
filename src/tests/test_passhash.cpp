@@ -175,9 +175,9 @@ class Passhash9_Tests final : public Text_Based_Test {
                             [&rng]() { Botan::generate_passhash9("pass", rng, 3, 255); });
 
          result.test_throws(
-            "Throws if iterations is too high", "Requested passhash9 work factor 513 is too large", []() {
-               Botan::check_passhash9("floof", "$9$AgIB3c5J3kvAuML84sZ5hWT9WzJtiYRPLCEARaujS7I6IKbNCwp0");
-            });
+            "Throws if iterations is too high",
+            "Requested passhash9 work factor 513 is too large",
+            []() { Botan::check_passhash9("floof", "$9$AgIB3c5J3kvAuML84sZ5hWT9WzJtiYRPLCEARaujS7I6IKbNCwp0"); });
          return {result};
       }
 };

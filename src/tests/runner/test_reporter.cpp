@@ -108,24 +108,27 @@ void Reporter::record(const std::string& testsuite_name, const std::vector<Botan
 }
 
 size_t Reporter::tests_run() const {
-   return std::transform_reduce(
-      m_testsuites.begin(), m_testsuites.end(), size_t(0), std::plus{}, [](const auto& testsuite) {
-         return testsuite.second.tests_run();
-      });
+   return std::transform_reduce(m_testsuites.begin(),
+                                m_testsuites.end(),
+                                size_t(0),
+                                std::plus{},
+                                [](const auto& testsuite) { return testsuite.second.tests_run(); });
 }
 
 size_t Reporter::tests_passed() const {
-   return std::transform_reduce(
-      m_testsuites.begin(), m_testsuites.end(), size_t(0), std::plus{}, [](const auto& testsuite) {
-         return testsuite.second.tests_passed();
-      });
+   return std::transform_reduce(m_testsuites.begin(),
+                                m_testsuites.end(),
+                                size_t(0),
+                                std::plus{},
+                                [](const auto& testsuite) { return testsuite.second.tests_passed(); });
 }
 
 size_t Reporter::tests_failed() const {
-   return std::transform_reduce(
-      m_testsuites.begin(), m_testsuites.end(), size_t(0), std::plus{}, [](const auto& testsuite) {
-         return testsuite.second.tests_failed();
-      });
+   return std::transform_reduce(m_testsuites.begin(),
+                                m_testsuites.end(),
+                                size_t(0),
+                                std::plus{},
+                                [](const auto& testsuite) { return testsuite.second.tests_failed(); });
 }
 
 std::chrono::nanoseconds Reporter::elapsed_time() const {

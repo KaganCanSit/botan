@@ -185,8 +185,9 @@ void concat_secret_combiner(KEM_Operation& op,
 
 template <typename KEM_Operation>
 size_t concat_shared_key_length(const std::vector<KEM_Operation>& operation) {
-   return reduce(
-      operation, size_t(0), [](size_t acc, const auto& op) { return acc + op.shared_key_length(0 /*no KDF*/); });
+   return reduce(operation, size_t(0), [](size_t acc, const auto& op) {
+      return acc + op.shared_key_length(0 /*no KDF*/);
+   });
 }
 
 /// Encryptor that simply concatenates the multiple shared secrets

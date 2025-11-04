@@ -77,8 +77,9 @@ int main() {
    priv_generate_props.set_private(true);
    priv_generate_props.set_derive(true);
 
-   Botan::PKCS11::PKCS11_ECDH_PrivateKey priv_key2(
-      session, Botan::EC_Group::from_name("secp256r1").DER_encode(), priv_generate_props);
+   Botan::PKCS11::PKCS11_ECDH_PrivateKey priv_key2(session,
+                                                   Botan::EC_Group::from_name("secp256r1").DER_encode(),
+                                                   priv_generate_props);
 
    /************ generate ECDH key pair *************/
 

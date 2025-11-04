@@ -205,8 +205,11 @@ TPM_PrivateKey::TPM_PrivateKey(TPM_Context& ctx, std::string_view uuid_str, TPM_
 }
 
 TPM_PrivateKey::TPM_PrivateKey(TPM_Context& ctx, const std::vector<uint8_t>& blob) : m_ctx(ctx) {
-   TSPI_CHECK_SUCCESS(::Tspi_Context_LoadKeyByBlob(
-      m_ctx.handle(), m_ctx.srk(), to_uint32(blob.size()), const_cast<uint8_t*>(blob.data()), &m_key));
+   TSPI_CHECK_SUCCESS(::Tspi_Context_LoadKeyByBlob(m_ctx.handle(),
+                                                   m_ctx.srk(),
+                                                   to_uint32(blob.size()),
+                                                   const_cast<uint8_t*>(blob.data()),
+                                                   &m_key));
 
    //TSPI_CHECK_SUCCESS(::Tspi_Key_LoadKey(m_key, m_ctx.srk()));
 }

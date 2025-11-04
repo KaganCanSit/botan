@@ -160,8 +160,11 @@ bool Extensions::contains_other_than(const std::set<Extension_Code>& allowed_ext
    const auto found = extension_types();
 
    std::vector<Extension_Code> diff;
-   std::set_difference(
-      found.cbegin(), found.end(), allowed_extensions.cbegin(), allowed_extensions.cend(), std::back_inserter(diff));
+   std::set_difference(found.cbegin(),
+                       found.end(),
+                       allowed_extensions.cbegin(),
+                       allowed_extensions.cend(),
+                       std::back_inserter(diff));
 
    if(allow_unknown_extensions) {
       // Go through the found unexpected extensions whether any of those
@@ -227,10 +230,10 @@ std::vector<uint8_t> Extensions::serialize(Connection_Side whoami) const {
 
 std::set<Extension_Code> Extensions::extension_types() const {
    std::set<Extension_Code> offers;
-   std::transform(
-      m_extensions.cbegin(), m_extensions.cend(), std::inserter(offers, offers.begin()), [](const auto& ext) {
-         return ext->type();
-      });
+   std::transform(m_extensions.cbegin(),
+                  m_extensions.cend(),
+                  std::inserter(offers, offers.begin()),
+                  [](const auto& ext) { return ext->type(); });
    return offers;
 }
 
@@ -441,10 +444,10 @@ Certificate_Type_Base::Certificate_Type_Base(TLS_Data_Reader& reader, uint16_t e
       if(static_cast<size_t>(extension_size) != type_bytes.size() + 1) {
          throw Decoding_Error("certificate type extension had inconsistent length");
       }
-      std::transform(
-         type_bytes.begin(), type_bytes.end(), std::back_inserter(m_certificate_types), [](const auto type_byte) {
-            return static_cast<Certificate_Type>(type_byte);
-         });
+      std::transform(type_bytes.begin(),
+                     type_bytes.end(),
+                     std::back_inserter(m_certificate_types),
+                     [](const auto type_byte) { return static_cast<Certificate_Type>(type_byte); });
    } else {
       // RFC 7250 4.2
       //    Note that only a single value is permitted in the
@@ -461,10 +464,10 @@ std::vector<uint8_t> Certificate_Type_Base::serialize(Connection_Side whoami) co
    std::vector<uint8_t> result;
    if(whoami == Connection_Side::Client) {
       std::vector<uint8_t> type_bytes;
-      std::transform(
-         m_certificate_types.begin(), m_certificate_types.end(), std::back_inserter(type_bytes), [](const auto type) {
-            return static_cast<uint8_t>(type);
-         });
+      std::transform(m_certificate_types.begin(),
+                     m_certificate_types.end(),
+                     std::back_inserter(type_bytes),
+                     [](const auto type) { return static_cast<uint8_t>(type); });
       append_tls_length_value(result, type_bytes, 1);
    } else {
       BOTAN_ASSERT_NOMSG(m_certificate_types.size() == 1);

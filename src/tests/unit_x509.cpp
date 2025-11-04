@@ -258,8 +258,9 @@ Test::Result test_x509_dates() {
    result.test_eq("UTC_TIME readable_string", time.readable_string(), "2020/03/05 10:03:50 UTC");
 
    time = Botan::X509_Time("200305100350Z");
-   result.test_eq(
-      "UTC_OR_GENERALIZED_TIME from UTC_TIME readable_string", time.readable_string(), "2020/03/05 10:03:50 UTC");
+   result.test_eq("UTC_OR_GENERALIZED_TIME from UTC_TIME readable_string",
+                  time.readable_string(),
+                  "2020/03/05 10:03:50 UTC");
 
    time = Botan::X509_Time("20200305100350Z");
    result.test_eq("UTC_OR_GENERALIZED_TIME from GENERALIZED_TIME readable_string",
@@ -675,8 +676,9 @@ Test::Result test_x509_authority_info_access_extension() {
       return result;
    }
 
-   result.test_eq(
-      "CA issuer URL matches", ca_issuers2[0], "http://www.d-trust.net/cgi-bin/Bdrive_Test_CA_1-2_2017.crt");
+   result.test_eq("CA issuer URL matches",
+                  ca_issuers2[0],
+                  "http://www.d-trust.net/cgi-bin/Bdrive_Test_CA_1-2_2017.crt");
    result.test_eq(
       "CA issuer URL matches",
       ca_issuers2[1],
@@ -782,8 +784,9 @@ Test::Result test_padding_config() {
    Botan::X509_Cert_Options req_opt("endpoint");
    req_opt.set_padding_scheme("PSS(SHA-512,MGF1,64)");
    Botan::PKCS10_Request end_req = Botan::X509::create_cert_req(req_opt, (*sk), "SHA-512", *rng);
-   test_result.test_eq(
-      "Certificate request signature algorithm", end_req.signature_algorithm().oid().to_formatted_string(), "RSA/PSS");
+   test_result.test_eq("Certificate request signature algorithm",
+                       end_req.signature_algorithm().oid().to_formatted_string(),
+                       "RSA/PSS");
 
    // Create X509 CA object: will fail as the chosen hash functions differ
    try {
@@ -813,8 +816,9 @@ Test::Result test_padding_config() {
    // Create X509 CA object: its signer will use the explicitly configured padding scheme, which is identical to the CA certificate's scheme
    Botan::X509_CA ca_exp(ca_cert_exp, (*sk), "SHA-512", "PSS(SHA-512,MGF1,64)", *rng);
    Botan::X509_Certificate end_cert_pss = ca_exp.sign_request(end_req, *rng, not_before, not_after);
-   test_result.test_eq(
-      "End certificate signature algorithm", end_cert_pss.signature_algorithm().oid().to_formatted_string(), "RSA/PSS");
+   test_result.test_eq("End certificate signature algorithm",
+                       end_cert_pss.signature_algorithm().oid().to_formatted_string(),
+                       "RSA/PSS");
 
    // Check CRL signature algorithm
    Botan::X509_CRL crl = ca_exp.new_crl(*rng);
@@ -960,8 +964,9 @@ Test::Result test_x509_cert(const Botan::Private_Key& ca_key,
    result.test_eq("subject OrgaUnit count",
                   user3_subject_dn.get_attribute("OU").size(),
                   req_opts3(sig_algo).more_org_units.size() + 1);
-   result.test_eq(
-      "subject OrgaUnit #2", user3_subject_dn.get_attribute("OU").at(1), req_opts3(sig_algo).more_org_units.at(0));
+   result.test_eq("subject OrgaUnit #2",
+                  user3_subject_dn.get_attribute("OU").at(1),
+                  req_opts3(sig_algo).more_org_units.at(0));
 
    const Botan::AlternativeName& user1_altname = user1_cert.subject_alt_name();
    result.test_eq("subject alt email", user1_altname.get_first_attribute("RFC822"), "testing@randombit.net");
@@ -969,8 +974,9 @@ Test::Result test_x509_cert(const Botan::Private_Key& ca_key,
    result.test_eq("subject alt uri", user1_altname.get_first_attribute("URI"), "https://botan.randombit.net");
 
    const Botan::AlternativeName& user3_altname = user3_cert.subject_alt_name();
-   result.test_eq(
-      "subject alt dns count", user3_altname.get_attribute("DNS").size(), req_opts3(sig_algo).more_dns.size() + 1);
+   result.test_eq("subject alt dns count",
+                  user3_altname.get_attribute("DNS").size(),
+                  req_opts3(sig_algo).more_dns.size() + 1);
    result.test_eq("subject alt dns #2", user3_altname.get_attribute("DNS").at(1), req_opts3(sig_algo).more_dns.at(0));
 
    const Botan::X509_CRL crl1 = ca.new_crl(rng);
@@ -1167,8 +1173,9 @@ Test::Result test_x509_uninit() {
    });
 
    Botan::X509_CRL crl;
-   result.test_throws(
-      "uninitialized crl access causes exception", "X509_CRL uninitialized", [&crl]() { crl.crl_number(); });
+   result.test_throws("uninitialized crl access causes exception", "X509_CRL uninitialized", [&crl]() {
+      crl.crl_number();
+   });
 
    return result;
 }
@@ -1438,8 +1445,9 @@ Test::Result test_x509_extensions(const Botan::Private_Key& ca_key,
    // check if custom extension is present in self-signed cert
    auto string_ext = self_signed_cert.v3_extensions().get_raw<String_Extension>(oid);
    if(result.confirm("Custom extension present in self-signed certificate", string_ext != nullptr)) {
-      result.test_eq(
-         "Custom extension value matches in self-signed certificate", string_ext->value(), "AAAAAAAAAAAAAABCDEF");
+      result.test_eq("Custom extension value matches in self-signed certificate",
+                     string_ext->value(),
+                     "AAAAAAAAAAAAAABCDEF");
    }
 
    // check if CDPs are present in the self-signed cert
@@ -1475,8 +1483,9 @@ Test::Result test_x509_extensions(const Botan::Private_Key& ca_key,
                   ca_signed_cert.v3_extensions().extension_set(oid));
    string_ext = ca_signed_cert.v3_extensions().get_raw<String_Extension>(oid);
    if(result.confirm("Custom extension present in CA-signed certificate", string_ext != nullptr)) {
-      result.test_eq(
-         "Custom extension value matches in CA-signed certificate", string_ext->value(), "AAAAAAAAAAAAAABCDEF");
+      result.test_eq("Custom extension value matches in CA-signed certificate",
+                     string_ext->value(),
+                     "AAAAAAAAAAAAAABCDEF");
    }
 
    // check if CDPs are present in the CA-signed cert
@@ -1729,8 +1738,8 @@ class X509_Cert_Unit_Tests final : public Test {
          /*
          These are algos which cannot sign but can be included in certs
          */
-         const std::vector<std::string> enc_algos = {
-            "DH", "ECDH", "ElGamal", "Kyber", "ML-KEM", "FrodoKEM", "ClassicMcEliece"};
+         const std::vector<std::string> enc_algos =
+            {"DH", "ECDH", "ElGamal", "Kyber", "ML-KEM", "FrodoKEM", "ClassicMcEliece"};
 
          for(const std::string& algo : enc_algos) {
             auto key = make_a_private_key(algo, rng);

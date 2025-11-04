@@ -69,11 +69,20 @@ class PK_Keygen final : public Command {
                write_output(Botan::PKCS8::BER_encode(*key));
             } else {
                if(get_arg("pbkdf-iter").empty()) {
-                  write_output(Botan::PKCS8::BER_encode_encrypted_pbkdf_msec(
-                     *key, rng(), pass, pbkdf_ms, nullptr, get_arg("cipher"), get_arg("pbkdf")));
+                  write_output(Botan::PKCS8::BER_encode_encrypted_pbkdf_msec(*key,
+                                                                             rng(),
+                                                                             pass,
+                                                                             pbkdf_ms,
+                                                                             nullptr,
+                                                                             get_arg("cipher"),
+                                                                             get_arg("pbkdf")));
                } else {
-                  write_output(Botan::PKCS8::BER_encode_encrypted_pbkdf_iter(
-                     *key, rng(), pass, get_arg_sz("pbkdf-iter"), get_arg("cipher"), get_arg("pbkdf")));
+                  write_output(Botan::PKCS8::BER_encode_encrypted_pbkdf_iter(*key,
+                                                                             rng(),
+                                                                             pass,
+                                                                             get_arg_sz("pbkdf-iter"),
+                                                                             get_arg("cipher"),
+                                                                             get_arg("pbkdf")));
                }
             }
          } else {
@@ -81,11 +90,20 @@ class PK_Keygen final : public Command {
                output() << Botan::PKCS8::PEM_encode(*key);
             } else {
                if(get_arg("pbkdf-iter").empty()) {
-                  output() << Botan::PKCS8::PEM_encode_encrypted_pbkdf_msec(
-                     *key, rng(), pass, pbkdf_ms, nullptr, get_arg("cipher"), get_arg("pbkdf"));
+                  output() << Botan::PKCS8::PEM_encode_encrypted_pbkdf_msec(*key,
+                                                                            rng(),
+                                                                            pass,
+                                                                            pbkdf_ms,
+                                                                            nullptr,
+                                                                            get_arg("cipher"),
+                                                                            get_arg("pbkdf"));
                } else {
-                  output() << Botan::PKCS8::PEM_encode_encrypted_pbkdf_iter(
-                     *key, rng(), pass, get_arg_sz("pbkdf-iter"), get_arg("cipher"), get_arg("pbkdf"));
+                  output() << Botan::PKCS8::PEM_encode_encrypted_pbkdf_iter(*key,
+                                                                            rng(),
+                                                                            pass,
+                                                                            get_arg_sz("pbkdf-iter"),
+                                                                            get_arg("cipher"),
+                                                                            get_arg("pbkdf"));
                }
             }
          }
@@ -337,11 +355,20 @@ class PKCS8_Tool final : public Command {
                   write_output(Botan::PKCS8::BER_encode(*key));
                } else {
                   if(get_arg("pbkdf-iter").empty()) {
-                     write_output(Botan::PKCS8::BER_encode_encrypted_pbkdf_msec(
-                        *key, rng(), pass_out, pbkdf_ms, nullptr, get_arg("cipher"), get_arg("pbkdf")));
+                     write_output(Botan::PKCS8::BER_encode_encrypted_pbkdf_msec(*key,
+                                                                                rng(),
+                                                                                pass_out,
+                                                                                pbkdf_ms,
+                                                                                nullptr,
+                                                                                get_arg("cipher"),
+                                                                                get_arg("pbkdf")));
                   } else {
-                     write_output(Botan::PKCS8::BER_encode_encrypted_pbkdf_iter(
-                        *key, rng(), pass_out, get_arg_sz("pbkdf-iter"), get_arg("cipher"), get_arg("pbkdf")));
+                     write_output(Botan::PKCS8::BER_encode_encrypted_pbkdf_iter(*key,
+                                                                                rng(),
+                                                                                pass_out,
+                                                                                get_arg_sz("pbkdf-iter"),
+                                                                                get_arg("cipher"),
+                                                                                get_arg("pbkdf")));
                   }
                }
             } else {
@@ -349,11 +376,20 @@ class PKCS8_Tool final : public Command {
                   output() << Botan::PKCS8::PEM_encode(*key);
                } else {
                   if(get_arg("pbkdf-iter").empty()) {
-                     output() << Botan::PKCS8::PEM_encode_encrypted_pbkdf_msec(
-                        *key, rng(), pass_out, pbkdf_ms, nullptr, get_arg("cipher"), get_arg("pbkdf"));
+                     output() << Botan::PKCS8::PEM_encode_encrypted_pbkdf_msec(*key,
+                                                                               rng(),
+                                                                               pass_out,
+                                                                               pbkdf_ms,
+                                                                               nullptr,
+                                                                               get_arg("cipher"),
+                                                                               get_arg("pbkdf"));
                   } else {
-                     output() << Botan::PKCS8::PEM_encode_encrypted_pbkdf_iter(
-                        *key, rng(), pass_out, get_arg_sz("pbkdf-iter"), get_arg("cipher"), get_arg("pbkdf"));
+                     output() << Botan::PKCS8::PEM_encode_encrypted_pbkdf_iter(*key,
+                                                                               rng(),
+                                                                               pass_out,
+                                                                               get_arg_sz("pbkdf-iter"),
+                                                                               get_arg("cipher"),
+                                                                               get_arg("pbkdf"));
                   }
                }
             }

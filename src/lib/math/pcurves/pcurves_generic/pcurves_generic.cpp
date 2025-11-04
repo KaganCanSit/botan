@@ -637,8 +637,13 @@ class GenericScalar final {
          const size_t words = curve->_params().words();
          StorageUnit r{};
          StorageUnit ws{};
-         bigint_monty_redc(
-            r.data(), z.data(), mod.data(), words, curve->_params().order_p_dash(), ws.data(), ws.size());
+         bigint_monty_redc(r.data(),
+                           z.data(),
+                           mod.data(),
+                           words,
+                           curve->_params().order_p_dash(),
+                           ws.data(),
+                           ws.size());
          return r;
       }
 
@@ -988,8 +993,13 @@ class GenericField final {
          const size_t words = curve->_params().words();
          StorageUnit r{};
          StorageUnit ws{};
-         bigint_monty_redc(
-            r.data(), z.data(), mod.data(), words, curve->_params().field_p_dash(), ws.data(), ws.size());
+         bigint_monty_redc(r.data(),
+                           z.data(),
+                           mod.data(),
+                           words,
+                           curve->_params().field_p_dash(),
+                           ws.data(),
+                           ws.size());
          return r;
       }
 

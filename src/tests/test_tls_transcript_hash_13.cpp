@@ -156,8 +156,9 @@ std::vector<Test::Result> transcript_hash() {
                result.test_eq("c2 = SHA-256(baadbeef | goodfood)", h2.current(), sha256("baadbeef600df00d"));
 
                h1.update(std::array<uint8_t, 4>{0xca, 0xfe, 0xd0, 0x0d});
-               result.test_eq(
-                  "c1 = SHA-256(baadbeef | goodfood | cafedude)", h1.current(), sha256("baadbeef600df00dcafed00d"));
+               result.test_eq("c1 = SHA-256(baadbeef | goodfood | cafedude)",
+                              h1.current(),
+                              sha256("baadbeef600df00dcafed00d"));
                result.test_eq("c2 = SHA-256(baadbeef | goodfood)", h2.current(), sha256("baadbeef600df00d"));
             }),
 

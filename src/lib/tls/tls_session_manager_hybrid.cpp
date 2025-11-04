@@ -45,8 +45,9 @@ std::optional<Session_Handle> Session_Manager_Hybrid::establish(const Session& s
       // If we're dealing with a TLS 1.2 connection, we opportunistically
       // disable tickets for the underlying manager.
       auto id_handle = m_stateful->establish(session, id, session.version().is_pre_tls_13());
-      BOTAN_ASSERT_IMPLICATION(
-         id_handle.has_value(), id_handle->is_id(), "Session_Manager_In_Memory produced unexpected Session_Handle");
+      BOTAN_ASSERT_IMPLICATION(id_handle.has_value(),
+                               id_handle->is_id(),
+                               "Session_Manager_In_Memory produced unexpected Session_Handle");
       return id_handle;
    };
 

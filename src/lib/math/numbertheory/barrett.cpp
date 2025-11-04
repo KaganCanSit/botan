@@ -91,8 +91,16 @@ BigInt barrett_reduce(
 
    secure_vector<word> q2(q2_size);
 
-   bigint_mul(
-      q2.data(), q2.size(), r.data(), r.size(), mod_words + 1, mu._data(), mu.size(), mu_words, ws.data(), ws.size());
+   bigint_mul(q2.data(),
+              q2.size(),
+              r.data(),
+              r.size(),
+              mod_words + 1,
+              mu._data(),
+              mu.size(),
+              mu_words,
+              ws.data(),
+              ws.size());
 
    // Compute r2 = (floor(q2 / b^(k+1)) * m) mod 2^(k+1)
    // The division/floor is again effected by just ignoring the low k + 1 words

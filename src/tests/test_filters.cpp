@@ -196,11 +196,13 @@ class Filter_Tests final : public Test {
          auto queue_filter = std::make_shared<Botan::SecureQueue>();
 
          // can't explicitly insert a queue into the pipe because they are implicit
-         result.test_throws(
-            "pipe error", "Pipe::append: SecureQueue cannot be used", [&]() { pipe.append(queue_filter.get()); });
+         result.test_throws("pipe error", "Pipe::append: SecureQueue cannot be used", [&]() {
+            pipe.append(queue_filter.get());
+         });
 
-         result.test_throws(
-            "pipe error", "Pipe::prepend: SecureQueue cannot be used", [&]() { pipe.prepend(queue_filter.get()); });
+         result.test_throws("pipe error", "Pipe::prepend: SecureQueue cannot be used", [&]() {
+            pipe.prepend(queue_filter.get());
+         });
 
          pipe.append_filter(new Botan::BitBucket);  // succeeds
          pipe.pop();
@@ -222,11 +224,13 @@ class Filter_Tests final : public Test {
             pipe.prepend_filter(filter.get());
          });
 
-         result.test_throws(
-            "pipe error", "Cannot append to a Pipe while it is processing", [&]() { pipe.append(filter.get()); });
+         result.test_throws("pipe error", "Cannot append to a Pipe while it is processing", [&]() {
+            pipe.append(filter.get());
+         });
 
-         result.test_throws(
-            "pipe error", "Cannot prepend to a Pipe while it is processing", [&]() { pipe.prepend(filter.get()); });
+         result.test_throws("pipe error", "Cannot prepend to a Pipe while it is processing", [&]() {
+            pipe.prepend(filter.get());
+         });
 
          result.test_throws("pipe error", "Cannot pop off a Pipe while it is processing", [&]() { pipe.pop(); });
 
@@ -575,8 +579,9 @@ class Filter_Tests final : public Test {
                                                /*trailing_newline=*/true));
 
          pipe.process_msg("6dab1eeb8a2eb69bad");
-         result.test_eq(
-            "base64 with linebreaks and trailing newline", pipe.read_all_as_string(5), "base\n64ou\ntput\n\n");
+         result.test_eq("base64 with linebreaks and trailing newline",
+                        pipe.read_all_as_string(5),
+                        "base\n64ou\ntput\n\n");
 
          pipe.reset();
          pipe.append(new Botan::Hex_Decoder);
@@ -655,7 +660,8 @@ class Filter_Tests final : public Test {
          result.test_eq("Chain has a name", chain->name(), "Chain");
 
          auto fork = std::make_unique<Botan::Fork>(
-            chain.release(), new Botan::Chain(new Botan::Hash_Filter("SHA-512-256", 19), new Botan::Hex_Encoder));
+            chain.release(),
+            new Botan::Chain(new Botan::Hash_Filter("SHA-512-256", 19), new Botan::Hex_Encoder));
 
          result.test_eq("Fork has a name", fork->name(), "Fork");
          Botan::Pipe pipe(fork.release());
@@ -664,8 +670,9 @@ class Filter_Tests final : public Test {
          pipe.process_msg("OMG");
          result.test_eq("Message count", pipe.message_count(), 2);
 
-         result.test_eq(
-            "Hash 1", pipe.read_all_as_string(0), "C00862D1C6C1CF7C1B49388306E7B3C1BB79D8D6EC978B41035B556DBB3797DF");
+         result.test_eq("Hash 1",
+                        pipe.read_all_as_string(0),
+                        "C00862D1C6C1CF7C1B49388306E7B3C1BB79D8D6EC978B41035B556DBB3797DF");
          result.test_eq("Hash 2", pipe.read_all_as_string(1), "610480FFA82F24F6926544B976FE387878E3D9");
    #endif
 
@@ -736,8 +743,9 @@ class Filter_Tests final : public Test {
 
          result.test_eq("Message count after end_msg", pipe.message_count(), 2 + filter_count);
          for(size_t i = 0; i != filter_count; ++i) {
-            result.test_eq(
-               "Output", pipe.read_all(2 + i), "327AD8055223F5926693D8BEA40F7B35BDEEB535647DFB93F464E40EA01939A9");
+            result.test_eq("Output",
+                           pipe.read_all(2 + i),
+                           "327AD8055223F5926693D8BEA40F7B35BDEEB535647DFB93F464E40EA01939A9");
          }
    #endif
          return result;

@@ -143,8 +143,11 @@ class ECIES_ISO_Tests final : public Text_Based_Test {
 
          // test secret derivation: ISO 18033 test vectors use KDF1 from ISO 18033
          // no cofactor-/oldcofactor-/singlehash-/check-mode and 128 byte secret length
-         Botan::ECIES_KA_Params ka_params(
-            eph_private_key.domain(), "KDF1-18033(SHA-1)", 128, compression_type, Flags::None);
+         Botan::ECIES_KA_Params ka_params(eph_private_key.domain(),
+                                          "KDF1-18033(SHA-1)",
+                                          128,
+                                          compression_type,
+                                          Flags::None);
          const Botan::ECIES_KA_Operation ka(eph_private_key, ka_params, true, this->rng());
          const Botan::SymmetricKey secret_key = ka.derive_secret(eph_public_key_bin, other_public_key_point);
          result.test_eq("derived secret key", secret_key.bits_of(), k);
@@ -185,8 +188,12 @@ class ECIES_ISO_Tests final : public Text_Based_Test {
                                                                 20,
                                                                 comp_type,
                                                                 flags);
-                        check_encrypt_decrypt(
-                           result, eph_private_key, other_private_key, ecies_params, 16, this->rng());
+                        check_encrypt_decrypt(result,
+                                              eph_private_key,
+                                              other_private_key,
+                                              ecies_params,
+                                              16,
+                                              this->rng());
                      }
                   }
                }
@@ -268,10 +275,17 @@ class ECIES_Tests final : public Text_Based_Test {
          const Botan::ECDH_PrivateKey private_key(this->rng(), group, private_key_value);
          const Botan::ECDH_PrivateKey other_private_key(this->rng(), group, other_private_key_value);
 
-         const Botan::ECIES_System_Params ecies_params(
-            private_key.domain(), kdf, dem, dem_key_len, mac, mac_key_len, compression_type, flags);
-         check_encrypt_decrypt(
-            result, private_key, other_private_key, ecies_params, iv, label, plaintext, ciphertext, this->rng());
+         const Botan::ECIES_System_Params
+            ecies_params(private_key.domain(), kdf, dem, dem_key_len, mac, mac_key_len, compression_type, flags);
+         check_encrypt_decrypt(result,
+                               private_key,
+                               other_private_key,
+                               ecies_params,
+                               iv,
+                               label,
+                               plaintext,
+                               ciphertext,
+                               this->rng());
 
          return result;
       }
@@ -427,8 +441,12 @@ Test::Result test_system_params_short_ctor() {
    const Botan::ECDH_PrivateKey private_key(*rng, domain, private_key_value);
    const Botan::ECDH_PrivateKey other_private_key(*rng, domain, other_private_key_value);
 
-   const Botan::ECIES_System_Params ecies_params(
-      private_key.domain(), "KDF1-18033(SHA-512)", "AES-256/CBC", 32, "HMAC(SHA-512)", 16);
+   const Botan::ECIES_System_Params ecies_params(private_key.domain(),
+                                                 "KDF1-18033(SHA-512)",
+                                                 "AES-256/CBC",
+                                                 32,
+                                                 "HMAC(SHA-512)",
+                                                 16);
 
    const Botan::InitializationVector iv("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
    const std::string label = "Test";
@@ -470,8 +488,12 @@ Test::Result test_ciphertext_too_short() {
    const Botan::ECDH_PrivateKey private_key(*rng, domain, private_key_value);
    const Botan::ECDH_PrivateKey other_private_key(*rng, domain, other_private_key_value);
 
-   const Botan::ECIES_System_Params ecies_params(
-      private_key.domain(), "KDF1-18033(SHA-512)", "AES-256/CBC", 32, "HMAC(SHA-512)", 16);
+   const Botan::ECIES_System_Params ecies_params(private_key.domain(),
+                                                 "KDF1-18033(SHA-512)",
+                                                 "AES-256/CBC",
+                                                 32,
+                                                 "HMAC(SHA-512)",
+                                                 16);
 
    Botan::ECIES_Decryptor ecies_dec(other_private_key, ecies_params, *rng);
 

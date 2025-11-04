@@ -233,8 +233,11 @@ std::map<std::string, std::vector<X509_Certificate>> get_server_certs(
    std::map<std::string, std::vector<X509_Certificate>> cert_chains;
 
    for(size_t i = 0; cert_types[i] != nullptr; ++i) {
-      const std::vector<X509_Certificate> certs = creds.cert_chain_single_type(
-         cert_types[i], to_algorithm_identifiers(cert_sig_schemes), "tls-server", std::string(hostname));
+      const std::vector<X509_Certificate> certs =
+         creds.cert_chain_single_type(cert_types[i],
+                                      to_algorithm_identifiers(cert_sig_schemes),
+                                      "tls-server",
+                                      std::string(hostname));
 
       if(!certs.empty()) {
          cert_chains[cert_types[i]] = certs;
@@ -452,15 +455,19 @@ void Server_Impl_12::process_client_hello_msg(const Handshake_State* active_stat
 
    secure_renegotiation_check(pending_state.client_hello());
 
-   callbacks().tls_examine_extensions(
-      pending_state.client_hello()->extensions(), Connection_Side::Client, Handshake_Type::ClientHello);
+   callbacks().tls_examine_extensions(pending_state.client_hello()->extensions(),
+                                      Connection_Side::Client,
+                                      Handshake_Type::ClientHello);
 
    const auto session_handle = pending_state.client_hello()->session_handle();
 
    std::optional<Session> session_info;
    if(pending_state.allow_session_resumption() && session_handle.has_value()) {
-      session_info = check_for_resume(
-         session_handle.value(), session_manager(), callbacks(), policy(), pending_state.client_hello());
+      session_info = check_for_resume(session_handle.value(),
+                                      session_manager(),
+                                      callbacks(),
+                                      policy(),
+                                      pending_state.client_hello());
    }
 
    m_next_protocol = "";
@@ -496,8 +503,12 @@ void Server_Impl_12::process_client_key_exchange_msg(Server_Handshake_State& pen
       pending_state.set_expected_next(Handshake_Type::HandshakeCCS);
    }
 
-   pending_state.client_kex(std::make_unique<Client_Key_Exchange>(
-      contents, pending_state, pending_state.server_rsa_kex_key(), *m_creds, policy(), rng()));
+   pending_state.client_kex(std::make_unique<Client_Key_Exchange>(contents,
+                                                                  pending_state,
+                                                                  pending_state.server_rsa_kex_key(),
+                                                                  *m_creds,
+                                                                  policy(),
+                                                                  rng()));
 
    pending_state.compute_session_keys();
    if(policy().allow_ssl_key_log_file()) {
@@ -505,8 +516,9 @@ void Server_Impl_12::process_client_key_exchange_msg(Server_Handshake_State& pen
       //    An implementation of TLS 1.2 (and also earlier versions) use
       //    the label "CLIENT_RANDOM" to identify the "master" secret for
       //    the connection.
-      callbacks().tls_ssl_key_log_data(
-         "CLIENT_RANDOM", pending_state.client_hello()->random(), pending_state.session_keys().master_secret());
+      callbacks().tls_ssl_key_log_data("CLIENT_RANDOM",
+                                       pending_state.client_hello()->random(),
+                                       pending_state.session_keys().master_secret());
    }
 }
 
@@ -704,8 +716,9 @@ void Server_Impl_12::session_resume(Server_Handshake_State& pending_state, const
       //    An implementation of TLS 1.2 (and also earlier versions) use
       //    the label "CLIENT_RANDOM" to identify the "master" secret for
       //    the connection.
-      callbacks().tls_ssl_key_log_data(
-         "CLIENT_RANDOM", pending_state.client_hello()->random(), pending_state.session_keys().master_secret());
+      callbacks().tls_ssl_key_log_data("CLIENT_RANDOM",
+                                       pending_state.client_hello()->random(),
+                                       pending_state.session_keys().master_secret());
    }
    pending_state.set_resume_certs(session.session.peer_certs());
 
@@ -832,8 +845,12 @@ void Server_Impl_12::session_create(Server_Handshake_State& pending_state) {
    if(pending_suite.kex_method() == Kex_Algo::STATIC_RSA) {
       pending_state.set_server_rsa_kex_key(private_key);
    } else {
-      pending_state.server_kex(std::make_unique<Server_Key_Exchange>(
-         pending_state.handshake_io(), pending_state, policy(), *m_creds, rng(), private_key.get()));
+      pending_state.server_kex(std::make_unique<Server_Key_Exchange>(pending_state.handshake_io(),
+                                                                     pending_state,
+                                                                     policy(),
+                                                                     *m_creds,
+                                                                     rng(),
+                                                                     private_key.get()));
    }
 
    auto trusted_CAs = m_creds->trusted_certificate_authorities("tls-server", sni_hostname);
@@ -848,8 +865,10 @@ void Server_Impl_12::session_create(Server_Handshake_State& pending_state) {
    const bool request_cert = (client_auth_CAs.empty() == false) || policy().request_client_certificate_authentication();
 
    if(request_cert && pending_state.ciphersuite().signature_used()) {
-      pending_state.cert_req(std::make_unique<Certificate_Request_12>(
-         pending_state.handshake_io(), pending_state.hash(), policy(), client_auth_CAs));
+      pending_state.cert_req(std::make_unique<Certificate_Request_12>(pending_state.handshake_io(),
+                                                                      pending_state.hash(),
+                                                                      policy(),
+                                                                      client_auth_CAs));
 
       /*
       SSLv3 allowed clients to skip the Certificate message entirely

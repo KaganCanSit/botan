@@ -165,16 +165,18 @@ Test::Result test_certstor_sqlite3_crl_test(const std::vector<CertificateAndKey>
          const auto crls = store.generate_crls();
 
          result.test_eq("Can't revoke certificate, wrong crl size", crls.size(), 1);
-         result.test_eq(
-            "Can't revoke certificate, cert 0 not revoked", crls[0].is_revoked(certsandkeys[0].certificate()), true);
+         result.test_eq("Can't revoke certificate, cert 0 not revoked",
+                        crls[0].is_revoked(certsandkeys[0].certificate()),
+                        true);
       }
 
       const auto cert0_crl = store.find_crl_for(certsandkeys[0].certificate());
 
       result.test_eq("Can't revoke certificate, crl for cert 0", !cert0_crl, false);
       result.test_eq("Can't revoke certificate, crl for cert 0 size check", cert0_crl->get_revoked().size(), 1);
-      result.test_eq(
-         "Can't revoke certificate, no crl for cert 0", cert0_crl->is_revoked(certsandkeys[0].certificate()), true);
+      result.test_eq("Can't revoke certificate, no crl for cert 0",
+                     cert0_crl->is_revoked(certsandkeys[0].certificate()),
+                     true);
 
       const auto cert3_crl = store.find_crl_for(certsandkeys[3].certificate());
 

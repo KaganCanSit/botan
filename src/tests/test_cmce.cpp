@@ -282,7 +282,8 @@ class CMCE_Generic_Keygen_Tests final : public PK_Key_Generation_Test {
                                                              std::string_view /*provider*/,
                                                              std::span<const uint8_t> raw_key_bits) const override {
          return std::make_unique<Botan::Classic_McEliece_PublicKey>(
-            raw_key_bits, Botan::Classic_McEliece_Parameter_Set::from_string(keygen_params));
+            raw_key_bits,
+            Botan::Classic_McEliece_Parameter_Set::from_string(keygen_params));
       }
 
       std::string algo_name() const override {

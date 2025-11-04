@@ -164,18 +164,24 @@ class SPHINCS_Plus_Test_Base : public Text_Based_Test {
 
             // Verification with deserialized Keypair
             Botan::PK_Verifier deserialized_verifier(deserialized_pub_key, params.algorithm_identifier());
-            bool verify_success_deserialized = deserialized_verifier.verify_message(
-               msg_ref.data(), msg_ref.size(), signature_rand.data(), signature_rand.size());
+            bool verify_success_deserialized = deserialized_verifier.verify_message(msg_ref.data(),
+                                                                                    msg_ref.size(),
+                                                                                    signature_rand.data(),
+                                                                                    signature_rand.size());
             result.confirm("verification of valid signature after deserialization", verify_success_deserialized);
 
             // Verification of invalid signature
             auto broken_sig = Test::mutate_vec(deserialized_signature, this->rng());
-            bool verify_fail = deserialized_verifier.verify_message(
-               msg_ref.data(), msg_ref.size(), broken_sig.data(), broken_sig.size());
+            bool verify_fail = deserialized_verifier.verify_message(msg_ref.data(),
+                                                                    msg_ref.size(),
+                                                                    broken_sig.data(),
+                                                                    broken_sig.size());
             result.confirm("verification of invalid signature", !verify_fail);
 
-            bool verify_success_after_fail = deserialized_verifier.verify_message(
-               msg_ref.data(), msg_ref.size(), signature_rand.data(), signature_rand.size());
+            bool verify_success_after_fail = deserialized_verifier.verify_message(msg_ref.data(),
+                                                                                  msg_ref.size(),
+                                                                                  signature_rand.data(),
+                                                                                  signature_rand.size());
             result.confirm("verification of valid signature after broken signature", verify_success_after_fail);
          }
 

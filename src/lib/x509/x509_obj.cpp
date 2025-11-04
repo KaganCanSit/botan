@@ -215,8 +215,11 @@ std::unique_ptr<PK_Signer> X509_Object::choose_sig_format(const Private_Key& key
       try {
          auto pk_signer = std::make_unique<PK_Signer>(key, rng, user_specified_padding, format);
          if(!hash_fn.empty() && pk_signer->hash_function() != hash_fn) {
-            throw Invalid_Argument(format_padding_error_message(
-               key.algo_name(), pk_signer->hash_function(), hash_fn, "", user_specified_padding));
+            throw Invalid_Argument(format_padding_error_message(key.algo_name(),
+                                                                pk_signer->hash_function(),
+                                                                hash_fn,
+                                                                "",
+                                                                user_specified_padding));
          }
          return pk_signer;
       } catch(Lookup_Error&) {}
@@ -227,8 +230,11 @@ std::unique_ptr<PK_Signer> X509_Object::choose_sig_format(const Private_Key& key
    try {
       auto pk_signer = std::make_unique<PK_Signer>(key, rng, padding, format);
       if(!hash_fn.empty() && pk_signer->hash_function() != hash_fn) {
-         throw Invalid_Argument(format_padding_error_message(
-            key.algo_name(), pk_signer->hash_function(), hash_fn, padding, user_specified_padding));
+         throw Invalid_Argument(format_padding_error_message(key.algo_name(),
+                                                             pk_signer->hash_function(),
+                                                             hash_fn,
+                                                             padding,
+                                                             user_specified_padding));
       }
       return pk_signer;
    } catch(Not_Implemented&) {

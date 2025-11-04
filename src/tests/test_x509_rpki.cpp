@@ -875,8 +875,9 @@ Test::Result test_x509_ip_addr_blocks_family_merge() {
    std::vector<IPAddressBlocks::IPAddressOrRange<IPv4>> v4_choice_vec{
       IPAddressBlocks::IPAddressOrRange<IPv4>(IPAddressBlocks::IPAddress<IPv4>({v4_addr_1}))};
    IPAddressBlocks::IPAddressChoice<IPv4> v4_choice_dupl(v4_choice_vec);
-   result.confirm(
-      "IPAddressChoice v4 merges ranges already in constructor", v4_choice_dupl.ranges().value().size() == 1, true);
+   result.confirm("IPAddressChoice v4 merges ranges already in constructor",
+                  v4_choice_dupl.ranges().value().size() == 1,
+                  true);
    IPAddressBlocks::IPAddressFamily v4_fam_dupl(v4_choice_dupl, 0);
 
    uint8_t v6_bytes_1[16] = {123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123};
@@ -885,8 +886,9 @@ Test::Result test_x509_ip_addr_blocks_family_merge() {
    std::vector<IPAddressBlocks::IPAddressOrRange<IPv6>> v6_choice_vec{
       IPAddressBlocks::IPAddressOrRange<IPv6>(IPAddressBlocks::IPAddress<IPv6>({v6_addr_1}))};
    IPAddressBlocks::IPAddressChoice<IPv6> v6_choice_dupl(v6_choice_vec);
-   result.confirm(
-      "IPAddressChoice v6 merges already in constructor", v6_choice_dupl.ranges().value().size() == 1, true);
+   result.confirm("IPAddressChoice v6 merges already in constructor",
+                  v6_choice_dupl.ranges().value().size() == 1,
+                  true);
    IPAddressBlocks::IPAddressFamily v6_fam_dupl(v6_choice_dupl, 0);
 
    IPAddressBlocks::IPAddressFamily v4_empty_fam(v4_empty_choice);
@@ -911,8 +913,8 @@ Test::Result test_x509_ip_addr_blocks_family_merge() {
       addr_blocks.push_back(v4_empty_fam);
    }
 
-   std::vector<IPAddressBlocks::IPAddressFamily> expected_blocks = {
-      v4_empty_fam, v4_fam_dupl, v4_empty_fam_safi, v6_empty_fam, v6_fam_dupl, v6_empty_fam_safi};
+   std::vector<IPAddressBlocks::IPAddressFamily> expected_blocks =
+      {v4_empty_fam, v4_fam_dupl, v4_empty_fam_safi, v6_empty_fam, v6_fam_dupl, v6_empty_fam_safi};
 
    std::unique_ptr<IPAddressBlocks> blocks = std::make_unique<IPAddressBlocks>(addr_blocks);
 
@@ -966,11 +968,13 @@ Test::Result test_x509_ip_addr_blocks_family_merge() {
          auto exp_choice = std::get<IPAddressBlocks::IPAddressChoice<IPv4>>(exp.addr_choice());
 
          if(!exp_choice.ranges().has_value()) {
-            result.confirm(
-               "block ranges should inherit at index " + std::to_string(i), dec_choice.ranges().has_value(), false);
+            result.confirm("block ranges should inherit at index " + std::to_string(i),
+                           dec_choice.ranges().has_value(),
+                           false);
          } else {
-            result.confirm(
-               "block ranges should not inherit at index " + std::to_string(i), dec_choice.ranges().has_value(), true);
+            result.confirm("block ranges should not inherit at index " + std::to_string(i),
+                           dec_choice.ranges().has_value(),
+                           true);
 
             if(dec_choice.ranges().has_value() == false) {
                continue;
@@ -1002,11 +1006,13 @@ Test::Result test_x509_ip_addr_blocks_family_merge() {
          auto exp_choice = std::get<IPAddressBlocks::IPAddressChoice<IPv6>>(exp.addr_choice());
 
          if(!exp_choice.ranges().has_value()) {
-            result.confirm(
-               "block ranges should inherit at index " + std::to_string(i), dec_choice.ranges().has_value(), false);
+            result.confirm("block ranges should inherit at index " + std::to_string(i),
+                           dec_choice.ranges().has_value(),
+                           false);
          } else {
-            result.confirm(
-               "block ranges should not inherit at index " + std::to_string(i), dec_choice.ranges().has_value(), true);
+            result.confirm("block ranges should not inherit at index " + std::to_string(i),
+                           dec_choice.ranges().has_value(),
+                           true);
 
             if(dec_choice.ranges().has_value() == false) {
                continue;
@@ -1498,8 +1504,9 @@ Test::Result test_x509_as_blocks_rfc3779_example() {
    auto cert = make_self_signed(rng, opts);
    auto bits = cert.v3_extensions().get_extension_bits(ASBlocks::static_oid());
 
-   result.test_eq(
-      "extension is encoded as specified", bits, "301AA014301202020087300802020BB802020F9F02021389A1020500");
+   result.test_eq("extension is encoded as specified",
+                  bits,
+                  "301AA014301202020087300802020BB802020F9F02021389A1020500");
 
    auto as_idents = cert.v3_extensions().get_extension_object_as<ASBlocks>()->as_identifiers();
    auto as_ids = as_idents.asnum().value().ranges().value();

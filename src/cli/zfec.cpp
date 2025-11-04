@@ -89,8 +89,12 @@ class FEC_Share final {
             throw CLI_Error("FEC share has invalid hash");
          }
 
-         return FEC_Share(
-            share_id, k, n, padding, bits + FEC_SHARE_HEADER_LEN, len - (FEC_SHARE_HEADER_LEN + hash_len));
+         return FEC_Share(share_id,
+                          k,
+                          n,
+                          padding,
+                          bits + FEC_SHARE_HEADER_LEN,
+                          len - (FEC_SHARE_HEADER_LEN + hash_len));
       }
 
       void serialize_to(Botan::HashFunction& hash, std::ostream& out) const {
@@ -272,8 +276,9 @@ class FEC_Decode final : public Command {
 
          auto decoded_digest = hash->process(decoded.data(), decoded.size() - (hash_len + padding));
 
-         if(!Botan::constant_time_compare(
-               decoded_digest.data(), &decoded[decoded.size() - (hash_len + padding)], hash_len)) {
+         if(!Botan::constant_time_compare(decoded_digest.data(),
+                                          &decoded[decoded.size() - (hash_len + padding)],
+                                          hash_len)) {
             throw CLI_Error("Recovered data failed digest check");
          }
 

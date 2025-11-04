@@ -87,8 +87,11 @@ bool ht_verify(const SphincsTreeNode& signed_msg,
 
       wots_pk_addr.copy_keypair_from(wots_addr);
 
-      const auto wots_pk = wots_public_key_from_signature(
-         current_root, sig_s.take<WotsSignature>(params.wots_bytes()), wots_addr, params, hashes);
+      const auto wots_pk = wots_public_key_from_signature(current_root,
+                                                          sig_s.take<WotsSignature>(params.wots_bytes()),
+                                                          wots_addr,
+                                                          params,
+                                                          hashes);
 
       // Compute the leaf node using the WOTS public key.
       const auto leaf = hashes.T<SphincsTreeNode>(wots_pk_addr, wots_pk);

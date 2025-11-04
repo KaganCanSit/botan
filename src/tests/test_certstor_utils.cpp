@@ -36,8 +36,9 @@ Botan::X509_DN get_dn() {
 
 Botan::X509_DN get_utf8_dn() {
    const auto alts = get_utf8_dn_alternatives();
-   const auto dtrust = std::find_if(
-      alts.begin(), alts.end(), [](const auto& alt) { return alt.first == "D-TRUST Root Class 3 CA 2 EV 2009"; });
+   const auto dtrust = std::find_if(alts.begin(), alts.end(), [](const auto& alt) {
+      return alt.first == "D-TRUST Root Class 3 CA 2 EV 2009";
+   });
    BOTAN_ASSERT_NOMSG(dtrust != alts.end());
    return dtrust->second;
 }

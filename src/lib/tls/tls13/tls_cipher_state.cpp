@@ -424,8 +424,10 @@ secure_vector<uint8_t> Cipher_State::export_key(std::string_view label, std::str
 
    m_hash->update(context);
    const auto context_hash = m_hash->final_stdvec();
-   return hkdf_expand_label(
-      derive_secret(m_exporter_master_secret, label, empty_hash()), "exporter", context_hash, length);
+   return hkdf_expand_label(derive_secret(m_exporter_master_secret, label, empty_hash()),
+                            "exporter",
+                            context_hash,
+                            length);
 }
 
 namespace {
@@ -581,8 +583,10 @@ secure_vector<uint8_t> Cipher_State::hkdf_expand_label(const secure_vector<uint8
    hkdf_label.insert(hkdf_label.end(), context.cbegin(), context.cend());
 
    // HKDF-Expand
-   return m_expand->derive_key(
-      length, secret, hkdf_label, std::vector<uint8_t>() /* just pleasing botan's interface */);
+   return m_expand->derive_key(length,
+                               secret,
+                               hkdf_label,
+                               std::vector<uint8_t>() /* just pleasing botan's interface */);
 }
 
 secure_vector<uint8_t> Cipher_State::derive_secret(const secure_vector<uint8_t>& secret,

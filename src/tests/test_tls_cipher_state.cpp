@@ -305,10 +305,16 @@ std::vector<Test::Result> test_secret_derivation_rfc8448_rtt1() {
    // initialize Cipher_State with client_hello...server_hello
    Journaling_Secret_Logger sl_client;
    Journaling_Secret_Logger sl_server;
-   auto cs_client = Cipher_State::init_with_server_hello(
-      Connection_Side::Client, secure_vector<uint8_t>(shared_secret), cipher, th_server_hello, sl_client);
-   auto cs_server = Cipher_State::init_with_server_hello(
-      Connection_Side::Server, secure_vector<uint8_t>(shared_secret), cipher, th_server_hello, sl_server);
+   auto cs_client = Cipher_State::init_with_server_hello(Connection_Side::Client,
+                                                         secure_vector<uint8_t>(shared_secret),
+                                                         cipher,
+                                                         th_server_hello,
+                                                         sl_client);
+   auto cs_server = Cipher_State::init_with_server_hello(Connection_Side::Server,
+                                                         secure_vector<uint8_t>(shared_secret),
+                                                         cipher,
+                                                         th_server_hello,
+                                                         sl_server);
 
    auto CHECK_both = make_CHECK_both(cs_client.get(), &sl_client, cs_server.get(), &sl_server);
 
@@ -394,10 +400,12 @@ std::vector<Test::Result> test_secret_derivation_rfc8448_rtt1() {
                      result.require("has client traffic secret", sl->secrets.contains("CLIENT_TRAFFIC_SECRET_0"));
                      result.require("has server traffic secret", sl->secrets.contains("SERVER_TRAFFIC_SECRET_0"));
                      result.require("has exporter secret", sl->secrets.contains("EXPORTER_SECRET"));
-                     result.test_eq(
-                        "client traffic secret (0)", sl->secrets.at("CLIENT_TRAFFIC_SECRET_0"), client_traffic_secret);
-                     result.test_eq(
-                        "server traffic secret (0)", sl->secrets.at("SERVER_TRAFFIC_SECRET_0"), server_traffic_secret);
+                     result.test_eq("client traffic secret (0)",
+                                    sl->secrets.at("CLIENT_TRAFFIC_SECRET_0"),
+                                    client_traffic_secret);
+                     result.test_eq("server traffic secret (0)",
+                                    sl->secrets.at("SERVER_TRAFFIC_SECRET_0"),
+                                    server_traffic_secret);
 
                      // generate the MAC for the client Finished message
                      const auto expected_client_mac = Botan::hex_decode(
@@ -717,8 +725,9 @@ std::vector<Test::Result> test_secret_derivation_rfc8448_rtt0() {
 
                      result.test_eq("logged early secrets", sl->secrets.size(), 1);
                      result.require("has early exporter secret", sl->secrets.contains("EARLY_EXPORTER_MASTER_SECRET"));
-                     result.test_eq(
-                        "early exporter secret", sl->secrets.at("EARLY_EXPORTER_MASTER_SECRET"), early_exporter_secret);
+                     result.test_eq("early exporter secret",
+                                    sl->secrets.at("EARLY_EXPORTER_MASTER_SECRET"),
+                                    early_exporter_secret);
 
                      // TODO: Once 0-RTT traffic is implemented this will likely allow handling of
                      //       application traffic in this state.

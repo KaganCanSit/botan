@@ -45,12 +45,22 @@ secure_vector<uint8_t> XMSS_Verification_Operation::root_from_signature(const XM
       adrs.set_tree_height(static_cast<uint32_t>(k));
       if(((next_index / (static_cast<size_t>(1) << k)) & 0x01) == 0) {
          adrs.set_tree_index(adrs.get_tree_index() >> 1);
-         XMSS_Common_Ops::randomize_tree_hash(
-            node[1], node[0], sig.tree().authentication_path[k], adrs, seed, m_hash, params);
+         XMSS_Common_Ops::randomize_tree_hash(node[1],
+                                              node[0],
+                                              sig.tree().authentication_path[k],
+                                              adrs,
+                                              seed,
+                                              m_hash,
+                                              params);
       } else {
          adrs.set_tree_index((adrs.get_tree_index() - 1) >> 1);
-         XMSS_Common_Ops::randomize_tree_hash(
-            node[1], sig.tree().authentication_path[k], node[0], adrs, seed, m_hash, params);
+         XMSS_Common_Ops::randomize_tree_hash(node[1],
+                                              sig.tree().authentication_path[k],
+                                              node[0],
+                                              adrs,
+                                              seed,
+                                              m_hash,
+                                              params);
       }
       node[0] = node[1];
    }

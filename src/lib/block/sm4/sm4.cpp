@@ -75,8 +75,10 @@ alignas(256) const uint32_t SM4_SBOX_T[256] = {
    0x8BD45F5F, 0xE7C82F2F, 0xDD39E4E4, 0x68492121};
 
 inline uint32_t SM4_T_slow(uint32_t b) {
-   const uint32_t t = make_uint32(
-      SM4_SBOX[get_byte<0>(b)], SM4_SBOX[get_byte<1>(b)], SM4_SBOX[get_byte<2>(b)], SM4_SBOX[get_byte<3>(b)]);
+   const uint32_t t = make_uint32(SM4_SBOX[get_byte<0>(b)],
+                                  SM4_SBOX[get_byte<1>(b)],
+                                  SM4_SBOX[get_byte<2>(b)],
+                                  SM4_SBOX[get_byte<3>(b)]);
 
    // L linear transform
    return t ^ rotl<2>(t) ^ rotl<10>(t) ^ rotl<18>(t) ^ rotl<24>(t);
@@ -89,8 +91,10 @@ inline uint32_t SM4_T(uint32_t b) {
 
 // Variant of T for key schedule
 inline uint32_t SM4_Tp(uint32_t b) {
-   const uint32_t t = make_uint32(
-      SM4_SBOX[get_byte<0>(b)], SM4_SBOX[get_byte<1>(b)], SM4_SBOX[get_byte<2>(b)], SM4_SBOX[get_byte<3>(b)]);
+   const uint32_t t = make_uint32(SM4_SBOX[get_byte<0>(b)],
+                                  SM4_SBOX[get_byte<1>(b)],
+                                  SM4_SBOX[get_byte<2>(b)],
+                                  SM4_SBOX[get_byte<3>(b)]);
 
    // L' linear transform
    return t ^ rotl<13>(t) ^ rotl<23>(t);

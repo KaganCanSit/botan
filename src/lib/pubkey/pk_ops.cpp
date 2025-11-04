@@ -216,8 +216,9 @@ void PK_Ops::KEM_Encryption_with_KDF::kem_encrypt(std::span<uint8_t> out_encapsu
    BOTAN_ASSERT_NOMSG(out_encapsulated_key.size() == encapsulated_key_length());
 
    if(m_kdf) {
-      BOTAN_ASSERT_EQUAL(
-         out_shared_key.size(), desired_shared_key_len, "KDF output length and shared key length match");
+      BOTAN_ASSERT_EQUAL(out_shared_key.size(),
+                         desired_shared_key_len,
+                         "KDF output length and shared key length match");
 
       secure_vector<uint8_t> raw_shared(raw_kem_shared_key_length());
       this->raw_kem_encrypt(out_encapsulated_key, raw_shared, rng);
@@ -251,8 +252,9 @@ void PK_Ops::KEM_Decryption_with_KDF::kem_decrypt(std::span<uint8_t> out_shared_
    BOTAN_ARG_CHECK(salt.empty() || m_kdf, "PK_KEM_Decryptor::decrypt requires a KDF to use a salt");
 
    if(m_kdf) {
-      BOTAN_ASSERT_EQUAL(
-         out_shared_key.size(), desired_shared_key_len, "KDF output length and shared key length match");
+      BOTAN_ASSERT_EQUAL(out_shared_key.size(),
+                         desired_shared_key_len,
+                         "KDF output length and shared key length match");
 
       secure_vector<uint8_t> raw_shared(raw_kem_shared_key_length());
       this->raw_kem_decrypt(raw_shared, encapsulated_key);

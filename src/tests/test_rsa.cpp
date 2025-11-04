@@ -221,8 +221,11 @@ class RSA_Blinding_Tests final : public Test {
          * are used as an additional test on the blinders.
          */
 
-         Botan::PK_Signer signer(
-            rsa, this->rng(), "Raw", Botan::Signature_Format::Standard, "base");  // don't try this at home
+         Botan::PK_Signer signer(rsa,
+                                 this->rng(),
+                                 "Raw",
+                                 Botan::Signature_Format::Standard,
+                                 "base");  // don't try this at home
          Botan::PK_Verifier verifier(rsa, "Raw", Botan::Signature_Format::Standard, "base");
 
          for(size_t i = 1; i <= Botan::Blinder::ReinitInterval * 6; ++i) {
@@ -355,8 +358,13 @@ class RSA_DecryptOrRandom_Tests : public Test {
                required_offsets[j] = idx;
             }
 
-            auto rec = dec.decrypt_or_random(
-               ctext.data(), ctext.size(), pt_len, rng, required_contents.data(), required_offsets.data(), req_bytes);
+            auto rec = dec.decrypt_or_random(ctext.data(),
+                                             ctext.size(),
+                                             pt_len,
+                                             rng,
+                                             required_contents.data(),
+                                             required_offsets.data(),
+                                             req_bytes);
 
             result.test_eq("Returned the expected message", rec, msg);
          }
@@ -382,8 +390,13 @@ class RSA_DecryptOrRandom_Tests : public Test {
                }
             }
 
-            auto rec = dec.decrypt_or_random(
-               ctext.data(), ctext.size(), pt_len, rng, required_contents.data(), required_offsets.data(), req_bytes);
+            auto rec = dec.decrypt_or_random(ctext.data(),
+                                             ctext.size(),
+                                             pt_len,
+                                             rng,
+                                             required_contents.data(),
+                                             required_offsets.data(),
+                                             req_bytes);
 
             result.test_ne("Returned random message", rec, ctext);
 

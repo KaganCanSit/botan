@@ -37,8 +37,13 @@ Client::Client(const std::shared_ptr<Callbacks>& callbacks,
 
 #if defined(BOTAN_HAS_TLS_13)
    if(offer_version == Protocol_Version::TLS_V13) {
-      m_impl = std::make_unique<Client_Impl_13>(
-         callbacks, session_manager, creds, policy, rng, std::move(info), next_protocols);
+      m_impl = std::make_unique<Client_Impl_13>(callbacks,
+                                                session_manager,
+                                                creds,
+                                                policy,
+                                                rng,
+                                                std::move(info),
+                                                next_protocols);
 
       if(m_impl->expects_downgrade()) {
          m_impl->set_io_buffer_size(io_buf_sz);

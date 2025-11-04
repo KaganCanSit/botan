@@ -191,8 +191,9 @@ class EC_Group_Tests : public Test {
 
             const Botan::OID from_order = Botan::EC_Group::EC_group_identity_from_order(group.get_order());
 
-            result.test_eq(
-               "EC_group_identity_from_order works", from_order.to_string(), group.get_curve_oid().to_string());
+            result.test_eq("EC_group_identity_from_order works",
+                           from_order.to_string(),
+                           group.get_curve_oid().to_string());
 
             result.confirm("Same group is same", group == Botan::EC_Group::from_name(group_name));
 
@@ -627,19 +628,22 @@ class EC_PointEnc_Tests final : public Test {
                const uint8_t expected_c_header = (pt_u[pt_u.size() - 1] % 2 == 0) ? 0x02 : 0x03;
                result.confirm("Expected compressed header", pt_c[0] == expected_c_header);
 
-               result.test_eq(
-                  "Expected compressed x", std::span{pt_c}.subspan(1), std::span{pt_u}.subspan(1, fe_bytes));
+               result.test_eq("Expected compressed x",
+                              std::span{pt_c}.subspan(1),
+                              std::span{pt_u}.subspan(1, fe_bytes));
 
                if(auto d_pt_u = Botan::EC_AffinePoint::deserialize(group, pt_u)) {
-                  result.test_eq(
-                     "Deserializing uncompressed returned correct point", d_pt_u->serialize_uncompressed(), pt_u);
+                  result.test_eq("Deserializing uncompressed returned correct point",
+                                 d_pt_u->serialize_uncompressed(),
+                                 pt_u);
                } else {
                   result.test_failure("Failed to deserialize uncompressed point");
                }
 
                if(auto d_pt_c = Botan::EC_AffinePoint::deserialize(group, pt_c)) {
-                  result.test_eq(
-                     "Deserializing compressed returned correct point", d_pt_c->serialize_uncompressed(), pt_u);
+                  result.test_eq("Deserializing compressed returned correct point",
+                                 d_pt_c->serialize_uncompressed(),
+                                 pt_u);
                } else {
                   result.test_failure("Failed to deserialize compressed point");
                }

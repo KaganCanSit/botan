@@ -62,18 +62,21 @@ std::vector<Test::Result> finished_message_handling() {
                std::reference_wrapper<Botan::TLS::Finished_13>
                   client_fin = state.sending(std::move(client_finished));
                result.test_throws("not stored as server Finished", [&] { state.server_finished(); });
-               result.test_eq(
-                  "correct client Finished stored", state.client_finished().serialize(), client_finished_message);
+               result.test_eq("correct client Finished stored",
+                              state.client_finished().serialize(),
+                              client_finished_message);
 
                Botan::TLS::Finished_13 server_finished(server_finished_message);
 
                auto server_fin = state.received(std::move(server_finished));
                result.require("client can receive server finished",
                               std::holds_alternative<std::reference_wrapper<Botan::TLS::Finished_13>>(server_fin));
-               result.test_eq(
-                  "correct client Finished stored", state.client_finished().serialize(), client_finished_message);
-               result.test_eq(
-                  "correct server Finished stored", state.server_finished().serialize(), server_finished_message);
+               result.test_eq("correct client Finished stored",
+                              state.client_finished().serialize(),
+                              client_finished_message);
+               result.test_eq("correct server Finished stored",
+                              state.server_finished().serialize(),
+                              server_finished_message);
             }),
    };
 }
@@ -95,7 +98,9 @@ std::vector<Test::Result> handshake_message_filtering() {
                result.test_eq("correct client hello stored", state.client_hello().serialize(), client_hello_message);
 
                result.template test_throws<Botan::TLS::TLS_Exception>(
-                  "client cannot receive client hello", "received an illegal handshake message", [&] {
+                  "client cannot receive client hello",
+                  "received an illegal handshake message",
+                  [&] {
                      auto ch =
                         std::get<Botan::TLS::Client_Hello_13>(Botan::TLS::Client_Hello_13::parse(client_hello_message));
                      state.received(std::move(ch));

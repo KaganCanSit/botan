@@ -206,8 +206,10 @@ std::vector<ReturnT> get_tpm_property_list(ESYS_CONTEXT* ctx, TPM2_PT property, 
 }  // namespace
 
 std::string Context::vendor() const {
-   constexpr std::array properties = {
-      TPM2_PT_VENDOR_STRING_1, TPM2_PT_VENDOR_STRING_2, TPM2_PT_VENDOR_STRING_3, TPM2_PT_VENDOR_STRING_4};
+   constexpr std::array properties = {TPM2_PT_VENDOR_STRING_1,
+                                      TPM2_PT_VENDOR_STRING_2,
+                                      TPM2_PT_VENDOR_STRING_3,
+                                      TPM2_PT_VENDOR_STRING_4};
    std::array<uint8_t, properties.size() * 4 + 1 /* ensure zero-termination */> vendor_string{};
 
    BufferStuffer bs(vendor_string);
@@ -286,8 +288,9 @@ bool Context::supports_algorithm(std::string_view algo_name) const {
    const auto algo_caps =
       get_tpm_property_list<TPM2_CAP_ALGS, TPM2_ALG_ID>(m_impl->m_ctx, TPM2_ALG_FIRST, TPM2_MAX_CAP_ALGS);
 
-   return std::all_of(
-      required_alg_ids.begin(), required_alg_ids.end(), [&](TPM2_ALG_ID id) { return value_exists(algo_caps, id); });
+   return std::all_of(required_alg_ids.begin(), required_alg_ids.end(), [&](TPM2_ALG_ID id) {
+      return value_exists(algo_caps, id);
+   });
 }
 
 size_t Context::max_random_bytes_per_request() const {
@@ -328,8 +331,9 @@ std::optional<TPM2_HANDLE> Context::find_free_persistent_handle() const {
 }
 
 std::vector<TPM2_HANDLE> Context::persistent_handles() const {
-   return get_tpm_property_list<TPM2_CAP_HANDLES, TPM2_HANDLE>(
-      m_impl->m_ctx, TPM2_PERSISTENT_FIRST, TPM2_MAX_CAP_HANDLES);
+   return get_tpm_property_list<TPM2_CAP_HANDLES, TPM2_HANDLE>(m_impl->m_ctx,
+                                                               TPM2_PERSISTENT_FIRST,
+                                                               TPM2_MAX_CAP_HANDLES);
 }
 
 TPM2_HANDLE Context::persist(TPM2::PrivateKey& key,

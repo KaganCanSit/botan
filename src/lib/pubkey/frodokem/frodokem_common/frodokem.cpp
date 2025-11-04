@@ -281,14 +281,16 @@ FrodoKEM_PublicKey::FrodoKEM_PublicKey(const AlgorithmIdentifier& alg_id, std::s
       FrodoKEM_PublicKey(key_bits, FrodoKEMMode(alg_id.oid())) {}
 
 FrodoKEM_PublicKey::FrodoKEM_PublicKey(const FrodoKEM_PublicKey& other) {
-   m_public = std::make_shared<FrodoKEM_PublicKeyInternal>(
-      other.m_public->constants(), other.m_public->seed_a(), other.m_public->b());
+   m_public = std::make_shared<FrodoKEM_PublicKeyInternal>(other.m_public->constants(),
+                                                           other.m_public->seed_a(),
+                                                           other.m_public->b());
 }
 
 FrodoKEM_PublicKey& FrodoKEM_PublicKey::operator=(const FrodoKEM_PublicKey& other) {
    if(this != &other) {
-      m_public = std::make_shared<FrodoKEM_PublicKeyInternal>(
-         other.m_public->constants(), other.m_public->seed_a(), other.m_public->b());
+      m_public = std::make_shared<FrodoKEM_PublicKeyInternal>(other.m_public->constants(),
+                                                              other.m_public->seed_a(),
+                                                              other.m_public->b());
    }
    return *this;
 }

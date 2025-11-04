@@ -53,8 +53,9 @@ int botan_oid_view_string(botan_asn1_oid_t oid, botan_view_ctx ctx, botan_view_s
 }
 
 int botan_oid_view_name(botan_asn1_oid_t oid, botan_view_ctx ctx, botan_view_str_fn view) {
-   return BOTAN_FFI_VISIT(
-      oid, [=](const auto& o) -> int { return invoke_view_callback(view, ctx, o.to_formatted_string()); });
+   return BOTAN_FFI_VISIT(oid, [=](const auto& o) -> int {
+      return invoke_view_callback(view, ctx, o.to_formatted_string());
+   });
 }
 
 int botan_oid_equal(botan_asn1_oid_t a_w, botan_asn1_oid_t b_w) {

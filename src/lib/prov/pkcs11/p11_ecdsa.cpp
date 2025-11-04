@@ -152,8 +152,10 @@ class PKCS11_ECDSA_Verification_Operation final : public PK_Ops::Verification {
             m_first_message.clear();
          } else {
             // multiple calls to update (or none): finish multiple-part operation
-            m_key.module()->C_VerifyFinal(
-               m_key.session().handle(), sig.data(), static_cast<Ulong>(sig.size()), &return_value);
+            m_key.module()->C_VerifyFinal(m_key.session().handle(),
+                                          sig.data(),
+                                          static_cast<Ulong>(sig.size()),
+                                          &return_value);
          }
          m_initialized = false;
          if(return_value != ReturnValue::OK && return_value != ReturnValue::SignatureInvalid) {

@@ -274,7 +274,8 @@ class Kyber_Encoding_Test : public Text_Based_Test {
                               skr->private_key_bits_with_format(Botan::MlPrivateKeyFormat::Seed),
                               sk_raw);
                const auto skr_expanded = std::make_unique<Botan::Kyber_PrivateKey>(
-                  skr->private_key_bits_with_format(Botan::MlPrivateKeyFormat::Expanded), mode);
+                  skr->private_key_bits_with_format(Botan::MlPrivateKeyFormat::Expanded),
+                  mode);
                result.test_eq("sk's expanded encoding consistency",
                               skr->private_key_bits_with_format(Botan::MlPrivateKeyFormat::Expanded),
                               skr_expanded->private_key_bits_with_format(Botan::MlPrivateKeyFormat::Expanded));

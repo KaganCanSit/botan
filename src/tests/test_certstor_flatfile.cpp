@@ -172,8 +172,9 @@ Test::Result find_all_subjects() {
 
       if(result.confirm("result not empty", !subjects.empty())) {
          auto dn = get_dn();
-         auto needle = std::find_if(
-            subjects.cbegin(), subjects.cend(), [=](const Botan::X509_DN& subject) { return subject == dn; });
+         auto needle = std::find_if(subjects.cbegin(), subjects.cend(), [=](const Botan::X509_DN& subject) {
+            return subject == dn;
+         });
 
          if(result.confirm("found expected certificate", needle != subjects.end())) {
             result.confirm("expected certificate", *needle == dn);

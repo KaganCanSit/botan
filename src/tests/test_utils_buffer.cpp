@@ -564,8 +564,9 @@ std::vector<Test::Result> test_concat() {
                result.confirm("empty concat 3", empty3.empty());
 
                // pass multiple empty input buffers to be concat'ed without auto-detection of the output buffer
-               const auto empty4 = Botan::concat<std::array<uint8_t, 0>>(
-                  std::vector<uint8_t>(), std::array<uint8_t, 0>(), Botan::secure_vector<uint8_t>());
+               const auto empty4 = Botan::concat<std::array<uint8_t, 0>>(std::vector<uint8_t>(),
+                                                                         std::array<uint8_t, 0>(),
+                                                                         Botan::secure_vector<uint8_t>());
                result.confirm("empty concat 4", empty4.empty());
             }),
 

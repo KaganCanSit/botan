@@ -69,8 +69,14 @@ class Callbacks : public Botan::TLS::Callbacks {
 
          const std::string checked_name = flag_set("skip-hostname-check") ? "" : std::string(hostname);
 
-         Botan::Path_Validation_Result result = Botan::x509_path_validate(
-            cert_chain, restrictions, trusted_roots, checked_name, usage, tls_current_timestamp(), ocsp_timeout, ocsp);
+         Botan::Path_Validation_Result result = Botan::x509_path_validate(cert_chain,
+                                                                          restrictions,
+                                                                          trusted_roots,
+                                                                          checked_name,
+                                                                          usage,
+                                                                          tls_current_timestamp(),
+                                                                          ocsp_timeout,
+                                                                          ocsp);
 
          if(result.successful_validation()) {
             output() << "Certificate validation status: " << result.result_string() << "\n";

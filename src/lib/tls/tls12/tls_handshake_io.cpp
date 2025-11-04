@@ -205,8 +205,12 @@ void Datagram_Handshake_IO::add_record(const uint8_t record[],
       }
 
       if(message_seq >= m_in_message_seq) {
-         m_messages[message_seq].add_fragment(
-            &record[DTLS_HANDSHAKE_HEADER_LEN], fragment_length, fragment_offset, epoch, msg_type, msg_len);
+         m_messages[message_seq].add_fragment(&record[DTLS_HANDSHAKE_HEADER_LEN],
+                                              fragment_length,
+                                              fragment_offset,
+                                              epoch,
+                                              msg_type,
+                                              msg_len);
       } else {
          // TODO: detect retransmitted flight
       }

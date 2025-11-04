@@ -99,8 +99,12 @@ void Session_Manager_SQL::create_with_latest_schema(std::string_view passphrase,
    auto desired_runtime = std::chrono::milliseconds(100);
    auto pbkdf = pbkdf_fam->tune(derived_key.size(), desired_runtime);
 
-   pbkdf->derive_key(
-      derived_key.data(), derived_key.size(), passphrase.data(), passphrase.size(), salt.data(), salt.size());
+   pbkdf->derive_key(derived_key.data(),
+                     derived_key.size(),
+                     passphrase.data(),
+                     passphrase.size(),
+                     salt.data(),
+                     salt.size());
 
    const size_t iterations = pbkdf->iterations();
    const size_t check_val = make_uint16(derived_key[0], derived_key[1]);
@@ -133,8 +137,12 @@ void Session_Manager_SQL::initialize_existing_database(std::string_view passphra
    auto pbkdf_fam = PasswordHashFamily::create_or_throw(pbkdf_name);
    auto pbkdf = pbkdf_fam->from_params(iterations);
 
-   pbkdf->derive_key(
-      derived_key.data(), derived_key.size(), passphrase.data(), passphrase.size(), salt.first, salt.second);
+   pbkdf->derive_key(derived_key.data(),
+                     derived_key.size(),
+                     passphrase.data(),
+                     passphrase.size(),
+                     salt.first,
+                     salt.second);
 
    const size_t check_val_created = make_uint16(derived_key[0], derived_key[1]);
 

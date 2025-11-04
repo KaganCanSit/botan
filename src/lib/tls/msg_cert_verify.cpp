@@ -162,8 +162,11 @@ Certificate_Verify_13::Certificate_Verify_13(const Certificate_13& certificate_m
    BOTAN_ASSERT_NOMSG(m_scheme.is_available());
    BOTAN_ASSERT_NOMSG(m_scheme.is_compatible_with(Protocol_Version::TLS_V13));
 
-   m_signature = callbacks.tls_sign_message(
-      *private_key, rng, m_scheme.padding_string(), m_scheme.format().value(), message(m_side, hash));
+   m_signature = callbacks.tls_sign_message(*private_key,
+                                            rng,
+                                            m_scheme.padding_string(),
+                                            m_scheme.format().value(),
+                                            message(m_side, hash));
 }
 
 Certificate_Verify_13::Certificate_Verify_13(const std::vector<uint8_t>& buf, const Connection_Side side) :
@@ -192,8 +195,11 @@ bool Certificate_Verify_13::verify(const Public_Key& public_key,
       throw TLS_Exception(Alert::IllegalParameter, "Signature algorithm does not match certificate's public key");
    }
 
-   const bool signature_valid = callbacks.tls_verify_message(
-      public_key, m_scheme.padding_string(), m_scheme.format().value(), message(m_side, transcript_hash), m_signature);
+   const bool signature_valid = callbacks.tls_verify_message(public_key,
+                                                             m_scheme.padding_string(),
+                                                             m_scheme.format().value(),
+                                                             message(m_side, transcript_hash),
+                                                             m_signature);
 
    #if defined(BOTAN_UNSAFE_FUZZER_MODE)
    BOTAN_UNUSED(signature_valid);

@@ -169,8 +169,9 @@ class TLS_Message_Parsing_Test final : public Text_Based_Test {
                   Botan::TLS::Hello_Verify_Request message(buffer);
                });
             } else if(algo == "hello_request") {
-               result.test_throws(
-                  "invalid hello_request input", exception, [&buffer]() { Botan::TLS::Hello_Request message(buffer); });
+               result.test_throws("invalid hello_request input", exception, [&buffer]() {
+                  Botan::TLS::Hello_Request message(buffer);
+               });
             } else if(algo == "cert_status") {
                result.test_throws("invalid cert_status input", exception, [&buffer]() {
                   Botan::TLS::Certificate_Status message(buffer, Botan::TLS::Connection_Side::Server);
@@ -264,8 +265,9 @@ class TLS_Extension_Parsing_Test final : public Text_Based_Test {
                if(extension == "supported_version") {
                   const std::string expected_buffer = Botan::hex_encode(buffer);
                   Botan::TLS::TLS_Data_Reader tls_data_reader("ClientHello", buffer);
-                  Botan::TLS::Supported_Versions supported_versions(
-                     tls_data_reader, static_cast<uint16_t>(buffer.size()), Botan::TLS::Connection_Side::Client);
+                  Botan::TLS::Supported_Versions supported_versions(tls_data_reader,
+                                                                    static_cast<uint16_t>(buffer.size()),
+                                                                    Botan::TLS::Connection_Side::Client);
                   const auto serialized_buffer = supported_versions.serialize(Botan::TLS::Connection_Side::Client);
 
                   const std::vector<std::vector<uint8_t>> expected_versions = vars.get_req_bin_list("Expected_Content");
@@ -352,28 +354,33 @@ class TLS_Extension_Parsing_Test final : public Text_Based_Test {
                   const auto serialized_buffer = key_share.serialize(Botan::TLS::Connection_Side::Client);
                   const auto expected_key_share = vars.get_req_bin("Expected_Content");
 
-                  result.test_eq(
-                     "key_share_HRR test", Botan::hex_encode(serialized_buffer), Botan::hex_encode(expected_key_share));
+                  result.test_eq("key_share_HRR test",
+                                 Botan::hex_encode(serialized_buffer),
+                                 Botan::hex_encode(expected_key_share));
                } else if(extension == "key_share_SH") {
                   Botan::TLS::TLS_Data_Reader tls_data_reader("ServerHello", buffer);
-                  Botan::TLS::Key_Share key_share(
-                     tls_data_reader, static_cast<uint16_t>(buffer.size()), Botan::TLS::Handshake_Type::ServerHello);
+                  Botan::TLS::Key_Share key_share(tls_data_reader,
+                                                  static_cast<uint16_t>(buffer.size()),
+                                                  Botan::TLS::Handshake_Type::ServerHello);
 
                   const auto serialized_buffer = key_share.serialize(Botan::TLS::Connection_Side::Client);
                   const auto expected_key_share = vars.get_req_bin("Expected_Content");
 
-                  result.test_eq(
-                     "key_share_SH test", Botan::hex_encode(serialized_buffer), Botan::hex_encode(expected_key_share));
+                  result.test_eq("key_share_SH test",
+                                 Botan::hex_encode(serialized_buffer),
+                                 Botan::hex_encode(expected_key_share));
                } else if(extension == "key_share_CH") {
                   Botan::TLS::TLS_Data_Reader tls_data_reader("ClientHello", buffer);
-                  Botan::TLS::Key_Share key_share(
-                     tls_data_reader, static_cast<uint16_t>(buffer.size()), Botan::TLS::Handshake_Type::ClientHello);
+                  Botan::TLS::Key_Share key_share(tls_data_reader,
+                                                  static_cast<uint16_t>(buffer.size()),
+                                                  Botan::TLS::Handshake_Type::ClientHello);
 
                   const auto serialized_buffer = key_share.serialize(Botan::TLS::Connection_Side::Server);
                   const auto expected_key_share = vars.get_req_bin("Expected_Content");
 
-                  result.test_eq(
-                     "key_share_CH test", Botan::hex_encode(serialized_buffer), Botan::hex_encode(expected_key_share));
+                  result.test_eq("key_share_CH test",
+                                 Botan::hex_encode(serialized_buffer),
+                                 Botan::hex_encode(expected_key_share));
                } else {
                   throw Test_Error("Unknown extension type " + extension + " in TLS parsing tests");
                }

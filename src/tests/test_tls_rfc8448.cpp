@@ -1026,27 +1026,27 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
          std::unique_ptr<Client_Context> ctx;
 
          return {
-            CHECK("Client Hello",
-                  [&](Test::Result& result) {
-                     ctx = std::make_unique<Client_Context>(rng,
-                                                            std::make_shared<RFC8448_Text_Policy>("rfc8448_1rtt"),
-                                                            vars.get_req_u64("CurrentTimestamp"),
-                                                            add_extensions_and_sort);
+            CHECK(
+               "Client Hello",
+               [&](Test::Result& result) {
+                  ctx = std::make_unique<Client_Context>(rng,
+                                                         std::make_shared<RFC8448_Text_Policy>("rfc8448_1rtt"),
+                                                         vars.get_req_u64("CurrentTimestamp"),
+                                                         add_extensions_and_sort);
 
-                     result.confirm("client not closed", !ctx->client.is_closed());
-                     ctx->check_callback_invocations(result,
-                                                     "client hello prepared",
-                                                     {
-                                                        "tls_emit_data",
-                                                        "tls_inspect_handshake_msg_client_hello",
-                                                        "tls_modify_extensions_client_hello",
-                                                        "tls_generate_ephemeral_key",
-                                                        "tls_current_timestamp",
-                                                     });
+                  result.confirm("client not closed", !ctx->client.is_closed());
+                  ctx->check_callback_invocations(result,
+                                                  "client hello prepared",
+                                                  {
+                                                     "tls_emit_data",
+                                                     "tls_inspect_handshake_msg_client_hello",
+                                                     "tls_modify_extensions_client_hello",
+                                                     "tls_generate_ephemeral_key",
+                                                     "tls_current_timestamp",
+                                                  });
 
-                     result.test_eq(
-                        "TLS client hello", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientHello_1"));
-                  }),
+                  result.test_eq("TLS client hello", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientHello_1"));
+               }),
 
             CHECK("Server Hello",
                   [&](Test::Result& result) {
@@ -1148,13 +1148,15 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->client.close();
 
-                     result.test_eq(
-                        "close payload", ctx->pull_send_buffer(), vars.get_req_bin("Record_Client_CloseNotify"));
+                     result.test_eq("close payload",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_Client_CloseNotify"));
                      ctx->check_callback_invocations(result, "CLOSE_NOTIFY sent", {"tls_emit_data"});
 
                      ctx->client.received_data(vars.get_req_bin("Record_Server_CloseNotify"));
-                     ctx->check_callback_invocations(
-                        result, "CLOSE_NOTIFY received", {"tls_alert", "tls_peer_closed_connection"});
+                     ctx->check_callback_invocations(result,
+                                                     "CLOSE_NOTIFY received",
+                                                     {"tls_alert", "tls_peer_closed_connection"});
 
                      result.confirm("connection is closed", ctx->client.is_closed());
                   }),
@@ -1188,30 +1190,30 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
          std::unique_ptr<Client_Context> ctx;
 
          return {
-            CHECK("Client Hello",
-                  [&](Test::Result& result) {
-                     ctx = std::make_unique<Client_Context>(
-                        std::move(rng),
-                        std::make_shared<RFC8448_Text_Policy>("rfc8448_1rtt"),
-                        vars.get_req_u64("CurrentTimestamp"),
-                        add_extensions_and_sort,
-                        std::pair{Botan::TLS::Session(vars.get_req_bin("Client_SessionData")),
-                                  Botan::TLS::Session_Ticket(vars.get_req_bin("SessionTicket"))});
+            CHECK(
+               "Client Hello",
+               [&](Test::Result& result) {
+                  ctx = std::make_unique<Client_Context>(
+                     std::move(rng),
+                     std::make_shared<RFC8448_Text_Policy>("rfc8448_1rtt"),
+                     vars.get_req_u64("CurrentTimestamp"),
+                     add_extensions_and_sort,
+                     std::pair{Botan::TLS::Session(vars.get_req_bin("Client_SessionData")),
+                               Botan::TLS::Session_Ticket(vars.get_req_bin("SessionTicket"))});
 
-                     result.confirm("client not closed", !ctx->client.is_closed());
-                     ctx->check_callback_invocations(result,
-                                                     "client hello prepared",
-                                                     {
-                                                        "tls_emit_data",
-                                                        "tls_inspect_handshake_msg_client_hello",
-                                                        "tls_modify_extensions_client_hello",
-                                                        "tls_current_timestamp",
-                                                        "tls_generate_ephemeral_key",
-                                                     });
+                  result.confirm("client not closed", !ctx->client.is_closed());
+                  ctx->check_callback_invocations(result,
+                                                  "client hello prepared",
+                                                  {
+                                                     "tls_emit_data",
+                                                     "tls_inspect_handshake_msg_client_hello",
+                                                     "tls_modify_extensions_client_hello",
+                                                     "tls_current_timestamp",
+                                                     "tls_generate_ephemeral_key",
+                                                  });
 
-                     result.test_eq(
-                        "TLS client hello", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientHello_1"));
-                  })
+                  result.test_eq("TLS client hello", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientHello_1"));
+               })
 
             // TODO: The rest of this test vector requires 0-RTT which is not
             //       yet implemented. For now we can only test the client's
@@ -1270,8 +1272,9 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
                                                         "tls_current_timestamp",
                                                      });
 
-                     result.test_eq(
-                        "TLS client hello (1)", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientHello_1"));
+                     result.test_eq("TLS client hello (1)",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_ClientHello_1"));
                   }),
 
             CHECK("Hello Retry Request .. second Client Hello",
@@ -1290,8 +1293,9 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
                                                         "tls_generate_ephemeral_key",
                                                      });
 
-                     result.test_eq(
-                        "TLS client hello (2)", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientHello_2"));
+                     result.test_eq("TLS client hello (2)",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_ClientHello_2"));
                   }),
 
             CHECK("Server Hello",
@@ -1308,45 +1312,47 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
                                                      });
                   }),
 
-            CHECK("Server HS Messages .. Client Finished",
-                  [&](Test::Result& result) {
-                     result.require("ctx is available", ctx != nullptr);
-                     ctx->client.received_data(vars.get_req_bin("Record_ServerHandshakeMessages"));
+            CHECK(
+               "Server HS Messages .. Client Finished",
+               [&](Test::Result& result) {
+                  result.require("ctx is available", ctx != nullptr);
+                  ctx->client.received_data(vars.get_req_bin("Record_ServerHandshakeMessages"));
 
-                     ctx->check_callback_invocations(result,
-                                                     "encrypted handshake messages received",
-                                                     {"tls_inspect_handshake_msg_encrypted_extensions",
-                                                      "tls_inspect_handshake_msg_certificate",
-                                                      "tls_inspect_handshake_msg_certificate_verify",
-                                                      "tls_inspect_handshake_msg_finished",
-                                                      "tls_examine_extensions_encrypted_extensions",
-                                                      "tls_examine_extensions_certificate",
-                                                      "tls_emit_data",
-                                                      "tls_current_timestamp",
-                                                      "tls_session_established",
-                                                      "tls_session_activated",
-                                                      "tls_verify_cert_chain",
-                                                      "tls_verify_message"});
+                  ctx->check_callback_invocations(result,
+                                                  "encrypted handshake messages received",
+                                                  {"tls_inspect_handshake_msg_encrypted_extensions",
+                                                   "tls_inspect_handshake_msg_certificate",
+                                                   "tls_inspect_handshake_msg_certificate_verify",
+                                                   "tls_inspect_handshake_msg_finished",
+                                                   "tls_examine_extensions_encrypted_extensions",
+                                                   "tls_examine_extensions_certificate",
+                                                   "tls_emit_data",
+                                                   "tls_current_timestamp",
+                                                   "tls_session_established",
+                                                   "tls_session_activated",
+                                                   "tls_verify_cert_chain",
+                                                   "tls_verify_message"});
 
-                     result.test_eq(
-                        "client finished", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientFinished"));
-                  }),
+                  result.test_eq("client finished", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientFinished"));
+               }),
 
-            CHECK("Close Connection",
-                  [&](Test::Result& result) {
-                     result.require("ctx is available", ctx != nullptr);
-                     ctx->client.close();
-                     ctx->check_callback_invocations(
-                        result, "encrypted handshake messages received", {"tls_emit_data"});
-                     result.test_eq(
-                        "client close notify", ctx->pull_send_buffer(), vars.get_req_bin("Record_Client_CloseNotify"));
+            CHECK(
+               "Close Connection",
+               [&](Test::Result& result) {
+                  result.require("ctx is available", ctx != nullptr);
+                  ctx->client.close();
+                  ctx->check_callback_invocations(result, "encrypted handshake messages received", {"tls_emit_data"});
+                  result.test_eq("client close notify",
+                                 ctx->pull_send_buffer(),
+                                 vars.get_req_bin("Record_Client_CloseNotify"));
 
-                     ctx->client.received_data(vars.get_req_bin("Record_Server_CloseNotify"));
-                     ctx->check_callback_invocations(
-                        result, "encrypted handshake messages received", {"tls_alert", "tls_peer_closed_connection"});
+                  ctx->client.received_data(vars.get_req_bin("Record_Server_CloseNotify"));
+                  ctx->check_callback_invocations(result,
+                                                  "encrypted handshake messages received",
+                                                  {"tls_alert", "tls_peer_closed_connection"});
 
-                     result.confirm("connection is closed", ctx->client.is_closed());
-                  }),
+                  result.confirm("connection is closed", ctx->client.is_closed());
+               }),
          };
       }
 
@@ -1434,16 +1440,18 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
 
                      // ClientFinished contains the entire coalesced client authentication flight
                      // Messages: Certificate, CertificateVerify, Finished
-                     result.test_eq(
-                        "Client Auth and Finished", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientFinished"));
+                     result.test_eq("Client Auth and Finished",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_ClientFinished"));
                   }),
 
             CHECK("Close Connection",
                   [&](Test::Result& result) {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->client.close();
-                     result.test_eq(
-                        "Client close_notify", ctx->pull_send_buffer(), vars.get_req_bin("Record_Client_CloseNotify"));
+                     result.test_eq("Client close_notify",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_Client_CloseNotify"));
 
                      ctx->check_callback_invocations(result,
                                                      "after sending close notify",
@@ -1454,8 +1462,9 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
                      ctx->client.received_data(vars.get_req_bin("Record_Server_CloseNotify"));
                      result.confirm("connection closed", ctx->client.is_closed());
 
-                     ctx->check_callback_invocations(
-                        result, "after receiving close notify", {"tls_alert", "tls_peer_closed_connection"});
+                     ctx->check_callback_invocations(result,
+                                                     "after receiving close notify",
+                                                     {"tls_alert", "tls_peer_closed_connection"});
                   }),
          };
       }
@@ -1543,8 +1552,9 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->client.close();
 
-                     result.test_eq(
-                        "Client close_notify", ctx->pull_send_buffer(), vars.get_req_bin("Record_Client_CloseNotify"));
+                     result.test_eq("Client close_notify",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_Client_CloseNotify"));
 
                      result.require("client cannot send application traffic anymore", !ctx->client.is_active());
                      result.require("client is not fully closed yet", !ctx->client.is_closed());
@@ -1586,32 +1596,32 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
          std::unique_ptr<Client_Context> ctx;
 
          return {
-            CHECK("Client Hello",
-                  [&](Test::Result& result) {
-                     ctx = std::make_unique<Client_Context>(
-                        std::move(rng),
-                        std::make_shared<RFC8448_Text_Policy>("rfc8448_psk_dhe", false /* no rfc8448 */),
-                        vars.get_req_u64("CurrentTimestamp"),
-                        sort_our_extensions,
-                        std::nullopt,
-                        ExternalPSK(vars.get_req_str("PskIdentity"),
-                                    vars.get_req_str("PskPRF"),
-                                    lock(vars.get_req_bin("PskSecret"))));
+            CHECK(
+               "Client Hello",
+               [&](Test::Result& result) {
+                  ctx = std::make_unique<Client_Context>(
+                     std::move(rng),
+                     std::make_shared<RFC8448_Text_Policy>("rfc8448_psk_dhe", false /* no rfc8448 */),
+                     vars.get_req_u64("CurrentTimestamp"),
+                     sort_our_extensions,
+                     std::nullopt,
+                     ExternalPSK(vars.get_req_str("PskIdentity"),
+                                 vars.get_req_str("PskPRF"),
+                                 lock(vars.get_req_bin("PskSecret"))));
 
-                     result.confirm("client not closed", !ctx->client.is_closed());
-                     ctx->check_callback_invocations(result,
-                                                     "client hello prepared",
-                                                     {
-                                                        "tls_emit_data",
-                                                        "tls_inspect_handshake_msg_client_hello",
-                                                        "tls_modify_extensions_client_hello",
-                                                        "tls_current_timestamp",
-                                                        "tls_generate_ephemeral_key",
-                                                     });
+                  result.confirm("client not closed", !ctx->client.is_closed());
+                  ctx->check_callback_invocations(result,
+                                                  "client hello prepared",
+                                                  {
+                                                     "tls_emit_data",
+                                                     "tls_inspect_handshake_msg_client_hello",
+                                                     "tls_modify_extensions_client_hello",
+                                                     "tls_current_timestamp",
+                                                     "tls_generate_ephemeral_key",
+                                                  });
 
-                     result.test_eq(
-                        "TLS client hello", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientHello_1"));
-                  }),
+                  result.test_eq("TLS client hello", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientHello_1"));
+               }),
 
             CHECK("Server Hello",
                   [&](Test::Result& result) {
@@ -1628,28 +1638,29 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
                      result.confirm("handshake is not yet complete", !ctx->client.is_handshake_complete());
                   }),
 
-            CHECK(
-               "Server HS messages .. Client Finished",
-               [&](Test::Result& result) {
-                  result.require("ctx is available", ctx != nullptr);
-                  ctx->client.received_data(vars.get_req_bin("Record_ServerHandshakeMessages"));
+            CHECK("Server HS messages .. Client Finished",
+                  [&](Test::Result& result) {
+                     result.require("ctx is available", ctx != nullptr);
+                     ctx->client.received_data(vars.get_req_bin("Record_ServerHandshakeMessages"));
 
-                  ctx->check_callback_invocations(result,
-                                                  "encrypted handshake messages received",
-                                                  {"tls_inspect_handshake_msg_encrypted_extensions",
-                                                   "tls_inspect_handshake_msg_finished",
-                                                   "tls_examine_extensions_encrypted_extensions",
-                                                   "tls_emit_data",
-                                                   "tls_current_timestamp",
-                                                   "tls_session_established",
-                                                   "tls_session_activated"});
-                  result.require("PSK negotiated", ctx->psk_identity_negotiated() == vars.get_req_str("PskIdentity"));
-                  result.require("client is active", ctx->client.is_active());
-                  result.confirm("handshake is complete", ctx->client.is_handshake_complete());
+                     ctx->check_callback_invocations(result,
+                                                     "encrypted handshake messages received",
+                                                     {"tls_inspect_handshake_msg_encrypted_extensions",
+                                                      "tls_inspect_handshake_msg_finished",
+                                                      "tls_examine_extensions_encrypted_extensions",
+                                                      "tls_emit_data",
+                                                      "tls_current_timestamp",
+                                                      "tls_session_established",
+                                                      "tls_session_activated"});
+                     result.require("PSK negotiated",
+                                    ctx->psk_identity_negotiated() == vars.get_req_str("PskIdentity"));
+                     result.require("client is active", ctx->client.is_active());
+                     result.confirm("handshake is complete", ctx->client.is_handshake_complete());
 
-                  result.test_eq(
-                     "correct handshake finished", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientFinished"));
-               }),
+                     result.test_eq("correct handshake finished",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_ClientFinished"));
+                  }),
 
             CHECK("Send Application Data",
                   [&](Test::Result& result) {
@@ -1680,13 +1691,15 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->client.close();
 
-                     result.test_eq(
-                        "close payload", ctx->pull_send_buffer(), vars.get_req_bin("Record_Client_CloseNotify"));
+                     result.test_eq("close payload",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_Client_CloseNotify"));
                      ctx->check_callback_invocations(result, "CLOSE_NOTIFY sent", {"tls_emit_data"});
 
                      ctx->client.received_data(vars.get_req_bin("Record_Server_CloseNotify"));
-                     ctx->check_callback_invocations(
-                        result, "CLOSE_NOTIFY received", {"tls_alert", "tls_peer_closed_connection"});
+                     ctx->check_callback_invocations(result,
+                                                     "CLOSE_NOTIFY received",
+                                                     {"tls_alert", "tls_peer_closed_connection"});
 
                      result.confirm("connection is closed", ctx->client.is_closed());
                   }),
@@ -1794,16 +1807,18 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
 
                      // ClientFinished contains the entire coalesced client authentication flight
                      // Messages: Certificate, CertificateVerify, Finished
-                     result.test_eq(
-                        "Client Auth and Finished", ctx->pull_send_buffer(), vars.get_req_bin("Record_ClientFinished"));
+                     result.test_eq("Client Auth and Finished",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_ClientFinished"));
                   }),
 
             CHECK("Close Connection",
                   [&](Test::Result& result) {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->client.close();
-                     result.test_eq(
-                        "Client close_notify", ctx->pull_send_buffer(), vars.get_req_bin("Record_Client_CloseNotify"));
+                     result.test_eq("Client close_notify",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_Client_CloseNotify"));
 
                      ctx->check_callback_invocations(result,
                                                      "after sending close notify",
@@ -1814,8 +1829,9 @@ class Test_TLS_RFC8448_Client : public Test_TLS_RFC8448 {
                      ctx->client.received_data(vars.get_req_bin("Record_Server_CloseNotify"));
                      result.confirm("connection closed", ctx->client.is_closed());
 
-                     ctx->check_callback_invocations(
-                        result, "after receiving close notify", {"tls_alert", "tls_peer_closed_connection"});
+                     ctx->check_callback_invocations(result,
+                                                     "after receiving close notify",
+                                                     {"tls_alert", "tls_peer_closed_connection"});
                   }),
          };
       }
@@ -1944,8 +1960,9 @@ class Test_TLS_RFC8448_Server : public Test_TLS_RFC8448 {
             CHECK("Verify generated new session ticket message",
                   [&](Test::Result& result) {
                      result.require("ctx is available", ctx != nullptr);
-                     result.test_eq(
-                        "New Session Ticket", ctx->pull_send_buffer(), vars.get_req_bin("Record_NewSessionTicket"));
+                     result.test_eq("New Session Ticket",
+                                    ctx->pull_send_buffer(),
+                                    vars.get_req_bin("Record_NewSessionTicket"));
                   }),
 
             CHECK("Receive Application Data",
@@ -1976,8 +1993,9 @@ class Test_TLS_RFC8448_Server : public Test_TLS_RFC8448 {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->server.received_data(vars.get_req_bin("Record_Client_CloseNotify"));
 
-                     ctx->check_callback_invocations(
-                        result, "client finished received", {"tls_alert", "tls_peer_closed_connection"});
+                     ctx->check_callback_invocations(result,
+                                                     "client finished received",
+                                                     {"tls_alert", "tls_peer_closed_connection"});
 
                      result.confirm("connection is not yet closed", !ctx->server.is_closed());
                      result.confirm("connection is still active", ctx->server.is_active());
@@ -2209,8 +2227,9 @@ class Test_TLS_RFC8448_Server : public Test_TLS_RFC8448 {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->server.received_data(vars.get_req_bin("Record_Client_CloseNotify"));
 
-                     ctx->check_callback_invocations(
-                        result, "client finished received", {"tls_alert", "tls_peer_closed_connection"});
+                     ctx->check_callback_invocations(result,
+                                                     "client finished received",
+                                                     {"tls_alert", "tls_peer_closed_connection"});
 
                      result.confirm("connection is not yet closed", !ctx->server.is_closed());
                      result.confirm("connection is still active", ctx->server.is_active());
@@ -2345,8 +2364,9 @@ class Test_TLS_RFC8448_Server : public Test_TLS_RFC8448 {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->server.received_data(vars.get_req_bin("Record_Client_CloseNotify"));
 
-                     ctx->check_callback_invocations(
-                        result, "client finished received", {"tls_alert", "tls_peer_closed_connection"});
+                     ctx->check_callback_invocations(result,
+                                                     "client finished received",
+                                                     {"tls_alert", "tls_peer_closed_connection"});
 
                      result.confirm("connection is not yet closed", !ctx->server.is_closed());
                      result.confirm("connection is still active", ctx->server.is_active());
@@ -2462,8 +2482,9 @@ class Test_TLS_RFC8448_Server : public Test_TLS_RFC8448 {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->server.received_data(vars.get_req_bin("Record_Client_CloseNotify"));
 
-                     ctx->check_callback_invocations(
-                        result, "client finished received", {"tls_alert", "tls_peer_closed_connection"});
+                     ctx->check_callback_invocations(result,
+                                                     "client finished received",
+                                                     {"tls_alert", "tls_peer_closed_connection"});
 
                      result.confirm("connection is not yet closed", !ctx->server.is_closed());
                      result.confirm("connection is still active", ctx->server.is_active());
@@ -2612,8 +2633,9 @@ class Test_TLS_RFC8448_Server : public Test_TLS_RFC8448 {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->server.received_data(vars.get_req_bin("Record_Client_CloseNotify"));
 
-                     ctx->check_callback_invocations(
-                        result, "client finished received", {"tls_alert", "tls_peer_closed_connection"});
+                     ctx->check_callback_invocations(result,
+                                                     "client finished received",
+                                                     {"tls_alert", "tls_peer_closed_connection"});
 
                      result.confirm("connection is not yet closed", !ctx->server.is_closed());
                      result.confirm("connection is still active", ctx->server.is_active());
@@ -2766,8 +2788,9 @@ class Test_TLS_RFC8448_Server : public Test_TLS_RFC8448 {
                      result.require("ctx is available", ctx != nullptr);
                      ctx->server.received_data(vars.get_req_bin("Record_Client_CloseNotify"));
 
-                     ctx->check_callback_invocations(
-                        result, "client finished received", {"tls_alert", "tls_peer_closed_connection"});
+                     ctx->check_callback_invocations(result,
+                                                     "client finished received",
+                                                     {"tls_alert", "tls_peer_closed_connection"});
 
                      result.confirm("connection is not yet closed", !ctx->server.is_closed());
                      result.confirm("connection is still active", ctx->server.is_active());

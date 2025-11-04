@@ -87,10 +87,12 @@ inline BOTAN_FN_ISA_AVX2_GFNI uint64_t F(uint64_t x) {
 
    // The linear transformation just sprays bytes about which can be done with two byte shuffles
    auto Z0 = _mm256_shuffle_epi8(
-      s_vec, _mm256_set_epi64x(0x0C0CFF0CFFFF0C0C, 0x05FF0505FF0505FF, 0xFF0E0E0E0E0EFFFF, 0x070707FF07FFFF07));
+      s_vec,
+      _mm256_set_epi64x(0x0C0CFF0CFFFF0C0C, 0x05FF0505FF0505FF, 0xFF0E0E0E0E0EFFFF, 0x070707FF07FFFF07));
 
    auto Z1 = _mm256_shuffle_epi8(
-      s_vec, _mm256_set_epi64x(0x0909FF090909FF09, 0x02FF020202FF0202, 0xFF0B0B0BFF0B0B0B, 0x000000FF000000FF));
+      s_vec,
+      _mm256_set_epi64x(0x0909FF090909FF09, 0x02FF020202FF0202, 0xFF0B0B0BFF0B0B0B, 0x000000FF000000FF));
 
    Z0 = _mm256_xor_si256(Z0, Z1);
 

@@ -912,23 +912,29 @@ class BitOps_Tests final : public Test {
          result.test_is_eq<uint8_t>("rev(1u8)", Botan::ct_reverse_bits<uint8_t>(0b01010101), 0b10101010);
          result.test_is_eq<uint8_t>("rev(2u8)", Botan::ct_reverse_bits<uint8_t>(0b01001011), 0b11010010);
 
-         result.test_is_eq<uint16_t>(
-            "rev(0u16)", Botan::ct_reverse_bits<uint16_t>(0b0000000000000000), 0b0000000000000000);
-         result.test_is_eq<uint16_t>(
-            "rev(1u16)", Botan::ct_reverse_bits<uint16_t>(0b0101010101010101), 0b1010101010101010);
-         result.test_is_eq<uint16_t>(
-            "rev(2u16)", Botan::ct_reverse_bits<uint16_t>(0b0100101101011010), 0b0101101011010010);
+         result.test_is_eq<uint16_t>("rev(0u16)",
+                                     Botan::ct_reverse_bits<uint16_t>(0b0000000000000000),
+                                     0b0000000000000000);
+         result.test_is_eq<uint16_t>("rev(1u16)",
+                                     Botan::ct_reverse_bits<uint16_t>(0b0101010101010101),
+                                     0b1010101010101010);
+         result.test_is_eq<uint16_t>("rev(2u16)",
+                                     Botan::ct_reverse_bits<uint16_t>(0b0100101101011010),
+                                     0b0101101011010010);
 
          result.test_is_eq<uint32_t>("rev(0u32)", Botan::ct_reverse_bits<uint32_t>(0xFFFFFFFF), 0xFFFFFFFF);
          result.test_is_eq<uint32_t>("rev(1u32)", Botan::ct_reverse_bits<uint32_t>(0x55555555), 0xAAAAAAAA);
          result.test_is_eq<uint32_t>("rev(2u32)", Botan::ct_reverse_bits<uint32_t>(0x4B6A2C1D), 0xB83456D2);
 
-         result.test_is_eq<uint64_t>(
-            "rev(0u64)", Botan::ct_reverse_bits<uint64_t>(0xF0E0D0C005040302), 0x40C020A0030B070F);
-         result.test_is_eq<uint64_t>(
-            "rev(1u64)", Botan::ct_reverse_bits<uint64_t>(0x5555555555555555), 0xAAAAAAAAAAAAAAAA);
-         result.test_is_eq<uint64_t>(
-            "rev(2u64)", Botan::ct_reverse_bits<uint64_t>(0x4B6A2C1D5E7F8A90), 0x951FE7AB83456D2);
+         result.test_is_eq<uint64_t>("rev(0u64)",
+                                     Botan::ct_reverse_bits<uint64_t>(0xF0E0D0C005040302),
+                                     0x40C020A0030B070F);
+         result.test_is_eq<uint64_t>("rev(1u64)",
+                                     Botan::ct_reverse_bits<uint64_t>(0x5555555555555555),
+                                     0xAAAAAAAAAAAAAAAA);
+         result.test_is_eq<uint64_t>("rev(2u64)",
+                                     Botan::ct_reverse_bits<uint64_t>(0x4B6A2C1D5E7F8A90),
+                                     0x951FE7AB83456D2);
 
          return result;
       }
@@ -1085,8 +1091,9 @@ class Charset_Tests final : public Text_Based_Test {
             throw Test_Error("Unexpected header '" + type + "' in charset tests");
          }
 
-         result.test_eq(
-            "string converted successfully", std::vector<uint8_t>(converted.begin(), converted.end()), expected);
+         result.test_eq("string converted successfully",
+                        std::vector<uint8_t>(converted.begin(), converted.end()),
+                        expected);
 
          return result;
       }
@@ -1277,12 +1284,14 @@ class CPUID_Tests final : public Test {
 
             Botan::CPUID::clear_cpuid_bit(bit);
 
-            result.test_eq(
-               "After clearing cpuid bit, CPUID::has for SSE2 returns false", Botan::CPUID::has(bit), false);
+            result.test_eq("After clearing cpuid bit, CPUID::has for SSE2 returns false",
+                           Botan::CPUID::has(bit),
+                           false);
 
             Botan::CPUID::initialize();  // reset state
-            result.test_eq(
-               "After reinitializing, CPUID::has for SSE2 returns true again", Botan::CPUID::has(bit), true);
+            result.test_eq("After reinitializing, CPUID::has for SSE2 returns true again",
+                           Botan::CPUID::has(bit),
+                           true);
          }
    #else
          BOTAN_UNUSED(cpuid_string);

@@ -196,8 +196,12 @@ class Ed25519_Hashed_Verify_Operation final : public PK_Ops::Verification {
          m_hash->final(msg_hash.data());
 
          BOTAN_ASSERT_EQUAL(m_key.size(), 32, "Expected size");
-         return ed25519_verify(
-            msg_hash.data(), msg_hash.size(), sig.data(), m_key.data(), m_domain_sep.data(), m_domain_sep.size());
+         return ed25519_verify(msg_hash.data(),
+                               msg_hash.size(),
+                               sig.data(),
+                               m_key.data(),
+                               m_domain_sep.data(),
+                               m_domain_sep.size());
       }
 
       std::string hash_function() const override {
@@ -275,8 +279,12 @@ class Ed25519_Hashed_Sign_Operation final : public PK_Ops::Signature {
          std::vector<uint8_t> sig(64);
          std::vector<uint8_t> msg_hash(m_hash->output_length());
          m_hash->final(msg_hash.data());
-         ed25519_sign(
-            sig.data(), msg_hash.data(), msg_hash.size(), m_key.data(), m_domain_sep.data(), m_domain_sep.size());
+         ed25519_sign(sig.data(),
+                      msg_hash.data(),
+                      msg_hash.size(),
+                      m_key.data(),
+                      m_domain_sep.data(),
+                      m_domain_sep.size());
          return sig;
       }
 

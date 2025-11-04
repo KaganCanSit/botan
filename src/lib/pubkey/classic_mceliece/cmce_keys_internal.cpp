@@ -55,8 +55,12 @@ std::optional<Classic_McEliece_KeyPair_Internal> try_generate_keypair(std::span<
 
    // Key generation was successful - Create and return keys
    return Classic_McEliece_KeyPair_Internal{
-      .private_key = std::make_shared<Classic_McEliece_PrivateKeyInternal>(
-         params, std::move(seed), pivots, std::move(g.value()), std::move(field_ordering.value()), std::move(s)),
+      .private_key = std::make_shared<Classic_McEliece_PrivateKeyInternal>(params,
+                                                                           std::move(seed),
+                                                                           pivots,
+                                                                           std::move(g.value()),
+                                                                           std::move(field_ordering.value()),
+                                                                           std::move(s)),
       .public_key = std::make_shared<Classic_McEliece_PublicKeyInternal>(params, std::move(pk_matrix))};
 }
 
@@ -71,12 +75,17 @@ Classic_McEliece_PrivateKeyInternal Classic_McEliece_PrivateKeyInternal::from_by
    auto c = CmceColumnSelection(sk_slicer.take(params.sk_c_bytes()));
    auto g = Classic_McEliece_Minimal_Polynomial::from_bytes(sk_slicer.take(params.sk_poly_g_bytes()), params.poly_f());
    auto field_ordering = Classic_McEliece_Field_Ordering::create_from_control_bits(
-      params, secure_bitvector(sk_slicer.take(params.sk_alpha_control_bytes())));
+      params,
+      secure_bitvector(sk_slicer.take(params.sk_alpha_control_bytes())));
    auto s = sk_slicer.copy<CmceRejectionSeed>(params.sk_s_bytes());
    BOTAN_ASSERT_NOMSG(sk_slicer.empty());
 
-   return Classic_McEliece_PrivateKeyInternal(
-      params, std::move(delta), std::move(c), std::move(g), std::move(field_ordering), std::move(s));
+   return Classic_McEliece_PrivateKeyInternal(params,
+                                              std::move(delta),
+                                              std::move(c),
+                                              std::move(g),
+                                              std::move(field_ordering),
+                                              std::move(s));
 }
 
 secure_vector<uint8_t> Classic_McEliece_PrivateKeyInternal::serialize() const {

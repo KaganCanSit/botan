@@ -129,8 +129,11 @@ class McEliece_Tests final : public Test {
                size_t code_length, t_min, t_max;
          };
 
-         const keygen_params param_sets[] = {
-            {256, 5, 15}, {512, 5, 33}, {1024, 15, 35}, {2048, 33, 50}, {6624, 110, 115}};
+         const keygen_params param_sets[] = {{256, 5, 15},
+                                             {512, 5, 33},
+                                             {1024, 15, 35},
+                                             {2048, 33, 50},
+                                             {6624, 110, 115}};
 
          std::vector<Test::Result> results;
 

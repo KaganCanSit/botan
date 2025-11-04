@@ -258,8 +258,9 @@ class Hybrid_Encryption_Operation : public Botan::PK_Ops::KEM_Encryption {
          }
 
          std::copy(kex_encapsed_key.begin(), kex_encapsed_key.end(), out_encapsed_key.begin());
-         std::copy(
-            kem_encapsed_key.begin(), kem_encapsed_key.end(), out_encapsed_key.begin() + kex_encapsed_key.size());
+         std::copy(kem_encapsed_key.begin(),
+                   kem_encapsed_key.end(),
+                   out_encapsed_key.begin() + kex_encapsed_key.size());
 
          // 5. Hybrid: Combine the shared secrets and ciphertexts of both
          //            algorithms. Note that there are various known ways for
@@ -403,8 +404,9 @@ int main() {
    //
    // She then combines them into a custom "hybrid" key pair that acts
    // like a key encapsulation mechanism (KEM).
-   const auto private_key_of_alice = std::make_unique<Hybrid_PrivateKey>(
-      Botan::create_private_key("X25519", rng), Botan::create_private_key("ML-KEM", rng, "ML-KEM-768"));
+   const auto private_key_of_alice =
+      std::make_unique<Hybrid_PrivateKey>(Botan::create_private_key("X25519", rng),
+                                          Botan::create_private_key("ML-KEM", rng, "ML-KEM-768"));
    const auto public_key_of_alice = private_key_of_alice->public_key();
 
    // Bob uses Alice's public key to encapsulate a shared secret, and

@@ -226,8 +226,9 @@ constexpr OutR concatenate(Rs&&... ranges)
 
          // fill the result buffer using a back-inserter
          return [&result](auto&& range) {
-            std::copy(
-               std::ranges::begin(range), std::ranges::end(range), std::back_inserter(unwrap_strong_type(result)));
+            std::copy(std::ranges::begin(range),
+                      std::ranges::end(range),
+                      std::back_inserter(unwrap_strong_type(result)));
          };
       } else {
          if constexpr((ranges::statically_spanable_range<Rs> && ... && true)) {

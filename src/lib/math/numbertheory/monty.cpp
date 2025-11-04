@@ -247,8 +247,12 @@ BigInt Montgomery_Int::value() const {
    secure_vector<word> z = m_v;
    z.resize(2 * m_params.p_words());  // zero extend
 
-   bigint_monty_redc_inplace(
-      z.data(), m_params.p()._data(), m_params.p_words(), m_params.p_dash(), ws.data(), ws.size());
+   bigint_monty_redc_inplace(z.data(),
+                             m_params.p()._data(),
+                             m_params.p_words(),
+                             m_params.p_dash(),
+                             ws.data(),
+                             ws.size());
 
    return BigInt::_from_words(z);
 }

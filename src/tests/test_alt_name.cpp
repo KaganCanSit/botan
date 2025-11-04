@@ -20,8 +20,9 @@ class X509_Alt_Name_Tests final : public Test {
       std::vector<Test::Result> run() override {
          Test::Result result("X509 AlternativeName tests");
 
-         const std::vector<std::string> uri_names = {
-            "https://example.com", "https://example.org", "https://sub.example.net"};
+         const std::vector<std::string> uri_names = {"https://example.com",
+                                                     "https://example.org",
+                                                     "https://sub.example.net"};
 
          const std::vector<std::string> dns_names = {
             "dns1.example.com",

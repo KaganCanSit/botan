@@ -153,8 +153,11 @@ std::unique_ptr<TPM2::PrivateKey> EC_PrivateKey::create_unrestricted_transient(c
       .unique = {.ecc = {}},
    };
 
-   return create_transient_from_template(
-      ctx, sessions, parent.handles().transient_handle(), key_template, sensitive_data);
+   return create_transient_from_template(ctx,
+                                         sessions,
+                                         parent.handles().transient_handle(),
+                                         key_template,
+                                         sensitive_data);
 }
 
 namespace {

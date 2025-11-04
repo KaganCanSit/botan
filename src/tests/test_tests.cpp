@@ -144,8 +144,9 @@ class Test_Tests final : public Test {
 
          {
             Test::Result test_result(testcase_name);
-            test_result.test_throws(
-               "test_throws", "expected msg", []() { throw std::runtime_error("not the message"); });
+            test_result.test_throws("test_throws", "expected msg", []() {
+               throw std::runtime_error("not the message");
+            });
             verify_failure("test_throws 2", result, test_result);
          }
 
@@ -166,8 +167,9 @@ class Test_Tests final : public Test {
 
          {
             Test::Result test_result(testcase_name);
-            test_result.test_throws<std::invalid_argument>(
-               "test_throws", "expected msg", []() { throw std::runtime_error("expected msg"); });
+            test_result.test_throws<std::invalid_argument>("test_throws", "expected msg", []() {
+               throw std::runtime_error("expected msg");
+            });
             verify_failure("test_throws 5", result, test_result);
          }
 

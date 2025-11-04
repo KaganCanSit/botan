@@ -233,10 +233,10 @@ Response http_sync(std::string_view verb,
                    const std::vector<uint8_t>& body,
                    size_t allowable_redirects,
                    std::chrono::milliseconds timeout) {
-   auto transact_with_timeout = [timeout](
-                                   std::string_view hostname, std::string_view service, std::string_view message) {
-      return http_transact(hostname, service, message, timeout);
-   };
+   auto transact_with_timeout =
+      [timeout](std::string_view hostname, std::string_view service, std::string_view message) {
+         return http_transact(hostname, service, message, timeout);
+      };
 
    return http_sync(transact_with_timeout, verb, url, content_type, body, allowable_redirects);
 }

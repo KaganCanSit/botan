@@ -436,7 +436,9 @@ class Stream {
                setup_native_handle(connection_side, ec);
 
                detail::AsyncHandshakeOperation<completion_handler_t, Stream> op{
-                  std::forward<completion_handler_t>(completion_handler), *this, ec};
+                  std::forward<completion_handler_t>(completion_handler),
+                  *this,
+                  ec};
             },
             completion_token,
             side);
@@ -704,7 +706,9 @@ class Stream {
                using completion_handler_t = std::decay_t<decltype(completion_handler)>;
 
                detail::AsyncReadOperation<completion_handler_t, Stream, MutableBufferSequence> op{
-                  std::forward<completion_handler_t>(completion_handler), *this, bufs};
+                  std::forward<completion_handler_t>(completion_handler),
+                  *this,
+                  bufs};
             },
             completion_token,
             buffers);

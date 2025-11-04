@@ -56,14 +56,16 @@ class BigInt_Unit_Tests final : public Test {
             for(size_t i = 0; i != 2; ++i) {
                const size_t exp_bits = bit + 1 - i;
                result.test_eq("BigInt::bits", a.bits(), exp_bits);
-               result.test_eq(
-                  "BigInt::bytes", a.bytes(), (exp_bits % 8 == 0) ? (exp_bits / 8) : (exp_bits + 8 - exp_bits % 8) / 8);
+               result.test_eq("BigInt::bytes",
+                              a.bytes(),
+                              (exp_bits % 8 == 0) ? (exp_bits / 8) : (exp_bits + 8 - exp_bits % 8) / 8);
 
                if(bit == 1 && i == 1) {
                   result.test_is_eq("BigInt::to_u32bit zero", a.to_u32bit(), static_cast<uint32_t>(1));
                } else if(bit <= 31 || (bit == 32 && i == 1)) {
-                  result.test_is_eq(
-                     "BigInt::to_u32bit", a.to_u32bit(), static_cast<uint32_t>((uint64_t(1) << bit) - i));
+                  result.test_is_eq("BigInt::to_u32bit",
+                                    a.to_u32bit(),
+                                    static_cast<uint32_t>((uint64_t(1) << bit) - i));
                } else {
                   try {
                      a.to_u32bit();
@@ -85,10 +87,12 @@ class BigInt_Unit_Tests final : public Test {
 
          auto rng = Test::new_rng("random_prime");
 
-         result.test_throws(
-            "Invalid bit size", "random_prime: Can't make a prime of 0 bits", [&]() { Botan::random_prime(*rng, 0); });
-         result.test_throws(
-            "Invalid bit size", "random_prime: Can't make a prime of 1 bits", [&]() { Botan::random_prime(*rng, 1); });
+         result.test_throws("Invalid bit size", "random_prime: Can't make a prime of 0 bits", [&]() {
+            Botan::random_prime(*rng, 0);
+         });
+         result.test_throws("Invalid bit size", "random_prime: Can't make a prime of 1 bits", [&]() {
+            Botan::random_prime(*rng, 1);
+         });
          result.test_throws("Invalid arg", "random_prime Invalid value for equiv/modulo", [&]() {
             Botan::random_prime(*rng, 2, 1, 0, 2);
          });

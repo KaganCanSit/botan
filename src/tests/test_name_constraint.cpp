@@ -31,8 +31,10 @@ class Name_Constraint_Tests final : public Test {
                             "",
                             "Certificate does not pass name constraint"),
             std::make_tuple("Root_DN_Name_Constraint.crt", "Valid_DN_Name_Constraint.crt", "", "Verified"),
-            std::make_tuple(
-               "Root_DNS_Name_Constraint.crt", "Valid_DNS_Name_Constraint.crt", "aexample.com", "Verified"),
+            std::make_tuple("Root_DNS_Name_Constraint.crt",
+                            "Valid_DNS_Name_Constraint.crt",
+                            "aexample.com",
+                            "Verified"),
             std::make_tuple("Root_IP_Name_Constraint.crt", "Valid_IP_Name_Constraint.crt", "", "Verified"),
             std::make_tuple("Root_IP_Name_Constraint.crt",
                             "Invalid_IP_Name_Constraint.crt",
@@ -52,8 +54,12 @@ class Name_Constraint_Tests final : public Test {
             Test::Result result("X509v3 Name Constraints: " + std::get<1>(t));
 
             trusted.add_certificate(root);
-            Botan::Path_Validation_Result path_result = Botan::x509_path_validate(
-               sub, restrictions, trusted, std::get<2>(t), Botan::Usage_Type::TLS_SERVER_AUTH, validation_time);
+            Botan::Path_Validation_Result path_result = Botan::x509_path_validate(sub,
+                                                                                  restrictions,
+                                                                                  trusted,
+                                                                                  std::get<2>(t),
+                                                                                  Botan::Usage_Type::TLS_SERVER_AUTH,
+                                                                                  validation_time);
 
             if(path_result.successful_validation() && path_result.trust_root() != root) {
                path_result = Botan::Path_Validation_Result(Botan::Certificate_Status_Code::CANNOT_ESTABLISH_TRUST);

@@ -869,8 +869,11 @@ std::unique_ptr<Shim_Arguments> parse_options(char* argv[]) {
       "verify-prefs",
    };
 
-   std::unique_ptr<Shim_Arguments> args(new Shim_Arguments(
-      bogo_shim_flags, bogo_shim_string_opts, bogo_shim_base64_opts, bogo_shim_int_opts, bogo_shim_int_vec_opts));
+   std::unique_ptr<Shim_Arguments> args(new Shim_Arguments(bogo_shim_flags,
+                                                           bogo_shim_string_opts,
+                                                           bogo_shim_base64_opts,
+                                                           bogo_shim_int_opts,
+                                                           bogo_shim_int_vec_opts));
 
    // may throw:
    args->parse_args(argv);
@@ -1549,8 +1552,12 @@ class Shim_Callbacks final : public Botan::TLS::Callbacks {
 
          shim_log("Establishing trust from a certificate chain");
 
-         Botan::TLS::Callbacks::tls_verify_cert_chain(
-            cert_chain, ocsp_responses, trusted_roots, usage, "" /* hostname */, policy);
+         Botan::TLS::Callbacks::tls_verify_cert_chain(cert_chain,
+                                                      ocsp_responses,
+                                                      trusted_roots,
+                                                      usage,
+                                                      "" /* hostname */,
+                                                      policy);
       }
 
       std::optional<Botan::OCSP::Response> tls_parse_ocsp_response(const std::vector<uint8_t>& raw_response) override {
@@ -1803,7 +1810,9 @@ int main(int /*argc*/, char* argv[]) {
             // servers) but can also fall back to stateful management when tickets
             // are not an option.
             return std::make_shared<Botan::TLS::Session_Manager_Hybrid>(
-               std::make_unique<Botan::TLS::Session_Manager_In_Memory>(rng, 1024), creds, rng);
+               std::make_unique<Botan::TLS::Session_Manager_In_Memory>(rng, 1024),
+               creds,
+               rng);
          }
       }();
 
@@ -1848,8 +1857,14 @@ int main(int /*argc*/, char* argv[]) {
 
                Botan::TLS::Server_Information server_info(host_name, port);
                const std::vector<std::string> next_protocols = args->get_alpn_string_vec_opt("advertise-alpn");
-               chan = std::make_unique<Botan::TLS::Client>(
-                  callbacks, session_manager, creds, policy, rng, server_info, offer_version, next_protocols);
+               chan = std::make_unique<Botan::TLS::Client>(callbacks,
+                                                           session_manager,
+                                                           creds,
+                                                           policy,
+                                                           rng,
+                                                           server_info,
+                                                           offer_version,
+                                                           next_protocols);
             }
 
             callbacks->set_channel(chan.get());

@@ -283,8 +283,8 @@ class ECDSA_AllGroups_Test : public Test {
       std::vector<Test::Result> run() override {
          std::vector<Test::Result> results;
 
-         const std::vector<std::string> hash_fn = {
-            "SHA-256", "SHA-384", "SHA-512", "SHAKE-128(208)", "SHAKE-128(520)", "SHAKE-128(1032)"};
+         const std::vector<std::string> hash_fn =
+            {"SHA-256", "SHA-384", "SHA-512", "SHAKE-128(208)", "SHAKE-128(520)", "SHAKE-128(1032)"};
 
          for(const std::string& group_name : Botan::EC_Group::known_named_groups()) {
             Test::Result result("ECDSA " + group_name);

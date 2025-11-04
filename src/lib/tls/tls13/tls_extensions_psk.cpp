@@ -293,8 +293,9 @@ std::unique_ptr<PSK> PSK::select_offered_psk(std::string_view host,
    // PSK for Session Resumption
    //
    std::vector<PskIdentity> psk_identities;
-   std::transform(
-      psks.begin(), psks.end(), std::back_inserter(psk_identities), [&](const auto& psk) { return psk.identity(); });
+   std::transform(psks.begin(), psks.end(), std::back_inserter(psk_identities), [&](const auto& psk) {
+      return psk.identity();
+   });
    if(auto selected_session =
          session_mgr.choose_from_offered_tickets(psk_identities, cipher.prf_algo(), callbacks, policy)) {
       auto& [session, psk_index] = selected_session.value();

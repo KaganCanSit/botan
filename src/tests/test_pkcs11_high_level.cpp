@@ -393,13 +393,15 @@ Test::Result test_session_info() {
    Session session(slot, false);
    SessionInfo info = session.get_info();
    result.test_is_eq("slot id is correct", info.slotID, slot_vec.at(0));
-   result.test_is_eq(
-      "state is a read write public session", info.state, static_cast<CK_STATE>(SessionState::RwPublicSession));
+   result.test_is_eq("state is a read write public session",
+                     info.state,
+                     static_cast<CK_STATE>(SessionState::RwPublicSession));
 
    session.login(UserType::User, PIN());
    info = session.get_info();
-   result.test_is_eq(
-      "state is a read write user session", info.state, static_cast<CK_STATE>(SessionState::RwUserFunctions));
+   result.test_is_eq("state is a read write user session",
+                     info.state,
+                     static_cast<CK_STATE>(SessionState::RwUserFunctions));
 
    session.logoff();
    result.test_success("user login/logout succeeded");
@@ -841,8 +843,10 @@ Test::Result test_rsa_sign_verify() {
       bool rsa_ok = false;
       if(multipart) {
          verifier.update(plaintext.data(), plaintext.size() / 2);
-         rsa_ok = verifier.verify_message(
-            plaintext.data() + plaintext.size() / 2, plaintext.size() / 2, signature.data(), signature.size());
+         rsa_ok = verifier.verify_message(plaintext.data() + plaintext.size() / 2,
+                                          plaintext.size() / 2,
+                                          signature.data(),
+                                          signature.size());
       } else {
          rsa_ok = verifier.verify_message(plaintext, signature);
       }

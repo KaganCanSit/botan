@@ -320,12 +320,17 @@ void Client_Impl_13::handle(const Server_Hello_13& sh) {
       //       happen _before_ encrypting any early application data.
       //       Same when we want to support early key export.
       m_cipher_state->advance_with_client_hello(m_transcript_hash.previous(), *this);
-      m_cipher_state->advance_with_server_hello(
-         cipher.value(), std::move(shared_secret), m_transcript_hash.current(), *this);
+      m_cipher_state->advance_with_server_hello(cipher.value(),
+                                                std::move(shared_secret),
+                                                m_transcript_hash.current(),
+                                                *this);
    } else {
       m_resumed_session.reset();  // might have been set if we attempted a resumption
-      m_cipher_state = Cipher_State::init_with_server_hello(
-         m_side, std::move(shared_secret), cipher.value(), m_transcript_hash.current(), *this);
+      m_cipher_state = Cipher_State::init_with_server_hello(m_side,
+                                                            std::move(shared_secret),
+                                                            cipher.value(),
+                                                            m_transcript_hash.current(),
+                                                            *this);
    }
 
    callbacks().tls_examine_extensions(sh.extensions(), Connection_Side::Server, Handshake_Type::ServerHello);
@@ -436,8 +441,9 @@ void Client_Impl_13::handle(const Certificate_Request_13& certificate_request_ms
       throw TLS_Exception(Alert::DecodeError, "Certificate_Request context must be empty in the main handshake");
    }
 
-   callbacks().tls_examine_extensions(
-      certificate_request_msg.extensions(), Connection_Side::Server, Handshake_Type::CertificateRequest);
+   callbacks().tls_examine_extensions(certificate_request_msg.extensions(),
+                                      Connection_Side::Server,
+                                      Handshake_Type::CertificateRequest);
    m_transitions.set_expected_next(Handshake_Type::Certificate);
 }
 
@@ -478,8 +484,9 @@ void Client_Impl_13::handle(const Certificate_Verify_13& certificate_verify_msg)
                              " as a signature scheme");
    }
 
-   bool sig_valid = certificate_verify_msg.verify(
-      *m_handshake_state.server_certificate().public_key(), callbacks(), m_transcript_hash.previous());
+   bool sig_valid = certificate_verify_msg.verify(*m_handshake_state.server_certificate().public_key(),
+                                                  callbacks(),
+                                                  m_transcript_hash.previous());
 
    if(!sig_valid) {
       throw TLS_Exception(Alert::DecryptError, "Server certificate verification failed");
@@ -594,8 +601,9 @@ void Client_Impl_13::handle(const Finished_13& finished_msg) {
 }
 
 void TLS::Client_Impl_13::handle(const New_Session_Ticket_13& new_session_ticket) {
-   callbacks().tls_examine_extensions(
-      new_session_ticket.extensions(), Connection_Side::Server, Handshake_Type::NewSessionTicket);
+   callbacks().tls_examine_extensions(new_session_ticket.extensions(),
+                                      Connection_Side::Server,
+                                      Handshake_Type::NewSessionTicket);
 
    Session session(m_cipher_state->psk(new_session_ticket.nonce()),
                    new_session_ticket.early_data_byte_limit(),

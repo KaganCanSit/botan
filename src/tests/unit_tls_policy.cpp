@@ -149,8 +149,9 @@ class TLS_Policy_Unit_Tests final : public Test {
          Test::Result result("TLS Policy key share offering");
 
          Botan::TLS::Policy default_policy;
-         result.test_eq(
-            "default TLS Policy offers exactly one", default_policy.key_exchange_groups_to_offer().size(), 1);
+         result.test_eq("default TLS Policy offers exactly one",
+                        default_policy.key_exchange_groups_to_offer().size(),
+                        1);
          result.confirm(
             "default TLS Policy offers preferred group",
             default_policy.key_exchange_groups().front() == default_policy.key_exchange_groups_to_offer().front());

@@ -340,8 +340,9 @@ void process_blocks(secure_vector<uint64_t>& B, size_t t, size_t memory, size_t 
             fut_results.reserve(threads);
 
             for(size_t lane = 0; lane != threads; ++lane) {
-               fut_results.push_back(thread_pool.run(
-                  process_block, std::ref(B), n, slice, lane, lanes, segments, threads, mode, memory, t));
+               fut_results.push_back(
+                  thread_pool
+                     .run(process_block, std::ref(B), n, slice, lane, lanes, segments, threads, mode, memory, t));
             }
 
             for(auto& fut : fut_results) {

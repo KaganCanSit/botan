@@ -116,8 +116,12 @@ secure_vector<uint8_t> decrypt_bin(const uint8_t input[], size_t input_len, std:
 
    secure_vector<uint8_t> master_key(CIPHER_KEY_LEN + MAC_KEY_LEN + CIPHER_IV_LEN);
 
-   pbkdf->derive_key(
-      master_key.data(), master_key.size(), passphrase.data(), passphrase.size(), pbkdf_salt, PBKDF_SALT_LEN);
+   pbkdf->derive_key(master_key.data(),
+                     master_key.size(),
+                     passphrase.data(),
+                     passphrase.size(),
+                     pbkdf_salt,
+                     PBKDF_SALT_LEN);
 
    const uint8_t* mk = master_key.data();
    const uint8_t* cipher_key = mk;

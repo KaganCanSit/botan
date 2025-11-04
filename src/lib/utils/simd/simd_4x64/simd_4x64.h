@@ -52,8 +52,38 @@ class SIMD_4x64 final {
       }
 
       SIMD_4x64 BOTAN_FN_ISA_SIMD_4X64 bswap() const {
-         const auto idx = _mm256_set_epi8(
-            8, 9, 10, 11, 12, 13, 14, 15, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0, 1, 2, 3, 4, 5, 6, 7);
+         const auto idx = _mm256_set_epi8(8,
+                                          9,
+                                          10,
+                                          11,
+                                          12,
+                                          13,
+                                          14,
+                                          15,
+                                          0,
+                                          1,
+                                          2,
+                                          3,
+                                          4,
+                                          5,
+                                          6,
+                                          7,
+                                          8,
+                                          9,
+                                          10,
+                                          11,
+                                          12,
+                                          13,
+                                          14,
+                                          15,
+                                          0,
+                                          1,
+                                          2,
+                                          3,
+                                          4,
+                                          5,
+                                          6,
+                                          7);
 
          return SIMD_4x64(_mm256_shuffle_epi8(m_simd, idx));
       }

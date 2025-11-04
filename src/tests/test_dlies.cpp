@@ -73,10 +73,15 @@ class DLIES_KAT_Tests final : public Text_Based_Test {
          Botan::DH_PrivateKey from(group, x1);
          Botan::DH_PrivateKey to(group, x2);
 
-         Botan::DLIES_Encryptor encryptor(
-            from, this->rng(), kdf->new_object(), std::move(enc), cipher_key_len, mac->new_object(), mac_key_len);
-         Botan::DLIES_Decryptor decryptor(
-            to, this->rng(), std::move(kdf), std::move(dec), cipher_key_len, std::move(mac), mac_key_len);
+         Botan::DLIES_Encryptor encryptor(from,
+                                          this->rng(),
+                                          kdf->new_object(),
+                                          std::move(enc),
+                                          cipher_key_len,
+                                          mac->new_object(),
+                                          mac_key_len);
+         Botan::DLIES_Decryptor
+            decryptor(to, this->rng(), std::move(kdf), std::move(dec), cipher_key_len, std::move(mac), mac_key_len);
 
          if(!iv.empty()) {
             encryptor.set_initialization_vector(iv);

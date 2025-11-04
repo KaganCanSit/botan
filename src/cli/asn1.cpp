@@ -71,8 +71,12 @@ class ASN1_Printer final : public Command {
             data.swap(file_contents);
          }
 
-         Botan::ASN1_Pretty_Printer printer(
-            print_limit, bin_limit, print_context_specific, initial_level, value_column, max_depth);
+         Botan::ASN1_Pretty_Printer printer(print_limit,
+                                            bin_limit,
+                                            print_context_specific,
+                                            initial_level,
+                                            value_column,
+                                            max_depth);
 
          printer.print_to_stream(output(), data.data(), data.size());
       }

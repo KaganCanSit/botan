@@ -36,10 +36,11 @@ int botan_zfec_decode(
       for(size_t k = 0; k < K; ++k) {
          shares.insert(std::pair<size_t, const uint8_t*>(indexes[k], inputs[k]));
       }
-      Botan::ZFEC(K, N).decode_shares(
-         shares, shareSize, [=](size_t index, const uint8_t block[], size_t blockSize) -> void {
-            std::copy(block, block + blockSize, outputs[index]);
-         });
+      Botan::ZFEC(K, N).decode_shares(shares,
+                                      shareSize,
+                                      [=](size_t index, const uint8_t block[], size_t blockSize) -> void {
+                                         std::copy(block, block + blockSize, outputs[index]);
+                                      });
       return BOTAN_FFI_SUCCESS;
    });
 #else

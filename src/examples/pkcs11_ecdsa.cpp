@@ -74,8 +74,9 @@ int main() {
    priv_generate_props.set_private(true);
    priv_generate_props.set_sign(true);
 
-   Botan::PKCS11::PKCS11_ECDSA_PrivateKey pk(
-      session, Botan::EC_Group::from_name("secp256r1").DER_encode(), priv_generate_props);
+   Botan::PKCS11::PKCS11_ECDSA_PrivateKey pk(session,
+                                             Botan::EC_Group::from_name("secp256r1").DER_encode(),
+                                             priv_generate_props);
 
    /************ generate PKCS#11 ECDSA key pair *************/
 

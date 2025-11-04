@@ -69,8 +69,9 @@ class Entropy_Source_Tests final : public Test {
 
                            comp1_size = compressed.size();
 
-                           result.test_gte(
-                              comp_algo + " compressed entropy better than advertised", compressed.size() * 8, bits);
+                           result.test_gte(comp_algo + " compressed entropy better than advertised",
+                                           compressed.size() * 8,
+                                           bits);
                         } catch(std::exception& e) {
                            result.test_failure(comp_algo + " exception while compressing", e.what());
                         }
@@ -84,10 +85,12 @@ class Entropy_Source_Tests final : public Test {
                         if(!rng.seed_material().empty() && !rng2.seed_material().empty()) {
                            try {
                               Botan::secure_vector<uint8_t> compressed;
-                              compressed.insert(
-                                 compressed.end(), rng.seed_material().begin(), rng.seed_material().end());
-                              compressed.insert(
-                                 compressed.end(), rng2.seed_material().begin(), rng2.seed_material().end());
+                              compressed.insert(compressed.end(),
+                                                rng.seed_material().begin(),
+                                                rng.seed_material().end());
+                              compressed.insert(compressed.end(),
+                                                rng2.seed_material().begin(),
+                                                rng2.seed_material().end());
 
                               comp->start();
                               comp->finish(compressed);
@@ -98,8 +101,9 @@ class Entropy_Source_Tests final : public Test {
 
                               size_t comp_diff = comp2_size - comp1_size;
 
-                              result.test_gte(
-                                 comp_algo + " diff compressed entropy better than advertised", comp_diff * 8, bits2);
+                              result.test_gte(comp_algo + " diff compressed entropy better than advertised",
+                                              comp_diff * 8,
+                                              bits2);
                            } catch(std::exception& e) {
                               result.test_failure(comp_algo + " exception while compressing", e.what());
                            }

@@ -142,22 +142,25 @@ std::unique_ptr<KDF> KDF::create(std::string_view algo_spec, std::string_view pr
 #if defined(BOTAN_HAS_SP800_108)
    if(req.algo_name() == "SP800-108-Counter" && req.arg_count_between(1, 3)) {
       if(provider.empty() || provider == "base") {
-         return kdf_create_mac_or_hash<SP800_108_Counter>(
-            req.arg(0), req.arg_as_integer(1, 32), req.arg_as_integer(2, 32));
+         return kdf_create_mac_or_hash<SP800_108_Counter>(req.arg(0),
+                                                          req.arg_as_integer(1, 32),
+                                                          req.arg_as_integer(2, 32));
       }
    }
 
    if(req.algo_name() == "SP800-108-Feedback" && req.arg_count_between(1, 3)) {
       if(provider.empty() || provider == "base") {
-         return kdf_create_mac_or_hash<SP800_108_Feedback>(
-            req.arg(0), req.arg_as_integer(1, 32), req.arg_as_integer(2, 32));
+         return kdf_create_mac_or_hash<SP800_108_Feedback>(req.arg(0),
+                                                           req.arg_as_integer(1, 32),
+                                                           req.arg_as_integer(2, 32));
       }
    }
 
    if(req.algo_name() == "SP800-108-Pipeline" && req.arg_count_between(1, 3)) {
       if(provider.empty() || provider == "base") {
-         return kdf_create_mac_or_hash<SP800_108_Pipeline>(
-            req.arg(0), req.arg_as_integer(1, 32), req.arg_as_integer(2, 32));
+         return kdf_create_mac_or_hash<SP800_108_Pipeline>(req.arg(0),
+                                                           req.arg_as_integer(1, 32),
+                                                           req.arg_as_integer(2, 32));
       }
    }
 #endif

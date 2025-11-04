@@ -336,7 +336,9 @@ std::unique_ptr<Private_Key> load_key(std::span<const uint8_t> source) {
 */
 std::unique_ptr<Private_Key> load_key(DataSource& source, std::string_view pass) {
    return load_key(
-      source, [pass]() { return std::string(pass); }, true);
+      source,
+      [pass]() { return std::string(pass); },
+      true);
 }
 
 /*

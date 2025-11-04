@@ -177,8 +177,10 @@ secure_vector<uint8_t> mceliece_decrypt(secure_vector<gf2m>& error_pos,
       syndrome_byte_vec[i] = static_cast<uint8_t>(syndrome_vec[i / 4] >> (8 * (i % 4)));
    }
 
-   syndrome_polyn = polyn_gf2m(
-      t - 1, syndrome_byte_vec.data(), bit_size_to_byte_size(codimension), key.get_goppa_polyn().get_sp_field());
+   syndrome_polyn = polyn_gf2m(t - 1,
+                               syndrome_byte_vec.data(),
+                               bit_size_to_byte_size(codimension),
+                               key.get_goppa_polyn().get_sp_field());
 
    syndrome_polyn.get_degree();
    error_pos = goppa_decode(syndrome_polyn, key.get_goppa_polyn(), key.get_sqrtmod(), key.get_Linv());

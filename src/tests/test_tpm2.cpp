@@ -674,8 +674,11 @@ std::vector<Test::Result> test_tpm2_rsa() {
 
       CHECK("Wrong password is not accepted during signing",
             [&](Test::Result& result) {
-               auto key = load_persistent<Botan::TPM2::RSA_PrivateKey>(
-                  result, ctx, persistent_key_id, Botan::hex_decode("deadbeef"), session);
+               auto key = load_persistent<Botan::TPM2::RSA_PrivateKey>(result,
+                                                                       ctx,
+                                                                       persistent_key_id,
+                                                                       Botan::hex_decode("deadbeef"),
+                                                                       session);
 
                Botan::Null_RNG null_rng;
                Botan::PK_Signer signer(*key, null_rng /* TPM takes care of this */, "PSS(SHA-256)");
@@ -847,53 +850,53 @@ std::vector<Test::Result> test_tpm2_rsa() {
                               verifier_pkcs.verify_message(message_pkcs, signature_pkcs));
             }),
 
-      CHECK("Make a transient key persistent then remove it again",
-            [&](Test::Result& result) {
-               auto srk = ctx->storage_root_key({}, {});
+      CHECK(
+         "Make a transient key persistent then remove it again",
+         [&](Test::Result& result) {
+            auto srk = ctx->storage_root_key({}, {});
 
-               auto sign_verify_roundtrip = [&](const Botan::TPM2::PrivateKey& key) {
-                  std::vector<uint8_t> message = {'h', 'e', 'l', 'l', 'o'};
-                  Botan::Null_RNG null_rng;
-                  Botan::PK_Signer signer(key, null_rng /* TPM takes care of this */, "PSS(SHA-256)");
-                  const auto signature = signer.sign_message(message, null_rng);
-                  result.require("signature is not empty", !signature.empty());
+            auto sign_verify_roundtrip = [&](const Botan::TPM2::PrivateKey& key) {
+               std::vector<uint8_t> message = {'h', 'e', 'l', 'l', 'o'};
+               Botan::Null_RNG null_rng;
+               Botan::PK_Signer signer(key, null_rng /* TPM takes care of this */, "PSS(SHA-256)");
+               const auto signature = signer.sign_message(message, null_rng);
+               result.require("signature is not empty", !signature.empty());
 
-                  auto pk = key.public_key();
-                  Botan::PK_Verifier verifier(*pk, "PSS(SHA-256)");
-                  result.confirm("Signature is valid", verifier.verify_message(message, signature));
-               };
+               auto pk = key.public_key();
+               Botan::PK_Verifier verifier(*pk, "PSS(SHA-256)");
+               result.confirm("Signature is valid", verifier.verify_message(message, signature));
+            };
 
-               // Create Key
-               auto authed_session = Botan::TPM2::Session::authenticated_session(ctx, *srk);
+            // Create Key
+            auto authed_session = Botan::TPM2::Session::authenticated_session(ctx, *srk);
 
-               const std::array<uint8_t, 6> secret = {'s', 'e', 'c', 'r', 'e', 't'};
-               auto sk =
-                  Botan::TPM2::RSA_PrivateKey::create_unrestricted_transient(ctx, authed_session, secret, *srk, 2048);
-               result.require("key was created", sk != nullptr);
-               result.confirm("is transient", sk->handles().has_transient_handle());
-               result.confirm("is not persistent", !sk->handles().has_persistent_handle());
-               result.test_no_throw("use key after creation", [&] { sign_verify_roundtrip(*sk); });
+            const std::array<uint8_t, 6> secret = {'s', 'e', 'c', 'r', 'e', 't'};
+            auto sk =
+               Botan::TPM2::RSA_PrivateKey::create_unrestricted_transient(ctx, authed_session, secret, *srk, 2048);
+            result.require("key was created", sk != nullptr);
+            result.confirm("is transient", sk->handles().has_transient_handle());
+            result.confirm("is not persistent", !sk->handles().has_persistent_handle());
+            result.test_no_throw("use key after creation", [&] { sign_verify_roundtrip(*sk); });
 
-               // Make it persistent
-               const auto handles = ctx->persistent_handles().size();
-               const auto new_location = ctx->persist(*sk, authed_session, secret);
-               result.test_eq("One more handle", ctx->persistent_handles().size(), handles + 1);
-               result.confirm("New location occupied", Botan::value_exists(ctx->persistent_handles(), new_location));
-               result.confirm("is persistent", sk->handles().has_persistent_handle());
-               result.test_is_eq(
-                  "Persistent handle is the new handle", sk->handles().persistent_handle(), new_location);
-               result.test_throws<Botan::Invalid_Argument>(
-                  "Cannot persist to the same location", [&] { ctx->persist(*sk, authed_session, {}, new_location); });
-               result.test_throws<Botan::Invalid_Argument>("Cannot persist and already persistent key",
-                                                           [&] { ctx->persist(*sk, authed_session); });
-               result.test_no_throw("use key after persisting", [&] { sign_verify_roundtrip(*sk); });
+            // Make it persistent
+            const auto handles = ctx->persistent_handles().size();
+            const auto new_location = ctx->persist(*sk, authed_session, secret);
+            result.test_eq("One more handle", ctx->persistent_handles().size(), handles + 1);
+            result.confirm("New location occupied", Botan::value_exists(ctx->persistent_handles(), new_location));
+            result.confirm("is persistent", sk->handles().has_persistent_handle());
+            result.test_is_eq("Persistent handle is the new handle", sk->handles().persistent_handle(), new_location);
+            result.test_throws<Botan::Invalid_Argument>("Cannot persist to the same location",
+                                                        [&] { ctx->persist(*sk, authed_session, {}, new_location); });
+            result.test_throws<Botan::Invalid_Argument>("Cannot persist and already persistent key",
+                                                        [&] { ctx->persist(*sk, authed_session); });
+            result.test_no_throw("use key after persisting", [&] { sign_verify_roundtrip(*sk); });
 
-               // Evict it
-               ctx->evict(std::move(sk), authed_session);
-               result.test_eq("One less handle", ctx->persistent_handles().size(), handles);
-               result.confirm("New location no longer occupied",
-                              !Botan::value_exists(ctx->persistent_handles(), new_location));
-            }),
+            // Evict it
+            ctx->evict(std::move(sk), authed_session);
+            result.test_eq("One less handle", ctx->persistent_handles().size(), handles);
+            result.confirm("New location no longer occupied",
+                           !Botan::value_exists(ctx->persistent_handles(), new_location));
+         }),
    };
 }
 
@@ -943,14 +946,15 @@ std::vector<Test::Result> test_tpm2_ecc() {
                result.confirm("ECC is supported", ctx->supports_algorithm("ECC"));
                result.confirm("ECDSA is supported", ctx->supports_algorithm("ECDSA"));
             }),
-         CHECK("Load the private key multiple times",
-               [&](Test::Result& result) {
-                  for(size_t i = 0; i < 20; ++i) {
-                     auto key = load_persistent_ecc<Botan::TPM2::EC_PrivateKey>(
-                        result, ctx, persistent_key_id, password, session);
-                     result.test_eq(Botan::fmt("Key loaded successfully ({})", i), key->algo_name(), "ECDSA");
-                  }
-               }),
+         CHECK(
+            "Load the private key multiple times",
+            [&](Test::Result& result) {
+               for(size_t i = 0; i < 20; ++i) {
+                  auto key =
+                     load_persistent_ecc<Botan::TPM2::EC_PrivateKey>(result, ctx, persistent_key_id, password, session);
+                  result.test_eq(Botan::fmt("Key loaded successfully ({})", i), key->algo_name(), "ECDSA");
+               }
+            }),
          CHECK("Sign a message ECDSA",
                [&](Test::Result& result) {
                   auto key =
@@ -974,91 +978,96 @@ std::vector<Test::Result> test_tpm2_ecc() {
                   Botan::PK_Verifier verifier(*public_key, "SHA-256");
                   result.confirm("Signature is valid", verifier.verify_message(message, signature));
                }),
-         CHECK("verify signature ECDSA",
-               [&](Test::Result& result) {
-                  auto sign = [&](std::span<const uint8_t> message) {
-                     auto key = load_persistent_ecc<Botan::TPM2::EC_PrivateKey>(
-                        result, ctx, persistent_key_id, password, session);
-                     Botan::Null_RNG null_rng;
-                     Botan::PK_Signer signer(*key, null_rng /* TPM takes care of this */, "SHA-256");
-                     return signer.sign_message(message, null_rng);
-                  };
+         CHECK(
+            "verify signature ECDSA",
+            [&](Test::Result& result) {
+               auto sign = [&](std::span<const uint8_t> message) {
+                  auto key =
+                     load_persistent_ecc<Botan::TPM2::EC_PrivateKey>(result, ctx, persistent_key_id, password, session);
+                  Botan::Null_RNG null_rng;
+                  Botan::PK_Signer signer(*key, null_rng /* TPM takes care of this */, "SHA-256");
+                  return signer.sign_message(message, null_rng);
+               };
 
-                  auto verify = [&](std::span<const uint8_t> msg, std::span<const uint8_t> sig) {
-                     auto key = load_persistent_ecc<Botan::TPM2::EC_PublicKey>(
-                        result, ctx, persistent_key_id, password, session);
-                     Botan::PK_Verifier verifier(*key, "SHA-256");
-                     return verifier.verify_message(msg, sig);
-                  };
-
-                  const auto message = Botan::hex_decode("baadcafe");
-                  const auto signature = sign(message);
-
-                  result.confirm("verification successful", verify(message, signature));
-
-                  // change the message
-                  auto rng = Test::new_rng("tpm2_verify_ecdsa");
-                  auto mutated_message = Test::mutate_vec(message, *rng);
-                  result.confirm("verification failed", !verify(mutated_message, signature));
-
-                  // ESAPI manipulates the session attributes internally and does
-                  // not reset them when an error occurs. A failure to validate a
-                  // signature is an error, and hence behaves surprisingly by
-                  // leaving the session attributes in an unexpected state.
-                  // The Botan wrapper has a workaround for this...
-                  const auto attrs = session->attributes();
-                  result.confirm("encrypt flag was not cleared by ESAPI", attrs.encrypt);
-
-                  // original message again
-                  result.confirm("verification still successful", verify(message, signature));
-               }),
-
-         CHECK("sign and verify multiple messages with the same Signer/Verifier objects",
-               [&](Test::Result& result) {
-                  const std::vector<std::vector<uint8_t>> messages = {
-                     Botan::hex_decode("BAADF00D"),
-                     Botan::hex_decode("DEADBEEF"),
-                     Botan::hex_decode("CAFEBABE"),
-                  };
-
-                  // Generate a few signatures, then deallocate the private key.
-                  auto signatures = [&] {
-                     auto sk = load_persistent_ecc<Botan::TPM2::EC_PrivateKey>(
-                        result, ctx, persistent_key_id, password, session);
-                     Botan::Null_RNG null_rng;
-                     Botan::PK_Signer signer(*sk, null_rng /* TPM takes care of this */, "SHA-256");
-                     std::vector<std::vector<uint8_t>> sigs;
-                     sigs.reserve(messages.size());
-                     for(const auto& message : messages) {
-                        sigs.emplace_back(signer.sign_message(message, null_rng));
-                     }
-                     return sigs;
-                  }();
-
-                  // verify via TPM 2.0
-                  auto pk =
+               auto verify = [&](std::span<const uint8_t> msg, std::span<const uint8_t> sig) {
+                  auto key =
                      load_persistent_ecc<Botan::TPM2::EC_PublicKey>(result, ctx, persistent_key_id, password, session);
-                  Botan::PK_Verifier verifier(*pk, "SHA-256");
-                  for(size_t i = 0; i < messages.size(); ++i) {
-                     result.confirm(Botan::fmt("verification successful ({})", i),
-                                    verifier.verify_message(messages[i], signatures[i]));
-                  }
+                  Botan::PK_Verifier verifier(*key, "SHA-256");
+                  return verifier.verify_message(msg, sig);
+               };
 
-                  // verify via software
-                  auto soft_pk =
-                     load_persistent_ecc<Botan::TPM2::EC_PrivateKey>(result, ctx, persistent_key_id, password, session)
-                        ->public_key();
-                  Botan::PK_Verifier soft_verifier(*soft_pk, "SHA-256");
-                  for(size_t i = 0; i < messages.size(); ++i) {
-                     result.confirm(Botan::fmt("software verification successful ({})", i),
-                                    soft_verifier.verify_message(messages[i], signatures[i]));
+               const auto message = Botan::hex_decode("baadcafe");
+               const auto signature = sign(message);
+
+               result.confirm("verification successful", verify(message, signature));
+
+               // change the message
+               auto rng = Test::new_rng("tpm2_verify_ecdsa");
+               auto mutated_message = Test::mutate_vec(message, *rng);
+               result.confirm("verification failed", !verify(mutated_message, signature));
+
+               // ESAPI manipulates the session attributes internally and does
+               // not reset them when an error occurs. A failure to validate a
+               // signature is an error, and hence behaves surprisingly by
+               // leaving the session attributes in an unexpected state.
+               // The Botan wrapper has a workaround for this...
+               const auto attrs = session->attributes();
+               result.confirm("encrypt flag was not cleared by ESAPI", attrs.encrypt);
+
+               // original message again
+               result.confirm("verification still successful", verify(message, signature));
+            }),
+
+         CHECK(
+            "sign and verify multiple messages with the same Signer/Verifier objects",
+            [&](Test::Result& result) {
+               const std::vector<std::vector<uint8_t>> messages = {
+                  Botan::hex_decode("BAADF00D"),
+                  Botan::hex_decode("DEADBEEF"),
+                  Botan::hex_decode("CAFEBABE"),
+               };
+
+               // Generate a few signatures, then deallocate the private key.
+               auto signatures = [&] {
+                  auto sk =
+                     load_persistent_ecc<Botan::TPM2::EC_PrivateKey>(result, ctx, persistent_key_id, password, session);
+                  Botan::Null_RNG null_rng;
+                  Botan::PK_Signer signer(*sk, null_rng /* TPM takes care of this */, "SHA-256");
+                  std::vector<std::vector<uint8_t>> sigs;
+                  sigs.reserve(messages.size());
+                  for(const auto& message : messages) {
+                     sigs.emplace_back(signer.sign_message(message, null_rng));
                   }
-               }),
+                  return sigs;
+               }();
+
+               // verify via TPM 2.0
+               auto pk =
+                  load_persistent_ecc<Botan::TPM2::EC_PublicKey>(result, ctx, persistent_key_id, password, session);
+               Botan::PK_Verifier verifier(*pk, "SHA-256");
+               for(size_t i = 0; i < messages.size(); ++i) {
+                  result.confirm(Botan::fmt("verification successful ({})", i),
+                                 verifier.verify_message(messages[i], signatures[i]));
+               }
+
+               // verify via software
+               auto soft_pk =
+                  load_persistent_ecc<Botan::TPM2::EC_PrivateKey>(result, ctx, persistent_key_id, password, session)
+                     ->public_key();
+               Botan::PK_Verifier soft_verifier(*soft_pk, "SHA-256");
+               for(size_t i = 0; i < messages.size(); ++i) {
+                  result.confirm(Botan::fmt("software verification successful ({})", i),
+                                 soft_verifier.verify_message(messages[i], signatures[i]));
+               }
+            }),
 
          CHECK("Wrong password is not accepted during ECDSA signing",
                [&](Test::Result& result) {
-                  auto key = load_persistent_ecc<Botan::TPM2::EC_PrivateKey>(
-                     result, ctx, persistent_key_id, Botan::hex_decode("deadbeef"), session);
+                  auto key = load_persistent_ecc<Botan::TPM2::EC_PrivateKey>(result,
+                                                                             ctx,
+                                                                             persistent_key_id,
+                                                                             Botan::hex_decode("deadbeef"),
+                                                                             session);
 
                   Botan::Null_RNG null_rng;
                   Botan::PK_Signer signer(*key, null_rng /* TPM takes care of this */, "SHA-256");
@@ -1078,8 +1087,12 @@ std::vector<Test::Result> test_tpm2_ecc() {
                   auto authed_session = Botan::TPM2::Session::authenticated_session(ctx, *ecc_session_key);
 
                   const std::array<uint8_t, 6> secret = {'s', 'e', 'c', 'r', 'e', 't'};
-                  auto sk = Botan::TPM2::EC_PrivateKey::create_unrestricted_transient(
-                     ctx, authed_session, secret, *srk, Botan::EC_Group::from_name("secp521r1"));
+                  auto sk =
+                     Botan::TPM2::EC_PrivateKey::create_unrestricted_transient(ctx,
+                                                                               authed_session,
+                                                                               secret,
+                                                                               *srk,
+                                                                               Botan::EC_Group::from_name("secp521r1"));
                   auto pk = sk->public_key();
 
                   const auto plaintext = Botan::hex_decode("feedc0debaadcafe");
@@ -1113,8 +1126,12 @@ std::vector<Test::Result> test_tpm2_ecc() {
 
                   const std::array<uint8_t, 6> secret = {'s', 'e', 'c', 'r', 'e', 't'};
 
-                  auto sk = Botan::TPM2::EC_PrivateKey::create_unrestricted_transient(
-                     ctx, authed_session, secret, *srk, Botan::EC_Group::from_name("secp384r1"));
+                  auto sk =
+                     Botan::TPM2::EC_PrivateKey::create_unrestricted_transient(ctx,
+                                                                               authed_session,
+                                                                               secret,
+                                                                               *srk,
+                                                                               Botan::EC_Group::from_name("secp384r1"));
 
                   result.require("key was created", sk != nullptr);
                   result.confirm("is transient", sk->handles().has_transient_handle());
@@ -1167,55 +1184,61 @@ std::vector<Test::Result> test_tpm2_ecc() {
                                  verifier_loaded.verify_message(message_loaded, signature_loaded));
                }),
 
-         CHECK(
-            "Make a transient ECDSA key persistent then remove it again",
-            [&](Test::Result& result) {
-               auto srk = ctx->storage_root_key({}, {});
-               auto ecc_session_key = Botan::TPM2::EC_PrivateKey::load_persistent(ctx, persistent_key_id, password, {});
+         CHECK("Make a transient ECDSA key persistent then remove it again",
+               [&](Test::Result& result) {
+                  auto srk = ctx->storage_root_key({}, {});
+                  auto ecc_session_key =
+                     Botan::TPM2::EC_PrivateKey::load_persistent(ctx, persistent_key_id, password, {});
 
-               auto sign_verify_roundtrip = [&](const Botan::TPM2::PrivateKey& key) {
-                  std::vector<uint8_t> message = {'h', 'e', 'l', 'l', 'o'};
-                  Botan::Null_RNG null_rng;
-                  Botan::PK_Signer signer(key, null_rng /* TPM takes care of this */, "SHA-256");
-                  const auto signature = signer.sign_message(message, null_rng);
-                  result.require("signature is not empty", !signature.empty());
+                  auto sign_verify_roundtrip = [&](const Botan::TPM2::PrivateKey& key) {
+                     std::vector<uint8_t> message = {'h', 'e', 'l', 'l', 'o'};
+                     Botan::Null_RNG null_rng;
+                     Botan::PK_Signer signer(key, null_rng /* TPM takes care of this */, "SHA-256");
+                     const auto signature = signer.sign_message(message, null_rng);
+                     result.require("signature is not empty", !signature.empty());
 
-                  auto pk = key.public_key();
-                  Botan::PK_Verifier verifier(*pk, "SHA-256");
-                  result.confirm("Signature is valid", verifier.verify_message(message, signature));
-               };
+                     auto pk = key.public_key();
+                     Botan::PK_Verifier verifier(*pk, "SHA-256");
+                     result.confirm("Signature is valid", verifier.verify_message(message, signature));
+                  };
 
-               // Create Key
-               auto authed_session = Botan::TPM2::Session::authenticated_session(ctx, *ecc_session_key);
+                  // Create Key
+                  auto authed_session = Botan::TPM2::Session::authenticated_session(ctx, *ecc_session_key);
 
-               const std::array<uint8_t, 6> secret = {'s', 'e', 'c', 'r', 'e', 't'};
-               auto sk = Botan::TPM2::EC_PrivateKey::create_unrestricted_transient(
-                  ctx, authed_session, secret, *srk, Botan::EC_Group::from_name("secp192r1"));
-               result.require("key was created", sk != nullptr);
-               result.confirm("is transient", sk->handles().has_transient_handle());
-               result.confirm("is not persistent", !sk->handles().has_persistent_handle());
-               result.test_no_throw("use key after creation", [&] { sign_verify_roundtrip(*sk); });
+                  const std::array<uint8_t, 6> secret = {'s', 'e', 'c', 'r', 'e', 't'};
+                  auto sk =
+                     Botan::TPM2::EC_PrivateKey::create_unrestricted_transient(ctx,
+                                                                               authed_session,
+                                                                               secret,
+                                                                               *srk,
+                                                                               Botan::EC_Group::from_name("secp192r1"));
+                  result.require("key was created", sk != nullptr);
+                  result.confirm("is transient", sk->handles().has_transient_handle());
+                  result.confirm("is not persistent", !sk->handles().has_persistent_handle());
+                  result.test_no_throw("use key after creation", [&] { sign_verify_roundtrip(*sk); });
 
-               // Make it persistent
-               const auto handles = ctx->persistent_handles().size();
-               const auto new_location = ctx->persist(*sk, authed_session, secret);
-               result.test_eq("One more handle", ctx->persistent_handles().size(), handles + 1);
-               result.confirm("New location occupied", Botan::value_exists(ctx->persistent_handles(), new_location));
-               result.confirm("is persistent", sk->handles().has_persistent_handle());
-               result.test_is_eq(
-                  "Persistent handle is the new handle", sk->handles().persistent_handle(), new_location);
-               result.test_throws<Botan::Invalid_Argument>(
-                  "Cannot persist to the same location", [&] { ctx->persist(*sk, authed_session, {}, new_location); });
-               result.test_throws<Botan::Invalid_Argument>("Cannot persist and already persistent key",
-                                                           [&] { ctx->persist(*sk, authed_session); });
-               result.test_no_throw("use key after persisting", [&] { sign_verify_roundtrip(*sk); });
+                  // Make it persistent
+                  const auto handles = ctx->persistent_handles().size();
+                  const auto new_location = ctx->persist(*sk, authed_session, secret);
+                  result.test_eq("One more handle", ctx->persistent_handles().size(), handles + 1);
+                  result.confirm("New location occupied", Botan::value_exists(ctx->persistent_handles(), new_location));
+                  result.confirm("is persistent", sk->handles().has_persistent_handle());
+                  result.test_is_eq("Persistent handle is the new handle",
+                                    sk->handles().persistent_handle(),
+                                    new_location);
+                  result.test_throws<Botan::Invalid_Argument>("Cannot persist to the same location", [&] {
+                     ctx->persist(*sk, authed_session, {}, new_location);
+                  });
+                  result.test_throws<Botan::Invalid_Argument>("Cannot persist and already persistent key",
+                                                              [&] { ctx->persist(*sk, authed_session); });
+                  result.test_no_throw("use key after persisting", [&] { sign_verify_roundtrip(*sk); });
 
-               // Evict it
-               ctx->evict(std::move(sk), authed_session);
-               result.test_eq("One less handle", ctx->persistent_handles().size(), handles);
-               result.confirm("New location no longer occupied",
-                              !Botan::value_exists(ctx->persistent_handles(), new_location));
-            }),
+                  // Evict it
+                  ctx->evict(std::move(sk), authed_session);
+                  result.test_eq("One less handle", ctx->persistent_handles().size(), handles);
+                  result.confirm("New location no longer occupied",
+                                 !Botan::value_exists(ctx->persistent_handles(), new_location));
+               }),
       #endif
 
          CHECK("Read a software public key from a TPM serialization", [&](Test::Result& result) {
@@ -1243,8 +1266,10 @@ std::vector<Test::Result> test_tpm2_hash() {
    auto test = [&](Test::Result& result, std::string_view algo) {
       auto tpm_hash = [&]() -> std::unique_ptr<Botan::TPM2::HashFunction> {
          try {
-            return std::make_unique<Botan::TPM2::HashFunction>(
-               ctx, algo, ESYS_TR_RH_NULL, Botan::TPM2::Session::unauthenticated_session(ctx));
+            return std::make_unique<Botan::TPM2::HashFunction>(ctx,
+                                                               algo,
+                                                               ESYS_TR_RH_NULL,
+                                                               Botan::TPM2::Session::unauthenticated_session(ctx));
          } catch(const Botan::Lookup_Error&) {
             return {};
          }
@@ -1283,8 +1308,9 @@ std::vector<Test::Result> test_tpm2_hash() {
 
       tpm_hash->update(long_message);
       result.test_eq("digest (long msg via update)", tpm_hash->final(), soft_hash->process(long_message));
-      result.test_eq(
-         "digest (long msg via process)", tpm_hash->process(long_message), soft_hash->process(long_message));
+      result.test_eq("digest (long msg via process)",
+                     tpm_hash->process(long_message),
+                     soft_hash->process(long_message));
 
       // test clear
       tpm_hash->update("Hello");
@@ -1320,8 +1346,9 @@ std::vector<Test::Result> test_tpm2_hash() {
 
       CHECK("lookup error",
             [&](Test::Result& result) {
-               result.test_throws<Botan::Lookup_Error>(
-                  "Lookup error", [&] { [[maybe_unused]] auto _ = Botan::TPM2::HashFunction(ctx, "MD-5"); });
+               result.test_throws<Botan::Lookup_Error>("Lookup error", [&] {
+                  [[maybe_unused]] auto _ = Botan::TPM2::HashFunction(ctx, "MD-5");
+               });
             }),
 
       CHECK("copy_state is not implemented",
@@ -1334,8 +1361,10 @@ std::vector<Test::Result> test_tpm2_hash() {
       CHECK("validation ticket",
             [&](Test::Result& result) {
                // using the NULL hierarchy essentially disables the validation ticket
-               auto tpm_hash_null = Botan::TPM2::HashFunction(
-                  ctx, "SHA-256", ESYS_TR_RH_NULL, Botan::TPM2::Session::unauthenticated_session(ctx));
+               auto tpm_hash_null = Botan::TPM2::HashFunction(ctx,
+                                                              "SHA-256",
+                                                              ESYS_TR_RH_NULL,
+                                                              Botan::TPM2::Session::unauthenticated_session(ctx));
                tpm_hash_null.update("Hola mundo!");
                const auto [digest_null, ticket_null] = tpm_hash_null.final_with_ticket();
                result.require("digest is set", digest_null != nullptr);
@@ -1343,8 +1372,10 @@ std::vector<Test::Result> test_tpm2_hash() {
                result.confirm("ticket is empty", ticket_null->digest.size == 0);
 
                // using the OWNER hierarchy (for instance) enables the validation ticket
-               auto tpm_hash_owner = Botan::TPM2::HashFunction(
-                  ctx, "SHA-256", ESYS_TR_RH_OWNER, Botan::TPM2::Session::unauthenticated_session(ctx));
+               auto tpm_hash_owner = Botan::TPM2::HashFunction(ctx,
+                                                               "SHA-256",
+                                                               ESYS_TR_RH_OWNER,
+                                                               Botan::TPM2::Session::unauthenticated_session(ctx));
                tpm_hash_owner.update("Hola mundo!");
                const auto [digest_owner, ticket_owner] = tpm_hash_owner.final_with_ticket();
                result.require("digest is set", digest_owner != nullptr);

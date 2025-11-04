@@ -332,8 +332,12 @@ inline int crypto_secretbox_open_easy(
       return -1;
    }
 
-   return crypto_secretbox_open_detached(
-      out, ctext + crypto_secretbox_MACBYTES, ctext, ctext_len - crypto_secretbox_MACBYTES, nonce, key);
+   return crypto_secretbox_open_detached(out,
+                                         ctext + crypto_secretbox_MACBYTES,
+                                         ctext,
+                                         ctext_len - crypto_secretbox_MACBYTES,
+                                         nonce,
+                                         key);
 }
 
 inline void crypto_secretbox_keygen(uint8_t k[32]) {
@@ -721,8 +725,13 @@ inline int crypto_box_open_easy(uint8_t ptext[],
       return -1;
    }
 
-   return crypto_box_open_detached(
-      ptext, ctext + crypto_box_MACBYTES, ctext, ctext_len - crypto_box_MACBYTES, nonce, pk, sk);
+   return crypto_box_open_detached(ptext,
+                                   ctext + crypto_box_MACBYTES,
+                                   ctext,
+                                   ctext_len - crypto_box_MACBYTES,
+                                   nonce,
+                                   pk,
+                                   sk);
 }
 
 inline int crypto_box_beforenm(uint8_t key[], const uint8_t pk[32], const uint8_t sk[32]) {
@@ -754,8 +763,12 @@ inline int crypto_box_open_easy_afternm(
       return -1;
    }
 
-   return crypto_box_open_detached_afternm(
-      ptext, ctext + crypto_box_MACBYTES, ctext, ctext_len - crypto_box_MACBYTES, nonce, key);
+   return crypto_box_open_detached_afternm(ptext,
+                                           ctext + crypto_box_MACBYTES,
+                                           ctext,
+                                           ctext_len - crypto_box_MACBYTES,
+                                           nonce,
+                                           key);
 }
 
 inline int crypto_box_detached_afternm(uint8_t ctext[],

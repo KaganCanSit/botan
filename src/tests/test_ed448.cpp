@@ -134,8 +134,9 @@ class Ed448_Utils_Test final : public Test {
          std::array<uint8_t, 114> full = {0};
          std::memset(full.data(), 0xff, full.size());
 
-         const std::vector<std::array<uint8_t, 114>> test_vectors = {
-            full, std::array<uint8_t, 114>{0x42}, std::array<uint8_t, 114>{0}};
+         const std::vector<std::array<uint8_t, 114>> test_vectors = {full,
+                                                                     std::array<uint8_t, 114>{0x42},
+                                                                     std::array<uint8_t, 114>{0}};
 
          for(const auto& t : test_vectors) {
             const auto ref = reduce_mod_L_ref(t);

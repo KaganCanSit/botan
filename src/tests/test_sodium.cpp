@@ -158,14 +158,22 @@ class Sodium_API_Tests : public Test {
          const std::vector<uint8_t> nonce(Botan::Sodium::crypto_box_noncebytes());
 
          result.test_rc_ok("crypto_box_easy",
-                           Botan::Sodium::crypto_box_easy(
-                              ctext.data(), ptext.data(), ptext.size(), nonce.data(), pk2.data(), sk1.data()));
+                           Botan::Sodium::crypto_box_easy(ctext.data(),
+                                                          ptext.data(),
+                                                          ptext.size(),
+                                                          nonce.data(),
+                                                          pk2.data(),
+                                                          sk1.data()));
 
          result.test_eq("ctext1", ctext, "11D78D4C32C5674390C0425D8BBB5928AFE7F767E2A7E4427E1A1362F1FD92");
 
          result.test_rc_ok("crypto_box_easy",
-                           Botan::Sodium::crypto_box_easy(
-                              ctext.data(), ptext.data(), ptext.size(), nonce.data(), pk1.data(), sk2.data()));
+                           Botan::Sodium::crypto_box_easy(ctext.data(),
+                                                          ptext.data(),
+                                                          ptext.size(),
+                                                          nonce.data(),
+                                                          pk1.data(),
+                                                          sk2.data()));
 
          // same shared secret, same nonce, same data -> same ciphertext
          result.test_eq("ctext2", ctext, "11D78D4C32C5674390C0425D8BBB5928AFE7F767E2A7E4427E1A1362F1FD92");
@@ -173,14 +181,22 @@ class Sodium_API_Tests : public Test {
          std::vector<uint8_t> recovered(15);
 
          result.test_rc_ok("crypto_box_open_easy",
-                           Botan::Sodium::crypto_box_open_easy(
-                              recovered.data(), ctext.data(), ctext.size(), nonce.data(), pk1.data(), sk2.data()));
+                           Botan::Sodium::crypto_box_open_easy(recovered.data(),
+                                                               ctext.data(),
+                                                               ctext.size(),
+                                                               nonce.data(),
+                                                               pk1.data(),
+                                                               sk2.data()));
 
          result.test_eq("recover1", recovered, ptext);
 
          result.test_rc_ok("crypto_box_open_easy",
-                           Botan::Sodium::crypto_box_open_easy(
-                              recovered.data(), ctext.data(), ctext.size(), nonce.data(), pk2.data(), sk1.data()));
+                           Botan::Sodium::crypto_box_open_easy(recovered.data(),
+                                                               ctext.data(),
+                                                               ctext.size(),
+                                                               nonce.data(),
+                                                               pk2.data(),
+                                                               sk1.data()));
 
          result.test_eq("recover1", recovered, ptext);
 
@@ -499,7 +515,8 @@ class Sodium_API_Tests : public Test {
          result.test_eq("expected mac", mac, "69D4A21E226BF0D348CB9A847C01CF24E93E8AC30D7C951704B936F82F795A62");
 
          result.test_rc_ok(
-            "verify", Botan::Sodium::crypto_auth_hmacsha512256_verify(mac.data(), in.data(), in.size(), key.data()));
+            "verify",
+            Botan::Sodium::crypto_auth_hmacsha512256_verify(mac.data(), in.data(), in.size(), key.data()));
 
          mac[0] ^= 1;
          result.test_rc_fail(
@@ -583,15 +600,21 @@ class Sodium_API_Tests : public Test {
          const std::vector<uint8_t> key(Botan::Sodium::crypto_secretbox_xsalsa20poly1305_keybytes());
 
          result.test_rc_ok("encrypt",
-                           Botan::Sodium::crypto_secretbox_xsalsa20poly1305(
-                              ctext.data(), ptext.data(), ptext.size(), nonce.data(), key.data()));
+                           Botan::Sodium::crypto_secretbox_xsalsa20poly1305(ctext.data(),
+                                                                            ptext.data(),
+                                                                            ptext.size(),
+                                                                            nonce.data(),
+                                                                            key.data()));
 
          result.test_eq("ctext", ctext, "0000000000000000000000000000000042E45EB764A1B706D4776A849BC2526BC6");
 
          std::vector<uint8_t> recovered(33);
          result.test_rc_ok("decrypt",
-                           Botan::Sodium::crypto_secretbox_xsalsa20poly1305_open(
-                              recovered.data(), ctext.data(), ctext.size(), nonce.data(), key.data()));
+                           Botan::Sodium::crypto_secretbox_xsalsa20poly1305_open(recovered.data(),
+                                                                                 ctext.data(),
+                                                                                 ctext.size(),
+                                                                                 nonce.data(),
+                                                                                 key.data()));
 
          result.test_eq("decrypted", recovered, ptext);
 
@@ -608,8 +631,12 @@ class Sodium_API_Tests : public Test {
          std::vector<uint8_t> mac(16);
 
          result.test_rc_ok("encrypt detached",
-                           Botan::Sodium::crypto_secretbox_detached(
-                              ctext.data(), mac.data(), ptext.data(), ptext.size(), nonce.data(), key.data()));
+                           Botan::Sodium::crypto_secretbox_detached(ctext.data(),
+                                                                    mac.data(),
+                                                                    ptext.data(),
+                                                                    ptext.size(),
+                                                                    nonce.data(),
+                                                                    key.data()));
 
          result.test_eq("ctext", ctext, "C63EBBFFFE85CE2CEBDEF7DC42F494576D05BDD7B929EBB045F2A793F740277D05");
          result.test_eq("mac", mac, "0D6681DCED740667C699F0AC71BFD1BD");
@@ -617,8 +644,12 @@ class Sodium_API_Tests : public Test {
          std::vector<uint8_t> recovered(ctext.size());
 
          result.test_rc_ok("open detached",
-                           Botan::Sodium::crypto_secretbox_open_detached(
-                              recovered.data(), ctext.data(), mac.data(), ctext.size(), nonce.data(), key.data()));
+                           Botan::Sodium::crypto_secretbox_open_detached(recovered.data(),
+                                                                         ctext.data(),
+                                                                         mac.data(),
+                                                                         ctext.size(),
+                                                                         nonce.data(),
+                                                                         key.data()));
 
          result.test_eq("recovered", recovered, ptext);
 
@@ -681,8 +712,11 @@ class Sodium_API_Tests : public Test {
          result.test_eq("stream", output, expected);
 
          std::vector<uint8_t> xor_output(32);
-         Botan::Sodium::crypto_stream_salsa20_xor(
-            xor_output.data(), output.data(), output.size(), nonce.data(), key.data());
+         Botan::Sodium::crypto_stream_salsa20_xor(xor_output.data(),
+                                                  output.data(),
+                                                  output.size(),
+                                                  nonce.data(),
+                                                  key.data());
          result.test_eq("stream", xor_output, std::vector<uint8_t>(32));  // all zeros
 
          return result;
@@ -702,8 +736,11 @@ class Sodium_API_Tests : public Test {
          result.test_eq("stream", output, expected);
 
          std::vector<uint8_t> xor_output(32);
-         Botan::Sodium::crypto_stream_xsalsa20_xor(
-            xor_output.data(), output.data(), output.size(), nonce.data(), key.data());
+         Botan::Sodium::crypto_stream_xsalsa20_xor(xor_output.data(),
+                                                   output.data(),
+                                                   output.size(),
+                                                   nonce.data(),
+                                                   key.data());
          result.test_eq("stream", xor_output, std::vector<uint8_t>(32));  // all zeros
 
          return result;
@@ -723,8 +760,11 @@ class Sodium_API_Tests : public Test {
          result.test_eq("stream", output, expected);
 
          std::vector<uint8_t> xor_output(32);
-         Botan::Sodium::crypto_stream_chacha20_xor(
-            xor_output.data(), output.data(), output.size(), nonce.data(), key.data());
+         Botan::Sodium::crypto_stream_chacha20_xor(xor_output.data(),
+                                                   output.data(),
+                                                   output.size(),
+                                                   nonce.data(),
+                                                   key.data());
          result.test_eq("stream", xor_output, std::vector<uint8_t>(32));  // all zeros
 
          return result;
@@ -744,8 +784,11 @@ class Sodium_API_Tests : public Test {
          result.test_eq("stream", output, expected);
 
          std::vector<uint8_t> xor_output(32);
-         Botan::Sodium::crypto_stream_chacha20_ietf_xor(
-            xor_output.data(), output.data(), output.size(), nonce.data(), key.data());
+         Botan::Sodium::crypto_stream_chacha20_ietf_xor(xor_output.data(),
+                                                        output.data(),
+                                                        output.size(),
+                                                        nonce.data(),
+                                                        key.data());
          result.test_eq("stream", xor_output, std::vector<uint8_t>(32));  // all zeros
 
          return result;
@@ -765,8 +808,11 @@ class Sodium_API_Tests : public Test {
          result.test_eq("stream", output, expected);
 
          std::vector<uint8_t> xor_output(32);
-         Botan::Sodium::crypto_stream_xchacha20_xor(
-            xor_output.data(), output.data(), output.size(), nonce.data(), key.data());
+         Botan::Sodium::crypto_stream_xchacha20_xor(xor_output.data(),
+                                                    output.data(),
+                                                    output.size(),
+                                                    nonce.data(),
+                                                    key.data());
          result.test_eq("stream", xor_output, std::vector<uint8_t>(32));  // all zeros
 
          return result;

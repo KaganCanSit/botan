@@ -540,8 +540,12 @@ class Test {
                          const std::string& what,
                          std::span<const uint8_t> produced,
                          std::span<const uint8_t> expected) {
-               return test_eq(
-                  producer.c_str(), what, produced.data(), produced.size(), expected.data(), expected.size());
+               return test_eq(producer.c_str(),
+                              what,
+                              produced.data(),
+                              produced.size(),
+                              expected.data(),
+                              expected.size());
             }
 
             bool test_eq(const std::string& what, std::span<const uint8_t> produced, const char* expected_hex) {
@@ -910,8 +914,12 @@ class TestFnRegistration {
 
 #define BOTAN_REGISTER_TEST_FN_IMPL(category, name, smoke_test, needs_serialization, fn0, ...) \
    /* NOLINTNEXTLINE(cert-err58-cpp) */                                                        \
-   static const TestFnRegistration register_##fn0(                                             \
-      category, name, smoke_test, needs_serialization, {__FILE__, __LINE__}, fn0 __VA_OPT__(, ) __VA_ARGS__)
+   static const TestFnRegistration register_##fn0(category,                                    \
+                                                  name,                                        \
+                                                  smoke_test,                                  \
+                                                  needs_serialization,                         \
+                                                  {__FILE__, __LINE__},                        \
+                                                  fn0 __VA_OPT__(, ) __VA_ARGS__)
 
 #define BOTAN_REGISTER_TEST_FN(category, name, ...) \
    BOTAN_REGISTER_TEST_FN_IMPL(category, name, false, false, __VA_ARGS__)

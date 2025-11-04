@@ -60,8 +60,11 @@ class TLS_Session_Tests final : public Test {
          const std::vector<uint8_t> ctext1 = session.encrypt(key, this->rng());
          const std::vector<uint8_t> ctext2 = session.encrypt(key, this->rng());
 
-         result.test_ne(
-            "TLS session encryption is non-deterministic", ctext1.data(), ctext1.size(), ctext2.data(), ctext2.size());
+         result.test_ne("TLS session encryption is non-deterministic",
+                        ctext1.data(),
+                        ctext1.size(),
+                        ctext2.data(),
+                        ctext2.size());
 
          const std::vector<uint8_t> expected_hdr = Botan::hex_decode("068B5A9D396C0000F2322CAE");
 

@@ -211,7 +211,10 @@ inline void process_bytes_in_sponge(SpongeT& sponge,
                                     size_t bytes_to_process,
                                     const detail::ModifierFn<SpongeT> auto& modifier_fn) {
    process_bytes_in_sponge(
-      sponge, bytes_to_process, [&sponge] { sponge.permute(); }, modifier_fn);
+      sponge,
+      bytes_to_process,
+      [&sponge] { sponge.permute(); },
+      modifier_fn);
 }
 
 /**

@@ -153,8 +153,12 @@ class Block_Cipher_Tests final : public Text_Based_Test {
                cipher->decrypt_n(buf.data() + 1, buf.data() + 1, blocks);
             }
 
-            result.test_eq(
-               provider.c_str(), "decrypt misaligned", buf.data() + 1, buf.size() - 1, input.data(), input.size());
+            result.test_eq(provider.c_str(),
+                           "decrypt misaligned",
+                           buf.data() + 1,
+                           buf.size() - 1,
+                           input.data(),
+                           input.size());
 
             result.test_eq("key set", cipher->has_keying_material(), true);
             cipher->clear();

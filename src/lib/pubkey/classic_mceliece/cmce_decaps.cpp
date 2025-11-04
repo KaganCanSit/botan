@@ -98,8 +98,9 @@ std::pair<CT::Mask<uint8_t>, CmceErrorVector> Classic_McEliece_Decryptor::decode
 
    std::vector<Classic_McEliece_GF> images;
    const auto alphas = m_key->field_ordering().alphas(m_key->params().n());
-   std::transform(
-      alphas.begin(), alphas.end(), std::back_inserter(images), [&](const auto& alpha) { return locator(alpha); });
+   std::transform(alphas.begin(), alphas.end(), std::back_inserter(images), [&](const auto& alpha) {
+      return locator(alpha);
+   });
 
    // Obtain e and check whether wt(e) = t. locator(alpha_i) = 0 <=> error at position i
    CmceErrorVector e;

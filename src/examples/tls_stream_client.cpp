@@ -66,8 +66,9 @@ class client {
             std::cout << "Handshake failed: " << error.message() << '\n';
             return;
          }
-         http::async_write(
-            m_stream, m_request, boost::bind(&client::handle_write, this, ap::error, ap::bytes_transferred));
+         http::async_write(m_stream,
+                           m_request,
+                           boost::bind(&client::handle_write, this, ap::error, ap::bytes_transferred));
       }
 
       void handle_write(const boost::system::error_code& error, size_t /*unused*/) {
@@ -75,8 +76,10 @@ class client {
             std::cout << "Write failed: " << error.message() << '\n';
             return;
          }
-         http::async_read(
-            m_stream, m_reply, m_response, boost::bind(&client::handle_read, this, ap::error, ap::bytes_transferred));
+         http::async_read(m_stream,
+                          m_reply,
+                          m_response,
+                          boost::bind(&client::handle_read, this, ap::error, ap::bytes_transferred));
       }
 
       void handle_read(const boost::system::error_code& error, size_t /*unused*/) {

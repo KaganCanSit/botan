@@ -316,8 +316,9 @@ void ffi_test_pubkey_export(Test::Result& result, botan_pubkey_t pub, botan_priv
    result.test_gte("estimated strength", strength, 1);
 
    size_t fingerprint_len = 0;
-   TEST_FFI_RC(
-      BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE, botan_pubkey_fingerprint, (pub, "SHA-256", nullptr, &fingerprint_len));
+   TEST_FFI_RC(BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE,
+               botan_pubkey_fingerprint,
+               (pub, "SHA-256", nullptr, &fingerprint_len));
 
    std::vector<uint8_t> fingerprint(fingerprint_len);
    TEST_FFI_OK(botan_pubkey_fingerprint, (pub, "SHA-256", fingerprint.data(), &fingerprint_len));
@@ -776,8 +777,9 @@ class FFI_Cert_Validation_Test final : public FFI_Test {
 
          TEST_FFI_RC(1, botan_x509_cert_verify, (&rc, end2, nullptr, 0, &root, 1, nullptr, 0, nullptr, 0));
          result.confirm("Validation test02 failed (missing int)", rc == 3000);
-         result.test_eq(
-            "Validation test02 status string", botan_x509_cert_validation_status(rc), "Certificate issuer not found");
+         result.test_eq("Validation test02 status string",
+                        botan_x509_cert_validation_status(rc),
+                        "Certificate issuer not found");
 
          botan_x509_cert_t end7;
          botan_x509_cert_t sub7;
@@ -799,14 +801,16 @@ class FFI_Cert_Validation_Test final : public FFI_Test {
                      botan_x509_cert_verify_with_crl,
                      (&rc, end7, subs, 2, nullptr, 0, nullptr, 0, "x509/farce", 0, nullptr, 0));
          result.confirm("Validation test07 failed with expected error", rc == 3000);
-         result.test_eq(
-            "Validation test07 status string", botan_x509_cert_validation_status(rc), "Certificate issuer not found");
+         result.test_eq("Validation test07 status string",
+                        botan_x509_cert_validation_status(rc),
+                        "Certificate issuer not found");
 
          botan_x509_crl_t rootcrl;
 
          REQUIRE_FFI_OK(botan_x509_crl_load_file, (&rootcrl, Test::data_file("x509/nist/root.crl").c_str()));
-         TEST_FFI_RC(
-            0, botan_x509_cert_verify_with_crl, (&rc, end7, subs, 2, &root, 1, &rootcrl, 1, nullptr, 80, nullptr, 0));
+         TEST_FFI_RC(0,
+                     botan_x509_cert_verify_with_crl,
+                     (&rc, end7, subs, 2, &root, 1, &rootcrl, 1, nullptr, 80, nullptr, 0));
          result.confirm("Validation test07 with CRL passed", rc == 0);
          result.test_eq("Validation test07 with CRL status string", botan_x509_cert_validation_status(rc), "Verified");
 
@@ -817,11 +821,13 @@ class FFI_Cert_Validation_Test final : public FFI_Test {
          REQUIRE_FFI_OK(botan_x509_cert_load_file, (&sub20, Test::data_file("x509/nist/test20/int.crt").c_str()));
          REQUIRE_FFI_OK(botan_x509_crl_load_file, (&sub20crl, Test::data_file("x509/nist/test20/int.crl").c_str()));
          botan_x509_crl_t crls[2] = {sub20crl, rootcrl};
-         TEST_FFI_RC(
-            1, botan_x509_cert_verify_with_crl, (&rc, end20, &sub20, 1, &root, 1, crls, 2, nullptr, 80, nullptr, 0));
+         TEST_FFI_RC(1,
+                     botan_x509_cert_verify_with_crl,
+                     (&rc, end20, &sub20, 1, &root, 1, crls, 2, nullptr, 80, nullptr, 0));
          result.confirm("Validation test20 failed with expected error", rc == 5000);
-         result.test_eq(
-            "Validation test20 status string", botan_x509_cert_validation_status(rc), "Certificate is revoked");
+         result.test_eq("Validation test20 status string",
+                        botan_x509_cert_validation_status(rc),
+                        "Certificate is revoked");
 
          TEST_FFI_OK(botan_x509_cert_destroy, (end2));
          TEST_FFI_OK(botan_x509_cert_destroy, (sub2));
@@ -845,20 +851,23 @@ class FFI_ECDSA_Certificate_Test final : public FFI_Test {
          botan_x509_cert_t cert;
          if(TEST_FFI_INIT(botan_x509_cert_load_file, (&cert, Test::data_file("x509/ecc/isrg-root-x2.pem").c_str()))) {
             size_t date_len = 0;
-            TEST_FFI_RC(
-               BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE, botan_x509_cert_get_time_starts, (cert, nullptr, &date_len));
+            TEST_FFI_RC(BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE,
+                        botan_x509_cert_get_time_starts,
+                        (cert, nullptr, &date_len));
 
             date_len = 8;
-            TEST_FFI_RC(
-               BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE, botan_x509_cert_get_time_starts, (cert, nullptr, &date_len));
+            TEST_FFI_RC(BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE,
+                        botan_x509_cert_get_time_starts,
+                        (cert, nullptr, &date_len));
 
             std::string date(date_len - 1, '0');
             TEST_FFI_OK(botan_x509_cert_get_time_starts, (cert, date.data(), &date_len));
             result.test_eq("cert valid from", date, "200904000000Z");
 
             date_len = 0;
-            TEST_FFI_RC(
-               BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE, botan_x509_cert_get_time_expires, (cert, nullptr, &date_len));
+            TEST_FFI_RC(BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE,
+                        botan_x509_cert_get_time_expires,
+                        (cert, nullptr, &date_len));
 
             date.resize(date_len - 1);
             TEST_FFI_OK(botan_x509_cert_get_time_expires, (cert, date.data(), &date_len));
@@ -947,8 +956,9 @@ class FFI_ECDSA_Certificate_Test final : public FFI_Test {
             result.test_eq("subject dn", reinterpret_cast<const char*>(dn.data()), "ISRG Root X2");
 
             size_t printable_len = 0;
-            TEST_FFI_RC(
-               BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE, botan_x509_cert_to_string, (cert, nullptr, &printable_len));
+            TEST_FFI_RC(BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE,
+                        botan_x509_cert_to_string,
+                        (cert, nullptr, &printable_len));
 
             std::string printable(printable_len - 1, '0');
             TEST_FFI_OK(botan_x509_cert_to_string, (cert, printable.data(), &printable_len));
@@ -1029,8 +1039,9 @@ class FFI_CBC_Cipher_Test final : public FFI_Test {
                TEST_FFI_OK(botan_cipher_get_ideal_update_granularity, (cipher_encrypt, &ideal_granularity));
                TEST_FFI_OK(botan_cipher_get_tag_length, (cipher_encrypt, &taglen));
 
-               result.test_eq(
-                  "ideal granularity is a multiple of update granularity", ideal_granularity % update_granularity, 0);
+               result.test_eq("ideal granularity is a multiple of update granularity",
+                              ideal_granularity % update_granularity,
+                              0);
                result.test_eq("not an AEAD, hence no tag", taglen, 0);
 
                TEST_FFI_OK(botan_cipher_set_key, (cipher_encrypt, symkey.data(), symkey.size()));
@@ -1134,8 +1145,9 @@ class FFI_GCM_Test final : public FFI_Test {
             TEST_FFI_OK(botan_cipher_get_update_granularity, (cipher_encrypt, &update_granularity));
             TEST_FFI_OK(botan_cipher_get_ideal_update_granularity, (cipher_encrypt, &ideal_granularity));
 
-            result.test_eq(
-               "ideal granularity is a multiple of update granularity", ideal_granularity % update_granularity, 0);
+            result.test_eq("ideal granularity is a multiple of update granularity",
+                           ideal_granularity % update_granularity,
+                           0);
 
             TEST_FFI_OK(botan_cipher_query_keylen, (cipher_encrypt, &min_keylen, &max_keylen));
             result.test_int_eq(min_keylen, 16, "Min key length");
@@ -1274,8 +1286,9 @@ class FFI_ChaCha20Poly1305_Test final : public FFI_Test {
             TEST_FFI_OK(botan_cipher_get_update_granularity, (cipher_encrypt, &update_granularity));
             TEST_FFI_OK(botan_cipher_get_ideal_update_granularity, (cipher_encrypt, &ideal_granularity));
 
-            result.test_eq(
-               "ideal granularity is a multiple of update granularity", ideal_granularity % update_granularity, 0);
+            result.test_eq("ideal granularity is a multiple of update granularity",
+                           ideal_granularity % update_granularity,
+                           0);
 
             TEST_FFI_OK(botan_cipher_query_keylen, (cipher_encrypt, &min_keylen, &max_keylen));
             result.test_int_eq(min_keylen, 32, "Min key length");
@@ -1399,8 +1412,9 @@ class FFI_EAX_Test final : public FFI_Test {
             TEST_FFI_OK(botan_cipher_get_update_granularity, (cipher_encrypt, &update_granularity));
             TEST_FFI_OK(botan_cipher_get_ideal_update_granularity, (cipher_encrypt, &ideal_granularity));
 
-            result.test_eq(
-               "ideal granularity is a multiple of update granularity", ideal_granularity % update_granularity, 0);
+            result.test_eq("ideal granularity is a multiple of update granularity",
+                           ideal_granularity % update_granularity,
+                           0);
 
             TEST_FFI_OK(botan_cipher_query_keylen, (cipher_encrypt, &min_keylen, &max_keylen));
             result.test_int_eq(min_keylen, 16, "Min key length");
@@ -1510,8 +1524,11 @@ class FFI_AEAD_Test final : public FFI_Test {
          botan_cipher_t cipher_encrypt;
          botan_cipher_t cipher_decrypt;
 
-         std::array<std::string, 5> aeads = {
-            "AES-128/GCM", "ChaCha20Poly1305", "AES-128/EAX", "AES-256/SIV", "AES-128/CCM"};
+         std::array<std::string, 5> aeads = {"AES-128/GCM",
+                                             "ChaCha20Poly1305",
+                                             "AES-128/EAX",
+                                             "AES-256/SIV",
+                                             "AES-128/CCM"};
 
          for(const std::string& aead : aeads) {
             Test::Result result(Botan::fmt("AEAD {}", aead));
@@ -1539,8 +1556,9 @@ class FFI_AEAD_Test final : public FFI_Test {
             TEST_FFI_OK(botan_cipher_get_default_nonce_length, (cipher_encrypt, &noncelen));
             TEST_FFI_OK(botan_cipher_get_tag_length, (cipher_encrypt, &taglen));
 
-            result.test_eq(
-               "ideal granularity is a multiple of update granularity", ideal_granularity % update_granularity, 0);
+            result.test_eq("ideal granularity is a multiple of update granularity",
+                           ideal_granularity % update_granularity,
+                           0);
 
             std::vector<uint8_t> key(max_keylen);
             TEST_FFI_OK(botan_rng_get, (rng, key.data(), key.size()));
@@ -1559,8 +1577,9 @@ class FFI_AEAD_Test final : public FFI_Test {
             std::vector<uint8_t> dummy_buffer_reference = dummy_buffer;
 
             const bool requires_entire_message = botan_cipher_requires_entire_message(cipher_encrypt) == 1;
-            result.test_eq(
-               "requires entire message", requires_entire_message, (aead == "AES-256/SIV" || aead == "AES-128/CCM"));
+            result.test_eq("requires entire message",
+                           requires_entire_message,
+                           (aead == "AES-256/SIV" || aead == "AES-128/CCM"));
 
             std::span<const uint8_t> pt_slicer(plaintext);
             std::span<uint8_t> ct_stuffer(ciphertext);
@@ -1754,8 +1773,9 @@ class FFI_StreamCipher_Test final : public FFI_Test {
             TEST_FFI_OK(botan_cipher_get_update_granularity, (ctr, &update_granularity));
             TEST_FFI_OK(botan_cipher_get_ideal_update_granularity, (ctr, &ideal_granularity));
 
-            result.test_eq(
-               "ideal granularity is a multiple of update granularity", ideal_granularity % update_granularity, 0);
+            result.test_eq("ideal granularity is a multiple of update granularity",
+                           ideal_granularity % update_granularity,
+                           0);
 
             TEST_FFI_RC(0, botan_cipher_is_authenticated, (ctr));
 
@@ -1829,8 +1849,9 @@ class FFI_HashFunction_Test final : public FFI_Test {
                               (hash, reinterpret_cast<const uint8_t*>(input_str), std::strlen(input_str)));
                   TEST_FFI_OK(botan_hash_final, (hash, outbuf.data()));
 
-                  result.test_eq(
-                     "SHA-256 output", outbuf, "B5D4045C3F466FA91FE2CC6ABE79232A1A57CDF104F7A26E716E0A1E2789DF78");
+                  result.test_eq("SHA-256 output",
+                                 outbuf,
+                                 "B5D4045C3F466FA91FE2CC6ABE79232A1A57CDF104F7A26E716E0A1E2789DF78");
                }
 
                // Test botan_hash_copy_state
@@ -1919,8 +1940,9 @@ class FFI_MAC_Test final : public FFI_Test {
                               (mac, reinterpret_cast<const uint8_t*>(input_str), std::strlen(input_str)));
                   TEST_FFI_OK(botan_mac_final, (mac, outbuf.data()));
 
-                  result.test_eq(
-                     "HMAC output", outbuf, "1A82EEA984BC4A7285617CC0D05F1FE1D6C96675924A81BC965EE8FF7B0697A7");
+                  result.test_eq("HMAC output",
+                                 outbuf,
+                                 "1A82EEA984BC4A7285617CC0D05F1FE1D6C96675924A81BC965EE8FF7B0697A7");
                }
             }
 
@@ -2070,10 +2092,12 @@ class FFI_Blockcipher_Test final : public FFI_Test {
 
             TEST_FFI_OK(botan_block_cipher_clear, (cipher));
 
-            TEST_FFI_RC(
-               BOTAN_FFI_ERROR_KEY_NOT_SET, botan_block_cipher_encrypt_blocks, (cipher, block.data(), block.data(), 1));
-            TEST_FFI_RC(
-               BOTAN_FFI_ERROR_KEY_NOT_SET, botan_block_cipher_decrypt_blocks, (cipher, block.data(), block.data(), 1));
+            TEST_FFI_RC(BOTAN_FFI_ERROR_KEY_NOT_SET,
+                        botan_block_cipher_encrypt_blocks,
+                        (cipher, block.data(), block.data(), 1));
+            TEST_FFI_RC(BOTAN_FFI_ERROR_KEY_NOT_SET,
+                        botan_block_cipher_decrypt_blocks,
+                        (cipher, block.data(), block.data(), 1));
 
             TEST_FFI_RC(BOTAN_FFI_ERROR_NULL_POINTER, botan_block_cipher_encrypt_blocks, (cipher, nullptr, nullptr, 0));
             TEST_FFI_RC(BOTAN_FFI_ERROR_NULL_POINTER, botan_block_cipher_decrypt_blocks, (cipher, nullptr, nullptr, 0));
@@ -2163,8 +2187,9 @@ class FFI_Base64_Test final : public FFI_Test {
          result.test_eq("encoded string", out_buf, "FoofBunny900");
 
          out_len -= 1;
-         TEST_FFI_RC(
-            BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE, botan_base64_encode, (bin, sizeof(bin), out_buf, &out_len));
+         TEST_FFI_RC(BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE,
+                     botan_base64_encode,
+                     (bin, sizeof(bin), out_buf, &out_len));
 
          const char* base64 = "U3VjaCBiYXNlNjQgd293IQ==";
          uint8_t out_bin[1024] = {0};
@@ -2179,8 +2204,9 @@ class FFI_Base64_Test final : public FFI_Test {
          out_len = sizeof(out_bin);
          TEST_FFI_OK(botan_base64_decode, (base64, strlen(base64), out_bin, &out_len));
 
-         result.test_eq(
-            "decoded string", std::string(reinterpret_cast<const char*>(out_bin), out_len), "Such base64 wow!");
+         result.test_eq("decoded string",
+                        std::string(reinterpret_cast<const char*>(out_bin), out_len),
+                        "Such base64 wow!");
       }
 };
 
@@ -2202,14 +2228,16 @@ class FFI_Hex_Test final : public FFI_Test {
          uint8_t out_bin[1024] = {0};
          size_t out_len = 5;
 
-         TEST_FFI_RC(
-            BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE, botan_hex_decode, (hex, strlen(hex), out_bin, &out_len));
+         TEST_FFI_RC(BOTAN_FFI_ERROR_INSUFFICIENT_BUFFER_SPACE,
+                     botan_hex_decode,
+                     (hex, strlen(hex), out_bin, &out_len));
 
          out_len = sizeof(out_bin);
          TEST_FFI_OK(botan_hex_decode, (hex, strlen(hex), out_bin, &out_len));
 
-         result.test_eq(
-            "decoded string", std::string(reinterpret_cast<const char*>(out_bin), out_len), "get yer jumbo shrimp");
+         result.test_eq("decoded string",
+                        std::string(reinterpret_cast<const char*>(out_bin), out_len),
+                        "get yer jumbo shrimp");
       }
 };
 
@@ -2400,8 +2428,8 @@ class FFI_MP_Test final : public FFI_Test {
 
          botan_mp_t p;
          botan_mp_init(&p);
-         const uint8_t M127[] = {
-            0x7f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+         const uint8_t M127[] =
+            {0x7f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
          TEST_FFI_OK(botan_mp_from_bin, (p, M127, sizeof(M127)));
          TEST_FFI_RC(1, botan_mp_is_prime, (p, rng, 64));
 
@@ -2589,8 +2617,12 @@ class FFI_Keywrap_Test final : public FFI_Test {
 
             result.test_eq("Expected wrapped keylen size", wrapped_keylen, 16 + 8);
 
-            result.test_eq(
-               nullptr, "Wrapped key", wrapped, wrapped_keylen, expected_wrapped_key, sizeof(expected_wrapped_key));
+            result.test_eq(nullptr,
+                           "Wrapped key",
+                           wrapped,
+                           wrapped_keylen,
+                           expected_wrapped_key,
+                           sizeof(expected_wrapped_key));
 
             uint8_t dec_key[16] = {0};
             size_t dec_keylen = sizeof(dec_key);
@@ -2895,18 +2927,21 @@ class FFI_DSA_Test final : public FFI_Test {
             // TODO: randomize this
             signature[0] ^= 1;
             TEST_FFI_OK(botan_pk_op_verify_update, (verifier, message.data(), message.size()));
-            TEST_FFI_RC(
-               BOTAN_FFI_INVALID_VERIFIER, botan_pk_op_verify_finish, (verifier, signature.data(), signature.size()));
+            TEST_FFI_RC(BOTAN_FFI_INVALID_VERIFIER,
+                        botan_pk_op_verify_finish,
+                        (verifier, signature.data(), signature.size()));
 
             message[0] ^= 1;
             TEST_FFI_OK(botan_pk_op_verify_update, (verifier, message.data(), message.size()));
-            TEST_FFI_RC(
-               BOTAN_FFI_INVALID_VERIFIER, botan_pk_op_verify_finish, (verifier, signature.data(), signature.size()));
+            TEST_FFI_RC(BOTAN_FFI_INVALID_VERIFIER,
+                        botan_pk_op_verify_finish,
+                        (verifier, signature.data(), signature.size()));
 
             signature[0] ^= 1;
             TEST_FFI_OK(botan_pk_op_verify_update, (verifier, message.data(), message.size()));
-            TEST_FFI_RC(
-               BOTAN_FFI_INVALID_VERIFIER, botan_pk_op_verify_finish, (verifier, signature.data(), signature.size()));
+            TEST_FFI_RC(BOTAN_FFI_INVALID_VERIFIER,
+                        botan_pk_op_verify_finish,
+                        (verifier, signature.data(), signature.size()));
 
             message[0] ^= 1;
             TEST_FFI_OK(botan_pk_op_verify_update, (verifier, message.data(), message.size()));
@@ -3119,18 +3154,21 @@ class FFI_SM2_Sig_Test final : public FFI_Test {
             // TODO: randomize this
             signature[0] ^= 1;
             TEST_FFI_OK(botan_pk_op_verify_update, (verifier, message.data(), message.size()));
-            TEST_FFI_RC(
-               BOTAN_FFI_INVALID_VERIFIER, botan_pk_op_verify_finish, (verifier, signature.data(), signature.size()));
+            TEST_FFI_RC(BOTAN_FFI_INVALID_VERIFIER,
+                        botan_pk_op_verify_finish,
+                        (verifier, signature.data(), signature.size()));
 
             message[0] ^= 1;
             TEST_FFI_OK(botan_pk_op_verify_update, (verifier, message.data(), message.size()));
-            TEST_FFI_RC(
-               BOTAN_FFI_INVALID_VERIFIER, botan_pk_op_verify_finish, (verifier, signature.data(), signature.size()));
+            TEST_FFI_RC(BOTAN_FFI_INVALID_VERIFIER,
+                        botan_pk_op_verify_finish,
+                        (verifier, signature.data(), signature.size()));
 
             signature[0] ^= 1;
             TEST_FFI_OK(botan_pk_op_verify_update, (verifier, message.data(), message.size()));
-            TEST_FFI_RC(
-               BOTAN_FFI_INVALID_VERIFIER, botan_pk_op_verify_finish, (verifier, signature.data(), signature.size()));
+            TEST_FFI_RC(BOTAN_FFI_INVALID_VERIFIER,
+                        botan_pk_op_verify_finish,
+                        (verifier, signature.data(), signature.size()));
 
             message[0] ^= 1;
             TEST_FFI_OK(botan_pk_op_verify_update, (verifier, message.data(), message.size()));
@@ -3868,8 +3906,9 @@ class FFI_Signature_Roundtrip_Test : public FFI_Test {
             // Verify signature with wrong message (only first half)
             TEST_FFI_OK(botan_pk_op_verify_create, (&verifier, pub, hash_algo_or_padding(), 0));
             TEST_FFI_OK(botan_pk_op_verify_update, (verifier, message1.data(), message1.size()));
-            TEST_FFI_RC(
-               BOTAN_FFI_INVALID_VERIFIER, botan_pk_op_verify_finish, (verifier, signature.data(), signature.size()));
+            TEST_FFI_RC(BOTAN_FFI_INVALID_VERIFIER,
+                        botan_pk_op_verify_finish,
+                        (verifier, signature.data(), signature.size()));
             TEST_FFI_OK(botan_pk_op_verify_destroy, (verifier));
 
             // Cleanup
@@ -4449,8 +4488,9 @@ class FFI_OID_Test final : public FFI_Test {
 
          TEST_FFI_RC(BOTAN_FFI_ERROR_BAD_PARAMETER, botan_oid_from_string, (&new_oid, "a.a.a"));
          TEST_FFI_RC(BOTAN_FFI_ERROR_BAD_PARAMETER, botan_oid_from_string, (&new_oid, "0.40"));
-         TEST_FFI_RC(
-            BOTAN_FFI_ERROR_BAD_PARAMETER, botan_oid_from_string, (&new_oid, "random-name-that-definitely-has-no-oid"));
+         TEST_FFI_RC(BOTAN_FFI_ERROR_BAD_PARAMETER,
+                     botan_oid_from_string,
+                     (&new_oid, "random-name-that-definitely-has-no-oid"));
 
          TEST_FFI_OK(botan_oid_from_string, (&new_oid, "1.2.3.4.5.6.7.8"));
          TEST_FFI_OK(botan_oid_register, (new_oid, "random-name-that-definitely-has-no-oid"));
@@ -4546,8 +4586,9 @@ class FFI_EC_Group_Test final : public FFI_Test {
          result.confirm("application specific groups support matches build",
                         appl_spec_groups == 1,
                         Botan::EC_Group::supports_application_specific_group());
-         result.confirm(
-            "named group support matches build", named_group == 1, Botan::EC_Group::supports_named_group("secp256r1"));
+         result.confirm("named group support matches build",
+                        named_group == 1,
+                        Botan::EC_Group::supports_named_group("secp256r1"));
 
          if(named_group == 1) {
             botan_ec_group_t group_from_name;

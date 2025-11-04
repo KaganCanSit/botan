@@ -17,14 +17,16 @@ AttributeContainer::AttributeContainer(ObjectClass object_class) {
 
 void AttributeContainer::add_class(ObjectClass object_class) {
    m_numerics.emplace_back(static_cast<uint64_t>(object_class));
-   add_attribute(
-      AttributeType::Class, reinterpret_cast<uint8_t*>(&m_numerics.back()), static_cast<Ulong>(sizeof(ObjectClass)));
+   add_attribute(AttributeType::Class,
+                 reinterpret_cast<uint8_t*>(&m_numerics.back()),
+                 static_cast<Ulong>(sizeof(ObjectClass)));
 }
 
 void AttributeContainer::add_string(AttributeType attribute, std::string_view value) {
    m_strings.push_back(std::string(value));
-   add_attribute(
-      attribute, reinterpret_cast<const uint8_t*>(m_strings.back().data()), static_cast<Ulong>(value.size()));
+   add_attribute(attribute,
+                 reinterpret_cast<const uint8_t*>(m_strings.back().data()),
+                 static_cast<Ulong>(value.size()));
 }
 
 void AttributeContainer::add_binary(AttributeType attribute, const uint8_t* value, size_t length) {
@@ -150,8 +152,10 @@ DomainParameterProperties::DomainParameterProperties(KeyType key_type) :
 Object::Object(Session& session, ObjectHandle handle) : m_session(session), m_handle(handle) {}
 
 Object::Object(Session& session, const ObjectProperties& obj_props) : m_session(session), m_handle(0) {
-   m_session.get().module()->C_CreateObject(
-      m_session.get().handle(), obj_props.data(), static_cast<Ulong>(obj_props.count()), &m_handle);
+   m_session.get().module()->C_CreateObject(m_session.get().handle(),
+                                            obj_props.data(),
+                                            static_cast<Ulong>(obj_props.count()),
+                                            &m_handle);
 }
 
 secure_vector<uint8_t> Object::get_attribute_value(AttributeType attribute) const {

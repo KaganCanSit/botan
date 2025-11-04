@@ -170,8 +170,10 @@ BOTAN_FN_ISA_AVX512_BMI2 void SHA_512::compress_digest_x86_avx512(digest_type& d
       SIMD_8x64 WS[8];
 
       for(size_t i = 0; i < 8; i++) {
-         WS[i] = SIMD_8x64::load_be4(
-            &data[16 * i], &data[1 * 128 + 16 * i], &data[2 * 128 + 16 * i], &data[3 * 128 + 16 * i]);
+         WS[i] = SIMD_8x64::load_be4(&data[16 * i],
+                                     &data[1 * 128 + 16 * i],
+                                     &data[2 * 128 + 16 * i],
+                                     &data[3 * 128 + 16 * i]);
          auto WK = WS[i] + SIMD_8x64::load_le(&K4[8 * i]);
          WK.store_le4(&W[2 * i], &WN[0][2 * i], &WN[1][2 * i], &WN[2][2 * i]);
       }

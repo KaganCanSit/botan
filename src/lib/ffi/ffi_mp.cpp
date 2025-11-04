@@ -229,8 +229,9 @@ int botan_mp_swap(botan_mp_t x_w, botan_mp_t y_w) {
 
 // Return (base^exponent) % modulus
 int botan_mp_powmod(botan_mp_t out, const botan_mp_t base, const botan_mp_t exponent, const botan_mp_t modulus) {
-   return BOTAN_FFI_VISIT(
-      out, [=](auto& o) { o = Botan::power_mod(safe_get(base), safe_get(exponent), safe_get(modulus)); });
+   return BOTAN_FFI_VISIT(out, [=](auto& o) {
+      o = Botan::power_mod(safe_get(base), safe_get(exponent), safe_get(modulus));
+   });
 }
 
 int botan_mp_lshift(botan_mp_t out, const botan_mp_t in, size_t shift) {
@@ -259,8 +260,9 @@ int botan_mp_rand_bits(botan_mp_t rand_out, botan_rng_t rng, size_t bits) {
 }
 
 int botan_mp_rand_range(botan_mp_t rand_out, botan_rng_t rng, const botan_mp_t lower, const botan_mp_t upper) {
-   return BOTAN_FFI_VISIT(
-      rng, [=](auto& r) { safe_get(rand_out) = Botan::BigInt::random_integer(r, safe_get(lower), safe_get(upper)); });
+   return BOTAN_FFI_VISIT(rng, [=](auto& r) {
+      safe_get(rand_out) = Botan::BigInt::random_integer(r, safe_get(lower), safe_get(upper));
+   });
 }
 
 int botan_mp_gcd(botan_mp_t out, const botan_mp_t x, const botan_mp_t y) {

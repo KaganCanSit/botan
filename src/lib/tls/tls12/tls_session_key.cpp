@@ -64,8 +64,13 @@ Session_Keys::Session_Keys(const Handshake_State* state,
    salt += state->server_hello()->random();
    salt += state->client_hello()->random();
 
-   const secure_vector<uint8_t> prf_output = prf->derive_key(
-      prf_gen, m_master_sec.data(), m_master_sec.size(), salt.data(), salt.size(), label.data(), label.size());
+   const secure_vector<uint8_t> prf_output = prf->derive_key(prf_gen,
+                                                             m_master_sec.data(),
+                                                             m_master_sec.size(),
+                                                             salt.data(),
+                                                             salt.size(),
+                                                             label.data(),
+                                                             label.size());
 
    const uint8_t* key_data = prf_output.data();
 

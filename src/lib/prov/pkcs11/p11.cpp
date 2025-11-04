@@ -131,9 +131,11 @@ bool LowLevel::C_GetMechanismList(SlotId slot_id,
                                   MechanismType* mechanism_list_ptr,
                                   Ulong* count_ptr,
                                   ReturnValue* return_value) const {
-   return handle_return_value(m_func_list_ptr->C_GetMechanismList(
-                                 slot_id, reinterpret_cast<CK_MECHANISM_TYPE_PTR>(mechanism_list_ptr), count_ptr),
-                              return_value);
+   return handle_return_value(
+      m_func_list_ptr->C_GetMechanismList(slot_id,
+                                          reinterpret_cast<CK_MECHANISM_TYPE_PTR>(mechanism_list_ptr),
+                                          count_ptr),
+      return_value);
 }
 
 bool LowLevel::C_GetMechanismList(SlotId slot_id,
@@ -152,8 +154,10 @@ bool LowLevel::C_GetMechanismList(SlotId slot_id,
 
    // get actual mechanisms
    mechanisms.resize(number_mechanisms);
-   return C_GetMechanismList(
-      slot_id, reinterpret_cast<MechanismType*>(mechanisms.data()), &number_mechanisms, return_value);
+   return C_GetMechanismList(slot_id,
+                             reinterpret_cast<MechanismType*>(mechanisms.data()),
+                             &number_mechanisms,
+                             return_value);
 }
 
 bool LowLevel::C_GetMechanismInfo(SlotId slot_id,
@@ -161,7 +165,8 @@ bool LowLevel::C_GetMechanismInfo(SlotId slot_id,
                                   MechanismInfo* info_ptr,
                                   ReturnValue* return_value) const {
    return handle_return_value(
-      m_func_list_ptr->C_GetMechanismInfo(slot_id, static_cast<CK_MECHANISM_TYPE>(type), info_ptr), return_value);
+      m_func_list_ptr->C_GetMechanismInfo(slot_id, static_cast<CK_MECHANISM_TYPE>(type), info_ptr),
+      return_value);
 }
 
 bool LowLevel::C_InitToken(
@@ -212,7 +217,8 @@ bool LowLevel::C_GetOperationState(SessionHandle session,
                                    Ulong* operation_state_len_ptr,
                                    ReturnValue* return_value) const {
    return handle_return_value(
-      m_func_list_ptr->C_GetOperationState(session, operation_state_ptr, operation_state_len_ptr), return_value);
+      m_func_list_ptr->C_GetOperationState(session, operation_state_ptr, operation_state_len_ptr),
+      return_value);
 }
 
 bool LowLevel::C_SetOperationState(SessionHandle session,
@@ -221,8 +227,11 @@ bool LowLevel::C_SetOperationState(SessionHandle session,
                                    ObjectHandle encryption_key,
                                    ObjectHandle authentication_key,
                                    ReturnValue* return_value) const {
-   return handle_return_value(m_func_list_ptr->C_SetOperationState(
-                                 session, operation_state_ptr, operation_state_len, encryption_key, authentication_key),
+   return handle_return_value(m_func_list_ptr->C_SetOperationState(session,
+                                                                   operation_state_ptr,
+                                                                   operation_state_len,
+                                                                   encryption_key,
+                                                                   authentication_key),
                               return_value);
 }
 
@@ -254,7 +263,8 @@ bool LowLevel::C_CopyObject(SessionHandle session,
                             ObjectHandle* new_object_ptr,
                             ReturnValue* return_value) const {
    return handle_return_value(
-      m_func_list_ptr->C_CopyObject(session, object, attribute_template_ptr, count, new_object_ptr), return_value);
+      m_func_list_ptr->C_CopyObject(session, object, attribute_template_ptr, count, new_object_ptr),
+      return_value);
 }
 
 bool LowLevel::C_DestroyObject(SessionHandle session, ObjectHandle object, ReturnValue* return_value) const {
@@ -342,7 +352,8 @@ bool LowLevel::C_EncryptFinal(SessionHandle session,
                               Ulong* last_encrypted_part_len_ptr,
                               ReturnValue* return_value) const {
    return handle_return_value(
-      m_func_list_ptr->C_EncryptFinal(session, last_encrypted_part_ptr, last_encrypted_part_len_ptr), return_value);
+      m_func_list_ptr->C_EncryptFinal(session, last_encrypted_part_ptr, last_encrypted_part_len_ptr),
+      return_value);
 }
 
 /****************************** Decryption functions ******************************/
@@ -481,10 +492,12 @@ bool LowLevel::C_Verify(SessionHandle session,
                         const Byte* signature_ptr,
                         Ulong signature_len,
                         ReturnValue* return_value) const {
-   return handle_return_value(
-      m_func_list_ptr->C_Verify(
-         session, const_cast<Byte*>(data_ptr), data_len, const_cast<Byte*>(signature_ptr), signature_len),
-      return_value);
+   return handle_return_value(m_func_list_ptr->C_Verify(session,
+                                                        const_cast<Byte*>(data_ptr),
+                                                        data_len,
+                                                        const_cast<Byte*>(signature_ptr),
+                                                        signature_len),
+                              return_value);
 }
 
 bool LowLevel::C_VerifyUpdate(SessionHandle session,
@@ -517,7 +530,8 @@ bool LowLevel::C_VerifyRecover(SessionHandle session,
                                Ulong* data_len_ptr,
                                ReturnValue* return_value) const {
    return handle_return_value(
-      m_func_list_ptr->C_VerifyRecover(session, signature_ptr, signature_len, data_ptr, data_len_ptr), return_value);
+      m_func_list_ptr->C_VerifyRecover(session, signature_ptr, signature_len, data_ptr, data_len_ptr),
+      return_value);
 }
 
 /****************************** Dual-purpose cryptographic functions ******************************/
@@ -575,7 +589,8 @@ bool LowLevel::C_GenerateKey(SessionHandle session,
                              ObjectHandle* key_ptr,
                              ReturnValue* return_value) const {
    return handle_return_value(
-      m_func_list_ptr->C_GenerateKey(session, mechanism_ptr, attribute_template_ptr, count, key_ptr), return_value);
+      m_func_list_ptr->C_GenerateKey(session, mechanism_ptr, attribute_template_ptr, count, key_ptr),
+      return_value);
 }
 
 bool LowLevel::C_GenerateKeyPair(SessionHandle session,

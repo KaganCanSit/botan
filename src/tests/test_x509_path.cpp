@@ -104,8 +104,12 @@ class X509test_Path_Validation_Tests final : public Test {
                throw Test_Error("Failed to read certs from " + filename);
             }
 
-            Botan::Path_Validation_Result path_result = Botan::x509_path_validate(
-               certs, restrictions, trusted, "www.tls.test", Botan::Usage_Type::TLS_SERVER_AUTH, validation_time);
+            Botan::Path_Validation_Result path_result = Botan::x509_path_validate(certs,
+                                                                                  restrictions,
+                                                                                  trusted,
+                                                                                  "www.tls.test",
+                                                                                  Botan::Usage_Type::TLS_SERVER_AUTH,
+                                                                                  validation_time);
 
             if(path_result.successful_validation() && path_result.trust_root() != root) {
                path_result = Botan::Path_Validation_Result(Botan::Certificate_Status_Code::CANNOT_ESTABLISH_TRUST);
@@ -234,8 +238,12 @@ std::vector<Test::Result> NIST_Path_Validation_Tests::run() {
          // 1024 bit root cert
          Botan::Path_Validation_Restrictions restrictions(true, 80);
 
-         Botan::Path_Validation_Result validation_result = Botan::x509_path_validate(
-            end_user, restrictions, store, "", Botan::Usage_Type::UNSPECIFIED, validation_time);
+         Botan::Path_Validation_Result validation_result = Botan::x509_path_validate(end_user,
+                                                                                     restrictions,
+                                                                                     store,
+                                                                                     "",
+                                                                                     Botan::Usage_Type::UNSPECIFIED,
+                                                                                     validation_time);
 
          result.test_eq(test_name + " path validation result", validation_result.result_string(), expected_result);
       } catch(std::exception& e) {
@@ -468,8 +476,9 @@ std::vector<Test::Result> Validate_V2Uid_in_V1_Test::run() {
 
    Test::Result result("Verifying v1 certificate using v2 uid fields");
    result.test_eq("Path validation failed", validation_result.successful_validation(), false);
-   result.test_eq(
-      "Path validation result", validation_result.result_string(), "Encountered v2 identifiers in v1 certificate");
+   result.test_eq("Path validation result",
+                  validation_result.result_string(),
+                  "Encountered v2 identifiers in v1 certificate");
 
    return {result};
 }
@@ -509,8 +518,9 @@ std::vector<Test::Result> Validate_Name_Constraint_SAN_Test::run() {
 
    Test::Result result("Verifying certificate with alternative SAN violating name constraint");
    result.test_eq("Path validation failed", validation_result.successful_validation(), false);
-   result.test_eq(
-      "Path validation result", validation_result.result_string(), "Certificate does not pass name constraint");
+   result.test_eq("Path validation result",
+                  validation_result.result_string(),
+                  "Certificate does not pass name constraint");
 
    return {result};
 }
@@ -636,8 +646,9 @@ class Root_Cert_Time_Check_Test final : public Test {
                                          "",
                                          Botan::Usage_Type::UNSPECIFIED,
                                          Botan::calendar_point(year, 1, 1, 1, 0, 0).to_std_timepoint());
-            const std::string descr_str = Botan::fmt(
-               "Root cert validity range {}: {}", ignore_trusted_root_time_range ? "ignored" : "checked", descr);
+            const std::string descr_str = Botan::fmt("Root cert validity range {}: {}",
+                                                     ignore_trusted_root_time_range ? "ignored" : "checked",
+                                                     descr);
 
             result.test_is_eq(descr_str, validation_result.result(), exp_status);
             const auto warnings = validation_result.warnings();
@@ -654,22 +665,32 @@ class Root_Cert_Time_Check_Test final : public Test {
          // Leaf cert validity range: 2020-2030
 
          // Trusted root time range is checked
-         assert_path_validation_result(
-            "Root and leaf certs in validity range", false, 2025, Botan::Certificate_Status_Code::OK);
-         assert_path_validation_result(
-            "Root and leaf certs are expired", false, 2031, Botan::Certificate_Status_Code::CERT_HAS_EXPIRED);
-         assert_path_validation_result(
-            "Root and leaf certs are not yet valid", false, 2019, Botan::Certificate_Status_Code::CERT_NOT_YET_VALID);
-         assert_path_validation_result(
-            "Root cert is expired, leaf cert not", false, 2029, Botan::Certificate_Status_Code::CERT_HAS_EXPIRED);
+         assert_path_validation_result("Root and leaf certs in validity range",
+                                       false,
+                                       2025,
+                                       Botan::Certificate_Status_Code::OK);
+         assert_path_validation_result("Root and leaf certs are expired",
+                                       false,
+                                       2031,
+                                       Botan::Certificate_Status_Code::CERT_HAS_EXPIRED);
+         assert_path_validation_result("Root and leaf certs are not yet valid",
+                                       false,
+                                       2019,
+                                       Botan::Certificate_Status_Code::CERT_NOT_YET_VALID);
+         assert_path_validation_result("Root cert is expired, leaf cert not",
+                                       false,
+                                       2029,
+                                       Botan::Certificate_Status_Code::CERT_HAS_EXPIRED);
          assert_path_validation_result("Root cert is not yet valid, leaf cert is",
                                        false,
                                        2021,
                                        Botan::Certificate_Status_Code::CERT_NOT_YET_VALID);
 
          // Trusted root time range is ignored
-         assert_path_validation_result(
-            "Root and leaf certs in validity range", true, 2025, Botan::Certificate_Status_Code::OK);
+         assert_path_validation_result("Root and leaf certs in validity range",
+                                       true,
+                                       2025,
+                                       Botan::Certificate_Status_Code::OK);
          assert_path_validation_result("Root and leaf certs are expired",
                                        true,
                                        2031,
@@ -790,8 +811,12 @@ std::vector<Test::Result> BSI_Path_Validation_Tests::run() {
          for(size_t r = 0; r < 16; r++) {
             std::shuffle(++(certs.begin()), certs.end(), rbg);
 
-            Botan::Path_Validation_Result validation_result = Botan::x509_path_validate(
-               certs, restrictions, trusted, "", Botan::Usage_Type::UNSPECIFIED, validation_time);
+            Botan::Path_Validation_Result validation_result = Botan::x509_path_validate(certs,
+                                                                                        restrictions,
+                                                                                        trusted,
+                                                                                        "",
+                                                                                        Botan::Usage_Type::UNSPECIFIED,
+                                                                                        validation_time);
 
             // We expect to be warned
             if(expected_result.starts_with("Warning: ")) {
@@ -815,8 +840,9 @@ std::vector<Test::Result> BSI_Path_Validation_Tests::run() {
                                  validation_result.result_string(),
                                  "Certificate signed with unknown/unavailable algorithm");
                } else {
-                  result.test_eq(
-                     test_name + " path validation result", validation_result.result_string(), expected_result);
+                  result.test_eq(test_name + " path validation result",
+                                 validation_result.result_string(),
+                                 expected_result);
                }
             }
          }
@@ -1156,8 +1182,9 @@ class Path_Validation_With_OCSP_Tests final : public Test {
                                          std::chrono::milliseconds(0),
                                          {ocsp});
 
-            result.test_is_eq(
-               "Path validation with forged OCSP response should fail with", path_result.result(), expected);
+            result.test_is_eq("Path validation with forged OCSP response should fail with",
+                              path_result.result(),
+                              expected);
             result.confirm("Secondary error is also present",
                            flatten(path_result.all_statuses()).contains(also_expected));
             result.test_note(std::string("Failed with: ") + Botan::to_string(path_result.result()));
@@ -1361,15 +1388,23 @@ class Path_Validation_With_Immortal_CRL final : public Test {
          Botan::Path_Validation_Restrictions restrictions(true /* require revocation info */);
 
          // Validate a certificate that is not listed in the CRL
-         const auto valid = Botan::x509_path_validate(
-            valid_subject, restrictions, trusted, "", Botan::Usage_Type::UNSPECIFIED, valid_time);
+         const auto valid = Botan::x509_path_validate(valid_subject,
+                                                      restrictions,
+                                                      trusted,
+                                                      "",
+                                                      Botan::Usage_Type::UNSPECIFIED,
+                                                      valid_time);
          if(!result.confirm("Valid certificate", valid.successful_validation())) {
             result.test_note(valid.result_string());
          }
 
          // Ensure that a certificate listed in the CRL is recognized as revoked
-         const auto revoked = Botan::x509_path_validate(
-            revoked_subject, restrictions, trusted, "", Botan::Usage_Type::UNSPECIFIED, valid_time);
+         const auto revoked = Botan::x509_path_validate(revoked_subject,
+                                                        restrictions,
+                                                        trusted,
+                                                        "",
+                                                        Botan::Usage_Type::UNSPECIFIED,
+                                                        valid_time);
          if(!result.confirm("No valid certificate", !revoked.successful_validation())) {
             result.test_note(revoked.result_string());
          }

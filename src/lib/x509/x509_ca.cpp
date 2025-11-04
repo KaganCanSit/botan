@@ -118,8 +118,16 @@ X509_Certificate X509_CA::make_cert(PK_Signer& signer,
    const size_t SERIAL_BITS = 128;
    BigInt serial_no(rng, SERIAL_BITS);
 
-   return make_cert(
-      signer, rng, serial_no, sig_algo, pub_key, not_before, not_after, issuer_dn, subject_dn, extensions);
+   return make_cert(signer,
+                    rng,
+                    serial_no,
+                    sig_algo,
+                    pub_key,
+                    not_before,
+                    not_after,
+                    issuer_dn,
+                    subject_dn,
+                    extensions);
 }
 
 /*

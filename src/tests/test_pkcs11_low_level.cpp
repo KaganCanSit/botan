@@ -42,8 +42,8 @@ class RAII_LowLevel {
          LowLevel::C_GetFunctionList(m_module, &m_func_list);
          m_low_level = std::make_unique<LowLevel>(m_func_list);
 
-         C_InitializeArgs init_args = {
-            nullptr, nullptr, nullptr, nullptr, static_cast<CK_FLAGS>(Flag::OsLockingOk), nullptr};
+         C_InitializeArgs init_args =
+            {nullptr, nullptr, nullptr, nullptr, static_cast<CK_FLAGS>(Flag::OsLockingOk), nullptr};
 
          m_low_level->C_Initialize(&init_args);
       }
@@ -493,10 +493,12 @@ Test::Result test_c_get_session_info() {
    SessionHandle session_handle = p11_low_level.open_session(flags);
 
    SessionInfo session_info = {};
-   Test::Result result = test_function(
-      "C_GetSessionInfo",
-      std::bind(
-         &LowLevel::C_GetSessionInfo, *p11_low_level.get(), session_handle, &session_info, std::placeholders::_1));
+   Test::Result result = test_function("C_GetSessionInfo",
+                                       std::bind(&LowLevel::C_GetSessionInfo,
+                                                 *p11_low_level.get(),
+                                                 session_handle,
+                                                 &session_info,
+                                                 std::placeholders::_1));
 
    result.confirm("C_GetSessionInfo returns same slot id as during call to C_OpenSession",
                   session_info.slotID == slot_vec.at(0));
@@ -592,9 +594,9 @@ Test::Result test_c_set_pin() {
                           const secure_vector<uint8_t>& old_pin,
                           const secure_vector<uint8_t>& new_pin) -> PKCS11_BoundTestFunction {
       return std::bind(
-         static_cast<bool (LowLevel::*)(
-            SessionHandle, const secure_vector<uint8_t>&, const secure_vector<uint8_t>&, ReturnValue*) const>(
-            &LowLevel::C_SetPIN<secure_allocator<uint8_t>>),
+         static_cast<bool (
+            LowLevel::*)(SessionHandle, const secure_vector<uint8_t>&, const secure_vector<uint8_t>&, ReturnValue*)
+                        const>(&LowLevel::C_SetPIN<secure_allocator<uint8_t>>),
          *p11_low_level.get(),
          session_handle,
          old_pin,
@@ -651,8 +653,10 @@ ObjectHandle create_simple_data_object(const RAII_LowLevel& p11_low_level) {
    ObjectHandle object_handle = {};
 
    auto dtemplate = data_template;
-   p11_low_level.get()->C_CreateObject(
-      p11_low_level.get_session_handle(), dtemplate.data(), static_cast<Ulong>(dtemplate.size()), &object_handle);
+   p11_low_level.get()->C_CreateObject(p11_low_level.get_session_handle(),
+                                       dtemplate.data(),
+                                       static_cast<Ulong>(dtemplate.size()),
+                                       &object_handle);
    return object_handle;
 }
 
@@ -672,8 +676,11 @@ Test::Result test_c_create_object_c_destroy_object() {
                                 &object_handle,
                                 std::placeholders::_1);
 
-   auto destroy_bind = std::bind(
-      &LowLevel::C_DestroyObject, *p11_low_level.get(), session_handle, std::ref(object_handle), std::placeholders::_1);
+   auto destroy_bind = std::bind(&LowLevel::C_DestroyObject,
+                                 *p11_low_level.get(),
+                                 session_handle,
+                                 std::ref(object_handle),
+                                 std::placeholders::_1);
 
    return test_function("C_CreateObject", create_bind, "C_DestroyObject", destroy_bind);
 }
@@ -714,15 +721,15 @@ Test::Result test_c_get_attribute_value() {
    std::map<AttributeType, secure_vector<uint8_t>> getter = {{AttributeType::Label, secure_vector<uint8_t>()},
                                                              {AttributeType::Value, secure_vector<uint8_t>()}};
 
-   auto bind =
-      std::bind(static_cast<bool (LowLevel::*)(
-                   SessionHandle, ObjectHandle, std::map<AttributeType, secure_vector<uint8_t>>&, ReturnValue*) const>(
-                   &LowLevel::C_GetAttributeValue<secure_allocator<uint8_t>>),
-                *p11_low_level.get(),
-                session_handle,
-                object_handle,
-                std::ref(getter),
-                std::placeholders::_1);
+   auto bind = std::bind(
+      static_cast<bool (
+         LowLevel::*)(SessionHandle, ObjectHandle, std::map<AttributeType, secure_vector<uint8_t>>&, ReturnValue*)
+                     const>(&LowLevel::C_GetAttributeValue<secure_allocator<uint8_t>>),
+      *p11_low_level.get(),
+      session_handle,
+      object_handle,
+      std::ref(getter),
+      std::placeholders::_1);
 
    Test::Result result = test_function("C_GetAttributeValue", bind);
 
@@ -767,15 +774,15 @@ Test::Result test_c_set_attribute_value() {
    std::map<AttributeType, secure_vector<uint8_t>> new_attributes = {
       {AttributeType::Label, secure_vector<uint8_t>(new_label.begin(), new_label.end())}};
 
-   auto bind =
-      std::bind(static_cast<bool (LowLevel::*)(
-                   SessionHandle, ObjectHandle, std::map<AttributeType, secure_vector<uint8_t>>&, ReturnValue*) const>(
-                   &LowLevel::C_SetAttributeValue<secure_allocator<uint8_t>>),
-                *p11_low_level.get(),
-                session_handle,
-                object_handle,
-                std::ref(new_attributes),
-                std::placeholders::_1);
+   auto bind = std::bind(
+      static_cast<bool (
+         LowLevel::*)(SessionHandle, ObjectHandle, std::map<AttributeType, secure_vector<uint8_t>>&, ReturnValue*)
+                     const>(&LowLevel::C_SetAttributeValue<secure_allocator<uint8_t>>),
+      *p11_low_level.get(),
+      session_handle,
+      object_handle,
+      std::ref(new_attributes),
+      std::placeholders::_1);
 
    Test::Result result = test_function("C_SetAttributeValue", bind);
 

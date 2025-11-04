@@ -150,8 +150,15 @@ int Sodium::crypto_aead_chacha20poly1305_ietf_encrypt(uint8_t ctext[],
                                                       const uint8_t key[]) {
    BOTAN_UNUSED(unused_secret_nonce);
 
-   return sodium_aead_chacha20poly1305_encrypt(
-      ctext, ctext_len, ptext, ptext_len, ad, ad_len, nonce, crypto_aead_chacha20poly1305_ietf_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_encrypt(ctext,
+                                               ctext_len,
+                                               ptext,
+                                               ptext_len,
+                                               ad,
+                                               ad_len,
+                                               nonce,
+                                               crypto_aead_chacha20poly1305_ietf_npubbytes(),
+                                               key);
 }
 
 int Sodium::crypto_aead_chacha20poly1305_ietf_decrypt(uint8_t ptext[],
@@ -165,8 +172,15 @@ int Sodium::crypto_aead_chacha20poly1305_ietf_decrypt(uint8_t ptext[],
                                                       const uint8_t key[]) {
    BOTAN_UNUSED(unused_secret_nonce);
 
-   return sodium_aead_chacha20poly1305_decrypt(
-      ptext, ptext_len, ctext, ctext_len, ad, ad_len, nonce, crypto_aead_chacha20poly1305_ietf_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_decrypt(ptext,
+                                               ptext_len,
+                                               ctext,
+                                               ctext_len,
+                                               ad,
+                                               ad_len,
+                                               nonce,
+                                               crypto_aead_chacha20poly1305_ietf_npubbytes(),
+                                               key);
 }
 
 int Sodium::crypto_aead_chacha20poly1305_ietf_encrypt_detached(uint8_t ctext[],
@@ -185,8 +199,15 @@ int Sodium::crypto_aead_chacha20poly1305_ietf_encrypt_detached(uint8_t ctext[],
       *mac_len = 16;
    }
 
-   return sodium_aead_chacha20poly1305_encrypt_detached(
-      ctext, mac, ptext, ptext_len, ad, ad_len, nonce, crypto_aead_chacha20poly1305_ietf_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_encrypt_detached(ctext,
+                                                        mac,
+                                                        ptext,
+                                                        ptext_len,
+                                                        ad,
+                                                        ad_len,
+                                                        nonce,
+                                                        crypto_aead_chacha20poly1305_ietf_npubbytes(),
+                                                        key);
 }
 
 int Sodium::crypto_aead_chacha20poly1305_ietf_decrypt_detached(uint8_t ptext[],
@@ -200,8 +221,15 @@ int Sodium::crypto_aead_chacha20poly1305_ietf_decrypt_detached(uint8_t ptext[],
                                                                const uint8_t key[]) {
    BOTAN_UNUSED(unused_secret_nonce);
 
-   return sodium_aead_chacha20poly1305_decrypt_detached(
-      ptext, ctext, ctext_len, mac, ad, ad_len, nonce, crypto_aead_chacha20poly1305_ietf_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_decrypt_detached(ptext,
+                                                        ctext,
+                                                        ctext_len,
+                                                        mac,
+                                                        ad,
+                                                        ad_len,
+                                                        nonce,
+                                                        crypto_aead_chacha20poly1305_ietf_npubbytes(),
+                                                        key);
 }
 
 int Sodium::crypto_aead_chacha20poly1305_encrypt(uint8_t ctext[],
@@ -214,8 +242,15 @@ int Sodium::crypto_aead_chacha20poly1305_encrypt(uint8_t ctext[],
                                                  const uint8_t nonce[],
                                                  const uint8_t key[]) {
    BOTAN_UNUSED(unused_secret_nonce);
-   return sodium_aead_chacha20poly1305_encrypt(
-      ctext, ctext_len, ptext, ptext_len, ad, ad_len, nonce, crypto_aead_chacha20poly1305_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_encrypt(ctext,
+                                               ctext_len,
+                                               ptext,
+                                               ptext_len,
+                                               ad,
+                                               ad_len,
+                                               nonce,
+                                               crypto_aead_chacha20poly1305_npubbytes(),
+                                               key);
 }
 
 int Sodium::crypto_aead_chacha20poly1305_decrypt(uint8_t ptext[],
@@ -228,8 +263,15 @@ int Sodium::crypto_aead_chacha20poly1305_decrypt(uint8_t ptext[],
                                                  const uint8_t nonce[],
                                                  const uint8_t key[]) {
    BOTAN_UNUSED(unused_secret_nonce);
-   return sodium_aead_chacha20poly1305_decrypt(
-      ptext, ptext_len, ctext, ctext_len, ad, ad_len, nonce, crypto_aead_chacha20poly1305_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_decrypt(ptext,
+                                               ptext_len,
+                                               ctext,
+                                               ctext_len,
+                                               ad,
+                                               ad_len,
+                                               nonce,
+                                               crypto_aead_chacha20poly1305_npubbytes(),
+                                               key);
 }
 
 int Sodium::crypto_aead_chacha20poly1305_encrypt_detached(uint8_t ctext[],
@@ -247,8 +289,15 @@ int Sodium::crypto_aead_chacha20poly1305_encrypt_detached(uint8_t ctext[],
       *mac_len = 16;
    }
 
-   return sodium_aead_chacha20poly1305_encrypt_detached(
-      ctext, mac, ptext, ptext_len, ad, ad_len, nonce, crypto_aead_chacha20poly1305_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_encrypt_detached(ctext,
+                                                        mac,
+                                                        ptext,
+                                                        ptext_len,
+                                                        ad,
+                                                        ad_len,
+                                                        nonce,
+                                                        crypto_aead_chacha20poly1305_npubbytes(),
+                                                        key);
 }
 
 int Sodium::crypto_aead_chacha20poly1305_decrypt_detached(uint8_t ptext[],
@@ -262,8 +311,15 @@ int Sodium::crypto_aead_chacha20poly1305_decrypt_detached(uint8_t ptext[],
                                                           const uint8_t key[]) {
    BOTAN_UNUSED(unused_secret_nonce);
 
-   return sodium_aead_chacha20poly1305_decrypt_detached(
-      ptext, ctext, ctext_len, mac, ad, ad_len, nonce, crypto_aead_chacha20poly1305_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_decrypt_detached(ptext,
+                                                        ctext,
+                                                        ctext_len,
+                                                        mac,
+                                                        ad,
+                                                        ad_len,
+                                                        nonce,
+                                                        crypto_aead_chacha20poly1305_npubbytes(),
+                                                        key);
 }
 
 int Sodium::crypto_aead_xchacha20poly1305_ietf_encrypt(uint8_t ctext[],
@@ -277,8 +333,15 @@ int Sodium::crypto_aead_xchacha20poly1305_ietf_encrypt(uint8_t ctext[],
                                                        const uint8_t key[]) {
    BOTAN_UNUSED(unused_secret_nonce);
 
-   return sodium_aead_chacha20poly1305_encrypt(
-      ctext, ctext_len, ptext, ptext_len, ad, ad_len, nonce, crypto_aead_xchacha20poly1305_ietf_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_encrypt(ctext,
+                                               ctext_len,
+                                               ptext,
+                                               ptext_len,
+                                               ad,
+                                               ad_len,
+                                               nonce,
+                                               crypto_aead_xchacha20poly1305_ietf_npubbytes(),
+                                               key);
 }
 
 int Sodium::crypto_aead_xchacha20poly1305_ietf_decrypt(uint8_t ptext[],
@@ -292,8 +355,15 @@ int Sodium::crypto_aead_xchacha20poly1305_ietf_decrypt(uint8_t ptext[],
                                                        const uint8_t key[]) {
    BOTAN_UNUSED(unused_secret_nonce);
 
-   return sodium_aead_chacha20poly1305_decrypt(
-      ptext, ptext_len, ctext, ctext_len, ad, ad_len, nonce, crypto_aead_xchacha20poly1305_ietf_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_decrypt(ptext,
+                                               ptext_len,
+                                               ctext,
+                                               ctext_len,
+                                               ad,
+                                               ad_len,
+                                               nonce,
+                                               crypto_aead_xchacha20poly1305_ietf_npubbytes(),
+                                               key);
 }
 
 int Sodium::crypto_aead_xchacha20poly1305_ietf_encrypt_detached(uint8_t ctext[],
@@ -311,8 +381,15 @@ int Sodium::crypto_aead_xchacha20poly1305_ietf_encrypt_detached(uint8_t ctext[],
       *mac_len = 16;
    }
 
-   return sodium_aead_chacha20poly1305_encrypt_detached(
-      ctext, mac, ptext, ptext_len, ad, ad_len, nonce, crypto_aead_xchacha20poly1305_ietf_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_encrypt_detached(ctext,
+                                                        mac,
+                                                        ptext,
+                                                        ptext_len,
+                                                        ad,
+                                                        ad_len,
+                                                        nonce,
+                                                        crypto_aead_xchacha20poly1305_ietf_npubbytes(),
+                                                        key);
 }
 
 int Sodium::crypto_aead_xchacha20poly1305_ietf_decrypt_detached(uint8_t ptext[],
@@ -325,8 +402,15 @@ int Sodium::crypto_aead_xchacha20poly1305_ietf_decrypt_detached(uint8_t ptext[],
                                                                 const uint8_t nonce[],
                                                                 const uint8_t key[]) {
    BOTAN_UNUSED(unused_secret_nonce);
-   return sodium_aead_chacha20poly1305_decrypt_detached(
-      ptext, ctext, ctext_len, mac, ad, ad_len, nonce, crypto_aead_xchacha20poly1305_ietf_npubbytes(), key);
+   return sodium_aead_chacha20poly1305_decrypt_detached(ptext,
+                                                        ctext,
+                                                        ctext_len,
+                                                        mac,
+                                                        ad,
+                                                        ad_len,
+                                                        nonce,
+                                                        crypto_aead_xchacha20poly1305_ietf_npubbytes(),
+                                                        key);
 }
 
 }  // namespace Botan

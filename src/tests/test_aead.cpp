@@ -445,11 +445,13 @@ class AEAD_Tests final : public Text_Based_Test {
 
          result.test_gt("update granularity is non-zero", enc->update_granularity(), 0);
 
-         result.test_eq(
-            "enc and dec ideal granularity is the same", enc->ideal_granularity(), dec->ideal_granularity());
+         result.test_eq("enc and dec ideal granularity is the same",
+                        enc->ideal_granularity(),
+                        dec->ideal_granularity());
 
-         result.test_gt(
-            "ideal granularity is at least update granularity", enc->ideal_granularity(), enc->update_granularity());
+         result.test_gt("ideal granularity is at least update granularity",
+                        enc->ideal_granularity(),
+                        enc->update_granularity());
 
          result.confirm("ideal granularity is a multiple of update granularity",
                         enc->ideal_granularity() % enc->update_granularity() == 0);

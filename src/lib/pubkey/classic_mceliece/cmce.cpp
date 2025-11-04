@@ -26,7 +26,8 @@ Classic_McEliece_PublicKey::Classic_McEliece_PublicKey(std::span<const uint8_t> 
    auto params = Classic_McEliece_Parameters::create(param_set);
    BOTAN_ARG_CHECK(key_bits.size() == params.pk_size_bytes(), "Wrong public key length");
    m_public = std::make_shared<Classic_McEliece_PublicKeyInternal>(
-      params, Classic_McEliece_Matrix(params, {key_bits.begin(), key_bits.end()}));
+      params,
+      Classic_McEliece_Matrix(params, {key_bits.begin(), key_bits.end()}));
 }
 
 Classic_McEliece_PublicKey::Classic_McEliece_PublicKey(const Classic_McEliece_PublicKey& other) {

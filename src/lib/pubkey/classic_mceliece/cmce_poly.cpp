@@ -76,8 +76,9 @@ std::optional<Classic_McEliece_Minimal_Polynomial> Classic_McEliece_Polynomial_R
    auto polynomial = create_element_from_bytes(seed);
    std::vector<Classic_McEliece_Polynomial> mat;
 
-   mat.push_back(create_element_from_coef(concat<std::vector<CmceGfElem>>(
-      std::vector<CmceGfElem>{CmceGfElem(1)}, std::vector<CmceGfElem>(degree() - 1, CmceGfElem(0)))));
+   mat.push_back(
+      create_element_from_coef(concat<std::vector<CmceGfElem>>(std::vector<CmceGfElem>{CmceGfElem(1)},
+                                                               std::vector<CmceGfElem>(degree() - 1, CmceGfElem(0)))));
 
    mat.push_back(polynomial);
 

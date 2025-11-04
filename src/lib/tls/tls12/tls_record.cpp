@@ -517,8 +517,14 @@ Record_Header read_record(bool is_datagram,
                           const get_cipherstate_fn& get_cipherstate,
                           bool allow_epoch0_restart) {
    if(is_datagram) {
-      return read_dtls_record(
-         readbuf, input, input_len, consumed, recbuf, sequence_numbers, get_cipherstate, allow_epoch0_restart);
+      return read_dtls_record(readbuf,
+                              input,
+                              input_len,
+                              consumed,
+                              recbuf,
+                              sequence_numbers,
+                              get_cipherstate,
+                              allow_epoch0_restart);
    } else {
       return read_tls_record(readbuf, input, input_len, consumed, recbuf, sequence_numbers, get_cipherstate);
    }

@@ -210,8 +210,9 @@ Test::Result find_all_subjects(Botan::Certificate_Store& certstore) {
 
       if(result.confirm("result not empty", !subjects.empty())) {
          auto dn = get_dn();
-         auto needle = std::find_if(
-            subjects.cbegin(), subjects.cend(), [=](const Botan::X509_DN& subject) { return subject == dn; });
+         auto needle = std::find_if(subjects.cbegin(), subjects.cend(), [=](const Botan::X509_DN& subject) {
+            return subject == dn;
+         });
 
          if(result.confirm("found expected certificate", needle != subjects.end())) {
             result.confirm("expected certificate", *needle == dn);
@@ -283,8 +284,9 @@ Test::Result certificate_matching_with_dn_normalization(Botan::Certificate_Store
 
       if(result.confirm("find_all_certs did find the skewed DN", !certs.empty()) &&
          result.confirm("find_cert did find the skewed DN", cert.has_value())) {
-         result.test_eq(
-            "it is the correct cert", certs.front().subject_dn().get_first_attribute("CN"), get_subject_cn());
+         result.test_eq("it is the correct cert",
+                        certs.front().subject_dn().get_first_attribute("CN"),
+                        get_subject_cn());
          result.test_eq("it is the correct cert", cert->subject_dn().get_first_attribute("CN"), get_subject_cn());
       }
    } catch(std::exception& e) {

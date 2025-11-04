@@ -162,8 +162,10 @@ std::vector<uint8_t> marshall_message(const T& message) {
    BOTAN_ASSERT_NOMSG(serialized.size() <= 0xFFFFFF);
    const uint32_t msg_size = static_cast<uint32_t>(serialized.size());
 
-   std::vector<uint8_t> header{
-      static_cast<uint8_t>(type), get_byte<1>(msg_size), get_byte<2>(msg_size), get_byte<3>(msg_size)};
+   std::vector<uint8_t> header{static_cast<uint8_t>(type),
+                               get_byte<1>(msg_size),
+                               get_byte<2>(msg_size),
+                               get_byte<3>(msg_size)};
 
    return concat(header, serialized);
 }

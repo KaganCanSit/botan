@@ -131,8 +131,9 @@ class DL_Generate_Group_Tests final : public Test {
 
          Botan::DL_Group dsa_from_seed(rng, seed, 1024, 160);
 
-         result.test_eq(
-            "DSA q from seed", dsa_from_seed.get_q(), Botan::BigInt("0xAB1A788BCE3C557A965A5BFA6908FAA665FDEB7D"));
+         result.test_eq("DSA q from seed",
+                        dsa_from_seed.get_q(),
+                        Botan::BigInt("0xAB1A788BCE3C557A965A5BFA6908FAA665FDEB7D"));
 
          // Modulo just to avoid embedding entire 1024-bit P in src file
          result.test_eq("DSA p from seed", static_cast<size_t>(dsa_from_seed.get_p() % 4294967291), size_t(2513712339));

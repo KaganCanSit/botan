@@ -100,8 +100,9 @@ int botan_pk_op_decrypt_output_length(botan_pk_op_decrypt_t op, size_t ctext_len
 
 int botan_pk_op_decrypt(
    botan_pk_op_decrypt_t op, uint8_t out[], size_t* out_len, const uint8_t ciphertext[], size_t ciphertext_len) {
-   return BOTAN_FFI_VISIT(
-      op, [=](const auto& o) { return write_vec_output(out, out_len, o.decrypt(ciphertext, ciphertext_len)); });
+   return BOTAN_FFI_VISIT(op, [=](const auto& o) {
+      return write_vec_output(out, out_len, o.decrypt(ciphertext, ciphertext_len));
+   });
 }
 
 /*

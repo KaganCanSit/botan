@@ -51,8 +51,10 @@ class CounterParams {
          const auto max_blocks = (uint64_t(1) << counter_bits) - 1;
          BOTAN_ARG_CHECK(blocks_required < max_blocks, "SP.800-108 output size too large");
 
-         return CounterParams(
-            output_bits, output_length_bits / 8, counter_bits / 8, static_cast<uint32_t>(blocks_required));
+         return CounterParams(output_bits,
+                              output_length_bits / 8,
+                              counter_bits / 8,
+                              static_cast<uint32_t>(blocks_required));
       }
 
       template <std::invocable<std::span<const uint8_t>, std::span<const uint8_t>> Fn>

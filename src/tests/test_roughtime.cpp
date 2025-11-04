@@ -32,8 +32,9 @@ class Roughtime_Request_Tests final : public Text_Based_Test {
          const auto request_v = vars.get_req_bin("Request");
 
          const auto request = Botan::Roughtime::encode_request(nonce);
-         result.test_eq(
-            "encode", type == "Valid", request == Botan::typecast_copy<std::array<uint8_t, 1024>>(request_v.data()));
+         result.test_eq("encode",
+                        type == "Valid",
+                        request == Botan::typecast_copy<std::array<uint8_t, 1024>>(request_v.data()));
 
          return result;
       }
@@ -96,8 +97,9 @@ class Roughtime_nonce_from_blind_Tests final : public Text_Based_Test {
          const auto blind = Botan::Roughtime::Nonce(vars.get_req_bin("Blind"));
          const auto nonce = Botan::Roughtime::Nonce(vars.get_req_bin("Nonce"));
 
-         result.test_eq(
-            "fail_validation", Botan::Roughtime::nonce_from_blind(response, blind) == nonce, type == "Valid");
+         result.test_eq("fail_validation",
+                        Botan::Roughtime::nonce_from_blind(response, blind) == nonce,
+                        type == "Valid");
 
          return result;
       }
@@ -153,8 +155,9 @@ class Roughtime final : public Test {
 
          result.test_throws("non-positive max chain size", [&]() { c1.append(c2.links()[1], 0); });
          result.test_throws("1 field", [&]() { Botan::Roughtime::Chain a("ed25519"); });
-         result.test_throws(
-            "2 fields", [&]() { Botan::Roughtime::Chain a("ed25519 bbT+RPS7zKX6w71ssPibzmwWqU9ffRV5oj2OresSmhE="); });
+         result.test_throws("2 fields", [&]() {
+            Botan::Roughtime::Chain a("ed25519 bbT+RPS7zKX6w71ssPibzmwWqU9ffRV5oj2OresSmhE=");
+         });
          result.test_throws("3 fields", [&]() {
             Botan::Roughtime::Chain a(
                "ed25519 bbT+RPS7zKX6w71ssPibzmwWqU9ffRV5oj2OresSmhE= eu9yhsJfVfguVSqGZdE8WKIxaBBM0ZG3Vmuc+IyZmG2YVmrIktUByDdwIFw6F4rZqmSFsBO85ljoVPz5bVPCOw==");

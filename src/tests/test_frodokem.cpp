@@ -130,16 +130,18 @@ std::vector<Test::Result> test_frodo_roundtrips() {
       // Decryption failure: bitflip in encapsulated shared value
       const auto mutated_encaps_value = Test::mutate_vec(enc_res.encapsulated_shared_key(), *rng);
       ss_mismatch = dec2.decrypt(mutated_encaps_value, 0 /* no KDF */);
-      result.test_eq(
-         "decryption failure bitflip", ss_mismatch, get_decryption_error_value(consts, mutated_encaps_value, sk2));
+      result.test_eq("decryption failure bitflip",
+                     ss_mismatch,
+                     get_decryption_error_value(consts, mutated_encaps_value, sk2));
 
       // Decryption failure: malformed encapsulation value
-      result.test_throws(
-         "malformed encapsulation value", "FrodoKEM ciphertext does not have the correct byte count", [&] {
-            auto short_encaps_value = enc_res.encapsulated_shared_key();
-            short_encaps_value.pop_back();
-            dec1.decrypt(short_encaps_value, 0);
-         });
+      result.test_throws("malformed encapsulation value",
+                         "FrodoKEM ciphertext does not have the correct byte count",
+                         [&] {
+                            auto short_encaps_value = enc_res.encapsulated_shared_key();
+                            short_encaps_value.pop_back();
+                            dec1.decrypt(short_encaps_value, 0);
+                         });
    }
 
    return results;

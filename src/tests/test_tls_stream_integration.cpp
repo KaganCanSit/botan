@@ -380,8 +380,9 @@ class Server : public Peer,
          }
 
          reset_timeout("send_response");
-         net::async_write(
-            stream(), buffer(bytes_transferred), std::bind(&Server::handle_write, shared_from_this(), _1));
+         net::async_write(stream(),
+                          buffer(bytes_transferred),
+                          std::bind(&Server::handle_write, shared_from_this(), _1));
       }
 
       void handle_shutdown(const error_code& ec) {
@@ -539,8 +540,9 @@ class Test_Conversation : public TestBase,
 
          reenter(*this) {
             client()->reset_timeout("connect");
-            yield net::async_connect(
-               client()->stream().lowest_layer(), k_endpoints, std::bind(test_case, shared_from_this(), _1));
+            yield net::async_connect(client()->stream().lowest_layer(),
+                                     k_endpoints,
+                                     std::bind(test_case, shared_from_this(), _1));
             result().expect_success("connect", ec);
 
             client()->reset_timeout("handshake");
@@ -599,8 +601,10 @@ class Test_Conversation_Sync : public Synchronous_Test {
                     ec);
          result().expect_success("send_message", ec);
 
-         net::read(
-            client()->stream(), client()->buffer(), std::bind(&Client::received_zero_byte, client().get(), _1, _2), ec);
+         net::read(client()->stream(),
+                   client()->buffer(),
+                   std::bind(&Client::received_zero_byte, client().get(), _1, _2),
+                   ec);
          result().expect_success("receive_response", ec);
          result().confirm("correct message", client()->message() == message);
 
@@ -633,8 +637,9 @@ class Test_Eager_Close : public TestBase,
          static auto test_case = &Test_Eager_Close::run;
          reenter(*this) {
             client()->reset_timeout("connect");
-            yield net::async_connect(
-               client()->stream().lowest_layer(), k_endpoints, std::bind(test_case, shared_from_this(), _1));
+            yield net::async_connect(client()->stream().lowest_layer(),
+                                     k_endpoints,
+                                     std::bind(test_case, shared_from_this(), _1));
             result().expect_success("connect", ec);
 
             client()->reset_timeout("handshake");
@@ -698,8 +703,9 @@ class Test_Close_Without_Shutdown : public TestBase,
          static auto test_case = &Test_Close_Without_Shutdown::run;
          reenter(*this) {
             client()->reset_timeout("connect");
-            yield net::async_connect(
-               client()->stream().lowest_layer(), k_endpoints, std::bind(test_case, shared_from_this(), _1));
+            yield net::async_connect(client()->stream().lowest_layer(),
+                                     k_endpoints,
+                                     std::bind(test_case, shared_from_this(), _1));
             result().expect_success("connect", ec);
 
             client()->reset_timeout("handshake");
@@ -774,8 +780,9 @@ class Test_No_Shutdown_Response : public TestBase,
          static auto test_case = &Test_No_Shutdown_Response::run;
          reenter(*this) {
             client()->reset_timeout("connect");
-            yield net::async_connect(
-               client()->stream().lowest_layer(), k_endpoints, std::bind(test_case, shared_from_this(), _1));
+            yield net::async_connect(client()->stream().lowest_layer(),
+                                     k_endpoints,
+                                     std::bind(test_case, shared_from_this(), _1));
             result().expect_success("connect", ec);
 
             client()->reset_timeout("handshake");
@@ -873,8 +880,9 @@ class Test_Handshake_Failure : public TestBase,
          static auto test_case = &Test_Handshake_Failure::run;
          reenter(*this) {
             client()->reset_timeout("connect");
-            yield net::async_connect(
-               client()->stream().lowest_layer(), k_endpoints, std::bind(test_case, shared_from_this(), _1));
+            yield net::async_connect(client()->stream().lowest_layer(),
+                                     k_endpoints,
+                                     std::bind(test_case, shared_from_this(), _1));
             result().expect_success("connect", ec);
 
             client()->reset_timeout("handshake");
@@ -954,8 +962,9 @@ std::vector<SystemConfiguration> get_configurations() {
    return {
       SystemConfiguration("TLS 1.2 only", "allow_tls12=true\nallow_tls13=false", "allow_tls12=true\nallow_tls13=false"),
    #if defined(BOTAN_HAS_TLS_13)
-         SystemConfiguration(
-            "TLS 1.3 only", "allow_tls12=false\nallow_tls13=true", "allow_tls12=false\nallow_tls13=true"),
+         SystemConfiguration("TLS 1.3 only",
+                             "allow_tls12=false\nallow_tls13=true",
+                             "allow_tls12=false\nallow_tls13=true"),
          SystemConfiguration("TLS 1.x server, TLS 1.2 client",
                              "allow_tls12=true\nallow_tls13=false",
                              "allow_tls12=true\nallow_tls13=true"),

@@ -136,8 +136,11 @@ std::unique_ptr<TPM2::PrivateKey> RSA_PrivateKey::create_unrestricted_transient(
       .unique = {.rsa = init_empty<TPM2B_PUBLIC_KEY_RSA>()},
    };
 
-   return create_transient_from_template(
-      ctx, sessions, parent.handles().transient_handle(), key_template, sensitive_data);
+   return create_transient_from_template(ctx,
+                                         sessions,
+                                         parent.handles().transient_handle(),
+                                         key_template,
+                                         sensitive_data);
 }
 
 namespace {

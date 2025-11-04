@@ -42,8 +42,9 @@ SphincsMessageInternal prepare_message(SphincsInputMessage msg,
       // prefix (no pre-hash mode): input mode byte + |ctx| + ctx
       const uint8_t input_mode_byte = 0x00;  // Pure (TODO: pre-hash mode: 0x01)
       return {
-         .prefix = concat<SphincsMessagePrefix>(
-            store_be(input_mode_byte), store_be(checked_cast_to<uint8_t>(context.size())), context),
+         .prefix = concat<SphincsMessagePrefix>(store_be(input_mode_byte),
+                                                store_be(checked_cast_to<uint8_t>(context.size())),
+                                                context),
          .message = std::move(msg),
       };
    }

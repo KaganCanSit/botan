@@ -676,8 +676,12 @@ DilithiumInternalKeypair expand_keypair(DilithiumSeedRandomness xi, DilithiumCon
 
    DilithiumInternalKeypair keypair{
       std::make_shared<Dilithium_PublicKeyInternal>(mode, std::move(rho), std::move(t1)),
-      std::make_shared<Dilithium_PrivateKeyInternal>(
-         std::move(mode), std::move(xi), std::move(K), std::move(s1), std::move(s2), std::move(t0)),
+      std::make_shared<Dilithium_PrivateKeyInternal>(std::move(mode),
+                                                     std::move(xi),
+                                                     std::move(K),
+                                                     std::move(s1),
+                                                     std::move(s2),
+                                                     std::move(t0)),
    };
 
    CT::unpoison(*keypair.second);
@@ -843,8 +847,8 @@ DilithiumPolyVec make_hint(const DilithiumPolyVec& z, const DilithiumPolyVec& r,
    BOTAN_DEBUG_ASSERT(z.size() == r.size());
 
    auto make_hint = [gamma2 = uint32_t(mode.gamma2()),
-                     q_gamma2 = static_cast<uint32_t>(DilithiumConstants::Q) - uint32_t(mode.gamma2())](
-                       int32_t c0, int32_t c1) -> CT::Choice {
+                     q_gamma2 = static_cast<uint32_t>(DilithiumConstants::Q) -
+                                uint32_t(mode.gamma2())](int32_t c0, int32_t c1) -> CT::Choice {
       BOTAN_DEBUG_ASSERT(c0 >= 0);
       BOTAN_DEBUG_ASSERT(c1 >= 0);
 

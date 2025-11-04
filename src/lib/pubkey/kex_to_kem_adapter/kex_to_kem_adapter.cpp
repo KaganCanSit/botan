@@ -142,8 +142,9 @@ class KEX_to_KEM_Adapter_Encryption_Operation final : public PK_Ops::KEM_Encrypt
          BOTAN_ASSERT_EQUAL(public_value.size(),
                             out_encapsulated_key.size(),
                             "KEX-to-KEM Adapter: encapsulated key out-param has correct length");
-         BOTAN_ASSERT_EQUAL(
-            shared_key.size(), raw_shared_key.size(), "KEX-to-KEM Adapter: shared key out-param has correct length");
+         BOTAN_ASSERT_EQUAL(shared_key.size(),
+                            raw_shared_key.size(),
+                            "KEX-to-KEM Adapter: shared key out-param has correct length");
          std::copy(public_value.begin(), public_value.end(), out_encapsulated_key.begin());
          std::copy(shared_key.begin(), shared_key.end(), raw_shared_key.begin());
       }
@@ -165,8 +166,9 @@ class KEX_to_KEM_Decryption_Operation final : public PK_Ops::KEM_Decryption_with
 
       void raw_kem_decrypt(std::span<uint8_t> out_shared_key, std::span<const uint8_t> encap_key) override {
          secure_vector<uint8_t> shared_secret = m_operation.derive_key(0 /* no KDF */, encap_key).bits_of();
-         BOTAN_ASSERT_EQUAL(
-            shared_secret.size(), out_shared_key.size(), "KEX-to-KEM Adapter: shared key out-param has correct length");
+         BOTAN_ASSERT_EQUAL(shared_secret.size(),
+                            out_shared_key.size(),
+                            "KEX-to-KEM Adapter: shared key out-param has correct length");
          std::copy(shared_secret.begin(), shared_secret.end(), out_shared_key.begin());
       }
 
@@ -235,8 +237,9 @@ std::unique_ptr<PK_Key_Agreement_Key> capture_as_ka_key(std::unique_ptr<Private_
       return std::unique_ptr<PK_Key_Agreement_Key>(sk);
    } else {
       delete raw_ptr;  // NOLINT(*-owning-memory)
-      throw_invalid_argument(
-         "Private key must implement PK_Key_Agreement_Key", "KEX_to_KEM_Adapter_PrivateKey", __FILE__);
+      throw_invalid_argument("Private key must implement PK_Key_Agreement_Key",
+                             "KEX_to_KEM_Adapter_PrivateKey",
+                             __FILE__);
    }
 }
 

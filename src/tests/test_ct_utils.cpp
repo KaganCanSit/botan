@@ -155,8 +155,9 @@ class CT_Option_Tests final : public Test {
          result.test_throws("Unset Option throws if value is called", [&]() { unset.value(); });
          result.confirm("Unset Option returns alternative with value_or", unset.value_or(value) == value);
          result.confirm("Unset Option returns alternative with value_or", unset.value_or(value2) == value2);
-         result.confirm(
-            "Unset Option returns nullopt for as_optional_vartime", unset.as_optional_vartime().has_value(), false);
+         result.confirm("Unset Option returns nullopt for as_optional_vartime",
+                        unset.as_optional_vartime().has_value(),
+                        false);
 
          auto next = [](const T& v) -> T {
             T n = v;

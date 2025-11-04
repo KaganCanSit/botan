@@ -179,8 +179,9 @@ std::vector<Test::Result> basic_sanitization_parse_records(TLS::Connection_Side 
                  [&](auto& result) {
                     auto read = parse_records({});
                     result.require("needs bytes", std::holds_alternative<TLS::BytesNeeded>(read));
-                    result.test_eq(
-                       "need all the header bytes", std::get<TLS::BytesNeeded>(read), Botan::TLS::TLS_HEADER_SIZE);
+                    result.test_eq("need all the header bytes",
+                                   std::get<TLS::BytesNeeded>(read),
+                                   Botan::TLS::TLS_HEADER_SIZE);
                  }),
 
            CHECK("incomplete header asks for more data",
@@ -566,12 +567,13 @@ std::vector<Test::Result> read_encrypted_records() {
                // factored message, encrypted under the same key as `encrypted_record`
                const auto protected_ccs = Botan::hex_decode("1703030012D8EBBBE055C8167D5690EC67DEA9A525B036");
 
-               result.test_throws<Botan::TLS::TLS_Exception>(
-                  "illegal state causes TLS alert", "protected change cipher spec received", [&] {
-                     auto cs = rfc8448_rtt1_handshake_traffic();
-                     auto rl = parse_records(protected_ccs);
-                     rl.next_record(cs.get());
-                  });
+               result.test_throws<Botan::TLS::TLS_Exception>("illegal state causes TLS alert",
+                                                             "protected change cipher spec received",
+                                                             [&] {
+                                                                auto cs = rfc8448_rtt1_handshake_traffic();
+                                                                auto rl = parse_records(protected_ccs);
+                                                                rl.next_record(cs.get());
+                                                             });
             }),
 
       CHECK("unprotected CCS is legal when encrypted traffic is expected",
@@ -652,7 +654,8 @@ std::vector<Test::Result> read_encrypted_records() {
                // advance with arbitrary hashes that were used to produce the input data
                Mocked_Secret_Logger logger;
                cs->advance_with_server_finished(
-                  Botan::hex_decode("e1935a480babfc4403b2517f0ad414bed0ca51fa671e2061804afa78fd71d55c"), logger);
+                  Botan::hex_decode("e1935a480babfc4403b2517f0ad414bed0ca51fa671e2061804afa78fd71d55c"),
+                  logger);
                cs->advance_with_client_finished(
                   Botan::hex_decode("305e4a0a7cee581b282c571b251b20138a1a6a21918937a6bb95b1e9ba1b5cac"));
 
@@ -736,8 +739,9 @@ std::vector<Test::Result> write_encrypted_records() {
       CHECK("write a dummy CCS (that must not be encrypted)",
             [&](auto& result) {
                std::array<uint8_t, 1> ccs_content = {0x01};
-               auto record = record_layer_client(true).prepare_records(
-                  Botan::TLS::Record_Type::ChangeCipherSpec, ccs_content, cs.get());
+               auto record = record_layer_client(true).prepare_records(Botan::TLS::Record_Type::ChangeCipherSpec,
+                                                                       ccs_content,
+                                                                       cs.get());
                result.require("record was created and not encrypted", record.size() == Botan::TLS::TLS_HEADER_SIZE + 1);
 
                result.test_eq("CCS record is well-formed", record, Botan::hex_decode("140303000101"));
@@ -750,8 +754,9 @@ std::vector<Test::Result> write_encrypted_records() {
                         ct.size() > big_data.size() + Botan::TLS::TLS_HEADER_SIZE * 2);
 
          auto read_record_header = [&](auto& reader) {
-            result.test_is_eq(
-               "APPLICATION_DATA", reader.get_byte(), static_cast<uint8_t>(TLS::Record_Type::ApplicationData));
+            result.test_is_eq("APPLICATION_DATA",
+                              reader.get_byte(),
+                              static_cast<uint8_t>(TLS::Record_Type::ApplicationData));
             result.test_is_eq("TLS legacy version", reader.get_uint16_t(), uint16_t(0x0303));
 
             const auto fragment_length = reader.get_uint16_t();
@@ -908,8 +913,9 @@ std::vector<Test::Result> record_size_limits() {
                auto csc = rfc8448_rtt1_handshake_traffic(Botan::TLS::Connection_Side::Client);
                auto rlc = record_layer_client(true);
 
-               const auto rec1 = rlc.prepare_records(
-                  TLS::Record_Type::ApplicationData, std::vector<uint8_t>(Botan::TLS::MAX_PLAINTEXT_SIZE), csc.get());
+               const auto rec1 = rlc.prepare_records(TLS::Record_Type::ApplicationData,
+                                                     std::vector<uint8_t>(Botan::TLS::MAX_PLAINTEXT_SIZE),
+                                                     csc.get());
                result.test_eq("one record generated", count_records(rec1), 1);
 
                const auto rec2 = rlc.prepare_records(TLS::Record_Type::ApplicationData,
@@ -942,28 +948,31 @@ std::vector<Test::Result> record_size_limits() {
                result.test_eq("two records generated", count_records(rec2), 2);
             }),
 
-      CHECK(
-         "outgoing record size limit can be changed",
-         [&](Test::Result& result) {
-            auto cs = rfc8448_rtt1_handshake_traffic();
-            auto rl = record_layer_client(true);
+      CHECK("outgoing record size limit can be changed",
+            [&](Test::Result& result) {
+               auto cs = rfc8448_rtt1_handshake_traffic();
+               auto rl = record_layer_client(true);
 
-            const auto rec1 = rl.prepare_records(
-               TLS::Record_Type::ApplicationData, std::vector<uint8_t>(Botan::TLS::MAX_PLAINTEXT_SIZE), cs.get());
-            result.test_eq("one record generated", count_records(rec1), 1);
+               const auto rec1 = rl.prepare_records(TLS::Record_Type::ApplicationData,
+                                                    std::vector<uint8_t>(Botan::TLS::MAX_PLAINTEXT_SIZE),
+                                                    cs.get());
+               result.test_eq("one record generated", count_records(rec1), 1);
 
-            const auto rec2 = rl.prepare_records(
-               TLS::Record_Type::ApplicationData, std::vector<uint8_t>(Botan::TLS::MAX_PLAINTEXT_SIZE + 1), cs.get());
-            result.test_eq("two records generated", count_records(rec2), 2);
+               const auto rec2 = rl.prepare_records(TLS::Record_Type::ApplicationData,
+                                                    std::vector<uint8_t>(Botan::TLS::MAX_PLAINTEXT_SIZE + 1),
+                                                    cs.get());
+               result.test_eq("two records generated", count_records(rec2), 2);
 
-            rl.set_record_size_limits(127 + 1 /* content type byte */, Botan::TLS::MAX_PLAINTEXT_SIZE + 1);
+               rl.set_record_size_limits(127 + 1 /* content type byte */, Botan::TLS::MAX_PLAINTEXT_SIZE + 1);
 
-            const auto r3 = rl.prepare_records(TLS::Record_Type::ApplicationData, std::vector<uint8_t>(127), cs.get());
-            result.test_eq("one record generated", count_records(r3), 1);
+               const auto r3 =
+                  rl.prepare_records(TLS::Record_Type::ApplicationData, std::vector<uint8_t>(127), cs.get());
+               result.test_eq("one record generated", count_records(r3), 1);
 
-            const auto r4 = rl.prepare_records(TLS::Record_Type::ApplicationData, std::vector<uint8_t>(128), cs.get());
-            result.test_eq("two records generated", count_records(r4), 2);
-         }),
+               const auto r4 =
+                  rl.prepare_records(TLS::Record_Type::ApplicationData, std::vector<uint8_t>(128), cs.get());
+               result.test_eq("two records generated", count_records(r4), 2);
+            }),
 
       CHECK("outgoing record limit does not affect unencrypted records",
             [&](Test::Result& result) {
